@@ -129,7 +129,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Integrar estudiantes internacionales entrantes por universidad (2022–2023), con definición, granularidad y fuente visibles; la movilidad saliente y por titulación siguen pendientes.
 - [x] Integrar recuento de movilidad internacional saliente por universidad (2021–2022), con fuente y definición separadas de los entrantes; la movilidad por titulación sigue pendiente.
 - [x] Añadir el ratio institucional entrantes/salientes de movilidad (2021–2022), manteniendo la fórmula y las limitaciones visibles.
-- [ ] Mantener becas, Erasmus y coste de vida como módulos separados.
+- [x] Mantener becas, Erasmus y coste de vida como módulos separados; la ficha distingue coste, movilidad y el módulo de ayudas/vivienda pendiente.
 
 ## Fase 7 — Producto completo
 
