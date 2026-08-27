@@ -2,6 +2,7 @@
 import html
 import json
 import re
+import time
 import unicodedata
 from io import StringIO
 from pathlib import Path
@@ -65,6 +66,25 @@ def request_data(session, university_code):
     return list({item['ruct_degree_code']: item for item in records}.values())
 
 
+def request_detail(session, code):
+    url = f'https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio={code}&actual=estudios'
+    response = session.get(url, timeout=45)
+    response.raise_for_status(); response.encoding = 'iso-8859-15'
+    (RAW / f'degree-{code}.html').write_text(response.text, encoding='utf-8')
+    def span(identifier):
+        match = re.search(rf'id="{identifier}"[^>]*>(.*?)</span>', response.text, re.S)
+        return clean_text(match.group(1)) if match else None
+    centers = []
+    block = re.search(r'<table[^>]+id="centro"[^>]*>(.*?)</table>', response.text, re.S)
+    if block:
+        tables = pd.read_html(StringIO(block.group(0)))
+        if tables:
+            for _, row in tables[0].iterrows():
+                centers.append({'code': re.sub(r'\D', '', str(row.iloc[1])), 'name': clean_text(row.iloc[2])})
+    return {'branch': span('estudio_descripcionRama'), 'field': span('estudio_descripcionAmbito'),
+            'ects': span('estudio_creditos_ecs'), 'centers': centers, 'source_url': url}
+
+
 def main():
     session = requests.Session(); session.headers['User-Agent'] = 'AtlasUniversitario/0.1 (datos abiertos)'
     ruct = [item for code in UNIVERSITIES for item in request_data(session, code)]
@@ -72,6 +92,12 @@ def main():
     for row in ruct:
         by_university.setdefault(row['university_ruct_code'], {}).setdefault(normalized(row['ruct_degree_name']), []).append(row)
     offers = json.loads(MADRID.read_text(encoding='utf-8')); matches = []
+    detail_by_code = {}
+    matched_codes = {candidates[0]['ruct_degree_code'] for university in by_university.values() for candidates in university.values() if len(candidates) == 1}
+    for number, code in enumerate(sorted(matched_codes), start=1):
+        detail_by_code[code] = request_detail(session, code)
+        if number % 25 == 0: print(f'Fetched RUCT details: {number}/{len(matched_codes)}')
+        time.sleep(0.05)
     counts = {'matched_unique': 0, 'pending_no_match': 0, 'pending_ambiguous': 0}
     for index, offer in enumerate(offers, start=1):
         candidates = by_university.get(str(offer.get('university_ruct_code')), {}).get(normalized(offer.get('degree_name_source', '')), [])
@@ -81,14 +107,17 @@ def main():
             candidate, status, method = None, 'pending', 'ambiguous_normalized_exact'; counts['pending_ambiguous'] += 1
         else:
             candidate, status, method = None, 'pending', 'no_normalized_exact_match'; counts['pending_no_match'] += 1
+        detail = detail_by_code.get(candidate['ruct_degree_code']) if candidate else None
         matches.append({'admission_id': offer.get('id') or f'madrid:{index}', 'admission_degree': offer.get('degree_name_source'),
                         'university_ruct_code': str(offer.get('university_ruct_code')), 'status': status,
                         'match_method': method, 'ruct_degree_code': candidate['ruct_degree_code'] if candidate else None,
                         'ruct_degree_name': candidate['ruct_degree_name'] if candidate else None,
-                        'ruct_source_url': candidate['source_url'] if candidate else None})
+                        'ruct_source_url': candidate['source_url'] if candidate else None,
+                        'ruct_branch': detail['branch'] if detail else None, 'ruct_field': detail['field'] if detail else None,
+                        'ruct_ects': detail['ects'] if detail else None, 'ruct_centers': detail['centers'] if detail else []})
     quality = {'source': 'RUCT · consulta oficial de títulos · estado publicado · grado',
                'source_url': 'https://www.educacion.gob.es/ruct/consultaestudios.action?actual=estudios',
-               'ruct_titles_downloaded': len(ruct), 'admission_offers_reviewed': len(offers), 'counts': counts,
+               'ruct_titles_downloaded': len(ruct), 'ruct_details_downloaded': len(detail_by_code), 'admission_offers_reviewed': len(offers), 'counts': counts,
                'accepted_only_unique_normalized_matches': True, 'unmatched_are_not_inferred': True}
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(matches, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

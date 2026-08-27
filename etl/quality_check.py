@@ -39,4 +39,9 @@ if len(matches) != 459 or len({row["admission_id"] for row in matches}) != len(m
 for row in matches:
     if row["status"] == "matched" and not re.fullmatch(r"\d{7}", str(row["ruct_degree_code"])):
         raise AssertionError(f"RUCT match without a seven-digit title code: {row['admission_id']}")
+    if row["status"] == "matched" and not row.get("ruct_centers"):
+        raise AssertionError(f"RUCT match without an official center: {row['admission_id']}")
+    for center in row.get("ruct_centers", []):
+        if not re.fullmatch(r"\d{8}", str(center.get("code", ""))) or not center.get("name"):
+            raise AssertionError(f"Invalid RUCT center in match: {row['admission_id']}")
 print(f"Quality gate passed: {len(DATASETS)} datasets, {total} rows, {len(matches)} RUCT matches")

@@ -10,4 +10,6 @@ títulos de Grado activos, conserva las respuestas en
 
 Solo se acepta una coincidencia exacta tras normalización y única dentro de
 la universidad. Las ofertas sin coincidencia o con coincidencia ambigua se
-mantienen como `pending`; no se asignan códigos por similitud.
+mantienen como `pending`; no se asignan códigos por similitud. Para las
+coincidencias aceptadas también se conservan la ficha de detalle, los centros
+RUCT, la rama, el campo de estudio y los créditos publicados.

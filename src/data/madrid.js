@@ -63,7 +63,7 @@ const fullOffers = fullMadridAdmissions.map((row, index) => {
   const city = cityNames.find(name => rawDegree.endsWith(`(${name})`)) || (universityName === 'Universidad Carlos III de Madrid' ? 'Leganés' : universityName === 'Universidad Rey Juan Carlos' ? 'Móstoles' : universityName === 'Universidad de Alcalá' ? 'Alcalá de Henares' : 'Madrid');
   const campus = rawDegree.match(/\(([^()]+)\)$/)?.[1] || city;
   const ructMatch = ructMatchByKey.get(matchKey(row.university_ruct_code, rawDegree));
-  return { id:`madrid-${shortByUniversity[universityName] || 'oferta'}-${index + 1}`, university:universityName, short:shortByUniversity[universityName], ructCode:row.university_ruct_code, degree:rawDegree, campus, city, cutoff:row.cutoff_score, branch:cleanPdf(row.branch_name_source) || 'Rama pendiente de RUCT', places:null, double:/\s-\s/.test(rawDegree), durationYears:row.duration_years_source, ects:row.ects_source, ructDegreeCode:ructMatch?.ruct_degree_code || null, ructDegreeName:ructMatch?.ruct_degree_name || null, ructSourceUrl:ructMatch?.ruct_source_url || null, source:'Comunidad de Madrid · notas 2025–2026', sourcePage:row.source_page };
+  return { id:`madrid-${shortByUniversity[universityName] || 'oferta'}-${index + 1}`, university:universityName, short:shortByUniversity[universityName], ructCode:row.university_ruct_code, degree:rawDegree, campus, city, cutoff:row.cutoff_score, branch:cleanPdf(row.branch_name_source) || cleanPdf(ructMatch?.ruct_branch) || 'Rama pendiente de RUCT', places:null, double:/\s-\s/.test(rawDegree), durationYears:row.duration_years_source, ects:row.ects_source || (ructMatch?.ruct_ects ? Number(ructMatch.ruct_ects) : null), ructDegreeCode:ructMatch?.ruct_degree_code || null, ructDegreeName:ructMatch?.ruct_degree_name || null, ructSourceUrl:ructMatch?.ruct_source_url || null, ructField:ructMatch?.ruct_field || null, ructCenters:ructMatch?.ruct_centers || [], source:'Comunidad de Madrid · notas 2025–2026', sourcePage:row.source_page };
 });
 
 const canonicalName = value => cleanPdf(value).toLowerCase().replace(/\([^)]*\)/g, '').replace(/\s+/g, ' ').replace(/\s[-+]\s/g, '+').trim();
@@ -74,7 +74,7 @@ const mergedOffers = new Map();
 export const madridOffers = [...mergedOffers.values()].map(offer => {
   if (offer.ructDegreeCode) return offer;
   const match = ructMatchByKey.get(matchKey(offer.ructCode, offer.degree));
-  return match ? { ...offer, ructDegreeCode:match.ruct_degree_code, ructDegreeName:match.ruct_degree_name, ructSourceUrl:match.ruct_source_url } : offer;
+  return match ? { ...offer, ructDegreeCode:match.ruct_degree_code, ructDegreeName:match.ruct_degree_name, ructSourceUrl:match.ruct_source_url, ructField:match.ruct_field, ructCenters:match.ruct_centers } : offer;
 });
 const ructByShort = Object.fromEntries(ructUniversities.map(item => [item.short, item.ruct_code]));
 
