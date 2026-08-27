@@ -30,3 +30,7 @@ referencias de ocho campos de estudio para la cohorte 2018-2019, cuatro años
 después. La aplicación puede ordenar por base media de cotización, siempre
 mostrándola como indicador administrativo agregado y no como salario de una
 oferta concreta.
+
+La serie `employment-national-series-2018-2019.json` conserva los indicadores
+nacionales comparables a 1, 2, 3 y 4 años. Se presenta como contexto general y
+no sustituye al dato del campo de estudio.

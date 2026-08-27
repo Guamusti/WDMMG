@@ -16,6 +16,7 @@ RUCT_MATCHES = ROOT / "data/processed/ruct/madrid-degree-matches.json"
 OUTCOME_ENROLMENT = ROOT / "data/processed/outcomes/madrid-university-enrolment-2023-2024.json"
 OUTCOME_GRADUATES = ROOT / "data/processed/outcomes/madrid-university-graduates-2023-2024.json"
 OUTCOME_EMPLOYMENT = ROOT / "data/processed/outcomes/field-employment-2018-2019-four-years.json"
+OUTCOME_EMPLOYMENT_SERIES = ROOT / "data/processed/outcomes/employment-national-series-2018-2019.json"
 MADRID_UNIVERSITIES = {"UAH", "UAM", "UC3M", "UCM", "UPM", "URJC"}
 KNOWN_BRANCHES = {"", "Artes y Humanidades", "Ciencias", "Ciencias de la Salud", "Ciencias Sociales y Jurídicas", "Ingeniería y Arquitectura", "Rama pendiente de separación"}
 
@@ -79,4 +80,13 @@ if set(employment.get("fields", {})) != required_fields:
 for field, metrics in employment["fields"].items():
     if not metrics.get("label") or not 0 <= metrics["affiliation4"] <= 100 or metrics["contributionBase4"] <= 0:
         raise AssertionError(f"Employment context: invalid metrics for {field}")
+series = json.loads(OUTCOME_EMPLOYMENT_SERIES.read_text(encoding="utf-8"))
+years = series.get("years_after_graduation")
+if years != [1, 2, 3, 4] or series.get("granularity") != "España · todos los ámbitos · tipo de universidad":
+    raise AssertionError("Employment series: expected national four-year context")
+for metric in ("affiliation", "indefinite", "full_time", "university_group", "contribution_base"):
+    for scope in ("total", "public", "private"):
+        values = series.get(metric, {}).get(scope)
+        if not isinstance(values, list) or len(values) != 4 or any(not isinstance(value, (int, float)) or value < 0 for value in values):
+            raise AssertionError(f"Employment series: invalid {metric}/{scope}")
 print(f"Quality gate passed: {len(DATASETS)} datasets, {total} rows, {len(matches)} RUCT matches")

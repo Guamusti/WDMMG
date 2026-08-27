@@ -1,0 +1,33 @@
+{
+  "cohort": "2018–2019",
+  "granularity": "España · todos los ámbitos · tipo de universidad",
+  "source_url": "https://www.fundacioncyd.org/wp-content/uploads/2025/11/La-empleabilidad-de-los-jovenes-en-Espana-2025.pdf",
+  "definition": "Evolución de egresados de grado a 1, 2, 3 y 4 años desde la graduación.",
+  "limitations": "Es una referencia nacional agregada y no describe una carrera, campo o universidad concreta. La base media de cotización es una aproximación administrativa a la retribución bruta anual de afiliados por cuenta ajena a jornada completa; no es salario medio, mediano ni neto.",
+  "years_after_graduation": [1, 2, 3, 4],
+  "affiliation": {
+    "total": [50.1, 62.0, 71.6, 75.9],
+    "public": [48.6, 61.0, 71.4, 76.1],
+    "private": [57.6, 67.2, 72.8, 74.8]
+  },
+  "indefinite": {
+    "total": [46.2, 49.7, 60.7, 72.4],
+    "public": [45.4, 49.3, 60.6, 72.9],
+    "private": [50.4, 51.7, 61.0, 69.9]
+  },
+  "full_time": {
+    "total": [66.1, 73.7, 76.7, 80.0],
+    "public": [65.5, 73.3, 76.4, 79.8],
+    "private": [69.0, 76.0, 78.7, 80.8]
+  },
+  "university_group": {
+    "total": [44.7, 54.3, 58.2, 60.9],
+    "public": [42.2, 52.2, 56.3, 59.2],
+    "private": [56.3, 64.3, 67.7, 70.0]
+  },
+  "contribution_base": {
+    "total": [22868, 25199, 27809, 30976],
+    "public": [22127, 24581, 27230, 30429],
+    "private": [26147, 28126, 30818, 33990]
+  }
+}
