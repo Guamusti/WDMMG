@@ -34,6 +34,8 @@ La vista de empresas ya ofrece el primer salto contrato → adjudicatario median
 
 La API ya dispone de una ficha individual con los contratos vinculados; queda pendiente incorporarla a la interacción visible de la vista.
 
+La ficha ya se abre al seleccionar una empresa y permite seguir cada contrato hasta su registro oficial en PLACSP.
+
 ### 5. Historias y alertas descriptivas
 
 Historias breves sobre cambios, concentración, contratos menores, ejecución y diferencias territoriales. Son indicadores descriptivos, no acusaciones: cada una muestra denominador, fecha, regla y enlace al dataset.
