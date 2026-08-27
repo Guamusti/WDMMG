@@ -1,5 +1,7 @@
 from etl.bdns.concessions import parse_page
+from etl.bdns.client import BDNS20Client
 from etl.bdns.load_concessions import parse_date
+from pathlib import Path
 
 
 def test_parse_concession_page_keeps_provenance_and_separates_call():
@@ -21,3 +23,28 @@ def test_concession_loader_accepts_official_date_formats():
     assert str(parse_date("2026-08-27")) == "2026-08-27"
     assert str(parse_date("27/08/2026")) == "2026-08-27"
     assert parse_date("not-a-date") is None
+
+
+def test_bdns20_client_uses_disk_cache_without_second_request(tmp_path):
+    class FakeResponse:
+        status_code = 200
+        headers = {"content-type": "application/json"}
+        content = b'{"content": []}'
+
+        def raise_for_status(self):
+            return None
+
+    class FakeSession:
+        calls = 0
+
+        def get(self, url, timeout, headers):
+            self.calls += 1
+            return FakeResponse()
+
+    session = FakeSession()
+    client = BDNS20Client(tmp_path / "cache", min_interval=0, session=session)
+    client.fetch("https://official.example/bdns20", tmp_path / "one.payload")
+    cached = client.fetch("https://official.example/bdns20", tmp_path / "two.payload")
+    assert session.calls == 1
+    assert cached["cache_hit"] is True
+    assert Path(tmp_path / "two.payload").read_bytes() == FakeResponse.content

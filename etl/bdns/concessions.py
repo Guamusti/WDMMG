@@ -7,7 +7,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from etl.shared.io import download, write_jsonl
+from etl.bdns.client import BDNS20Client
+from etl.shared.io import write_jsonl
 
 
 BASE_URL = "https://www.infosubvenciones.es/bdnstrans/api/concesiones/busqueda"
@@ -47,14 +48,15 @@ def parse_page(payload: dict[str, Any], code: str, source_url: str, retrieved_at
     return records
 
 
-def ingest(code: str, raw_dir: Path, out: Path, page_size: int = 100, max_pages: int = 100) -> dict[str, Any]:
+def ingest(code: str, raw_dir: Path, out: Path, page_size: int = 100, max_pages: int = 100, min_interval: float = 0.5, cache_ttl: int = 300) -> dict[str, Any]:
     run_id = datetime.now(timezone.utc).strftime("bdns-concesiones-%Y%m%dT%H%M%SZ")
     records: list[dict[str, Any]] = []
     pages = 0
+    client = BDNS20Client(raw_dir / "cache", min_interval=min_interval)
     for page in range(max_pages):
         endpoint = f"{BASE_URL}?numeroConvocatoria={code}&pageSize={page_size}&page={page}"
         raw_path = raw_dir / f"{run_id}-page-{page}.payload"
-        metadata = download(endpoint, raw_path)
+        metadata = client.fetch(endpoint, raw_path, cache_ttl=cache_ttl)
         payload = json.loads(raw_path.read_text(encoding="utf-8"))
         page_records = parse_page(payload, code, endpoint, metadata["retrieved_at"], run_id, metadata["sha256"])
         records.extend(page_records)
@@ -72,8 +74,10 @@ def main() -> None:
     parser.add_argument("--out", default="data/processed/bdns/concessions.jsonl")
     parser.add_argument("--page-size", type=int, default=100)
     parser.add_argument("--max-pages", type=int, default=100)
+    parser.add_argument("--min-interval", type=float, default=0.5, help="Segundos mínimos entre peticiones al servicio oficial")
+    parser.add_argument("--cache-ttl", type=int, default=300, help="Vida de la caché raw en segundos")
     args = parser.parse_args()
-    print(ingest(args.grant_code, Path(args.raw_dir), Path(args.out), min(100, max(1, args.page_size)), max(1, args.max_pages)))
+    print(ingest(args.grant_code, Path(args.raw_dir), Path(args.out), min(100, max(1, args.page_size)), max(1, args.max_pages), max(0, args.min_interval), max(0, args.cache_ttl)))
 
 
 if __name__ == "__main__":

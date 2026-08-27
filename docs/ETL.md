@@ -28,6 +28,8 @@ python -m etl.bdns.load_concessions --input data/processed/bdns/concessions.json
 
 El ingestor recorre páginas de hasta 100 elementos, guarda cada respuesta raw con su hash y produce `data/processed/bdns/concessions.jsonl`. El segundo comando carga esas concesiones en `grant_awards`, relacionándolas con la convocatoria y el beneficiario cuando existen. La carga es repetible por `source_record_id`: volver a procesar la misma concesión no crea otra fila. Convocatoria y concesión permanecen como entidades separadas; una respuesta vacía se conserva como cero registros de esa consulta, no como prueba de que no existan concesiones en toda la BDNS.
 
+El cliente `etl.bdns.client.BDNS20Client` centraliza las lecturas de servicios BDNS/BDNS20: aplica un intervalo mínimo entre peticiones, conserva caché raw por URL con hash y marca `cache_hit` en la metadata. Ante un `429` detiene la ejecución con el `Retry-After` disponible para que el operador pueda reintentarlo sin saturar el servicio. La paginación de concesiones limita cada página a 100 registros y permite configurar `--min-interval` y `--cache-ttl`.
+
 ## IGAE / ejecución AGE
 
 ```bash
