@@ -308,5 +308,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Línea temporal visible de eventos CODICE en la app: identifica modificaciones, fecha e ID, y aclara que no son pagos ni adjudicaciones nuevas | `en curso` |
 | 27/08/2026 | Línea temporal sincronizada con la tabla: detecta cambios de `contrato` en la URL sin recargar y actualiza los eventos de la ficha | `en curso` |
 | 27/08/2026 | BDNS concesiones: endpoint live admite `page`/`pageSize` y cachea respuestas 5 minutos para explorar más resultados sin repetir llamadas | `en curso` |
+| 27/08/2026 | Ingestor BDNS de concesiones: paginación, raw por página, SHA-256, provenance y JSONL separado para concesiones | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |

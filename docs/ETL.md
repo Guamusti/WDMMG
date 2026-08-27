@@ -18,6 +18,14 @@ python -m etl.bdns.ingest --url "ENDPOINT_BDNS_OFICIAL"
 
 El límite de servicio y el contrato técnico se configuran por entorno. Si la respuesta es XML/WSDL, el raw se conserva sin fingir una normalización JSON; el siguiente paso es seleccionar el servicio de convocatorias o concesiones y mapearlo contra su XSD.
 
+### Concesiones BDNS
+
+```bash
+python -m etl.bdns.concessions --grant-code "925963"
+```
+
+El ingestor recorre páginas de hasta 100 elementos, guarda cada respuesta raw con su hash y produce `data/processed/bdns/concessions.jsonl`. Convocatoria y concesión permanecen como entidades separadas; una respuesta vacía se conserva como cero registros de esa consulta, no como prueba de que no existan concesiones en toda la BDNS.
+
 ## IGAE / ejecución AGE
 
 ```bash
