@@ -38,6 +38,9 @@ export const employmentByField = Object.fromEntries(Object.entries(fieldEmployme
 
 export function employmentForOffer(offer) {
   const degree = String(offer?.degree || '').toLocaleLowerCase();
+  // A field aggregate must never be presented as the result of a double degree
+  // or a combined/international title. Keep the offer without a field match.
+  if (/\s*[-–]\s+|\s+[-–]\s*|\s+\+\s+|\s+\/\s+/.test(degree)) return null;
   if (/informática|software|computadores|ciencia de datos|inteligencia artificial/.test(degree)) return employmentByField.informatica;
   if (/medicina/.test(degree)) return employmentByField.medicina;
   if (/enfermería/.test(degree)) return employmentByField.enfermeria;
