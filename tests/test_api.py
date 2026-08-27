@@ -118,6 +118,13 @@ def test_history_returns_compatible_igae_cuts():
     assert all(row["unit"] == "miles de euros" for row in payload["data"])
 
 
+def test_overview_accepts_a_same_exercise_period_filter():
+    status, payload = get_json("/api/overview?period=2026-04")
+    assert status == 200
+    assert payload["period"] == "2026-04"
+    assert payload["execution"]["finalCredit"] > 0
+
+
 def test_quality_report_keeps_audit_counts():
     status, payload = get_json("/api/quality")
     assert status == 200

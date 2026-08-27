@@ -350,6 +350,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Runner de actualización con run global, estado por loader, motivo de skip, timestamps y duración; dry-run y ejecución real quedan auditables | `en curso` |
 | 27/08/2026 | Extractor IGAE conserva `period_state` y `dataset_version` derivada del SHA-256 del workbook; test con muestra real | `en curso` |
 | 27/08/2026 | Extractor IGAE deja de fijar el mes, lee cabeceras reales y separa código/nombre de clasificación; tests con XLSX real | `en curso` |
+| 27/08/2026 | `/api/overview?period=YYYY-MM` permite consultar un corte IGAE histórico del mismo ejercicio; verificado con abril de 2026 | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |

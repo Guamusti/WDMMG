@@ -350,8 +350,9 @@ async function databaseCoverage() {
   ];
 }
 
-function getExecution() {
-  return readJsonl(join(root, 'data', 'processed', 'igae', 'execution-2026-05.jsonl'));
+function getExecution(period = '') {
+  const filename = period && /^\d{4}-\d{2}$/.test(period) ? `execution-${period}.jsonl` : 'execution-2026-05.jsonl';
+  return readJsonl(join(root, 'data', 'processed', 'igae', filename));
 }
 
 function getExecutionHistory() {
@@ -450,7 +451,7 @@ async function officialCommunityMap() {
   return communityMapCache;
 }
 
-async function databaseOverview() {
+async function databaseOverview(period = '') {
   const result = await pool.query(`
     SELECT br.fiscal_year, br.period, br.data_status, ds.source_url,
       SUM(br.final_amount) AS final_credit,
@@ -460,15 +461,15 @@ async function databaseOverview() {
     FROM budget_records br
     JOIN budget_execution be ON be.budget_record_id = br.id
     JOIN data_sources ds ON ds.id = br.source_id
-    WHERE br.economic_level = 'chapter' AND br.economic_code ~ '^[1-9]\\. '
+    WHERE br.economic_level = 'chapter' AND br.economic_code ~ '^[1-9]\\. ' AND ($1 = '' OR br.period = $1)
     GROUP BY br.fiscal_year, br.period, br.data_status, ds.source_url
-    ORDER BY br.fiscal_year DESC, br.period DESC LIMIT 1`);
+    ORDER BY br.fiscal_year DESC, br.period DESC LIMIT 1`, [period]);
   return result.rows[0] || null;
 }
 
-function overviewFromJsonl() {
+function overviewFromJsonl(period = '') {
   // GTOS 004 contiene capítulos y filas TOTAL; no sumar ambas cosas.
-  const rows = getExecution().filter(row => row.classification_level === 'chapter' && /^[1-9]\.\s/.test(row.classification_label));
+  const rows = getExecution(period).filter(row => row.classification_level === 'chapter' && /^[1-9]\.\s/.test(row.classification_label) && (!period || row.period === period));
   if (!rows.length) return null;
   const sum = key => rows.reduce((total, row) => total + (Number(row[key]) || 0), 0);
   return {
@@ -482,12 +483,12 @@ function overviewFromJsonl() {
   };
 }
 
-async function overview() {
+async function overview(period = '') {
   try {
-    const row = await databaseOverview();
+    const row = await databaseOverview(period);
     if (row) return { dataStatus: 'imported', fiscalYear: row.fiscal_year, period: row.period, unit: 'miles de euros', execution: { finalCredit: Number(row.final_credit), committed: Number(row.committed), recognized: Number(row.recognized), paid: Number(row.paid) }, contracts: { records: getContracts().length }, sourceUrl: row.source_url };
   } catch (error) { console.warn(`PostgreSQL no disponible; fallback JSONL: ${error.message}`); }
-  return overviewFromJsonl() || { dataStatus: 'awaiting_validated_ingestion', budget: null, execution: null, contracts: null, grants: null };
+  return overviewFromJsonl(period) || { dataStatus: 'awaiting_validated_ingestion', budget: null, execution: null, contracts: null, grants: null };
 }
 
 let metricsCache = null;
@@ -512,7 +513,7 @@ const server = createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   if (req.method !== 'GET') return json(res, 405, { error: 'method_not_allowed' });
   if (url.pathname === '/api/health') return json(res, 200, { ok: true, service: 'dinero-publico-api', data: { contracts: getContracts().length } });
-  if (url.pathname === '/api/overview') return json(res, 200, await overview());
+  if (url.pathname === '/api/overview') return json(res, 200, await overview((url.searchParams.get('period') || '').trim()));
   if (url.pathname === '/api/metrics') {
     try { return json(res, 200, { data: await databaseMetrics(), meta: { backend: 'postgresql', dataStatus: 'imported', cacheSeconds: 30, definition: 'Magnitudes separadas: presupuesto/ejecución, contratos adjudicados y subvenciones concedidas.' } }); }
     catch (error) { return json(res, 503, { error: 'metrics_unavailable', detail: error.message, meta: { dataStatus: 'unavailable' } }); }
