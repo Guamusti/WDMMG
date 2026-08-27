@@ -84,6 +84,8 @@ La búsqueda consulta el campo municipal admitido por el servicio GIS del INE, d
 
 La navegación de convocatorias BDNS aplica la búsqueda global al listado y al CSV, mostrando el término activo y un estado vacío específico cuando no hay coincidencias.
 
+El histórico no solo dibuja barras: también calcula y explica el cambio entre cortes con el mismo denominador.
+
 El detalle contable incorpora ayudas contextuales para traducir los cuatro estados de ejecución a lenguaje ciudadano.
 
 La capa visual respeta preferencias de movimiento reducido y evita desbordamientos horizontales en pantallas pequeñas.

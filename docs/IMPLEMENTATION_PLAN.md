@@ -283,6 +283,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Smoke end-to-end frontend/API y guía `docs/MAINTENANCE.md` para arranque, validación y actualización del MVP | `en curso` |
 | 27/08/2026 | Primera búsqueda municipal INE en vivo: nombre, código, provincia, comunidad y población oficial 2024; gasto por habitante reservado hasta disponer de ejecución compatible | `en curso` |
 | 27/08/2026 | Búsqueda municipal ajustada al filtro GIS del INE y probada con respuesta oficial; estado de carga visible por latencia variable del proveedor | `en curso` |
+| 27/08/2026 | Histórico añade variación explícita entre cortes: cambio de euros pagados por euro previsto, manteniendo el denominador | `en curso` |
 | 27/08/2026 | Filtros de búsqueda conectados a convocatorias BDNS en la vista y en su exportación CSV | `en curso` |
 | 27/08/2026 | Tooltips accesibles para previsto, comprometido, gasto reconocido y pagado en el detalle de capítulo | `en curso` |
 | 27/08/2026 | Revisión responsive: overflow horizontal controlado, reducción de movimiento respetada y foco visible conservado | `en curso` |
