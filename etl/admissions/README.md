@@ -24,3 +24,10 @@ adjudicación ordinaria de la Universidad de Zaragoza y
 `python etl/admissions/aragon/parse_aragon.py` genera el extracto de
 2025-2026. Se extrae la columna de cupo general, se conserva la provincia
 como campus y se descartan filas sin nombre o nota válida.
+
+## Catálogo nacional de trabajo
+
+`python etl/admissions/build_national_catalog.py` reúne los extractos
+procesados de Madrid, Galicia y Aragón en `data/processed/admissions/`.
+Conserva la procedencia regional y genera un informe de comparabilidad; no
+rellena ramas, RUCT ni métricas que una fuente no publique.

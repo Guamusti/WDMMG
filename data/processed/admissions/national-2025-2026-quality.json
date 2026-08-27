@@ -1,0 +1,20 @@
+{
+  "records": 865,
+  "communities": [
+    "Aragón",
+    "Comunidad de Madrid",
+    "Galicia"
+  ],
+  "by_community": {
+    "Aragón": 73,
+    "Comunidad de Madrid": 459,
+    "Galicia": 333
+  },
+  "duplicates": 0,
+  "comparability": {
+    "same_academic_year": true,
+    "same_scale_0_14": true,
+    "round_and_group_present": true,
+    "branch_coverage": 398
+  }
+}

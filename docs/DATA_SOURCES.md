@@ -41,6 +41,11 @@
 - Estado: PDF conservado en `data/raw/admissions/aragon/2025-2026/`; parser reproducible en `etl/admissions/aragon/` y extracto separado en `data/processed/admissions/aragon-2025-2026.json`.
 - Cobertura validada: 73 ofertas de la Universidad de Zaragoza en cuatro provincias/campus. Se carga únicamente la columna de cupo general y la convocatoria ordinaria; las restantes columnas de cupos requieren su modelado explícito antes de comparar.
 
+## Catálogo nacional de trabajo
+
+- `data/processed/admissions/national-2025-2026.json` reúne 865 observaciones procesadas de tres comunidades: Madrid (459), Galicia (333) y Aragón (73).
+- `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial (398/865), por lo que el catálogo no se presenta aún como ranking nacional.
+
 ## SIIU / estadísticas universitarias
 
 - Organismo: Ministerio competente en universidades.
