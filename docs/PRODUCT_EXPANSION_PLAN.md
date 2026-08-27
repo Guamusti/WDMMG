@@ -30,6 +30,8 @@ Ficha estable para CCAA, provincia y municipio con presupuesto, ejecución, pobl
 
 Recorrido administración → programa/partida → contrato o ayuda → empresa/receptor. Solo se dibuja una relación cuando existe una clave o relación publicada; si no, se ofrece como “datos relacionados”, no como causalidad.
 
+La vista de empresas ya ofrece el primer salto contrato → adjudicatario mediante los identificadores publicados en PLACSP.
+
 ### 5. Historias y alertas descriptivas
 
 Historias breves sobre cambios, concentración, contratos menores, ejecución y diferencias territoriales. Son indicadores descriptivos, no acusaciones: cada una muestra denominador, fecha, regla y enlace al dataset.

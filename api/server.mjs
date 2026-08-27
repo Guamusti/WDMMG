@@ -37,6 +37,38 @@ function getContracts() {
   return readJsonl(join(root, 'data', 'processed', 'placsp', 'contracts.jsonl'));
 }
 
+function companiesFromJsonl(query = '', limit = 100) {
+  const needle = query.toLocaleLowerCase('es');
+  const groups = new Map();
+  for (const contract of getContracts()) {
+    for (const award of contract.awards || []) {
+      const name = String(award.winner_name || '').trim();
+      if (!name || (needle && !name.toLocaleLowerCase('es').includes(needle))) continue;
+      const key = String(award.winner_id || name).trim();
+      const current = groups.get(key) || { id: key, name, tax_id: award.winner_id || null, contract_count: 0, award_amount: 0, contract_ids: new Set() };
+      if (!current.contract_ids.has(contract.source_record_id)) { current.contract_ids.add(contract.source_record_id); current.contract_count += 1; }
+      current.award_amount += Number(award.award_amount || 0);
+      groups.set(key, current);
+    }
+  }
+  return [...groups.values()].sort((a, b) => b.award_amount - a.award_amount).slice(0, limit).map(({ contract_ids, ...company }) => company);
+}
+
+async function databaseCompanies(query, limit) {
+  const search = `%${query}%`;
+  const result = await pool.query(`
+    SELECT re.id, re.name, re.tax_id,
+      COUNT(DISTINCT ca.contract_id)::int AS contract_count,
+      COALESCE(SUM(ca.award_amount), 0) AS award_amount
+    FROM recipient_entities re
+    JOIN contract_awards ca ON ca.winner_entity_id = re.id
+    WHERE ($1 = '' OR re.name ILIKE $2 OR re.tax_id ILIKE $2)
+    GROUP BY re.id, re.name, re.tax_id
+    ORDER BY award_amount DESC NULLS LAST, re.name
+    LIMIT $3`, [query, search, limit]);
+  return result.rows;
+}
+
 async function databaseContracts(query, page, pageSize) {
   const offset = (page - 1) * pageSize;
   const search = `%${query}%`;
@@ -193,6 +225,17 @@ const server = createServer(async (req, res) => {
     } catch (error) {
       const all = getContracts().filter(row => !query || JSON.stringify(row).toLocaleLowerCase('es').includes(query));
       return json(res, 200, { data: all.slice((page - 1) * pageSize, page * pageSize), meta: { page, pageSize, total: all.length, dataStatus: all.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message } });
+    }
+  }
+  if (url.pathname === '/api/companies') {
+    const query = (url.searchParams.get('q') || '').trim();
+    const limit = Math.min(100, Math.max(1, Number(url.searchParams.get('limit') || 50)));
+    try {
+      const data = await databaseCompanies(query, limit);
+      return json(res, 200, { data: data.length ? data : companiesFromJsonl(query, limit), meta: { total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'postgresql' } });
+    } catch (error) {
+      const data = companiesFromJsonl(query, limit);
+      return json(res, 200, { data, meta: { total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message } });
     }
   }
   if (url.pathname.startsWith('/api/contracts/')) {
