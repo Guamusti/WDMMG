@@ -184,12 +184,12 @@ Referencia MD: secciones 8, 10, 27, 34, 39, 48, 50, 51, 52, 53, 58 y 59.
 Referencia MD: secciones 34, 35, 36, 37, 38, 39, 41, 42, 44, 45, 54, 55, 56, 60, 61 y 63.
 
 - [ ] Tests de parsers con fixtures oficiales.
-- [ ] Tests de normalización y validaciones contables.
+- [~] Tests de normalización y validaciones contables; endpoint visible de calidad con duplicados, IDs ausentes y alertas.
 - [ ] Tests de API y permisos de descarga.
 - [ ] Tests end-to-end frontend → API → datos → fuente.
 - [x] Página pública de cobertura y actualización.
 - [x] Página de metodología completa y glosario.
-- [ ] Monitorización de fallos, cambios de esquema y retrasos de fuentes.
+- [~] Monitorización inicial de calidad y cobertura mediante `/api/quality`; monitorización histórica y de esquema pendiente.
 - [ ] Jobs según frecuencia real comprobada, no asumida.
 - [ ] Revisión de accesibilidad, seguridad, privacidad y licencias.
 - [ ] Deploy reproducible y guía de mantenimiento.
@@ -278,3 +278,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Ficha interactiva de contrato desde la tabla: presupuesto, procedimiento, fechas, lotes y fuente oficial PLACSP | `en curso` |
 | 27/08/2026 | Buscador y fichas de contrato comparten URL mediante `contrato`; una búsqueda abre el segundo nivel dentro de la aplicación | `en curso` |
 | 27/08/2026 | Relación verificable PLACSP en ficha: órgano contratante → expediente → adjudicatario, con importe y fuente | `en curso` |
+| 27/08/2026 | Control de calidad visible en Metodología y endpoint `/api/quality`: conteos, duplicados, IDs ausentes y alertas por dataset | `en curso` |

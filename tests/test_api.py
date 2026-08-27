@@ -25,7 +25,7 @@ def test_health_reports_service_and_contract_count():
     assert isinstance(payload["data"]["contracts"], int)
 
 
-@pytest.mark.parametrize("path", ["/api/overview", "/api/history", "/api/budgets", "/api/contracts?pageSize=2", "/api/companies?limit=2", "/api/grants?pageSize=2", "/api/coverage", "/api/policies"])
+@pytest.mark.parametrize("path", ["/api/overview", "/api/history", "/api/quality", "/api/budgets", "/api/contracts?pageSize=2", "/api/companies?limit=2", "/api/grants?pageSize=2", "/api/coverage", "/api/policies"])
 def test_public_dataset_endpoints_return_json(path):
     status, payload = get_json(path)
     assert status == 200
@@ -39,6 +39,13 @@ def test_history_returns_compatible_igae_cuts():
     assert len(payload["data"]) >= 2
     assert [row["period"] for row in payload["data"]] == ["2026-04", "2026-05"]
     assert all(row["unit"] == "miles de euros" for row in payload["data"])
+
+
+def test_quality_report_keeps_audit_counts():
+    status, payload = get_json("/api/quality")
+    assert status == 200
+    assert {row["id"] for row in payload["data"]} == {"placsp", "igae", "bdns"}
+    assert all(row["records"] >= 0 and row["duplicates"] >= 0 for row in payload["data"])
 
 
 def test_contract_rows_expose_adjudicatario_when_available():

@@ -273,6 +273,19 @@ function getTerritorialExecution() {
   return readJsonl(join(root, 'data', 'processed', 'ccaa', 'execution-2026-05.jsonl'));
 }
 
+function qualityReport() {
+  const contracts = getContracts();
+  const contractIds = contracts.map(row => row.procurement_id || row.source_record_id).filter(Boolean);
+  const execution = getExecution();
+  const grants = getGrants();
+  const duplicateCount = values => values.length - new Set(values).size;
+  return [
+    { id: 'placsp', name: 'Contratos PLACSP', records: contracts.length, missingIds: contracts.length - contractIds.length, duplicates: duplicateCount(contractIds), anomalies: contracts.filter(row => !row.source_url).length, sourceUrl: 'https://contrataciondelestado.es/' },
+    { id: 'igae', name: 'Ejecución AGE · mayo 2026', records: execution.length, missingIds: execution.filter(row => !row.source_record_id).length, duplicates: duplicateCount(execution.map(row => row.source_record_id).filter(Boolean)), anomalies: execution.filter(row => (row.quality_flags || []).length).length, sourceUrl: execution[0]?.source_url || null },
+    { id: 'bdns', name: 'Convocatorias BDNS', records: grants.length, missingIds: grants.filter(row => !(row.bdns_code || row.source_record_id)).length, duplicates: duplicateCount(grants.map(row => row.bdns_code || row.source_record_id).filter(Boolean)), anomalies: grants.filter(row => !row.source_url).length, sourceUrl: grants[0]?.source_url || null }
+  ];
+}
+
 async function databaseOverview() {
   const result = await pool.query(`
     SELECT br.fiscal_year, br.period, br.data_status, ds.source_url,
@@ -322,6 +335,7 @@ const server = createServer(async (req, res) => {
     const data = getExecutionHistory();
     return json(res, 200, { data, meta: { dataStatus: data.length > 1 ? 'imported' : 'partial', unit: 'miles de euros', source: 'IGAE' } });
   }
+  if (url.pathname === '/api/quality') return json(res, 200, { data: qualityReport(), meta: { dataStatus: 'imported', definition: 'Los registros se auditan sin eliminar anomalías; una ausencia no se convierte en cero.' } });
   if (url.pathname === '/api/budgets') {
     try {
       const result = await pool.query(`SELECT br.*, be.committed_amount, be.recognized_amount, be.paid_amount, be.raw_payload FROM budget_records br LEFT JOIN budget_execution be ON be.budget_record_id = br.id ORDER BY br.fiscal_year DESC, br.period DESC, br.id`);

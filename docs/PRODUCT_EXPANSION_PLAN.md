@@ -74,6 +74,8 @@ Las fichas de contrato son compartibles: el parámetro `contrato` conserva la se
 
 La ficha también representa el recorrido verificable publicado por PLACSP: órgano contratante → expediente → adjudicatario. No enlaza el contrato con una partida presupuestaria sin una clave oficial común.
 
+La metodología incluye un control de calidad navegable por dataset: registros, duplicados, identificadores ausentes y alertas detectadas, sin ocultar ni convertir anomalías en ceros.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.
