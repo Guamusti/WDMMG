@@ -1097,9 +1097,18 @@
     "campus": null,
     "degree": "Magisterio en Educación Infantil (semipresencial)",
     "branch": "Ingeniería y Arquitectura",
-    "field": null,
-    "ruct_degree_code": null,
-    "ruct_centers": [],
+    "field": "Ciencias de la educación",
+    "ruct_degree_code": "2502095",
+    "ruct_centers": [
+      {
+        "code": "28026663",
+        "name": "Centro Universitario Cardenal Cisneros"
+      },
+      {
+        "code": "19004053",
+        "name": "Facultad de Educación"
+      }
+    ],
     "academic_year": "2025-2026",
     "admission_round": "ordinary",
     "admission_group": "group_1",
@@ -1116,9 +1125,18 @@
     "campus": null,
     "degree": "Magisterio en Educación Primaria (bilingüe - inglés)",
     "branch": "Ingeniería y Arquitectura",
-    "field": null,
-    "ruct_degree_code": null,
-    "ruct_centers": [],
+    "field": "Ciencias de la educación",
+    "ruct_degree_code": "2502096",
+    "ruct_centers": [
+      {
+        "code": "28026663",
+        "name": "Centro Universitario Cardenal Cisneros"
+      },
+      {
+        "code": "19004053",
+        "name": "Facultad de Educación"
+      }
+    ],
     "academic_year": "2025-2026",
     "admission_round": "ordinary",
     "admission_group": "group_1",
@@ -1135,9 +1153,18 @@
     "campus": null,
     "degree": "Magisterio en Educación Primaria (semipresencial)",
     "branch": "Ingeniería y Arquitectura",
-    "field": null,
-    "ruct_degree_code": null,
-    "ruct_centers": [],
+    "field": "Ciencias de la educación",
+    "ruct_degree_code": "2502096",
+    "ruct_centers": [
+      {
+        "code": "28026663",
+        "name": "Centro Universitario Cardenal Cisneros"
+      },
+      {
+        "code": "19004053",
+        "name": "Facultad de Educación"
+      }
+    ],
     "academic_year": "2025-2026",
     "admission_round": "ordinary",
     "admission_group": "group_1",
@@ -3053,9 +3080,18 @@
     "campus": null,
     "degree": "Maestro en Educación Infantil",
     "branch": "Ciencias",
-    "field": null,
-    "ruct_degree_code": null,
-    "ruct_centers": [],
+    "field": "Ciencias de la educación",
+    "ruct_degree_code": "2501210",
+    "ruct_centers": [
+      {
+        "code": "28027199",
+        "name": "Centro Superior de Estudios Universitarios La Salle"
+      },
+      {
+        "code": "28051271",
+        "name": "Facultad de Formación de Profesorado y Educación"
+      }
+    ],
     "academic_year": "2025-2026",
     "admission_round": "ordinary",
     "admission_group": "group_1",
@@ -3096,9 +3132,18 @@
     "campus": null,
     "degree": "Maestro en Educación Primaria",
     "branch": "Ciencias",
-    "field": null,
-    "ruct_degree_code": null,
-    "ruct_centers": [],
+    "field": "Ciencias de la educación",
+    "ruct_degree_code": "2501211",
+    "ruct_centers": [
+      {
+        "code": "28027199",
+        "name": "Centro Superior de Estudios Universitarios La Salle"
+      },
+      {
+        "code": "28051271",
+        "name": "Facultad de Formación de Profesorado y Educación"
+      }
+    ],
     "academic_year": "2025-2026",
     "admission_round": "ordinary",
     "admission_group": "group_1",
@@ -3635,9 +3680,18 @@
     "campus": null,
     "degree": "Maestro en Educación Primaria",
     "branch": "Ingeniería y Arquitectura",
-    "field": null,
-    "ruct_degree_code": null,
-    "ruct_centers": [],
+    "field": "Ciencias de la educación",
+    "ruct_degree_code": "2501211",
+    "ruct_centers": [
+      {
+        "code": "28027199",
+        "name": "Centro Superior de Estudios Universitarios La Salle"
+      },
+      {
+        "code": "28051271",
+        "name": "Facultad de Formación de Profesorado y Educación"
+      }
+    ],
     "academic_year": "2025-2026",
     "admission_round": "ordinary",
     "admission_group": "group_1",

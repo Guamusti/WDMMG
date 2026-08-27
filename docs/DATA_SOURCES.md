@@ -9,7 +9,7 @@
 - Limitación: la consulta pública no sustituye a un export histórico; el ingestor debe conservar la evidencia de cada consulta.
 - Estado: consulta reproducible de títulos de Grado activa para las seis universidades públicas madrileñas; el matching de centros y las coincidencias no exactas siguen pendientes.
 - Distribución estructurada auxiliar de códigos de universidad: https://datos.canarias.es/api/estadisticas/structural-resources/v1.0/codelists/ISTAC/CL_RUCT_UNIVERSIDADES/01.000/codes.csv?fields=+description
-- Estado actual: códigos de universidad y 342 coincidencias únicas de títulos están conservados en `data/processed/ruct/`, junto con centro, rama, campo y créditos cuando la ficha los publica; las 116 ofertas restantes quedan pendientes por falta de coincidencia exacta o ambigüedad. El censo completo de centros requiere ampliar la consulta.
+- Estado actual: códigos de universidad y 348 coincidencias únicas de títulos están conservados en `data/processed/ruct/`, junto con centro, rama, campo y créditos cuando la ficha los publica; las 110 ofertas restantes quedan pendientes por falta de coincidencia exacta o ambigüedad. El censo completo de centros requiere ampliar la consulta.
 - La API local une ese extracto con las filas de admisión por `madrid:<índice>` y expone el código, campo, centros y enlace RUCT en la ficha; el smoke test comprueba que este enriquecimiento no se pierde al pasar por el proxy.
 
 ## Notas de corte — Comunidad de Madrid
@@ -53,7 +53,7 @@
 ## Catálogo nacional de trabajo
 
 - `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de cuatro comunidades: Madrid (458), Galicia (333), Aragón (73) y Cataluña (549).
-- `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial (418/1413) y la de campo RUCT también (334/1413), por lo que el catálogo no se presenta como ranking nacional único.
+- `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial (418/1413) y la de campo RUCT también (340/1413), por lo que el catálogo no se presenta como ranking nacional único.
 
 ## SIIU / estadísticas universitarias
 

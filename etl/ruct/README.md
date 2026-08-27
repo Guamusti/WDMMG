@@ -9,7 +9,10 @@ títulos de Grado activos, conserva las respuestas en
 `data/processed/ruct/madrid-degree-matches.json`.
 
 Solo se acepta una coincidencia exacta tras normalización y única dentro de
-la universidad. Las ofertas sin coincidencia o con coincidencia ambigua se
-mantienen como `pending`; no se asignan códigos por similitud. Para las
-coincidencias aceptadas también se conservan la ficha de detalle, los centros
-RUCT, la rama, el campo de estudio y los créditos publicados.
+la universidad. La normalización incluye un conjunto pequeño y documentado de
+equivalencias lingüísticas (género, preposición y la errata
+`mineralúrgia/mineralúrgica`) auditadas contra los títulos descargados. Las
+ofertas sin coincidencia o con coincidencia ambigua se mantienen como
+`pending`; no se asignan códigos por similitud. Para las coincidencias
+aceptadas también se conservan la ficha de detalle, los centros RUCT, la rama,
+el campo de estudio y los créditos publicados.

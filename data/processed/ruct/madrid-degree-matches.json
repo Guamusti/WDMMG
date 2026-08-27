@@ -873,43 +873,70 @@
     "admission_id": "madrid:45",
     "admission_degree": "Magisterio en Educación Infantil (semipresencial)",
     "university_ruct_code": "029",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2502095",
+    "ruct_degree_name": "Graduado o Graduada en Magisterio de Educación Infantil por la Universidad de Alcalá",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2502095&actual=estudios",
+    "ruct_branch": "Ciencias Sociales y Jurídicas",
+    "ruct_field": "Ciencias de la educación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28026663",
+        "name": "Centro Universitario Cardenal Cisneros"
+      },
+      {
+        "code": "19004053",
+        "name": "Facultad de Educación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:46",
     "admission_degree": "Magisterio en Educación Primaria (bilingüe - inglés)",
     "university_ruct_code": "029",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2502096",
+    "ruct_degree_name": "Graduado o Graduada en Magisterio de Educación Primaria por la Universidad de Alcalá",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2502096&actual=estudios",
+    "ruct_branch": "Ciencias Sociales y Jurídicas",
+    "ruct_field": "Ciencias de la educación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28026663",
+        "name": "Centro Universitario Cardenal Cisneros"
+      },
+      {
+        "code": "19004053",
+        "name": "Facultad de Educación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:47",
     "admission_degree": "Magisterio en Educación Primaria (semipresencial)",
     "university_ruct_code": "029",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2502096",
+    "ruct_degree_name": "Graduado o Graduada en Magisterio de Educación Primaria por la Universidad de Alcalá",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2502096&actual=estudios",
+    "ruct_branch": "Ciencias Sociales y Jurídicas",
+    "ruct_field": "Ciencias de la educación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28026663",
+        "name": "Centro Universitario Cardenal Cisneros"
+      },
+      {
+        "code": "19004053",
+        "name": "Facultad de Educación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:48",
@@ -2399,15 +2426,24 @@
     "admission_id": "madrid:131",
     "admission_degree": "Maestro en Educación Infantil",
     "university_ruct_code": "023",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2501210",
+    "ruct_degree_name": "Graduado o Graduada en Maestro/a en Educación Infantil por la Universidad Autónoma de Madrid",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2501210&actual=estudios",
+    "ruct_branch": "Ciencias Sociales y Jurídicas",
+    "ruct_field": "Ciencias de la educación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28027199",
+        "name": "Centro Superior de Estudios Universitarios La Salle"
+      },
+      {
+        "code": "28051271",
+        "name": "Facultad de Formación de Profesorado y Educación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:132",
@@ -2432,15 +2468,24 @@
     "admission_id": "madrid:133",
     "admission_degree": "Maestro en Educación Primaria",
     "university_ruct_code": "023",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2501211",
+    "ruct_degree_name": "Graduado o Graduada en Maestro/a en Educación Primaria por la Universidad Autónoma de Madrid",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2501211&actual=estudios",
+    "ruct_branch": "Ciencias Sociales y Jurídicas",
+    "ruct_field": "Ciencias de la educación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28027199",
+        "name": "Centro Superior de Estudios Universitarios La Salle"
+      },
+      {
+        "code": "28051271",
+        "name": "Facultad de Formación de Profesorado y Educación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:134",
@@ -2851,15 +2896,24 @@
     "admission_id": "madrid:157",
     "admission_degree": "Maestro en Educación Primaria",
     "university_ruct_code": "023",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2501211",
+    "ruct_degree_name": "Graduado o Graduada en Maestro/a en Educación Primaria por la Universidad Autónoma de Madrid",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2501211&actual=estudios",
+    "ruct_branch": "Ciencias Sociales y Jurídicas",
+    "ruct_field": "Ciencias de la educación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28027199",
+        "name": "Centro Superior de Estudios Universitarios La Salle"
+      },
+      {
+        "code": "28051271",
+        "name": "Facultad de Formación de Profesorado y Educación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:158",

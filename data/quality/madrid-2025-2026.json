@@ -15,7 +15,7 @@
   "warnings": [
     {
       "code": "RUCT_TITLE_CENTER_MATCH_PENDING",
-      "count": 116,
+      "count": 110,
       "message": "Las ofertas sin coincidencia RUCT exacta única permanecen pendientes; no se asignan códigos por similitud."
     }
   ],

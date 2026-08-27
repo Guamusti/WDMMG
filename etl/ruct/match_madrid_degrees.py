@@ -34,6 +34,15 @@ def normalized(value):
     value = re.split(r'\s+por la universidad\b|\s*/\s*bachelor\b', value, maxsplit=1)[0]
     value = re.sub(r'\b(graduado|graduada|grado|bachelor)\s+(o\s+graduada?\s+)?en\b', '', value)
     value = re.sub(r'\bdoble\s+grado\s+en\b', '', value)
+    # Equivalencias lingüísticas acotadas, auditadas contra los títulos RUCT
+    # descargados; no cambian el nombre que se muestra al usuario.
+    value = re.sub(r'\bmaestro/a\b', 'maestro', value)
+    value = re.sub(r'\bmagisterio en\b', 'magisterio de', value)
+    value = re.sub(r'\bciencia de la actividad fisica\b', 'ciencias de la actividad fisica', value)
+    value = re.sub(r'\bingenieria en electronica de comunicaciones\b', 'ingenieria electronica de comunicaciones', value)
+    value = re.sub(r'\bingenieria en recursos energeticos\b', 'ingenieria de los recursos energeticos', value)
+    value = re.sub(r'\bingenieria en sistemas de telecomunicacion\b', 'ingenieria de sistemas de telecomunicacion', value)
+    value = re.sub(r'\bingenieria mineralurgia y metalurgica\b', 'ingenieria mineralurgica y metalurgica', value)
     value = ''.join(c for c in unicodedata.normalize('NFD', value) if unicodedata.category(c) != 'Mn')
     return re.sub(r'[^a-z0-9]+', ' ', value).strip()
 
