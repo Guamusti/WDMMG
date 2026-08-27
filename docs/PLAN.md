@@ -103,7 +103,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 
 - [ ] Home, buscador global, mapa, página de grado, universidad, oferta y ciudad.
 - [x] Ruta de ciudad `/ciudad/<slug>` con ofertas verificables y enlaces a cada detalle.
-- [ ] Comparador de ofertas y universidades.
+- [x] Comparador de hasta cuatro ofertas y comparador de hasta cuatro universidades de Madrid, con notas y métricas agregadas etiquetadas.
 - [x] Descargas CSV de filtros actuales (incluye columnas laborales cuando existe una referencia compatible).
 - [x] Descarga CSV de los resultados actuales de Madrid.
 - [x] Metodología visible dentro de la interfaz con definiciones y limitaciones.
