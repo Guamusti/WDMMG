@@ -374,6 +374,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | BDNS: endpoint oficial de últimas convocatorias integrado con caché de 5 minutos, normalización visible y enlaces directos a ficha | `en curso` |
 | 27/08/2026 | BDNS: fichas de convocatorias recientes consultan el detalle oficial en vivo como fallback, con presupuesto, finalidad, órgano y prueba real sobre 926814 | `en curso` |
 | 27/08/2026 | Auditoría completa del repositorio: 59 pruebas pasan y 3 se omiten únicamente por dependencia de servicios externos; build Vite y árbol de trabajo limpios | `en curso` |
+| 27/08/2026 | Ciclo IGAE: filas presupuestarias exponen ejecución, pago y crédito restante derivados únicamente del crédito definitivo, con definición visible y pruebas | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |

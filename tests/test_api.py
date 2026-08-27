@@ -250,6 +250,16 @@ def test_live_grant_call_detail_falls_back_to_official_bdns():
     assert payload["data"]["budget"] > 0
 
 
+def test_budget_rows_expose_derived_execution_readings():
+    status, payload = get_json("/api/budgets?level=chapter&pageSize=5")
+    assert status == 200
+    assert payload["data"]
+    row = payload["data"][0]
+    assert {"remaining_credit", "execution_percentage", "payment_percentage"}.issubset(row)
+    assert 0 <= row["execution_percentage"] <= 100
+    assert 0 <= row["payment_percentage"] <= 100
+
+
 def test_companies_csv_export_is_available():
     try:
         with urlopen(f"{BASE_URL}/api/export.csv?entity=companies", timeout=4) as response:

@@ -391,6 +391,14 @@ function getExecution(period = '') {
   return readJsonl(join(root, 'data', 'processed', 'igae', filename));
 }
 
+function budgetExecutionFields(row) {
+  const finalCredit = Number(row.final_amount ?? row.final_credit);
+  const recognized = Number(row.recognized_amount ?? row.recognized ?? 0);
+  const paid = Number(row.paid_amount ?? row.paid ?? 0);
+  const valid = Number.isFinite(finalCredit) && finalCredit > 0;
+  return { ...row, remaining_credit: valid ? finalCredit - recognized : null, execution_percentage: valid ? (recognized / finalCredit) * 100 : null, payment_percentage: valid ? (paid / finalCredit) * 100 : null };
+}
+
 function getExecutionHistory() {
   const files = ['execution-2026-04.jsonl', 'execution-2026-05.jsonl'];
   return files.map(file => {
@@ -582,11 +590,11 @@ const server = createServer(async (req, res) => {
     const pageSize = Math.min(100, Math.max(1, Number(url.searchParams.get('pageSize') || 100)));
     try {
       const result = await pool.query(`SELECT br.*, be.committed_amount, be.recognized_amount, be.paid_amount, be.raw_payload FROM budget_records br LEFT JOIN budget_execution be ON be.budget_record_id = br.id WHERE ($1 = '' OR br.economic_code ILIKE $2) AND ($3 = '' OR br.economic_level = $3) ORDER BY br.fiscal_year DESC, br.period DESC, br.id LIMIT $4 OFFSET $5`, [query, `%${query}%`, level, pageSize, (page - 1) * pageSize]);
-      return json(res, 200, { data: result.rows, meta: { page, pageSize, returned: result.rowCount, dataStatus: 'imported', backend: 'postgresql', filters: { q: query || null, level: level || null } } });
+      return json(res, 200, { data: result.rows.map(budgetExecutionFields), meta: { page, pageSize, returned: result.rowCount, dataStatus: 'imported', backend: 'postgresql', definition: 'Ejecución = obligaciones reconocidas / crédito definitivo; pago = pagos / crédito definitivo.', filters: { q: query || null, level: level || null } } });
     } catch (error) {
       const all = getExecution().filter(row => (!level || (row.classification_level || '') === level) && (!query || String(row.classification_label || '').toLocaleLowerCase('es').includes(query.toLocaleLowerCase('es'))));
-      const data = all.slice((page - 1) * pageSize, page * pageSize);
-      return json(res, 200, { data, meta: { page, pageSize, returned: data.length, total: all.length, dataStatus: all.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message, filters: { q: query || null, level: level || null } } });
+      const data = all.slice((page - 1) * pageSize, page * pageSize).map(budgetExecutionFields);
+      return json(res, 200, { data, meta: { page, pageSize, returned: data.length, total: all.length, dataStatus: all.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message, definition: 'Ejecución = obligaciones reconocidas / crédito definitivo; pago = pagos / crédito definitivo.', filters: { q: query || null, level: level || null } } });
     }
   }
   if (url.pathname === '/api/contracts') {
