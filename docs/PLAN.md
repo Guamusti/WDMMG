@@ -89,7 +89,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 
 ## Fase 6 — Coste e internacionalización
 
-- [ ] Precios públicos por ECTS, matrícula y experimentalidad.
+- [x] Precios públicos por ECTS, matrícula y experimentalidad en Madrid, asignados solo cuando el nivel está documentado.
 - [ ] Internacionalización y movilidad con cobertura explícita.
 - [ ] Mantener becas, Erasmus y coste de vida como módulos separados.
 

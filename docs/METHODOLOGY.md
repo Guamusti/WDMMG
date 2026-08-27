@@ -22,6 +22,7 @@ Los empates ocupan la misma posición conceptual. El resultado expresa posición
 - Los campos de plazas solo aparecen cuando la fuente utilizada los documenta explícitamente.
 - No se mezclan datos de universidades privadas sin una tabla oficial comparable.
 - La nota orienta: no garantiza admisión en el futuro.
+- El coste orientativo usa 60 ECTS de primera matrícula y la experimentalidad documentada para la oferta; no incluye tasas, seguros, becas ni recargos.
 ## Calculadora PAU
 
 La herramienta estima la nota de admisión para el acceso desde Bachillerato:

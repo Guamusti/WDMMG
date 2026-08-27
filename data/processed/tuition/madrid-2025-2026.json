@@ -1,0 +1,28 @@
+{
+  "academicYear": "2025-2026",
+  "community": "Comunidad de Madrid",
+  "currency": "EUR",
+  "creditsPerAcademicYear": 60,
+  "firstEnrollmentPerCredit": {
+    "1": 20.68,
+    "2": 19.43,
+    "3": 16.92
+  },
+  "knownOfferLevels": {
+    "UPM": {
+      "default": 2,
+      "exceptions": {
+        "Biotecnología": 1,
+        "Ciencias de la Actividad Física y del Deporte": 1,
+        "Ingeniería Biomédica": 1,
+        "Administración y Dirección de Empresas": 3,
+        "Matemáticas": 3,
+        "Matemáticas e Informática": 3,
+        "Diseño de Moda": 3
+      }
+    }
+  },
+  "source": "Comunidad de Madrid · precios públicos universitarios",
+  "sourceUrl": "https://www.comunidad.madrid/educacion/precios-publicos-universitarios",
+  "limitations": "Primera matrícula de 60 ECTS; no incluye tasas, seguros, becas, recargos ni segundas matrículas. El nivel de experimentalidad depende de cada universidad."
+}
