@@ -1,0 +1,17 @@
+{
+  "dataset": "madrid-university-international-entrants-2022-2023",
+  "academic_year": "2022-2023",
+  "metric": "international_entrants_total",
+  "definition": "Estudiantes que acceden a una universidad española presencial teniendo como país de residencia habitual un país extranjero.",
+  "scope": "Universidad · grado, máster y doctorado · ambos sexos · total de zonas de procedencia",
+  "source": "Ministerio de Universidades · SIIU",
+  "source_url": "https://estadisticas.universidades.gob.es/jaxiPx/Datos.htm?file=Entrada_Univ.px&path=%2FUniversitaria%2FInternacionalizacion%2F2023%2FEstudiantes_Internacionales%2Fl0%2F",
+  "values": {
+    "UAH": 1112,
+    "UAM": 2744,
+    "UC3M": 4838,
+    "UCM": 5022,
+    "UPM": 3152,
+    "URJC": 2031
+  }
+}

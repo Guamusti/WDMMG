@@ -15,6 +15,7 @@ REQUIRED = {"academic_year", "admission_round", "admission_group", "cutoff_score
 RUCT_MATCHES = ROOT / "data/processed/ruct/madrid-degree-matches.json"
 OUTCOME_ENROLMENT = ROOT / "data/processed/outcomes/madrid-university-enrolment-2023-2024.json"
 OUTCOME_GRADUATES = ROOT / "data/processed/outcomes/madrid-university-graduates-2023-2024.json"
+OUTCOME_INTERNATIONAL = ROOT / "data/processed/outcomes/madrid-international-2022-2023.json"
 OUTCOME_EMPLOYMENT = ROOT / "data/processed/outcomes/field-employment-2018-2019-four-years.json"
 OUTCOME_EMPLOYMENT_SERIES = ROOT / "data/processed/outcomes/employment-national-series-2018-2019.json"
 MADRID_UNIVERSITIES = {"UAH", "UAM", "UC3M", "UCM", "UPM", "URJC"}
@@ -71,6 +72,15 @@ if set(graduates.get("universities", {})) != MADRID_UNIVERSITIES:
     raise AssertionError("Graduate context: expected six Madrid public universities")
 if any(not isinstance(value, int) or value <= 0 for value in graduates["universities"].values()):
     raise AssertionError("Graduate context: values must be positive integers")
+international = json.loads(OUTCOME_INTERNATIONAL.read_text(encoding="utf-8"))
+if international.get("academic_year") != "2022-2023" or international.get("metric") != "international_entrants_total":
+    raise AssertionError("International context: unexpected year or metric")
+if set(international.get("values", {})) != MADRID_UNIVERSITIES:
+    raise AssertionError("International context: expected six Madrid public universities")
+if not international.get("definition") or not international.get("source_url"):
+    raise AssertionError("International context: definition and source are required")
+if any(not isinstance(value, int) or value <= 0 for value in international["values"].values()):
+    raise AssertionError("International context: values must be positive integers")
 employment = json.loads(OUTCOME_EMPLOYMENT.read_text(encoding="utf-8"))
 required_fields = {"informatica", "ade", "economia", "derecho", "medicina", "enfermeria", "sociologia", "periodismo"}
 if employment.get("cohort") != "2018–2019 · cuatro años después · 2023" or employment.get("granularity") != "Campo de estudio · España":

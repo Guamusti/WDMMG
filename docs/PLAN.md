@@ -109,6 +109,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 
 - [x] Precios públicos por ECTS, matrícula y experimentalidad en Madrid, asignados solo cuando el nivel está documentado.
 - [ ] Internacionalización y movilidad con cobertura explícita.
+- [x] Integrar estudiantes internacionales entrantes por universidad (2022–2023), con definición, granularidad y fuente visibles; la movilidad saliente y por titulación siguen pendientes.
 - [ ] Mantener becas, Erasmus y coste de vida como módulos separados.
 
 ## Fase 7 — Producto completo

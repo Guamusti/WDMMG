@@ -74,6 +74,7 @@
 - La ficha enlaza ambas tablas SIIU desde la propia tarjeta: nota media de admisión (`3_6_NI_Nota_media_Sex_Rama_Univ.px`) y nuevo ingreso (`3_4_Mat_Sex_Nac_Amb_Univ.px`). Mantener ambos conceptos separados evita confundir una media institucional con una nota de corte o con el expediente del estudiante.
 - Matriculados en grado presencial: conjunto de datos abiertos de la Comunidad de Madrid, curso 2023–2024 (el CSV etiqueta el curso por su año final). El extracto procesado está en `data/processed/outcomes/madrid-university-enrolment-2023-2024.json` y se reconstruye con `etl/outcomes/ingest_madrid_enrolment.py`. Es un total de universidad, no de titulación, y excluye grados no presenciales.
 - Egresados en grado presencial: conjunto de datos abiertos de la Comunidad de Madrid, curso 2023–2024 (el CSV etiqueta el curso por su año final). El extracto procesado está en `data/processed/outcomes/madrid-university-graduates-2023-2024.json` y se reconstruye con `etl/outcomes/ingest_madrid_graduates.py`. Es un recuento institucional, no una tasa de graduación ni un resultado de una titulación.
+- Internacionalización: `data/processed/outcomes/madrid-international-2022-2023.json` conserva los estudiantes internacionales entrantes de las seis universidades públicas madrileñas en 2022–2023. Incluye grado, máster y doctorado, por lo que se muestra solo como contexto institucional; no equivale a movilidad saliente, Erasmus ni a una oportunidad de una carrera concreta. Fuente: `Entrada_Univ.px` del SIIU.
 
 ## Geografía
 
