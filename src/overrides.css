@@ -41,3 +41,11 @@
 .territory-search-controls { display: grid; grid-template-columns: minmax(130px, 0.35fr) minmax(180px, 1fr) auto; gap: 10px; }
 .territory-search-controls select { border: 1px solid rgba(12, 53, 56, .24); background: #f7f5ef; color: #0c3538; padding: 12px 14px; font: inherit; }
 @media (max-width: 640px) { .territory-search-controls { grid-template-columns: 1fr; } }
+.metric-strip { margin: 22px 0 38px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); }
+.metric-strip-card { padding: 18px 20px 16px 0; border-right: 1px solid var(--line); margin-right: 20px; }
+.metric-strip-card:last-of-type { border-right: 0; }
+.metric-strip-card strong { display: block; margin: 8px 0 4px; font: 500 clamp(1.35rem, 2.4vw, 2.15rem) 'DM Mono', monospace; color: var(--ink); }
+.metric-strip-card small { color: var(--muted); font-size: .72rem; }
+.metric-strip > p { grid-column: 1 / -1; margin: 0; padding: 10px 0; color: var(--muted); font-size: .72rem; }
+@media (max-width: 760px) { .metric-strip { grid-template-columns: repeat(2, 1fr); } .metric-strip-card:nth-of-type(2) { border-right: 0; } }
+@media (max-width: 480px) { .metric-strip { grid-template-columns: 1fr; } .metric-strip-card { border-right: 0; margin-right: 0; } }
