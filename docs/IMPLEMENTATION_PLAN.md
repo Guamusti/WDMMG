@@ -1,0 +1,192 @@
+# Plan maestro de implementación
+
+Este plan convierte el documento de requisitos `Prompt para Codex — Dinero Público España.md` en trabajo verificable. Se actualizará después de cada avance y es la referencia operativa del proyecto.
+
+Estados: `[x]` completado, `[~]` parcial/en curso, `[ ]` pendiente.
+
+## Fase 0 — Alcance, inspección y definición del MVP
+
+Referencia MD: secciones 0, 1, 2, 3, 49, 61, 62 y 63.
+
+- [x] Inspeccionar el repositorio y confirmar stack inicial.
+- [x] Elegir AGE como administración piloto.
+- [x] Separar presupuesto, ejecución, contratos y subvenciones.
+- [x] Definir que no se presentan cifras hasta tener ingesta validada.
+- [x] Definir criterio de éxito vertical: administración → empresa → contrato → fuente.
+- [ ] Revisar con datos reales que el alcance piloto cubre el criterio de éxito.
+
+## Fase 1 — Fuentes oficiales y cobertura
+
+Referencia MD: secciones 11, 12, 13, 14, 35, 42, 55 y 62.B–D.
+
+- [x] Documentar Hacienda/IGAE, PLACSP, BDNS, INE e inventarios públicos.
+- [x] Registrar URL, formato, cobertura, frecuencia, campos y limitaciones conocidas.
+- [ ] Descargar una muestra real de cada fuente prioritaria.
+- [ ] Guardar muestras/fixtures con fecha, hash y licencia.
+- [ ] Verificar campos reales contra XSD, XLS o documentación vigente.
+- [ ] Completar matriz de cobertura efectiva por año y administración.
+
+Entregable: `docs/DATA_SOURCES.md`.
+
+## Fase 2 — Modelo de datos y trazabilidad
+
+Referencia MD: secciones 4, 5, 6, 8, 9, 10, 12, 13, 15, 16, 40, 41 y 43.
+
+- [x] Diseñar entidades públicas, receptores, geografía, fuentes e ingestas.
+- [x] Diseñar `budget_records` multidimensional, sin columnas por ministerio/año.
+- [x] Separar `budget_execution` de la dotación presupuestaria.
+- [x] Separar contratos, lotes, adjudicaciones y eventos/versiones.
+- [x] Separar convocatorias y concesiones BDNS.
+- [x] Añadir provenance y `raw_payload`/hash cuando proceda.
+- [x] Crear migración inicial PostgreSQL.
+- [x] Crear seed de fuentes oficiales.
+- [ ] Añadir constraints/validaciones específicas por fuente.
+- [ ] Añadir índices y vistas materializadas para agregaciones.
+
+Entregables: `db/001_initial_schema.sql`, `db/002_seed_sources.sql`, `docs/DATA_MODEL.md`.
+
+## Fase 3 — ETL reproducible y calidad de datos
+
+Referencia MD: secciones 6, 7, 10, 13, 34, 40, 41, 43, 44 y 55.
+
+- [x] Crear estructura `etl/shared`, `etl/placsp` y `etl/bdns`.
+- [x] Implementar descarga raw con reintentos, timestamp y SHA-256.
+- [x] Implementar registro `ingestion_run_id` en salidas normalizadas.
+- [x] Implementar parser inicial de entradas ATOM/XML PLACSP.
+- [x] Conservar XML BDNS sin fingir un mapeo cuando falta el servicio/XSD concreto.
+- [ ] Añadir parser completo CODICE para licitaciones, lotes, adjudicaciones y eventos.
+- [ ] Añadir cliente BDNS20 por servicio, paginación, throttling y cache.
+- [ ] Implementar normalización NIF/CIF, nombres, fechas, euros y códigos.
+- [ ] Implementar flags de calidad: duplicados, fechas, IDs, importes y ejercicios.
+- [ ] Añadir tests unitarios con fixtures reales.
+
+Entregables: `etl/`, `requirements.txt`, `docs/ETL.md`.
+
+## Fase 4 — Importación real de contratación y subvenciones
+
+Referencia MD: secciones 6, 7, 10, 13, 18, 26, 27, 28, 29, 33, 46, 47, 57, 58 y 62.G.
+
+- [ ] Configurar una sindicacion/feed PLACSP oficial.
+- [ ] Importar una muestra real y auditar el conteo raw/parseado/normalizado.
+- [ ] Resolver contratos ordinarios, menores y actualizaciones sin duplicar.
+- [ ] Importar lotes y adjudicaciones con adjudicatarios canónicos.
+- [ ] Configurar el servicio BDNS oficial de convocatorias.
+- [ ] Configurar el servicio BDNS oficial de concesiones.
+- [ ] Importar muestras reales con URLs de origen.
+- [ ] Verificar que ningún contrato/subvención se presenta como pago presupuestario.
+- [ ] Publicar estado y fecha de actualización de cada dataset.
+
+## Fase 5 — Presupuesto y ejecución AGE piloto
+
+Referencia MD: secciones 4, 5, 11, 16, 17, 20, 23, 30, 31, 32, 33, 36, 42, 56, 58, 59 y 62.H–I.
+
+- [ ] Seleccionar XLS estructurado de presupuesto y ejecución AGE.
+- [ ] Descargar muestra mensual y documentar estructura real.
+- [ ] Parsear clasificación orgánica, económica y funcional/programas.
+- [ ] Importar crédito inicial, modificaciones, definitivo, comprometido, obligaciones y pagos.
+- [ ] Conservar periodo, estado provisional/avance/definitivo y versión.
+- [ ] Modelar presupuestos prorrogados y `budget_origin_year`.
+- [ ] Modelar cambios de nombre/jerarquía administrativa con IDs estables.
+- [ ] Validar relaciones contables sin eliminar anomalías.
+- [ ] Calcular ejecución y pago únicamente con denominadores válidos.
+- [ ] Publicar cobertura efectiva AGE.
+
+## Fase 6 — API, búsqueda y agregaciones
+
+Referencia MD: secciones 17, 18, 19, 22, 23, 24, 26, 27, 28, 29, 30, 32, 33, 34, 39, 46 y 47.
+
+- [x] Crear scaffold local de `/api/health`, `/api/overview`, `/api/contracts` y `/api/search`.
+- [ ] Conectar API a PostgreSQL.
+- [ ] Implementar endpoints de presupuestos, entidades, programas, empresas, contratos, subvenciones y geografía.
+- [ ] Implementar filtros server-side y paginación.
+- [ ] Implementar buscador global multi-entidad.
+- [ ] Implementar agregaciones separadas por magnitud.
+- [ ] Implementar exportación CSV de la consulta exacta.
+- [ ] Persistir filtros importantes en query params.
+- [ ] Añadir cache/preagregaciones sin enviar datasets completos al navegador.
+
+## Fase 7 — UI MVP conectada a datos reales
+
+Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
+
+- [x] Crear portada editorial, selector de año, búsqueda y navegación base.
+- [x] Crear treemap interactivo de validación visual.
+- [x] Crear tabla de contratos y vista metodológica.
+- [ ] Conectar overview a agregaciones reales.
+- [ ] Construir vista de administración AGE.
+- [ ] Construir vista de empresa con contratos y subvenciones.
+- [ ] Construir vista de contrato con lotes, eventos y fuente oficial.
+- [ ] Construir vista de subvención con convocatoria/concesiones.
+- [ ] Añadir presupuesto → ejecución con definiciones y estados.
+- [ ] Añadir tooltips de conceptos técnicos.
+- [ ] Añadir estados loading/error/empty/success.
+- [ ] Revisar responsive, accesibilidad y rendimiento.
+
+## Fase 8 — Ampliación territorial y entidades
+
+Referencia MD: secciones 9, 11, 12, 24, 25, 32, 35, 50 y 51.
+
+- [ ] Incorporar presupuestos y ejecución de CCAA.
+- [ ] Incorporar presupuestos, ejecución y liquidación local.
+- [ ] Incorporar inventario de entidades públicas y jerarquías.
+- [ ] Incorporar geografía, códigos territoriales y población INE.
+- [ ] Añadir CCAA, provincias y municipios a filtros y páginas.
+- [ ] Añadir mapa España → CCAA → provincia → municipio.
+- [ ] Calcular gasto por habitante solo con población y periodo compatibles.
+- [ ] Medir cobertura real: completa, parcial, no disponible, en procesamiento.
+
+## Fase 9 — Históricos, comparador y exploración avanzada
+
+Referencia MD: secciones 21, 22, 24, 25, 30, 31, 32, 33, 35, 46, 47 y 57.
+
+- [ ] Añadir series históricas y evolución durante el ejercicio.
+- [ ] Añadir comparador de administraciones/territorios.
+- [ ] Añadir nominal €/habitante y documentar cualquier € constante.
+- [ ] Añadir explorador jerárquico de partidas y descarga CSV.
+- [ ] Añadir indicadores descriptivos: concentración, ofertas, menores y ejecución.
+- [ ] Permitir abrir el dataset subyacente desde cada indicador.
+- [ ] Añadir URLs compartibles y SEO para exploraciones importantes.
+
+## Fase 10 — Consolidación, relaciones y escala
+
+Referencia MD: secciones 8, 10, 27, 34, 39, 48, 50, 51, 52, 53, 58 y 59.
+
+- [ ] Modelar transferencias internas/externas y consolidación oficial.
+- [ ] Evitar doble conteo entre Estado, CCAA y entidades receptoras.
+- [ ] Implementar aliases, candidatos de merge y revisión humana.
+- [ ] Implementar red administración ↔ empresa con agregación/progressive loading.
+- [ ] Implementar “Sigue el dinero” solo con relaciones verificables.
+- [ ] Añadir índices, particionado, vistas materializadas y jobs incrementales.
+- [ ] Preparar object storage para raw y reprocesado.
+- [ ] Expandir de AGE a 17 CCAA y después a 8.000+ municipios.
+
+## Fase 11 — QA, transparencia y operación
+
+Referencia MD: secciones 34, 35, 36, 37, 38, 39, 41, 42, 44, 45, 54, 55, 56, 60, 61 y 63.
+
+- [ ] Tests de parsers con fixtures oficiales.
+- [ ] Tests de normalización y validaciones contables.
+- [ ] Tests de API y permisos de descarga.
+- [ ] Tests end-to-end frontend → API → datos → fuente.
+- [ ] Página pública de cobertura y actualización.
+- [ ] Página de metodología completa y glosario.
+- [ ] Monitorización de fallos, cambios de esquema y retrasos de fuentes.
+- [ ] Jobs según frecuencia real comprobada, no asumida.
+- [ ] Revisión de accesibilidad, seguridad, privacidad y licencias.
+- [ ] Deploy reproducible y guía de mantenimiento.
+- [ ] Evaluación final contra el criterio de éxito del MVP.
+
+## Estado global actual
+
+**Fase 3 — ETL reproducible y calidad de datos, en curso.**
+
+La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la interfaz inicial existen. El cuello de botella pendiente es importar muestras oficiales reales y validar sus esquemas; hasta entonces la UI no debe presentar cifras económicas como si fueran datos del producto.
+
+## Registro de avances
+
+| Fecha | Avance | Commit |
+|---|---|---|
+| 27/08/2026 | Bootstrap UI, documentación inicial, modelo SQL y ETL base | `0e8f5ae` |
+| 27/08/2026 | Limpieza de caches Python | `de34dfe` |
+| 27/08/2026 | API local y arranque frontend/API | `181ffea` |
+| 27/08/2026 | `iniciar.bat` sincroniza GitHub antes de arrancar | `6de774e` |
