@@ -5,6 +5,7 @@ import hashlib
 import re
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from zipfile import ZipFile
 
@@ -81,6 +82,36 @@ def numeric(value: str | None) -> str | None:
     return value
 
 
+def quality_flags(final_credit: str | None, committed: str | None, recognized: str | None, paid: str | None) -> list[str]:
+    values = [("committed_exceeds_final", committed, final_credit), ("recognized_exceeds_committed", recognized, committed), ("paid_exceeds_recognized", paid, recognized)]
+    flags = []
+    for flag, child, parent in values:
+        if child is not None and parent is not None and child != "-" and parent != "-":
+            try:
+                if Decimal(child) > Decimal(parent):
+                    flags.append(flag)
+            except InvalidOperation:
+                flags.append("unparseable_amount")
+    return flags
+
+
+def workbook_period(root: ET.Element, strings: list[str]) -> tuple[int, str]:
+    # La fecha y el ejercicio aparecen en las primeras filas de cabecera.
+    header_values = []
+    for row in root.findall(".//m:row", NS):
+        if int(row.attrib.get("r", "0")) > 3:
+            continue
+        for cell in row.findall("m:c", NS):
+            value = cell_value(cell, strings)
+            if value:
+                header_values.append(value)
+    text = " ".join(header_values).upper()
+    months = {"ENERO": "01", "FEBRERO": "02", "MARZO": "03", "ABRIL": "04", "MAYO": "05", "JUNIO": "06", "JULIO": "07", "AGOSTO": "08", "SEPTIEMBRE": "09", "OCTUBRE": "10", "NOVIEMBRE": "11", "DICIEMBRE": "12"}
+    month = next((number for name, number in months.items() if name in text), "00")
+    year = next((int(value) for value in re.findall(r"\b20\d{2}\b", text) if 2000 <= int(value) <= 2100), 0)
+    return year, f"{year}-{month}" if year and month != "00" else "unknown"
+
+
 def parse_execution_workbook(path: Path, source_url: str, run_id: str) -> list[dict]:
     """Map the AGE execution sheets without collapsing accounting concepts."""
     levels = {"GTOS 001": "section", "GTOS 004": "chapter", "GTOS 002": "investment_section"}
@@ -91,14 +122,15 @@ def parse_execution_workbook(path: Path, source_url: str, run_id: str) -> list[d
             if sheet_name not in levels:
                 continue
             root = ET.fromstring(archive.read(sheet_path))
+            fiscal_year, period = workbook_period(root, strings)
             for row in root.findall(".//m:row", NS):
                 values = {cell.attrib["r"]: cell_value(cell, strings) for cell in row.findall("m:c", NS)}
                 label = values.get(f"A{row.attrib.get('r')}")
                 if not label or row.attrib.get("r", "0") in {"1", "2", "3"}:
                     continue
                 result.append({
-                    "fiscal_year": 2026,
-                    "period": "2026-05",
+                    "fiscal_year": fiscal_year,
+                    "period": period,
                     "classification_level": levels[sheet_name],
                     "classification_label": label.strip(),
                     "final_credit": numeric(values.get(f"B{row.attrib.get('r')}")),
@@ -112,7 +144,9 @@ def parse_execution_workbook(path: Path, source_url: str, run_id: str) -> list[d
                     "retrieved_at": datetime.now(timezone.utc).isoformat(),
                     "ingestion_run_id": run_id,
                     "raw_workbook_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-                    "quality_flags": (["missing_final_credit"] if numeric(values.get(f"B{row.attrib.get('r')}")) is None else []),
+                    "quality_flags": (["missing_final_credit"] if numeric(values.get(f"B{row.attrib.get('r')}")) is None else []) + quality_flags(
+                        numeric(values.get(f"B{row.attrib.get('r')}")), numeric(values.get(f"C{row.attrib.get('r')}")), numeric(values.get(f"D{row.attrib.get('r')}")), numeric(values.get(f"E{row.attrib.get('r')}"))
+                    ),
                 })
     return result
 
