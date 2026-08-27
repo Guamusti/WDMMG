@@ -25,6 +25,7 @@ BRANCHES = (
     "Ciencias de la Salud",
     "Ciencias",
 )
+DEGREE_NOISE = re.compile(r"^(?:www\.|info@|tel\.?\s*:|c/\s|avda\.?\s|paseo\s|centro\s|ces\s|eu\s|de la\s|«)", re.IGNORECASE)
 UNIVERSITY_BY_PAGE = {
     2: 'Universidad de Alcalá', 3: 'Universidad Carlos III de Madrid',
     4: 'Universidad Autónoma de Madrid', 5: 'Universidad Politécnica de Madrid',
@@ -93,7 +94,7 @@ def parse():
                     # A number in the title means the PDF column extractor has
                     # leaked an address, centre marker or another table cell.
                     # Real degree names are kept only when they are text-only.
-                    if degree_name.lower() in {"titulaciones oficiales", "titulación"} or re.search(r"\d", degree_name):
+                    if degree_name.lower() in {"titulaciones oficiales", "titulación"} or re.search(r"\d", degree_name) or DEGREE_NOISE.search(degree_name):
                         continue
                     records.append({
                         "academic_year": "2025-2026",

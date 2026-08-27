@@ -31,7 +31,7 @@ Objetivo: cubrir las seis universidades públicas de Madrid y sus titulaciones o
 - [x] Color del mapa explicado: cada color identifica una universidad, con leyenda y tooltip.
 - [x] Descargar y conservar el PDF oficial en `data/raw/`.
 - [x] Crear parser reproducible para la publicación regional (`etl/admissions/madrid/`).
-- [x] Extraer 467 filas públicas limpias con universidad, página y fila fuente; descartar filas contaminadas por el layout y validar con informe de calidad.
+- [x] Extraer 459 filas públicas limpias con universidad, página y fila fuente; descartar filas contaminadas por el layout y validar con informe de calidad.
 - [ ] Completar el catálogo de grados y dobles grados de las seis universidades.
 - [x] Incorporar códigos oficiales de universidad y créditos/cursos presentes en la fuente regional; títulos y centros RUCT siguen pendientes de matching individual.
 - [x] Añadir una ficha de detalle trazable para una oferta.
