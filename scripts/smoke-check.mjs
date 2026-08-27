@@ -5,6 +5,7 @@ const { port: apiPort } = JSON.parse((await readFile('public/api-port.json', 'ut
 const expectedMadrid = JSON.parse(await readFile('data/processed/admissions/madrid-2025-2026.json', 'utf8')).length;
 const expectedAndalucia = JSON.parse(await readFile('data/processed/admissions/andalucia-2025-2026.json', 'utf8')).length;
 const expectedCastillaLeon = JSON.parse(await readFile('data/processed/admissions/castilla-leon-2025-2026.json', 'utf8')).length;
+const expectedSalamanca = JSON.parse(await readFile('data/processed/admissions/salamanca-2025-2026.json', 'utf8')).length;
 const frontend = `http://127.0.0.1:${frontendPort}`;
 const api = `http://127.0.0.1:${apiPort}`;
 
@@ -35,7 +36,9 @@ if (!national.total || !national.data[0]?.admissionRound || !national.data[0]?.a
 const andalucia = await (await expectOk(`${api}/api/national-offers?community=Andaluc%C3%ADa&limit=1`, 'Andalucía offers')).json();
 if (andalucia.total !== expectedAndalucia || !andalucia.data[0]?.branch || !andalucia.data[0]?.center) throw new Error('Andalucía offers: branch/center contract missing');
 const castillaLeon = await (await expectOk(`${api}/api/national-offers?community=Castilla%20y%20Le%C3%B3n&limit=1`, 'Castilla y León offers')).json();
-if (castillaLeon.total !== expectedCastillaLeon || !castillaLeon.data[0]?.cutoff) throw new Error('Castilla y León offers: source contract missing');
+if (castillaLeon.total !== expectedCastillaLeon + expectedSalamanca || !castillaLeon.data[0]?.cutoff) throw new Error('Castilla y León offers: source contract missing');
+const salamanca = await (await expectOk(`${api}/api/national-offers?community=Castilla%20y%20Le%C3%B3n&university=Universidad%20de%20Salamanca&limit=1`, 'Salamanca offers')).json();
+if (salamanca.total !== expectedSalamanca || !salamanca.data[0]?.cutoff) throw new Error('Salamanca offers: source contract missing');
 
 const etag = nationalResponse.headers.get('etag');
 if (!etag || !nationalResponse.headers.get('cache-control')) throw new Error('National offers: HTTP cache headers missing');

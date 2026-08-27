@@ -1,0 +1,16 @@
+{
+  "source_url": "https://comunicacion.usal.es/sites/comunicacion.usal.es/files/180725_2___Listado_Notas_de_corte_2025_2026..pdf",
+  "academic_year": "2025-2026",
+  "list": "second ordinary list",
+  "records": 73,
+  "rejected_rows": 0,
+  "duplicates": 0,
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "no_replacement_glyph_in_names": true,
+    "ordinary_round_explicit": true,
+    "general_group_explicit": true,
+    "no_duplicate_keys": true
+  },
+  "rejections": []
+}
