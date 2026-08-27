@@ -8,6 +8,7 @@
     "api": "node --watch api/server.mjs",
     "build": "vite build",
     "smoke": "node scripts/smoke-check.mjs",
+    "audit:accessibility": "node scripts/accessibility-contract.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
