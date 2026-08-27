@@ -95,6 +95,7 @@ Criterio de terminado: el filtro España permite comparar solo ofertas metodoló
 - [x] Añadir número de estudiantes de nuevo ingreso por universidad (2022–2023), con fuente y granularidad agregada visibles.
 - [x] Añadir primer extracto reproducible de matriculados en grados presenciales por universidad (curso 2023–2024), separado de nuevo ingreso y de la oferta.
 - [x] Añadir primer extracto reproducible de egresados en grados presenciales por universidad (curso 2023–2024), separado de la tasa de graduación.
+- [x] Auditar la granularidad SIIU disponible: rendimiento y abandono por universidad/ámbito se mantienen como contexto, porque este corte no ofrece código de titulación para atribución individual.
 - [ ] Cargar los valores por ámbito/titulación y comparar oferta, universidad, rama y España sin mezclar granularidades.
 
 Criterio de terminado: cada métrica académica tiene tooltip de definición, curso y cobertura.
