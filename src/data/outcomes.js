@@ -1,4 +1,5 @@
 const SIIU = 'https://estadisticas.universidades.gob.es/jaxiPx/Datos.htm';
+import informaticaEmployment from '../../data/processed/outcomes/informatica-2017-2018.json';
 
 export const outcomeSources = {
   performance: `${SIIU}?file=Rendimiento_Exito_Eval_Grado_Univ.px&path=%2FUniversitaria%2FIndicadores%2F2024%2F1_Grado%2Fl0%2F`,
@@ -22,17 +23,7 @@ export const universityOutcomeMetrics = {
 // de una titulación: QEDU/SIIU puede ofrecer el ámbito cuando falta el cruce
 // específico. La base de cotización no equivale a salario neto, medio o mediano.
 export const employmentByField = {
-  informatica: {
-    label: 'Informática',
-    affiliation4: 89.77,
-    indefinite4: 92.50,
-    universityGroup4: 69.40,
-    contributionBase4: 36772,
-    cohort: '2017–2018 · cuatro años después',
-    granularity: 'Ámbito de estudio · España',
-    source: 'Fundación CYD · datos SIIU',
-    sourceUrl: 'https://www.fundacioncyd.org/el-ranking-cyd-orienta-sobre-la-insercion-laboral-de-los-estudios-universitarios-y-el-precio-medio-del-credito-de-las-titulaciones/'
-  }
+  informatica: { label: informaticaEmployment.field, ...informaticaEmployment.metrics, cohort: informaticaEmployment.cohort, granularity: informaticaEmployment.granularity, source: informaticaEmployment.source, sourceUrl: informaticaEmployment.sourceUrl, officialDatasetUrl: informaticaEmployment.officialDatasetUrl, limitations: informaticaEmployment.limitations }
 };
 
 export function employmentForOffer(offer) {

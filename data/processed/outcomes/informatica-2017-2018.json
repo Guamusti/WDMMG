@@ -1,0 +1,16 @@
+{
+  "field": "Informática",
+  "slug": "informatica",
+  "cohort": "2017–2018 · cuatro años después",
+  "granularity": "Ámbito de estudio · España",
+  "metrics": {
+    "affiliation4": 89.77,
+    "indefinite4": 92.5,
+    "universityGroup4": 69.4,
+    "contributionBase4": 36772
+  },
+  "source": "Fundación CYD · datos SIIU",
+  "sourceUrl": "https://www.fundacioncyd.org/el-ranking-cyd-orienta-sobre-la-insercion-laboral-de-los-estudios-universitarios-y-el-precio-medio-del-credito-de-las-titulaciones/",
+  "officialDatasetUrl": "https://estadisticas.universidades.gob.es/jaxiPx/Tabla.htm?L=0&file=Base_cotizacion_Sexo_Campo_Grado_Total.px&path=%2FUniversitaria%2FInsercion_laboral%2F2024%2FGRADO%2FCAP6_BMC%2F%2Fl0%2F&type=pcaxis",
+  "limitations": "Referencia agregada de ámbito; no es un dato de una titulación concreta ni equivale a salario medio o mediano."
+}
