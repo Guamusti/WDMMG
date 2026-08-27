@@ -175,7 +175,7 @@ Referencia MD: secciones 8, 10, 27, 34, 39, 48, 50, 51, 52, 53, 58 y 59.
 - [ ] Implementar aliases, candidatos de merge y revisión humana.
 - [~] Implementar red administración ↔ empresa con agregación/progressive loading; recorrido verificado visible en fichas de contrato.
 - [~] Implementar “Sigue el dinero” solo con relaciones verificables; órgano → expediente → adjudicatario activo en PLACSP.
-- [ ] Añadir índices, particionado, vistas materializadas y jobs incrementales.
+- [~] Añadir índices, particionado, vistas materializadas y jobs incrementales; índices y vistas analíticas base creados, particionado/materialización/jobs incrementales pendientes de escala y frecuencia validadas.
 - [ ] Preparar object storage para raw y reprocesado.
 - [ ] Expandir de AGE a 17 CCAA y después a 8.000+ municipios.
 
@@ -346,5 +346,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Inventario de organismos exportable a CSV, con filtros de búsqueda y las mismas métricas que la vista web | `en curso` |
 | 27/08/2026 | Informe `/api/companies/merge-candidates` para posibles coincidencias de nombres; solo propone candidatos y exige revisión humana | `en curso` |
 | 27/08/2026 | Manifiesto `docs/OFFICIAL_SAMPLES.md` con cuatro muestras raw oficiales, tamaño, SHA-256, fecha, fuente y alcance de las fixtures | `en curso` |
+| 27/08/2026 | Vistas analíticas PostgreSQL `db/004_analytics_views.sql` para cadena presupuestaria y totales de organismos/receptores, sin mezclar pagos y adjudicaciones | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |

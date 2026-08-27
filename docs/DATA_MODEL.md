@@ -23,3 +23,5 @@ Toda entidad importada debe poder volver a su registro de origen mediante `sourc
 ## Próximo paso técnico
 
 Las consultas públicas principales tienen índices incrementales en `db/003_performance_indexes.sql`: organismos por nombre/jerarquía, relaciones organismo-contrato-empresa, convocatorias/concesiones y búsquedas presupuestarias. La migración es idempotente; no sustituye futuras vistas materializadas cuando aumente la cobertura.
+
+`db/004_analytics_views.sql` añade vistas analíticas no materializadas para la cadena presupuestaria y los totales de organismos y receptores. Se actualizan automáticamente con cada carga y mantienen contratos/adjudicaciones separados de ejecución/pagos.
