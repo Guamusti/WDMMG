@@ -786,9 +786,18 @@ const server = createServer(async (req, res) => {
         try { return csv(res, 'contratos-placsp.csv', await databaseContracts(query, 1, 10000, singleBidder, procedureType, contractType)); }
         catch (error) { const rows = getContracts().map(contractListRow).filter(row => (!query || JSON.stringify(row).toLocaleLowerCase('es').includes(query.toLocaleLowerCase('es'))) && (!singleBidder || Number(row.number_of_tenders) === 1) && (!procedureType || String(row.procedure_type || '') === procedureType) && (!contractType || String(row.contract_type || '') === contractType)); return csv(res, 'contratos-placsp.csv', rows); }
       }
-      if (entity === 'grants') return csv(res, 'convocatorias-bdns.csv', await databaseGrants(query, 1, 10000));
-      if (entity === 'companies') return csv(res, 'empresas-adjudicatarias-placsp.csv', await databaseCompanies(query, 10000));
-      if (entity === 'entities') return csv(res, 'organismos-contratantes-placsp.csv', await databaseEntities(query, 10000));
+      if (entity === 'grants') {
+        try { return csv(res, 'convocatorias-bdns.csv', await databaseGrants(query, 1, 10000)); }
+        catch (error) { const needle = query.toLocaleLowerCase('es'); const rows = getGrants().filter(row => !needle || JSON.stringify(row).toLocaleLowerCase('es').includes(needle)).map(row => ({ bdns_code: row.bdns_code || row.source_record_id, title: row.title, registration_date: row.registration_date, publication_date: row.publication_date, budget: row.amount ?? row.budget ?? null, purpose: row.purpose, source_url: row.source_url, granting_entity: row.granting_body || row.granting_entity || null })); return csv(res, 'convocatorias-bdns.csv', rows); }
+      }
+      if (entity === 'companies') {
+        try { return csv(res, 'empresas-adjudicatarias-placsp.csv', await databaseCompanies(query, 10000)); }
+        catch (error) { return csv(res, 'empresas-adjudicatarias-placsp.csv', companiesFromJsonl(query, 10000)); }
+      }
+      if (entity === 'entities') {
+        try { return csv(res, 'organismos-contratantes-placsp.csv', await databaseEntities(query, 10000)); }
+        catch (error) { return csv(res, 'organismos-contratantes-placsp.csv', entitiesFromJsonl(query, 10000)); }
+      }
       if (entity === 'budgets') {
         const search = `%${query}%`;
         try {
