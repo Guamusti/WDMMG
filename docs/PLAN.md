@@ -68,6 +68,7 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [x] Primer ingestor regional adicional reproducible (Galicia), conservando ronda y grupo; ampliar a tres comunidades y completar la cobertura nacional.
 - [x] Segundo ingestor regional reproducible (Aragón), con provincia, convocatoria y cupo general conservados; faltan el modelo común de cupos y la integración nacional.
 - [x] Catálogo nacional de trabajo reproducible con los extractos de Madrid, Galicia y Aragón, informe de comparabilidad y procedencia regional.
+- [x] Tercer ingestor regional adicional (Cataluña), con primera asignación, código de estudio, centro/población y cupo PAU/CFGS conservados.
 - [ ] Separación de grupo, convocatoria, ronda inicial y nota final.
 - [ ] Percentiles nacionales, regionales, por rama y por ámbito.
 - [x] Percentil nacional global sobre las observaciones cargadas en `/espana`; faltan percentiles regionales, por rama y por ámbito.

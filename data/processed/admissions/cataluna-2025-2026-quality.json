@@ -1,0 +1,45 @@
+{
+  "source_url": "https://universitats.gencat.cat/web/.content/02_preinscripcio/enllac-documents/notes-de-tall/Notes-tall-1a-assignacio_juny_2025_v3.pdf",
+  "academic_year": "2025-2026",
+  "records": 549,
+  "rejected_rows": 5,
+  "duplicates": 0,
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "no_replacement_glyph_in_names": true,
+    "assignment_explicit": true,
+    "no_duplicate_keys": true
+  },
+  "rejections": [
+    {
+      "page": 4,
+      "code": "61075",
+      "reason": "TITLE_OR_CITY_UNRESOLVED",
+      "raw": "Automàtica / Enginyeria Mecànica (agrupació) Grau en + Màster Universitari en UdL 9,978 5,000 5,000 5,000 Enginyeria Industrial (PARS: Enginyer/a Industrial) (Lleida)"
+    },
+    {
+      "page": 4,
+      "code": "31015",
+      "reason": "TITLE_OR_CITY_UNRESOLVED",
+      "raw": "Electrònica Industrial i Automàtica / Enginyeria Mecànica / Enginyeria Química UPC 9,085 5,000 5,000 5,000 (agrupació) (Terrassa) Enginyeria de Tecnologies i Serveis de Telecomunicació (especialitats en"
+    },
+    {
+      "page": 4,
+      "code": "31086",
+      "reason": "TITLE_OR_CITY_UNRESOLVED",
+      "raw": "Telecomunicació, Audiovisuals i Telemàtica, que inclou xarxes i internet) UPC 8,876 5,000 5,000 5,000 (Barcelona) Enginyeria de Tecnologies i Serveis de Telecomunicació (Telecomunicació,"
+    },
+    {
+      "page": 5,
+      "code": "41066",
+      "reason": "TITLE_OR_CITY_UNRESOLVED",
+      "raw": "equivalent que NO pertanyin a sistemes educatius de la Unió Europea ni d'altres UPF 5,000 estats amb acords de reciprocitats) (Barcelona)"
+    },
+    {
+      "page": 8,
+      "code": "91915",
+      "reason": "TITLE_OR_CITY_UNRESOLVED",
+      "raw": "Enginyeria Industrial (PARS: Enginyer/a Industrial i Anàlisi Econòmica) (docència UPC / UPF 12,540 5,000 5,000 5,000 en Anglès) (Barcelona)"
+    }
+  ]
+}
