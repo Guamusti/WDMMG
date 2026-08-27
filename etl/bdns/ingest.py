@@ -19,10 +19,15 @@ def main() -> None:
     run_id = datetime.now(timezone.utc).strftime("bdns-%Y%m%dT%H%M%SZ")
     raw_path = Path(args.raw_dir) / f"{run_id}.payload"
     metadata = download(args.url, raw_path)
-    payload = raw_path.read_bytes()
+    raw_payload = raw_path.read_bytes()
     try:
-        decoded = json.loads(payload.decode("utf-8"))
-        items = decoded.get("content", decoded if isinstance(decoded, list) else [decoded])
+        decoded = json.loads(raw_payload.decode("utf-8"))
+        if isinstance(decoded, list):
+            items = decoded
+        elif isinstance(decoded, dict) and "content" in decoded:
+            items = decoded["content"]
+        else:
+            items = [decoded]
     except (UnicodeDecodeError, json.JSONDecodeError):
         # BDNS20 publica contratos XML/WSDL; conservamos el payload intacto hasta
         # seleccionar el servicio concreto y su XSD en la configuración.
@@ -32,15 +37,20 @@ def main() -> None:
     for index, item in enumerate(items):
         if not isinstance(item, dict):
             continue
-        source_record_id = str(item.get("id") or item.get("bdnsCode") or index)
+        convocatoria = item.get("convocatoria", item)
+        source_record_id = str(convocatoria.get("codigo-BDNS") or item.get("id") or item.get("bdnsCode") or index)
         records.append({
-            "bdns_code": item.get("bdnsCode") or item.get("codigoBDNS"),
-            "title": item.get("title") or item.get("denominacion"),
+            "bdns_code": convocatoria.get("codigo-BDNS") or convocatoria.get("bdnsCode") or convocatoria.get("codigoBDNS"),
+            "title": convocatoria.get("titulo") or convocatoria.get("title") or convocatoria.get("denominacion"),
+            "granting_body": convocatoria.get("desc-organo"),
+            "registration_date": convocatoria.get("fecha-registro"),
+            "purpose": (convocatoria.get("finalidad") or {}).get("descripcion") if isinstance(convocatoria.get("finalidad"), dict) else None,
+            "region": convocatoria.get("region"),
+            "source_url": convocatoria.get("permalink-convocatoria") or args.url,
             "source_record_id": source_record_id,
-            "source_url": args.url,
             "retrieved_at": metadata["retrieved_at"],
             "ingestion_run_id": run_id,
-            "raw_payload_sha256": hashlib.sha256(payload).hexdigest(),
+            "raw_payload_sha256": hashlib.sha256(raw_payload).hexdigest(),
             "raw_record": item,
         })
     write_jsonl(records, Path(args.out))
