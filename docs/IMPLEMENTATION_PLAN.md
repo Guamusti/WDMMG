@@ -94,7 +94,7 @@ Referencia MD: secciones 4, 5, 11, 16, 17, 20, 23, 30, 31, 32, 33, 36, 42, 56, 5
 - [x] Verificar carga repetida sin duplicados: 91 `budget_records` y 91 `budget_execution`.
 - [ ] Parsear clasificación orgánica, económica y funcional/programas.
 - [~] Importar crédito inicial, modificaciones, definitivo, comprometido, obligaciones y pagos; ejecución AGE cargada, crédito inicial/modificaciones detallados pendientes.
-- [ ] Conservar periodo, estado provisional/avance/definitivo y versión.
+- [~] Conservar periodo, estado provisional/avance/definitivo y versión; las filas IGAE ya conservan periodo, estado y versión derivada del hash, faltan versiones históricas completas y estados definitivos de todos los ejercicios.
 - [ ] Modelar presupuestos prorrogados y `budget_origin_year`.
 - [ ] Modelar cambios de nombre/jerarquía administrativa con IDs estables.
 - [ ] Validar relaciones contables sin eliminar anomalías.
@@ -348,6 +348,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Manifiesto `docs/OFFICIAL_SAMPLES.md` con cuatro muestras raw oficiales, tamaño, SHA-256, fecha, fuente y alcance de las fixtures | `en curso` |
 | 27/08/2026 | Vistas analíticas PostgreSQL `db/004_analytics_views.sql` para cadena presupuestaria y totales de organismos/receptores, sin mezclar pagos y adjudicaciones | `en curso` |
 | 27/08/2026 | Runner de actualización con run global, estado por loader, motivo de skip, timestamps y duración; dry-run y ejecución real quedan auditables | `en curso` |
+| 27/08/2026 | Extractor IGAE conserva `period_state` y `dataset_version` derivada del SHA-256 del workbook; test con muestra real | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |

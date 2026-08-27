@@ -139,6 +139,8 @@ def parse_execution_workbook(path: Path, source_url: str, run_id: str) -> list[d
                     "paid_amount": numeric(values.get(f"E{row.attrib.get('r')}")),
                     "unit": "miles de euros",
                     "data_status": "provisional",
+                    "period_state": "provisional",
+                    "dataset_version": f"igae-{fiscal_year}-{period}-{hashlib.sha256(path.read_bytes()).hexdigest()[:12]}",
                     "source_url": source_url,
                     "source_record_id": f"{sheet_name}:{row.attrib.get('r')}",
                     "retrieved_at": datetime.now(timezone.utc).isoformat(),

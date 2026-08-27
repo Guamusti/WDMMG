@@ -36,6 +36,8 @@ Los registros PLACSP incluyen `quality_flags` por contrato y adjudicación para 
 
 Cuando hay un NIF/CIF completo se valida su formato y control; los identificadores anonimizados no se califican como inválidos porque no permiten una comprobación honesta.
 
+Cada fila de ejecución IGAE conserva `fiscal_year`, `period`, `data_status`, `period_state` y una `dataset_version` derivada del hash del workbook. Dos descargas del mismo mes no se confunden aunque la fuente publique una revisión provisional.
+
 ## IGAE / ejecución AGE
 
 ```bash
