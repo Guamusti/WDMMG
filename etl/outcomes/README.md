@@ -22,3 +22,11 @@ por universidad; el año 2024 de la fuente corresponde al curso 2023-2024.
 `data/processed/outcomes/madrid-university-graduates-2023-2024.json`.
 Es un recuento institucional de grados presenciales: no debe leerse como tasa
 de graduación ni como resultado de una titulación concreta.
+
+## Inserción laboral por campo
+
+`data/processed/outcomes/field-employment-2018-2019-four-years.json` conserva
+referencias de ocho campos de estudio para la cohorte 2018-2019, cuatro años
+después. La aplicación puede ordenar por base media de cotización, siempre
+mostrándola como indicador administrativo agregado y no como salario de una
+oferta concreta.

@@ -96,6 +96,7 @@ Criterio de terminado: cada métrica académica tiene tooltip de definición, cu
 
 - [ ] Integrar afiliación por cohorte y años desde graduación.
 - [x] Añadir una referencia laboral de ámbito para Informática, con cohorte, definición y fuente visibles; no se atribuye automáticamente a una titulación.
+- [x] Añadir referencias laborales agregadas para Informática, ADE, Economía, Derecho, Medicina, Enfermería, Sociología y Periodismo, con cobertura explícita de campo y cohorte.
 - [x] Mantener separado el concepto de salario frente a afiliación y base media de cotización; la ficha ya indica “no disponible” mientras falte el cruce por ámbito.
 - [ ] Mostrar 1, 2, 3 y 4 años después cuando existan datos comparables.
 - [x] Evitar llamar “salario” a una base de cotización.

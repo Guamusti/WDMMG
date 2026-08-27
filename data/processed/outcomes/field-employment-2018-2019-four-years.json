@@ -1,0 +1,18 @@
+{
+  "cohort": "2018–2019 · cuatro años después · 2023",
+  "granularity": "Campo de estudio · España",
+  "source": "Fundación CYD · datos SIIU",
+  "source_url": "https://www.fundacioncyd.org/wp-content/uploads/2025/11/La-empleabilidad-de-los-jovenes-en-Espana-2025.pdf",
+  "definition": "Tasa de afiliación y base media de cotización anual de egresados de grado cuatro años después de egresar.",
+  "limitations": "La base media de cotización aproxima la retribución bruta anual de afiliados por cuenta ajena a jornada completa; no es salario medio, mediano ni neto. Son datos agregados del campo, no de una titulación o universidad concreta.",
+  "fields": {
+    "informatica": { "label": "Informática", "affiliation4": 89.40, "indefinite4": 93.80, "universityGroup4": 67.90, "contributionBase4": 36623 },
+    "ade": { "label": "Administración y Dirección de Empresas", "affiliation4": 77.24, "indefinite4": null, "universityGroup4": 34.80, "contributionBase4": 29080 },
+    "economia": { "label": "Economía", "affiliation4": 73.59, "indefinite4": null, "universityGroup4": 45.00, "contributionBase4": 31155 },
+    "derecho": { "label": "Derecho", "affiliation4": 61.64, "indefinite4": null, "universityGroup4": null, "contributionBase4": 31140 },
+    "medicina": { "label": "Medicina", "affiliation4": 92.17, "indefinite4": null, "universityGroup4": 98.20, "contributionBase4": 41333 },
+    "enfermeria": { "label": "Enfermería", "affiliation4": 97.70, "indefinite4": null, "universityGroup4": 97.70, "contributionBase4": 35766 },
+    "sociologia": { "label": "Sociología", "affiliation4": 65.29, "indefinite4": null, "universityGroup4": 23.20, "contributionBase4": 30460 },
+    "periodismo": { "label": "Periodismo", "affiliation4": 76.26, "indefinite4": null, "universityGroup4": 36.20, "contributionBase4": 25237 }
+  }
+}

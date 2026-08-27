@@ -15,6 +15,7 @@ REQUIRED = {"academic_year", "admission_round", "admission_group", "cutoff_score
 RUCT_MATCHES = ROOT / "data/processed/ruct/madrid-degree-matches.json"
 OUTCOME_ENROLMENT = ROOT / "data/processed/outcomes/madrid-university-enrolment-2023-2024.json"
 OUTCOME_GRADUATES = ROOT / "data/processed/outcomes/madrid-university-graduates-2023-2024.json"
+OUTCOME_EMPLOYMENT = ROOT / "data/processed/outcomes/field-employment-2018-2019-four-years.json"
 MADRID_UNIVERSITIES = {"UAH", "UAM", "UC3M", "UCM", "UPM", "URJC"}
 KNOWN_BRANCHES = {"", "Artes y Humanidades", "Ciencias", "Ciencias de la Salud", "Ciencias Sociales y Jurídicas", "Ingeniería y Arquitectura", "Rama pendiente de separación"}
 
@@ -69,4 +70,13 @@ if set(graduates.get("universities", {})) != MADRID_UNIVERSITIES:
     raise AssertionError("Graduate context: expected six Madrid public universities")
 if any(not isinstance(value, int) or value <= 0 for value in graduates["universities"].values()):
     raise AssertionError("Graduate context: values must be positive integers")
+employment = json.loads(OUTCOME_EMPLOYMENT.read_text(encoding="utf-8"))
+required_fields = {"informatica", "ade", "economia", "derecho", "medicina", "enfermeria", "sociologia", "periodismo"}
+if employment.get("cohort") != "2018–2019 · cuatro años después · 2023" or employment.get("granularity") != "Campo de estudio · España":
+    raise AssertionError("Employment context: unexpected cohort or granularity")
+if set(employment.get("fields", {})) != required_fields:
+    raise AssertionError("Employment context: expected field coverage is incomplete")
+for field, metrics in employment["fields"].items():
+    if not metrics.get("label") or not 0 <= metrics["affiliation4"] <= 100 or metrics["contributionBase4"] <= 0:
+        raise AssertionError(f"Employment context: invalid metrics for {field}")
 print(f"Quality gate passed: {len(DATASETS)} datasets, {total} rows, {len(matches)} RUCT matches")

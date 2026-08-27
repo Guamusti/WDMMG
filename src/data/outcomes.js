@@ -3,6 +3,7 @@ import informaticaEmployment from '../../data/processed/outcomes/informatica-201
 import madridUniversityContext from '../../data/processed/outcomes/madrid-university-context-2022-2023.json';
 import madridUniversityEnrolment from '../../data/processed/outcomes/madrid-university-enrolment-2023-2024.json';
 import madridUniversityGraduates from '../../data/processed/outcomes/madrid-university-graduates-2023-2024.json';
+import fieldEmployment from '../../data/processed/outcomes/field-employment-2018-2019-four-years.json';
 
 export const outcomeSources = {
   performance: `${SIIU}?file=Rendimiento_Exito_Eval_Grado_Univ.px&path=%2FUniversitaria%2FIndicadores%2F2024%2F1_Grado%2Fl0%2F`,
@@ -25,12 +26,25 @@ export const graduatesSource = madridUniversityGraduates.source_url;
 // Referencia laboral por ámbito de estudio. No se atribuye como dato propio
 // de una titulación: QEDU/SIIU puede ofrecer el ámbito cuando falta el cruce
 // específico. La base de cotización no equivale a salario neto, medio o mediano.
-export const employmentByField = {
-  informatica: { label: informaticaEmployment.field, ...informaticaEmployment.metrics, cohort: informaticaEmployment.cohort, granularity: informaticaEmployment.granularity, source: informaticaEmployment.source, sourceUrl: informaticaEmployment.sourceUrl, officialDatasetUrl: informaticaEmployment.officialDatasetUrl, limitations: informaticaEmployment.limitations }
+const employmentMeta = {
+  cohort: fieldEmployment.cohort,
+  granularity: fieldEmployment.granularity,
+  source: fieldEmployment.source,
+  sourceUrl: fieldEmployment.source_url,
+  officialDatasetUrl: informaticaEmployment.officialDatasetUrl,
+  limitations: fieldEmployment.limitations
 };
+export const employmentByField = Object.fromEntries(Object.entries(fieldEmployment.fields).map(([key, metrics]) => [key, { ...metrics, ...employmentMeta }]));
 
 export function employmentForOffer(offer) {
   const degree = String(offer?.degree || '').toLocaleLowerCase();
   if (/informática|software|computadores|ciencia de datos|inteligencia artificial/.test(degree)) return employmentByField.informatica;
+  if (/medicina/.test(degree)) return employmentByField.medicina;
+  if (/enfermería/.test(degree)) return employmentByField.enfermeria;
+  if (/periodismo/.test(degree)) return employmentByField.periodismo;
+  if (/sociología/.test(degree)) return employmentByField.sociologia;
+  if (/economía/.test(degree)) return employmentByField.economia;
+  if (/derecho/.test(degree)) return employmentByField.derecho;
+  if (/administración y dirección de empresas|\bade\b/.test(degree)) return employmentByField.ade;
   return null;
 }
