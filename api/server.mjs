@@ -112,7 +112,7 @@ async function databaseCompanyById(id) {
       COUNT(DISTINCT ca.contract_id)::int AS contract_count,
       COUNT(DISTINCT c.contracting_authority_id)::int AS authority_count,
       COALESCE(SUM(ca.award_amount), 0) AS award_amount,
-      COALESCE(AVG(ca.award_amount), 0) AS average_award,
+      COALESCE(SUM(ca.award_amount) / NULLIF(COUNT(DISTINCT ca.contract_id), 0), 0) AS average_award,
       COALESCE(MAX(ca.award_amount), 0) AS largest_award
     FROM recipient_entities re
     JOIN contract_awards ca ON ca.winner_entity_id = re.id
