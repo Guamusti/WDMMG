@@ -21,8 +21,8 @@ Referencia MD: secciones 11, 12, 13, 14, 35, 42, 55 y 62.B–D.
 
 - [x] Documentar Hacienda/IGAE, PLACSP, BDNS, INE e inventarios públicos.
 - [x] Registrar URL, formato, cobertura, frecuencia, campos y limitaciones conocidas.
-- [ ] Descargar una muestra real de cada fuente prioritaria.
-- [ ] Guardar muestras/fixtures con fecha, hash y licencia.
+- [x] Descargar una muestra real de cada fuente prioritaria; PLACSP, BDNS, IGAE y CCAA disponibles en `data/raw/`.
+- [~] Guardar muestras/fixtures con fecha, hash y licencia; manifiesto versionado en `docs/OFFICIAL_SAMPLES.md`, raw grande fuera de Git y fixtures de parser estructurales pendientes de publicar como artefactos separados.
 - [~] Verificar campos contra documentación vigente; falta validar con descargas de datos.
 - [~] Completar matriz de cobertura efectiva por año y administración; ya se ha validado una descarga AGE de mayo de 2026.
 
@@ -345,5 +345,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Ficha API `/api/entities/:id` con contratos publicados y adjudicatarios vinculados por organismo; relación limitada a evidencia PLACSP | `en curso` |
 | 27/08/2026 | Inventario de organismos exportable a CSV, con filtros de búsqueda y las mismas métricas que la vista web | `en curso` |
 | 27/08/2026 | Informe `/api/companies/merge-candidates` para posibles coincidencias de nombres; solo propone candidatos y exige revisión humana | `en curso` |
+| 27/08/2026 | Manifiesto `docs/OFFICIAL_SAMPLES.md` con cuatro muestras raw oficiales, tamaño, SHA-256, fecha, fuente y alcance de las fixtures | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |
