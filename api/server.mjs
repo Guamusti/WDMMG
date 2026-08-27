@@ -515,8 +515,9 @@ const server = createServer(async (req, res) => {
     }
   }
   if (url.pathname === '/api/coverage') {
-    try { return json(res, 200, { data: await databaseCoverage(), meta: { backend: 'postgresql' } }); }
-    catch (error) { return json(res, 200, { data: [], meta: { backend: 'unavailable', warning: error.message } }); }
+    const checkedAt = new Date().toISOString();
+    try { return json(res, 200, { data: await databaseCoverage(), meta: { backend: 'postgresql', checkedAt } }); }
+    catch (error) { return json(res, 200, { data: [], meta: { backend: 'unavailable', checkedAt, warning: error.message } }); }
   }
   if (url.pathname === '/api/policies') {
     const policies = readJson(join(root, 'data', 'processed', 'igae', 'functional-policies-2024.json'));

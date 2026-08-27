@@ -179,6 +179,7 @@ def test_search_contract_results_link_to_internal_profiles():
 def test_coverage_exposes_partial_and_blocked_sources():
     status, payload = get_json("/api/coverage")
     assert status == 200
+    assert payload["meta"]["checkedAt"]
     sources = {source["id"]: source for source in payload["data"]}
     assert sources["ccaa-execution-2026-05"]["data_status"] == "partial"
     assert sources["local-budgets-2026"]["data_status"] == "blocked_reader"
