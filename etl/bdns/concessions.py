@@ -48,28 +48,39 @@ def parse_page(payload: dict[str, Any], code: str, source_url: str, retrieved_at
     return records
 
 
-def ingest(code: str, raw_dir: Path, out: Path, page_size: int = 100, max_pages: int = 100, min_interval: float = 0.5, cache_ttl: int = 300) -> dict[str, Any]:
+def ingest_many(codes: list[str], raw_dir: Path, out: Path, page_size: int = 100, max_pages: int = 100, min_interval: float = 0.5, cache_ttl: int = 300) -> dict[str, Any]:
     run_id = datetime.now(timezone.utc).strftime("bdns-concesiones-%Y%m%dT%H%M%SZ")
+    raw_dir.mkdir(parents=True, exist_ok=True)
     records: list[dict[str, Any]] = []
     pages = 0
     client = BDNS20Client(raw_dir / "cache", min_interval=min_interval)
-    for page in range(max_pages):
-        endpoint = f"{BASE_URL}?numeroConvocatoria={code}&pageSize={page_size}&page={page}"
-        raw_path = raw_dir / f"{run_id}-page-{page}.payload"
-        metadata = client.fetch(endpoint, raw_path, cache_ttl=cache_ttl)
-        payload = json.loads(raw_path.read_text(encoding="utf-8"))
-        page_records = parse_page(payload, code, endpoint, metadata["retrieved_at"], run_id, metadata["sha256"])
-        records.extend(page_records)
-        pages += 1
-        if len(page_records) < page_size or not payload.get("content"):
-            break
+    calls = []
+    for code in codes:
+        code_pages = 0
+        for page in range(max_pages):
+            endpoint = f"{BASE_URL}?numeroConvocatoria={code}&pageSize={page_size}&page={page}"
+            raw_path = raw_dir / f"{run_id}-{hashlib.sha256(code.encode('utf-8')).hexdigest()[:10]}-page-{page}.payload"
+            metadata = client.fetch(endpoint, raw_path, cache_ttl=cache_ttl)
+            payload = json.loads(raw_path.read_text(encoding="utf-8"))
+            page_records = parse_page(payload, code, endpoint, metadata["retrieved_at"], run_id, metadata["sha256"])
+            records.extend(page_records)
+            pages += 1
+            code_pages += 1
+            if len(page_records) < page_size or not payload.get("content"):
+                break
+        calls.append({"bdns_code": code, "pages": code_pages, "records": sum(1 for row in records if row["bdns_code"] == code)})
     write_jsonl(records, out)
-    return {"run_id": run_id, "pages": pages, "records_created": len(records), "output": str(out)}
+    return {"run_id": run_id, "calls": calls, "pages": pages, "records_created": len(records), "output": str(out)}
+
+
+def ingest(code: str, raw_dir: Path, out: Path, page_size: int = 100, max_pages: int = 100, min_interval: float = 0.5, cache_ttl: int = 300) -> dict[str, Any]:
+    return ingest_many([code], raw_dir, out, page_size, max_pages, min_interval, cache_ttl)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Ingiere concesiones BDNS por páginas desde el servicio oficial.")
-    parser.add_argument("--grant-code", required=True)
+    parser.add_argument("--grant-code", action="append", help="Código BDNS; se puede repetir para una carga conjunta")
+    parser.add_argument("--codes-file", help="Fichero de texto con un código BDNS por línea")
     parser.add_argument("--raw-dir", default="data/raw/bdns/concesiones")
     parser.add_argument("--out", default="data/processed/bdns/concessions.jsonl")
     parser.add_argument("--page-size", type=int, default=100)
@@ -77,7 +88,13 @@ def main() -> None:
     parser.add_argument("--min-interval", type=float, default=0.5, help="Segundos mínimos entre peticiones al servicio oficial")
     parser.add_argument("--cache-ttl", type=int, default=300, help="Vida de la caché raw en segundos")
     args = parser.parse_args()
-    print(ingest(args.grant_code, Path(args.raw_dir), Path(args.out), min(100, max(1, args.page_size)), max(1, args.max_pages), max(0, args.min_interval), max(0, args.cache_ttl)))
+    codes = [code.strip() for code in (args.grant_code or []) if code.strip()]
+    if args.codes_file:
+        codes.extend(line.strip() for line in Path(args.codes_file).read_text(encoding="utf-8").splitlines() if line.strip() and not line.lstrip().startswith("#"))
+    codes = list(dict.fromkeys(codes))
+    if not codes:
+        parser.error("indica --grant-code o --codes-file")
+    print(ingest_many(codes, Path(args.raw_dir), Path(args.out), min(100, max(1, args.page_size)), max(1, args.max_pages), max(0, args.min_interval), max(0, args.cache_ttl)))
 
 
 if __name__ == "__main__":
