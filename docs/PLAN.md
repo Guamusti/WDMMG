@@ -152,6 +152,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Caché HTTP del API de catálogos mediante ETag/304; quedan pendientes auditoría completa y caché de assets.
 - [x] Paginación del explorador nacional a 50 resultados por página, con reinicio al aplicar filtros; quedan caché, rendimiento y auditoría completa.
 - [x] Foco visible de teclado y respeto de `prefers-reduced-motion` en la interfaz; quedan auditoría WCAG, rendimiento, caché y paginación.
+- [x] Tablas principales con nombre accesible (`caption`), encabezados por columna (`scope`) y ocultación visual no semántica reutilizable.
 
 ## Bucle de trabajo de cada cambio
 
