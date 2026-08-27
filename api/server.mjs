@@ -511,7 +511,12 @@ const server = createServer(async (req, res) => {
       if (entity === 'policies') {
         const source = readJson(join(root, 'data', 'processed', 'igae', 'functional-policies-2024.json'));
         if (!source?.policies?.length) return csv(res, 'partidas-funcionales-2024.csv', []);
-        const rows = source.policies.flatMap(policy => [{ partida: policy.label, nivel: 'partida', importe_eur: policy.amount, porcentaje_total: source.total ? (policy.amount / source.total) * 100 : null, padre: '' }, ...(policy.children || []).map(child => ({ partida: child.label, nivel: 'subpartida', importe_eur: child.amount, porcentaje_total: source.total ? (child.amount / source.total) * 100 : null, padre: policy.label }))]);
+        const featuredCodes = new Set(['21', '45', '31', '32', '25', '22', '95', '94']);
+        const featured = source.policies.filter(policy => featuredCodes.has(String(policy.code)));
+        const rest = source.policies.filter(policy => !featuredCodes.has(String(policy.code)));
+        const restAmount = rest.reduce((sum, policy) => sum + Number(policy.amount || 0), 0);
+        const parentRows = [...featured, { code: 'rest', label: 'Resto de políticas', amount: restAmount }];
+        const rows = parentRows.flatMap(policy => [{ partida: policy.label, nivel: 'partida', importe_eur: policy.amount, porcentaje_total: source.total ? (policy.amount / source.total) * 100 : null, padre: '' }, ...(policy.code === 'rest' ? rest : (policy.children || [])).map(child => ({ partida: child.label, nivel: 'subpartida', importe_eur: child.amount, porcentaje_total: source.total ? (child.amount / source.total) * 100 : null, padre: policy.label }))]);
         return csv(res, 'partidas-funcionales-2024.csv', rows);
       }
       if (entity === 'contracts') return csv(res, 'contratos-placsp.csv', await databaseContracts(query, 1, 10000));

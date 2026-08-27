@@ -164,6 +164,8 @@ def test_policy_export_contains_parent_and_child_rows():
         assert response.status == 200
         assert "partida" in body and "nivel" in body
         assert "Pensiones" in body
+        assert "Resto de pol\u00edticas" in body
+        assert "Servicios de car\u00e1cter general" in body
         assert '"partida"' in body
 
 
