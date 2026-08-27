@@ -13,6 +13,7 @@ export const outcomeSources = {
 
 // Contexto universitario publicado por SIIU. No se presenta como dato específico de carrera.
 export const universityOutcomeMetrics = madridUniversityContext.universities;
+export const newAdmissionSource = madridUniversityContext.new_admission_source_url;
 
 // Referencia laboral por ámbito de estudio. No se atribuye como dato propio
 // de una titulación: QEDU/SIIU puede ofrecer el ámbito cuando falta el cruce

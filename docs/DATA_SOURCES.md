@@ -66,6 +66,7 @@
 - Estado: la interfaz muestra contexto universitario con etiqueta de cobertura y deja como no disponible lo que aún no está cargado a nivel de titulación. La primera referencia de ámbito para Informática (cohorte 2017–2018, cuatro años después) se conserva en `src/data/outcomes.js` y se usa para filtrar/ordenar sin presentarla como salario de una oferta. La tarjeta enlaza la referencia publicada por Fundación CYD y el registro SIIU.
 - El contexto académico de Madrid se conserva además como extracto procesado en `data/processed/outcomes/madrid-university-context-2022-2023.json`, incluyendo curso, granularidad, fuente y limitación.
 - Ese extracto incorpora la nota media de admisión del alumnado de nuevo ingreso por universidad (2022–2023), procedente de la tabla SIIU de nota media por rama; se presenta solo como contexto universitario y no como nota del expediente o de una carrera.
+- También incorpora el número de estudiantes de nuevo ingreso por universidad (2022–2023), ambos sexos y todos los campos de estudio; es un contexto de tamaño institucional, no de una oferta individual.
 
 ## Geografía
 

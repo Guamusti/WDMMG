@@ -2,13 +2,14 @@
   "academic_year": "2022-2023",
   "granularity": "Universidad · todos los ámbitos",
   "source_url": "https://estadisticas.universidades.gob.es/jaxiPx/Datos.htm?file=Rendimiento_Exito_Eval_Grado_Univ.px&path=%2FUniversitaria%2FIndicadores%2F2024%2F1_Grado%2Fl0%2F",
-  "limitations": "Contexto agregado de universidad; no es un resultado específico de una titulación. La nota media de admisión corresponde al alumnado de nuevo ingreso y no es la nota media del expediente.",
+  "limitations": "Contexto agregado de universidad; no es un resultado específico de una titulación. La nota media de admisión y el número de nuevo ingreso son datos agregados, no resultados de una carrera concreta.",
+  "new_admission_source_url": "https://estadisticas.universidades.gob.es/jaxiPx/Datos.htm?file=3_4_Mat_Sex_Nac_Amb_Univ.px&path=%2FUniversitaria%2FAlumnado%2FEEU_2023%2FGradoCiclo%2FNuevoIngreso%2Fl0%2F",
   "universities": {
-    "UAH": { "performance": 82.75, "dropout": 11.47, "graduation": 56.65, "admissionMean": 10.33 },
-    "UAM": { "performance": 88.94, "dropout": 10.78, "graduation": 68.59, "admissionMean": 10.72 },
-    "UC3M": { "performance": 89.10, "dropout": 11.26, "graduation": 64.51, "admissionMean": 12.17 },
-    "UCM": { "performance": 83.57, "dropout": 13.64, "graduation": 57.03, "admissionMean": 10.59 },
-    "UPM": { "performance": 67.23, "dropout": 16.19, "graduation": null, "admissionMean": 10.63 },
-    "URJC": { "performance": 80.08, "dropout": 13.40, "graduation": null, "admissionMean": 10.29 }
+    "UAH": { "performance": 82.75, "dropout": 11.47, "graduation": 56.65, "admissionMean": 10.33, "newAdmissionCount": 4560 },
+    "UAM": { "performance": 88.94, "dropout": 10.78, "graduation": 68.59, "admissionMean": 10.72, "newAdmissionCount": 5932 },
+    "UC3M": { "performance": 89.10, "dropout": 11.26, "graduation": 64.51, "admissionMean": 12.17, "newAdmissionCount": 3881 },
+    "UCM": { "performance": 83.57, "dropout": 13.64, "graduation": 57.03, "admissionMean": 10.59, "newAdmissionCount": 11402 },
+    "UPM": { "performance": 67.23, "dropout": 16.19, "graduation": null, "admissionMean": 10.63, "newAdmissionCount": 5387 },
+    "URJC": { "performance": 80.08, "dropout": 13.40, "graduation": null, "admissionMean": 10.29, "newAdmissionCount": 8130 }
   }
 }
