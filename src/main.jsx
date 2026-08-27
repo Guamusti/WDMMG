@@ -96,7 +96,7 @@ function App(){
   const [appliedCutoff,setAppliedCutoff]=useState('Cualquier nota');
   const [catalog,setCatalog]=useState(madridOffers);
   const offers=catalog;
-  useEffect(()=>{fetch('http://127.0.0.1:8787/api/offers?limit=1000').then(response=>response.ok?response.json():Promise.reject(new Error('API unavailable'))).then(payload=>{if(Array.isArray(payload.data)&&payload.data.length)setCatalog(payload.data)}).catch(()=>{/* El catálogo local es el fallback intencionado. */})},[]);
+  useEffect(()=>{fetch('/api-port.json?ts='+Date.now()).then(response=>response.ok?response.json():{port:8787}).catch(()=>({port:8787})).then(config=>fetch(`http://127.0.0.1:${config.port||8787}/api/offers?limit=1000`)).then(response=>response.ok?response.json():Promise.reject(new Error('API unavailable'))).then(payload=>{if(Array.isArray(payload.data)&&payload.data.length)setCatalog(payload.data)}).catch(()=>{/* El catálogo local es el fallback intencionado. */})},[]);
   useEffect(()=>{const onPop=()=>setRoute(parseRoute());window.addEventListener('popstate',onPop);return()=>window.removeEventListener('popstate',onPop)},[]);
   const navigate=path=>{window.history.pushState({},'',path);setRoute(parseRoute())};
   useEffect(()=>{

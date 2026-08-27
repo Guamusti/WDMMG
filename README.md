@@ -13,7 +13,7 @@ En Windows también puedes hacer doble clic en [`iniciar.bat`](./iniciar.bat). E
 
 El mapa utiliza Leaflet y teselas de OpenStreetMap con atribución visible.
 
-El launcher inicia también la API local en un puerto libre desde `8787`. `GET /api/health` comprueba el servicio y `GET /api/offers?q=informática&page=1&limit=25` devuelve ofertas paginadas con fuente y código RUCT de universidad.
+El launcher inicia también la API local en un puerto libre desde `8787`, escribe ese puerto en `public/api-port.json` y hace que el frontend lo descubra automáticamente. `GET /api/health` comprueba el servicio y `GET /api/offers?q=informática&page=1&limit=25` devuelve ofertas paginadas con fuente y código RUCT de universidad.
 
 El plan de ejecución se mantiene en [`docs/PLAN.md`](./docs/PLAN.md) y se actualiza junto con cada fase del producto.
 

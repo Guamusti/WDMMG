@@ -17,6 +17,7 @@ if errorlevel 1 (
 
 echo.
 for /f %%A in ('powershell -NoProfile -Command "$p=8787; while (Get-NetTCPConnection -LocalPort $p -State Listen -ErrorAction SilentlyContinue) { $p++ }; $p"') do set "APIPORT=%%A"
+powershell -NoProfile -Command "$json = @{ port = %APIPORT% } | ConvertTo-Json; Set-Content -LiteralPath 'public/api-port.json' -Value $json -Encoding utf8"
 echo Iniciando API local en http://127.0.0.1:%APIPORT%
 start "Atlas Universitario - API" /D "%~dp0" cmd /c "set ATLAS_API_PORT=%APIPORT%&& npm run api"
 
