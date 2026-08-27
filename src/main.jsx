@@ -141,6 +141,7 @@ function App(){
     let canonical=document.querySelector('link[rel="canonical"]');
     if(!canonical){canonical=document.createElement('link');canonical.rel='canonical';document.head.appendChild(canonical)}
     canonical.href=`${window.location.origin}${window.location.pathname}`;
+    if(route.type==='national'){document.title='Explorador nacional de notas · Atlas Universitario';meta.content='Explora notas de corte oficiales de Madrid, Galicia y Aragón, con filtros por comunidad y tu nota de acceso.'}
   },[route]);
   if(route.type==='national') return <NationalPageV2 onBack={()=>navigate('/')}/>;
   if(route.type!=='home') return <StandalonePage route={route} offers={offers} onBack={()=>navigate('/')} onNavigate={navigate}/>;

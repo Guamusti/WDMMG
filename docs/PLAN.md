@@ -110,6 +110,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Calculadora PAU sobre 14 con nota de acceso, dos ponderaciones y fórmula visible.
 - [x] Cobertura de datos visible.
 - [ ] SEO de páginas con datos reales, sin contenido repetitivo.
+- [x] Metadatos específicos para el explorador nacional `/espana`, con cobertura y limitaciones reales.
 - [ ] Accesibilidad, rendimiento, caché, paginación y responsive.
 - [x] Foco visible de teclado y respeto de `prefers-reduced-motion` en la interfaz; quedan auditoría WCAG, rendimiento, caché y paginación.
 
