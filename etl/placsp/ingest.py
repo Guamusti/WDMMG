@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import re
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
@@ -39,6 +38,11 @@ def parse_atom(path: Path, source_url: str, run_id: str) -> list[dict]:
             "contract_type": text_of(entry, "contractTypeCode", "typeCode"),
             "procedure_type": text_of(entry, "procedureCode"),
             "status": text_of(entry, "tenderStatusCode", "contractFolderStatusCode"),
+            "updated_at": text_of(entry, "updated"),
+            "cpv_code": text_of(entry, "cpvCode", "mainCpvCode"),
+            "estimated_value": text_of(entry, "totalEstimatedAmount", "estimatedOverallContractAmount"),
+            "base_tender_budget": text_of(entry, "totalAmount", "budgetAmount"),
+            "currency": text_of(entry, "currencyID", "currencyCode"),
             "publication_date": text_of(entry, "issueDate", "publicationDate"),
             "source_url": link or source_url,
             "source_record_id": record_id,
