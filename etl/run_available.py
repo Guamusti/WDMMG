@@ -22,6 +22,7 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     jobs = [
+        ("igae-ejecucion", Path("data/processed/igae/execution-2026-05.jsonl"), "etl.budgets.load_postgres"),
         ("placsp", Path("data/processed/placsp/contracts.jsonl"), "etl.placsp.load_postgres"),
         ("bdns-concesiones", Path("data/processed/bdns/concessions.jsonl"), "etl.bdns.load_concessions"),
     ]
