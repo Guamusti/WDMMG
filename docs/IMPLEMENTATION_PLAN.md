@@ -121,13 +121,13 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [x] Crear treemap interactivo de validación visual.
 - [x] Crear tabla de contratos y vista metodológica.
 - [x] Conectar overview a agregaciones IGAE reales, mostrando periodo, unidad y estado.
-- [ ] Construir vista de administración AGE.
+- [~] Construir vista inicial AGE: overview conectado; detalle pendiente.
 - [ ] Construir vista de empresa con contratos y subvenciones.
 - [ ] Construir vista de contrato con lotes, eventos y fuente oficial.
 - [ ] Construir vista de subvención con convocatoria/concesiones.
 - [ ] Añadir presupuesto → ejecución con definiciones y estados.
 - [ ] Añadir tooltips de conceptos técnicos.
-- [ ] Añadir estados loading/error/empty/success.
+- [x] Añadir estados loading/error/empty para la tabla de contratos.
 - [ ] Revisar responsive, accesibilidad y rendimiento.
 
 ## Fase 8 — Ampliación territorial y entidades
@@ -205,5 +205,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Cargador PostgreSQL verificado en Docker: 91 filas y segunda carga sin duplicados | `fcf047d` |
 | 27/08/2026 | Dependencia psycopg declarada para el cargador | `73c97ea` |
 | 27/08/2026 | API consulta PostgreSQL real para overview y presupuestos | `8419c64` |
+| 27/08/2026 | Contratos frontend conectados a API; eliminadas filas estáticas ficticias | `19e9ece` |
 | 27/08/2026 | Validación de periodo IGAE y flags contables; 91 filas procesadas, 10 marcadas | `61fea32` |
 | 27/08/2026 | Cargador PostgreSQL IGAE y entorno Docker local; carga repetida sin duplicados | `en curso` |
