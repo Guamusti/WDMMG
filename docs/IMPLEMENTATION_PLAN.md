@@ -342,3 +342,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | API y UI de población verificadas contra el endpoint oficial del INE para municipio, provincia y comunidad; se evita calcular €/habitante con periodos incompatibles | `en curso` |
 | 27/08/2026 | `/api/budgets` añade filtros de nivel/texto y paginación, conservando el fallback JSONL y metadatos de filtros | `en curso` |
 | 27/08/2026 | Nueva vista Organismos y endpoint `/api/entities`: ranking de órganos contratantes, contratos, adjudicatarios e importe publicado con alcance explícito | `en curso` |
+| 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |

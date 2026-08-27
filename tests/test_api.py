@@ -124,6 +124,7 @@ def test_quality_report_keeps_audit_counts():
     assert all(row["records"] >= 0 and row["duplicates"] >= 0 for row in payload["data"])
     award_quality = next(row for row in payload["data"] if row["id"] == "placsp-awards")
     assert award_quality["missingIds"] == 0 and award_quality["duplicates"] == 0
+    assert isinstance(award_quality["flagCounts"], dict)
 
 
 def test_population_endpoint_returns_official_municipal_result():
