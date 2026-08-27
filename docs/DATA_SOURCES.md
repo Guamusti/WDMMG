@@ -33,6 +33,14 @@
 - Estado: PDF conservado en `data/raw/admissions/galicia/2025-2026/`; parser reproducible en `etl/admissions/galicia/` y extracto separado en `data/processed/admissions/galicia-2025-2026.json`.
 - Cobertura validada: 194 titulaciones en seis campus y 333 observaciones con ronda ordinaria/extraordinaria. No se mezcla aún con el catálogo de Madrid hasta completar el modelo nacional común y el matching RUCT.
 
+## Notas de corte — Aragón
+
+- Organismo: Universidad de Zaragoza.
+- Publicación de referencia: adjudicación ordinaria de julio de 2025 para el curso 2025-2026.
+- Fuente: https://academico.unizar.es/sites/academico/files/archivos/acceso/admisgrado/corte/grados2526j.pdf
+- Estado: PDF conservado en `data/raw/admissions/aragon/2025-2026/`; parser reproducible en `etl/admissions/aragon/` y extracto separado en `data/processed/admissions/aragon-2025-2026.json`.
+- Cobertura validada: 73 ofertas de la Universidad de Zaragoza en cuatro provincias/campus. Se carga únicamente la columna de cupo general y la convocatoria ordinaria; las restantes columnas de cupos requieren su modelado explícito antes de comparar.
+
 ## SIIU / estadísticas universitarias
 
 - Organismo: Ministerio competente en universidades.

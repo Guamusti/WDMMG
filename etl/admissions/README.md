@@ -16,3 +16,11 @@ oficial del CIUG y `python etl/admissions/galicia/parse_galicia.py` genera el
 extracto procesado de 2025-2026. El parser lee los bloques visuales del PDF
 para no cruzar campus en páginas con dos columnas, conserva ronda y grupo de
 acceso, y rechaza títulos con glifos no decodificables.
+
+## Aragón
+
+`python etl/admissions/aragon/download_aragon.py` conserva el PDF de la
+adjudicación ordinaria de la Universidad de Zaragoza y
+`python etl/admissions/aragon/parse_aragon.py` genera el extracto de
+2025-2026. Se extrae la columna de cupo general, se conserva la provincia
+como campus y se descartan filas sin nombre o nota válida.

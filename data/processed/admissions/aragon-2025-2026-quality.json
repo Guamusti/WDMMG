@@ -1,0 +1,20 @@
+{
+  "source_url": "https://academico.unizar.es/sites/academico/files/archivos/acceso/admisgrado/corte/grados2526j.pdf",
+  "academic_year": "2025-2026",
+  "records": 73,
+  "rejected_rows": 0,
+  "duplicates": 0,
+  "provinces": [
+    "Huesca",
+    "La Almunia",
+    "Teruel",
+    "Zaragoza"
+  ],
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "no_replacement_glyph_in_names": true,
+    "ordinary_round_explicit": true,
+    "no_duplicate_keys": true
+  },
+  "rejections": []
+}

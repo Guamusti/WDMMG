@@ -64,6 +64,7 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [ ] Ingestores priorizando API, CSV, XLS/XLSX, JSON y PDF estructurado.
 - [x] Normalización de cursos como `YYYY-YYYY`.
 - [x] Primer ingestor regional adicional reproducible (Galicia), conservando ronda y grupo; ampliar a tres comunidades y completar la cobertura nacional.
+- [x] Segundo ingestor regional reproducible (Aragón), con provincia, convocatoria y cupo general conservados; faltan el modelo común de cupos y la integración nacional.
 - [ ] Separación de grupo, convocatoria, ronda inicial y nota final.
 - [ ] Percentiles nacionales, regionales, por rama y por ámbito.
 - [ ] Explorador nacional de notas, mapa y “qué puedo estudiar con mi nota”.
