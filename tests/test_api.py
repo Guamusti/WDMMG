@@ -102,6 +102,16 @@ def test_community_geography_returns_simplified_official_boundaries():
     assert {"id", "names", "coordinates"}.issubset(payload["data"][0])
 
 
+def test_publication_datasets_are_not_presented_as_budget_payments():
+    status, contracts = get_json("/api/contracts?pageSize=20")
+    assert status == 200
+    status, grants = get_json("/api/grants?pageSize=20")
+    assert status == 200
+    financial_execution_fields = {"paid_amount", "committed_amount", "recognized_amount", "final_credit"}
+    assert not financial_execution_fields.intersection(*(row.keys() for row in contracts["data"]))
+    assert not financial_execution_fields.intersection(*(row.keys() for row in grants["data"]))
+
+
 def test_companies_csv_export_is_available():
     try:
         with urlopen(f"{BASE_URL}/api/export.csv?entity=companies", timeout=4) as response:

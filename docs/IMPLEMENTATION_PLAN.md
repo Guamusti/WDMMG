@@ -78,7 +78,7 @@ Referencia MD: secciones 6, 7, 10, 13, 18, 26, 27, 28, 29, 33, 46, 47, 57, 58 y 
 - [~] Normalizar y cargar convocatorias BDNS; 1 convocatoria real cargada y repetible, endpoint y vista inicial activos, filtros y concesiones pendientes.
 - [ ] Configurar el servicio BDNS oficial de concesiones.
 - [~] Importar muestras reales con URLs de origen; PLACSP y 1 convocatoria BDNS importadas.
-- [ ] Verificar que ningún contrato/subvención se presenta como pago presupuestario.
+- [x] Verificar que ningún contrato/subvención se presenta como pago presupuestario; test de integridad semántica añadido sobre las respuestas API.
 - [ ] Publicar estado y fecha de actualización de cada dataset.
 
 ## Fase 5 — Presupuesto y ejecución AGE piloto
@@ -296,3 +296,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Snapshot versionado de la geometría IGN: el mapa arranca desde `data/processed/geo/community-boundaries.json` y conserva fallback live si falta el recurso | `en curso` |
 | 27/08/2026 | Trazabilidad del snapshot geográfico: fecha de captura, SHA-256 y fuente OGC registrados en `docs/DATA_SOURCES.md` | `en curso` |
 | 27/08/2026 | QA territorial: `/api/quality` audita la geometría IGN con 50 elementos, 0 IDs ausentes, 0 duplicados y 0 anomalías | `en curso` |
+| 27/08/2026 | Integridad semántica: test API confirma que contratos y convocatorias no exponen campos de pagos, compromisos ni crédito presupuestario | `en curso` |
