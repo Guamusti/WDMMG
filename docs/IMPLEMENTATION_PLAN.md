@@ -128,6 +128,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [x] Conectar overview a agregaciones IGAE reales, mostrando periodo, unidad y estado.
 - [~] Construir vista inicial AGE: overview, ratio de lectura rápida y detalle de capítulo conectados; faltan niveles contables completos.
 - [x] Añadir en portada el desglose funcional comprensible de la Cuenta General del Estado 2024.
+- [x] Sustituir las tarjetas iniciales por una rueda interactiva con porcentajes grandes y leyenda accesible.
 - [ ] Construir vista de empresa con contratos y subvenciones.
 - [~] Construir vista de contrato con lotes, eventos y fuente oficial; detalle base y enlace a ficha PLACSP activos, lotes/eventos pendientes.
 - [~] Construir vista de subvención con convocatoria/concesiones; vista de convocatorias activa, concesiones pendientes.
@@ -229,6 +230,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Segunda pasada de UX: portada, fuentes, reparto y desglose reescritos para lenguaje ciudadano | `en curso` |
 | 27/08/2026 | Portada prioriza políticas de gasto IGAE 2024: pensiones, infraestructuras, sanidad, educación y drill-down de pensiones | `en curso` |
 | 27/08/2026 | Drill-down ciudadano ampliado: Pensiones, Deuda pública y Transferencias con subpartidas publicadas por IGAE | `en curso` |
+| 27/08/2026 | Rueda interactiva como visual principal del reparto funcional | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |
 | 27/08/2026 | Parser y cargador PLACSP conservan lotes; 399 lotes vinculados a 81 expedientes | `en curso` |
