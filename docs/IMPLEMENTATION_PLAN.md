@@ -377,6 +377,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Ciclo IGAE: filas presupuestarias exponen ejecución, pago y crédito restante derivados únicamente del crédito definitivo, con definición visible y pruebas | `en curso` |
 | 27/08/2026 | Exportación IGAE alineada con la interfaz: CSV incluye crédito restante, porcentaje de ejecución y porcentaje pagado con el mismo denominador | `en curso` |
 | 27/08/2026 | Población territorial INE: caché de 10 minutos por nivel/búsqueda/límite para reducir latencia sin alterar fecha de referencia ni magnitudes | `en curso` |
+| 27/08/2026 | Contratación: filtros por tipo y procedimiento CODICE (obras, servicios, menores, negociados, etc.) con URL compartible y respuesta PostgreSQL/fallback consistente | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |

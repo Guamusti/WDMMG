@@ -204,6 +204,14 @@ def test_contracts_can_filter_published_single_bidder_signal():
     assert all(row["number_of_tenders"] == 1 for row in payload["data"])
 
 
+def test_contracts_can_filter_by_official_procedure_and_type_codes():
+    status, payload = get_json("/api/contracts?pageSize=100&procedureType=9&contractType=3")
+    assert status == 200
+    assert payload["meta"]["filters"]["procedureType"] == "9"
+    assert payload["meta"]["filters"]["contractType"] == "3"
+    assert all(row["procedure_type"] == "9" and row["contract_type"] == "3" for row in payload["data"])
+
+
 def test_community_geography_returns_simplified_official_boundaries():
     status, payload = get_json("/api/geography/communities")
     assert status == 200

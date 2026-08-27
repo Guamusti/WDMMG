@@ -233,12 +233,12 @@ function companyFromJsonl(id) {
   return company;
 }
 
-async function databaseContracts(query, page, pageSize, singleBidder = false) {
+async function databaseContracts(query, page, pageSize, singleBidder = false, procedureType = '', contractType = '') {
   const offset = (page - 1) * pageSize;
   const search = `%${query}%`;
   const result = await pool.query(`
     SELECT c.procurement_id, c.title, pe.name AS contracting_authority, re.name AS winner_name, re.tax_id AS winner_tax_id,
-      c.estimated_value, c.base_tender_budget, c.status, c.source_url, c.source_record_id,
+      c.contract_type, c.procedure_type, c.estimated_value, c.base_tender_budget, c.status, c.source_url, c.source_record_id,
       ca.award_amount, ca.award_amount_with_tax, ca.number_of_tenders
     FROM contracts c
     LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id
@@ -246,7 +246,9 @@ async function databaseContracts(query, page, pageSize, singleBidder = false) {
     LEFT JOIN recipient_entities re ON re.id = ca.winner_entity_id
     WHERE ($1 = '' OR c.title ILIKE $2 OR c.procurement_id ILIKE $2 OR pe.name ILIKE $2 OR re.name ILIKE $2)
       AND ($5 = FALSE OR ca.number_of_tenders = 1)
-    ORDER BY c.publication_date DESC NULLS LAST, c.id DESC LIMIT $3 OFFSET $4`, [query, search, pageSize, offset, singleBidder]);
+      AND ($6 = '' OR c.procedure_type = $6)
+      AND ($7 = '' OR c.contract_type = $7)
+    ORDER BY c.publication_date DESC NULLS LAST, c.id DESC LIMIT $3 OFFSET $4`, [query, search, pageSize, offset, singleBidder, procedureType, contractType]);
   return result.rows.map(row => ({ ...row, contract_type_label: contractTypeLabel(row.contract_type), procedure_type_label: procedureTypeLabel(row.procedure_type) }));
 }
 
@@ -612,12 +614,14 @@ const server = createServer(async (req, res) => {
     const page = Math.max(1, Number(url.searchParams.get('page') || 1));
     const pageSize = Math.min(100, Math.max(1, Number(url.searchParams.get('pageSize') || 25)));
     const singleBidder = url.searchParams.get('singleBidder') === '1';
+    const procedureType = url.searchParams.get('procedureType') || '';
+    const contractType = url.searchParams.get('contractType') || '';
     try {
-      const data = await databaseContracts(query, page, pageSize, singleBidder);
-      return json(res, 200, { data, meta: { page, pageSize, total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'postgresql', filters: { q: query || null, singleBidder } } });
+      const data = await databaseContracts(query, page, pageSize, singleBidder, procedureType, contractType);
+      return json(res, 200, { data, meta: { page, pageSize, total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'postgresql', filters: { q: query || null, singleBidder, procedureType: procedureType || null, contractType: contractType || null } } });
     } catch (error) {
-      const all = getContracts().map(contractListRow).filter(row => (!query || JSON.stringify(row).toLocaleLowerCase('es').includes(query)) && (!singleBidder || Number(row.number_of_tenders) === 1));
-      return json(res, 200, { data: all.slice((page - 1) * pageSize, page * pageSize), meta: { page, pageSize, total: all.length, dataStatus: all.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message, filters: { q: query || null, singleBidder } } });
+      const all = getContracts().map(contractListRow).filter(row => (!query || JSON.stringify(row).toLocaleLowerCase('es').includes(query)) && (!singleBidder || Number(row.number_of_tenders) === 1) && (!procedureType || String(row.procedure_type || '') === procedureType) && (!contractType || String(row.contract_type || '') === contractType));
+      return json(res, 200, { data: all.slice((page - 1) * pageSize, page * pageSize), meta: { page, pageSize, total: all.length, dataStatus: all.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message, filters: { q: query || null, singleBidder, procedureType: procedureType || null, contractType: contractType || null } } });
     }
   }
   if (url.pathname === '/api/companies') {
