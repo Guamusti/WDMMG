@@ -31,6 +31,8 @@ LAYOUT_REPAIRS = {
     "de Empresas 10,436 5,00 345 5": "Ingeniería Informática - Administración y Dirección de Empresas",
     "(Campus de Montegancedo) Ingeniería en Tecnologías Industriales 12,114 5,00 240 4": "Ingeniería en Tecnologías Industriales (Campus de Montegancedo)",
     "direccion@cesdonbosco.com Maestro de Educación Infantil - Maestro Educación 5,000 5,00 5,000 5,00 5,00 360 5": "Maestro de Educación Infantil - Maestro Educación Primaria",
+    "secretaria@cescisneros.es Psicología 5,000 5,00 5,000 5,00 5,00 240 4": "Psicología",
+    "http://es.eserp.com · info@eserp.com Derecho 5,000 5,00 240 4": "Derecho",
 }
 UNIVERSITY_BY_PAGE = {
     2: 'Universidad de Alcalá', 3: 'Universidad Carlos III de Madrid',

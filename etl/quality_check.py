@@ -15,6 +15,7 @@ REQUIRED = {"academic_year", "admission_round", "admission_group", "cutoff_score
 RUCT_MATCHES = ROOT / "data/processed/ruct/madrid-degree-matches.json"
 OUTCOME_ENROLMENT = ROOT / "data/processed/outcomes/madrid-university-enrolment-2023-2024.json"
 MADRID_UNIVERSITIES = {"UAH", "UAM", "UC3M", "UCM", "UPM", "URJC"}
+KNOWN_BRANCHES = {"", "Artes y Humanidades", "Ciencias", "Ciencias de la Salud", "Ciencias Sociales y Jurídicas", "Ingeniería y Arquitectura", "Rama pendiente de separación"}
 
 
 def check(path: Path) -> int:
@@ -29,8 +30,15 @@ def check(path: Path) -> int:
             raise AssertionError(f"{path}:{index}: unexpected academic year")
         if not 0 <= float(row["cutoff_score"]) <= 14:
             raise AssertionError(f"{path}:{index}: cutoff outside 0-14")
-        if "�" in " ".join(str(row.get(field, "")) for field in ("degree", "university", "campus")):
+        source_text = " ".join(str(row.get(field, "")) for field in ("degree", "university", "campus", "degree_name_source", "university_name_source", "branch_name_source", "raw_row"))
+        if "�" in source_text:
             raise AssertionError(f"{path}:{index}: replacement glyph in name")
+        degree = str(row.get("degree_name_source") or row.get("degree") or "")
+        if re.search(r"(?:https?://|\b[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}\b|\b\d{3,}\b)", degree):
+            raise AssertionError(f"{path}:{index}: contaminated degree name: {degree}")
+        branch = str(row.get("branch_name_source") or row.get("branch") or "")
+        if branch not in KNOWN_BRANCHES:
+            raise AssertionError(f"{path}:{index}: unknown branch: {branch}")
     return len(rows)
 
 
