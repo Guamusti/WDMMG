@@ -13,7 +13,16 @@ import pdfplumber
 SOURCE = Path("data/raw/admissions/madrid/2025-2026/notas-de-corte-madrid-2025-2026.pdf")
 TARGET = Path("data/processed/admissions/madrid-2025-2026.json")
 SCORE = re.compile(r"^\s*(\d{1,2}[,.]\d{3})\s*$")
-ROW = re.compile(r"^(.+?)\s+(\d{1,2}[,.]\d{3})\s+(\d{1,2}[,.]\d{2})\s+(\d+(?:[,.]\d+)?)\s+(\d+)\s*$")
+SCORE_3 = r"\d{1,2}[,.]\d{3}(?:\(\d+\))?"
+SCORE_2 = r"\d{1,2}[,.]\d{2}(?:\(\d+\))?"
+SCORE_ANY = r"\d{1,2}[,.]\d{2,3}(?:\(\d+\))?"
+ROW = re.compile(rf"^(.+?)\s+({SCORE_3})\s+({SCORE_2})(?:\s+{SCORE_ANY}){{0,5}}\s+(\d+(?:[,.]\d+)?)\s+(\d+)\s*$")
+UNIVERSITY_BY_PAGE = {
+    2: 'Universidad de Alcalá', 3: 'Universidad Carlos III de Madrid',
+    4: 'Universidad Autónoma de Madrid', 5: 'Universidad Politécnica de Madrid',
+    6: 'Universidad Complutense de Madrid', 7: 'Universidad Complutense de Madrid',
+    8: 'Universidad Rey Juan Carlos', 9: 'Universidad Rey Juan Carlos',
+}
 
 
 def clean(value):
@@ -29,32 +38,32 @@ def parse():
     records = []
     with pdfplumber.open(SOURCE) as pdf:
         for page_number, page in enumerate(pdf.pages, start=1):
-            # The official PDF uses two side-by-side tables on several pages.
-            # Parse each half independently so rows from the two tables cannot merge.
-            midpoint = page.width / 2
-            columns = [page.crop((0, 0, midpoint + 8, page.height)), page.crop((midpoint - 8, 0, page.width, page.height))]
-            for column in columns:
-                for line in (column.extract_text(layout=True) or "").splitlines():
-                    match = ROW.match(clean(line))
-                    if not match:
-                        continue
-                    degree_name, cutoff_value, group_2, ects, years = match.groups()
-                    if degree_name.lower() in {"titulaciones oficiales", "titulación"}:
-                        continue
-                    records.append({
-                        "academic_year": "2025-2026",
-                        "admission_round": "ordinary",
-                        "admission_group": "group_1",
-                        "degree_name_source": degree_name,
-                        "cutoff_score": float(cutoff_value.replace(",", ".")),
-                        "group_2_score_source": float(group_2.replace(",", ".")),
-                        "ects_source": float(ects.replace(",", ".")),
-                        "duration_years_source": int(years),
-                        "score_scale_max": 14,
-                        "source_page": page_number,
-                        "source_file": str(SOURCE).replace("\\", "/"),
-                        "raw_row": clean(line),
-                    })
+            # extract_text(layout=True) loses rows when the PDF has two tables
+            # side by side. The normal reading order keeps each visible row intact
+            # and the expanded expression also supports five access groups.
+            for line in (page.extract_text(layout=False) or "").splitlines():
+                line = clean(line)
+                match = ROW.match(line)
+                if not match:
+                    continue
+                degree_name, cutoff_value, group_2, ects, years = match.groups()
+                if degree_name.lower() in {"titulaciones oficiales", "titulación"}:
+                    continue
+                records.append({
+                    "academic_year": "2025-2026",
+                    "admission_round": "ordinary",
+                    "admission_group": "group_1",
+                    "university_name_source": UNIVERSITY_BY_PAGE.get(page_number),
+                    "degree_name_source": degree_name,
+                    "cutoff_score": float(cutoff_value.replace(",", ".")),
+                    "group_2_score_source": float(group_2.replace(",", ".")),
+                    "ects_source": float(ects.replace(",", ".")),
+                    "duration_years_source": int(years),
+                    "score_scale_max": 14,
+                    "source_page": page_number,
+                    "source_file": str(SOURCE).replace("\\", "/"),
+                    "raw_row": line,
+                })
     unique = list({(record["source_page"], record["raw_row"]): record for record in records}.values())
     TARGET.parent.mkdir(parents=True, exist_ok=True)
     TARGET.write_text(json.dumps(unique, ensure_ascii=False, indent=2), encoding="utf-8")
