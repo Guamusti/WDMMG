@@ -24,6 +24,17 @@ function getContracts() {
   return readJsonl(join(root, 'data', 'processed', 'placsp', 'contracts.jsonl'));
 }
 
+async function databaseContracts(query, page, pageSize) {
+  const offset = (page - 1) * pageSize;
+  const search = `%${query}%`;
+  const result = await pool.query(`
+    SELECT c.procurement_id, c.title, pe.name AS contracting_authority, c.estimated_value, c.base_tender_budget, c.status, c.source_url, c.source_record_id
+    FROM contracts c LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id
+    WHERE ($1 = '' OR c.title ILIKE $2 OR c.procurement_id ILIKE $2 OR pe.name ILIKE $2)
+    ORDER BY c.publication_date DESC NULLS LAST, c.id DESC LIMIT $3 OFFSET $4`, [query, search, pageSize, offset]);
+  return result.rows;
+}
+
 function getExecution() {
   return readJsonl(join(root, 'data', 'processed', 'igae', 'execution-2026-05.jsonl'));
 }
@@ -83,8 +94,13 @@ const server = createServer(async (req, res) => {
     const query = (url.searchParams.get('q') || '').toLocaleLowerCase('es');
     const page = Math.max(1, Number(url.searchParams.get('page') || 1));
     const pageSize = Math.min(100, Math.max(1, Number(url.searchParams.get('pageSize') || 25)));
-    const all = getContracts().filter(row => !query || JSON.stringify(row).toLocaleLowerCase('es').includes(query));
-    return json(res, 200, { data: all.slice((page - 1) * pageSize, page * pageSize), meta: { page, pageSize, total: all.length, dataStatus: all.length ? 'imported' : 'awaiting_validated_ingestion' } });
+    try {
+      const data = await databaseContracts(query, page, pageSize);
+      return json(res, 200, { data, meta: { page, pageSize, total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'postgresql' } });
+    } catch (error) {
+      const all = getContracts().filter(row => !query || JSON.stringify(row).toLocaleLowerCase('es').includes(query));
+      return json(res, 200, { data: all.slice((page - 1) * pageSize, page * pageSize), meta: { page, pageSize, total: all.length, dataStatus: all.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message } });
+    }
   }
   if (url.pathname === '/api/search') {
     const query = (url.searchParams.get('q') || '').trim().toLocaleLowerCase('es');
