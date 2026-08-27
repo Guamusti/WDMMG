@@ -13,7 +13,7 @@ Referencia MD: secciones 0, 1, 2, 3, 49, 61, 62 y 63.
 - [x] Separar presupuesto, ejecución, contratos y subvenciones.
 - [x] Definir que no se presentan cifras hasta tener ingesta validada.
 - [x] Definir criterio de éxito vertical: administración → empresa → contrato → fuente.
-- [ ] Revisar con datos reales que el alcance piloto cubre el criterio de éxito.
+- [x] Revisar con datos reales que el alcance piloto cubre el criterio de éxito; test integrado organismo → expediente → adjudicatario → fuente oficial.
 
 ## Fase 1 — Fuentes oficiales y cobertura
 
@@ -348,5 +348,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Manifiesto `docs/OFFICIAL_SAMPLES.md` con cuatro muestras raw oficiales, tamaño, SHA-256, fecha, fuente y alcance de las fixtures | `en curso` |
 | 27/08/2026 | Vistas analíticas PostgreSQL `db/004_analytics_views.sql` para cadena presupuestaria y totales de organismos/receptores, sin mezclar pagos y adjudicaciones | `en curso` |
 | 27/08/2026 | Runner de actualización con run global, estado por loader, motivo de skip, timestamps y duración; dry-run y ejecución real quedan auditables | `en curso` |
+| 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |

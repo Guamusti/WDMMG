@@ -2,6 +2,7 @@ import json
 import os
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
+from urllib.parse import quote
 
 import pytest
 
@@ -322,6 +323,18 @@ def test_entity_detail_exposes_contracting_relationships():
     assert status == 200
     assert isinstance(payload["data"]["contracts"], list)
     assert "contract_count" in payload["data"]
+
+
+def test_mvp_vertical_path_authority_to_company_to_contract_source():
+    status, entities = get_json("/api/entities?limit=1")
+    assert status == 200 and entities["data"]
+    status, entity = get_json(f"/api/entities/{entities['data'][0]['id']}")
+    assert status == 200 and entity["data"]["contracts"]
+    contract_id = entity["data"]["contracts"][0]["procurement_id"]
+    status, contract = get_json(f"/api/contracts/{quote(contract_id, safe='')}")
+    assert status == 200
+    assert contract["data"]["source_url"]
+    assert contract["data"].get("winner_name") or contract["data"].get("winner_entity_id")
 
 
 def test_company_merge_candidates_are_review_only():
