@@ -136,6 +136,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Home, buscador global, mapa, página de grado, universidad, oferta y ciudad; el smoke test cubre también el explorador nacional y el comparador.
 - [x] Ruta de ciudad `/ciudad/<slug>` con ofertas verificables y enlaces a cada detalle.
 - [x] Comparador de hasta cuatro ofertas y comparador de hasta cuatro universidades de Madrid, con notas y métricas agregadas etiquetadas.
+- [x] Filtro de base media de cotización por umbral (25.000 €, 30.000 € y 35.000 €), con opción sin dato y ordenación separada de la nota de corte.
 - [x] Descargas CSV de filtros actuales (incluye columnas laborales cuando existe una referencia compatible).
 - [x] Descarga CSV de los resultados actuales de Madrid.
 - [x] Metodología visible dentro de la interfaz con definiciones y limitaciones.
