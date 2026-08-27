@@ -48,9 +48,11 @@ const server = createServer(async (request, response) => {
     const branch = url.searchParams.get('branch');
     const field = url.searchParams.get('field');
     const community = url.searchParams.get('community');
+    const admissionRound = url.searchParams.get('admissionRound');
+    const admissionGroup = url.searchParams.get('admissionGroup');
     const page = Math.max(1, Number(url.searchParams.get('page') || 1));
     const limit = Math.min(5000, Math.max(1, Number(url.searchParams.get('limit') || 25)));
-    const filtered = rows.filter(row => (!q || `${row.degree} ${row.university}`.toLocaleLowerCase().includes(q)) && (!university || row.universityRuctCode === university) && (!branch || row.branch === branch) && (!field || row.field === field) && (!community || row.community === community));
+    const filtered = rows.filter(row => (!q || `${row.degree} ${row.university}`.toLocaleLowerCase().includes(q)) && (!university || row.universityRuctCode === university) && (!branch || row.branch === branch) && (!field || row.field === field) && (!community || row.community === community) && (!admissionRound || row.admissionRound === admissionRound) && (!admissionGroup || row.admissionGroup === admissionGroup));
     const start = (page - 1) * limit;
     response.end(JSON.stringify({ data: filtered.slice(start, start + limit), page, limit, total: filtered.length, source: national ? 'data/processed/admissions/national-2025-2026.json' : sourceUrl }));
   } catch (error) { response.statusCode = 500; response.end(JSON.stringify({ error: 'data_unavailable', detail: error.message })); }
