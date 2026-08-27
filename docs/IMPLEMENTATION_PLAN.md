@@ -321,5 +321,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Endpoint `/api/metrics` con presupuesto, ejecución, adjudicaciones y concesiones separados por unidad, periodo y fuente | `en curso` |
 | 27/08/2026 | Portada consume `/api/metrics` en una franja visual de cuatro magnitudes, con periodo/fuente y aviso de separación semántica | `en curso` |
 | 27/08/2026 | Cobertura CCAA muestra fecha real de recuperación desde `retrieved_at` y conserva el estado parcial explícito | `en curso` |
+| 27/08/2026 | Cobertura IGAE recupera la fecha real de `retrieved_at` cuando PostgreSQL no tiene una ejecución cerrada | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |
