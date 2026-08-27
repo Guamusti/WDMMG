@@ -39,9 +39,10 @@ export default function NationalPagePaged({ onBack }) {
   const [field, setField] = useState(ALL_FIELDS);
   const [round, setRound] = useState(ALL_ROUNDS);
   const [group, setGroup] = useState(ALL_GROUPS);
+  const [mode, setMode] = useState('intersection');
   const [draftScore, setDraftScore] = useState('');
   const [draftTolerance, setDraftTolerance] = useState('0');
-  const [applied, setApplied] = useState({ query: '', community: ALL, university: ALL_UNIVERSITIES, branch: ALL_BRANCHES, field: ALL_FIELDS, round: ALL_ROUNDS, group: ALL_GROUPS, score: '', tolerance: '0' });
+  const [applied, setApplied] = useState({ query: '', community: ALL, university: ALL_UNIVERSITIES, branch: ALL_BRANCHES, field: ALL_FIELDS, round: ALL_ROUNDS, group: ALL_GROUPS, mode: 'intersection', score: '', tolerance: '0' });
   const [sort, setSort] = useState('cutoff');
   const [page, setPage] = useState(1);
   const [error, setError] = useState('');
@@ -62,20 +63,25 @@ export default function NationalPagePaged({ onBack }) {
   const filters = [query, community !== ALL, university !== ALL_UNIVERSITIES, branch !== ALL_BRANCHES, field !== ALL_FIELDS, round !== ALL_ROUNDS, group !== ALL_GROUPS, draftScore.trim()].filter(Boolean).length;
   const filtered = useMemo(() => {
     const value = number(applied.score);
+    const textMatches = row => !applied.query || `${row.degree} ${row.university} ${row.campus || ''} ${row.center || ''}`.toLocaleLowerCase().includes(applied.query.toLocaleLowerCase());
+    const selectors = [
+      applied.community !== ALL ? row => row.community === applied.community : null,
+      applied.university !== ALL_UNIVERSITIES ? row => row.university === applied.university : null,
+      applied.branch !== ALL_BRANCHES ? row => row.branch === applied.branch : null,
+      applied.field !== ALL_FIELDS ? row => row.field === applied.field : null,
+      applied.round !== ALL_ROUNDS ? row => row.admissionRound === applied.round : null,
+      applied.group !== ALL_GROUPS ? row => row.admissionGroup === applied.group : null,
+      applied.score ? row => Number.isFinite(value) && row.cutoff <= value + Number(applied.tolerance) : null,
+    ].filter(Boolean);
     return rows
-      .filter(row => (!applied.query || `${row.degree} ${row.university} ${row.campus || ''} ${row.center || ''}`.toLocaleLowerCase().includes(applied.query.toLocaleLowerCase()))
-        && (applied.community === ALL || row.community === applied.community)
-        && (applied.university === ALL_UNIVERSITIES || row.university === applied.university)
-        && (applied.branch === ALL_BRANCHES || row.branch === applied.branch)
-        && (applied.field === ALL_FIELDS || row.field === applied.field)
-        && (applied.round === ALL_ROUNDS || row.admissionRound === applied.round)
-        && (applied.group === ALL_GROUPS || row.admissionGroup === applied.group)
-        && (!applied.score || (Number.isFinite(value) && row.cutoff <= value + Number(applied.tolerance))))
+      .filter(row => textMatches(row)
+        && (selectors.length === 0 || (applied.mode === 'union' ? selectors.some(selector => selector(row)) : selectors.every(selector => selector(row))))
+      )
       .sort((a, b) => sort === 'name' ? a.degree.localeCompare(b.degree) : b.cutoff - a.cutoff);
   }, [rows, applied, sort]);
   const pageCount = Math.max(1, Math.ceil(filtered.length / 50));
   const visible = filtered.slice((page - 1) * 50, page * 50);
-  const apply = () => { setApplied({ query, community, university, branch, field, round, group, score: draftScore, tolerance: draftTolerance }); setPage(1); };
+  const apply = () => { setApplied({ query, community, university, branch, field, round, group, mode, score: draftScore, tolerance: draftTolerance }); setPage(1); };
   const points = [...new Set(rows.map(row => row.campus).filter(campus => coordinates[campus]))]
     .map(campus => ({ campus, position: coordinates[campus], count: rows.filter(row => row.campus === campus).length }));
 
@@ -94,6 +100,7 @@ export default function NationalPagePaged({ onBack }) {
         <label>Campo RUCT<select value={field} onChange={event => setField(event.target.value)}>{fields.map(option => <option key={option}>{option}</option>)}</select></label>
         <label>Convocatoria<select value={round} onChange={event => setRound(event.target.value)}>{rounds.map(option => <option key={option} value={option}>{option === ALL_ROUNDS ? option : roundLabel(option)}</option>)}</select></label>
         <label>Cupo<select value={group} onChange={event => setGroup(event.target.value)}>{groups.map(option => <option key={option} value={option}>{option === ALL_GROUPS ? option : groupLabel(option)}</option>)}</select></label>
+        <label>Combinar<select value={mode} onChange={event => setMode(event.target.value)}><option value="intersection">Todos los filtros</option><option value="union">Cualquier filtro</option></select></label>
         <label>Tu nota<input inputMode="decimal" value={draftScore} onChange={event => setDraftScore(event.target.value)} placeholder="12,40" /></label>
         <label>Tolerancia<select value={draftTolerance} onChange={event => setDraftTolerance(event.target.value)}><option value="0">Sin tolerancia</option><option value="0.1">+0,1</option><option value="0.2">+0,2</option><option value="0.3">+0,3</option><option value="0.5">+0,5</option></select></label>
         <button className="apply-filters" onClick={apply}>Aplicar {filters} {filters === 1 ? 'filtro' : 'filtros'}</button>
@@ -101,7 +108,7 @@ export default function NationalPagePaged({ onBack }) {
       </div>
       {error ? <div className="national-empty"><strong>{error}</strong><p>Comprueba que has iniciado el proyecto con <code>iniciar.bat</code>.</p></div> : <>
         <div className="national-summary" role="status" aria-live="polite"><strong>{filtered.length}</strong> resultados · página {page} de {pageCount}{applied.score && ` · hasta ${format(number(applied.score) + Number(applied.tolerance))}`}</div>
-        <div className="national-table-wrap"><table><thead><tr><th>CARRERA</th><th>UNIVERSIDAD · CENTRO</th><th>COMUNIDAD</th><th>NOTA</th><th>CONVOCATORIA · CUPO</th><th>PERCENTILES</th><th>FUENTE</th></tr></thead><tbody>{visible.map(row => { const scores = scopedPercentiles(row, rows); return <tr key={row.id}><td><strong>{row.degree}</strong></td><td>{row.university}<small>{row.center || row.campus || 'Centro no publicado'}</small></td><td>{row.community}</td><td><b>{format(row.cutoff)}</b><small>/ 14</small></td><td><small>{roundLabel(row.admissionRound)}</small><small>{groupLabel(row.admissionGroup)}</small></td><td><b>{scores.national === null ? '—' : `${scores.national}º`}</b><small>Nacional · {scores.community === null ? '—' : `${scores.community}º`} comunidad</small><small>{row.branch ? `Rama · ${scores.branch}º` : 'Rama no publicada'}</small><small>{row.field ? `Campo · ${scores.field}º` : 'Campo no publicado'}</small></td><td><a href={row.sourceUrl} target="_blank" rel="noreferrer">Publicación oficial <ExternalLink size={13} /></a></td></tr>; })}</tbody></table></div>
+        <div className="national-table-wrap"><table><thead><tr><th>CARRERA</th><th>UNIVERSIDAD · CENTRO</th><th>COMUNIDAD</th><th>NOTA</th><th>PLAZAS</th><th>CONVOCATORIA · CUPO</th><th>PERCENTILES</th><th>FUENTE</th></tr></thead><tbody>{visible.map(row => { const scores = scopedPercentiles(row, rows); return <tr key={row.id}><td><strong>{row.degree}</strong></td><td>{row.university}<small>{row.center || row.campus || 'Centro no publicado'}</small></td><td>{row.community}</td><td><b>{format(row.cutoff)}</b><small>/ 14</small></td><td>{row.places == null ? '—' : row.places}</td><td><small>{roundLabel(row.admissionRound)}</small><small>{groupLabel(row.admissionGroup)}</small></td><td><b>{scores.national === null ? '—' : `${scores.national}º`}</b><small>Nacional · {scores.community === null ? '—' : `${scores.community}º`} comunidad</small><small>{row.branch ? `Rama · ${scores.branch}º` : 'Rama no publicada'}</small><small>{row.field ? `Campo · ${scores.field}º` : 'Campo no publicado'}</small></td><td><a href={row.sourceUrl} target="_blank" rel="noreferrer">Publicación oficial <ExternalLink size={13} /></a></td></tr>; })}</tbody></table></div>
         <div className="national-pagination"><button className="sort" disabled={page === 1} onClick={() => setPage(current => current - 1)}>Anterior</button><span>Página {page} de {pageCount}</span><button className="sort" disabled={page >= pageCount} onClick={() => setPage(current => current + 1)}>Siguiente</button></div>
       </>}
     </main>
