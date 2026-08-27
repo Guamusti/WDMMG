@@ -6,13 +6,20 @@ echo ========================================
 echo   ATLAS UNIVERSITARIO - INICIO LOCAL
 echo ========================================
 echo.
-echo Actualizando dependencias del proyecto...
-call npm install
-if errorlevel 1 (
-  echo.
-  echo No se pudieron instalar las dependencias.
-  pause
-  exit /b 1
+set "INSTALL_DEPS="
+if not exist "node_modules\.package-lock.json" set "INSTALL_DEPS=1"
+if not defined INSTALL_DEPS for /f %%A in ('powershell -NoProfile -Command "$lock=(Get-Item 'package-lock.json').LastWriteTimeUtc; $installed=(Get-Item 'node_modules\.package-lock.json').LastWriteTimeUtc; if ($lock -gt $installed) { '1' }"') do set "INSTALL_DEPS=%%A"
+if defined INSTALL_DEPS (
+  echo Actualizando dependencias del proyecto...
+  call npm install
+  if errorlevel 1 (
+    echo.
+    echo No se pudieron instalar las dependencias.
+    pause
+    exit /b 1
+  )
+) else (
+  echo Dependencias al dia; se reutiliza node_modules.
 )
 
 echo.

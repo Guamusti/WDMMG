@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-En Windows también puedes hacer doble clic en [`iniciar.bat`](./iniciar.bat). El lanzador entra en la carpeta del proyecto, actualiza dependencias con `npm install`, reutiliza una pareja saludable de API y Vite si ya existe, inicia solo lo que falte en segundo plano y abre el navegador en esa instancia. Se puede volver a ejecutar tras cada cambio sin abrir terminales duplicadas: el puerto persistido se valida antes de lanzar otro proceso.
+En Windows también puedes hacer doble clic en [`iniciar.bat`](./iniciar.bat). El lanzador entra en la carpeta del proyecto, actualiza dependencias solo si `package-lock.json` ha cambiado, reutiliza una pareja saludable de API y Vite si ya existe, inicia solo lo que falte en segundo plano y abre el navegador en esa instancia. Se puede volver a ejecutar tras cada cambio sin abrir terminales duplicadas: el puerto persistido se valida antes de lanzar otro proceso.
 
 El mapa utiliza Leaflet y teselas de OpenStreetMap con atribución visible.
 
