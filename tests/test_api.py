@@ -195,6 +195,13 @@ def test_contract_insights_aggregate_published_signals():
     assert payload["data"]["single_bidder_contracts"] <= payload["data"]["known_tender_counts"] <= payload["data"]["total_contracts"]
 
 
+def test_contracts_can_filter_published_single_bidder_signal():
+    status, payload = get_json("/api/contracts?pageSize=100&singleBidder=1")
+    assert status == 200
+    assert payload["meta"]["filters"]["singleBidder"] is True
+    assert all(row["number_of_tenders"] == 1 for row in payload["data"])
+
+
 def test_community_geography_returns_simplified_official_boundaries():
     status, payload = get_json("/api/geography/communities")
     assert status == 200

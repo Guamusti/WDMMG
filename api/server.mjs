@@ -49,6 +49,11 @@ function getContracts() {
   return readJsonl(join(root, 'data', 'processed', 'placsp', 'contracts.jsonl'));
 }
 
+function contractListRow(contract) {
+  const award = (contract.awards || []).slice().sort((a, b) => Number(b.award_amount || 0) - Number(a.award_amount || 0))[0] || {};
+  return { ...contract, winner_name: award.winner_name || null, winner_tax_id: award.winner_id || null, award_amount: award.award_amount ?? null, award_amount_with_tax: award.award_amount_with_tax ?? null, number_of_tenders: award.number_of_tenders == null ? null : Number(award.number_of_tenders) };
+}
+
 function getGrants() {
   return readJsonl(join(root, 'data', 'processed', 'bdns', 'records.jsonl'));
 }
@@ -223,7 +228,7 @@ function companyFromJsonl(id) {
   return company;
 }
 
-async function databaseContracts(query, page, pageSize) {
+async function databaseContracts(query, page, pageSize, singleBidder = false) {
   const offset = (page - 1) * pageSize;
   const search = `%${query}%`;
   const result = await pool.query(`
@@ -235,6 +240,7 @@ async function databaseContracts(query, page, pageSize) {
     LEFT JOIN LATERAL (SELECT ca.* FROM contract_awards ca WHERE ca.contract_id = c.id ORDER BY ca.award_amount DESC NULLS LAST, ca.id LIMIT 1) ca ON TRUE
     LEFT JOIN recipient_entities re ON re.id = ca.winner_entity_id
     WHERE ($1 = '' OR c.title ILIKE $2 OR c.procurement_id ILIKE $2 OR pe.name ILIKE $2 OR re.name ILIKE $2)
+      AND ($5 = FALSE OR ca.number_of_tenders = 1)
     ORDER BY c.publication_date DESC NULLS LAST, c.id DESC LIMIT $3 OFFSET $4`, [query, search, pageSize, offset]);
   return result.rows;
 }
@@ -568,12 +574,13 @@ const server = createServer(async (req, res) => {
     const query = (url.searchParams.get('q') || '').toLocaleLowerCase('es');
     const page = Math.max(1, Number(url.searchParams.get('page') || 1));
     const pageSize = Math.min(100, Math.max(1, Number(url.searchParams.get('pageSize') || 25)));
+    const singleBidder = url.searchParams.get('singleBidder') === '1';
     try {
-      const data = await databaseContracts(query, page, pageSize);
-      return json(res, 200, { data, meta: { page, pageSize, total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'postgresql' } });
+      const data = await databaseContracts(query, page, pageSize, singleBidder);
+      return json(res, 200, { data, meta: { page, pageSize, total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'postgresql', filters: { q: query || null, singleBidder } } });
     } catch (error) {
-      const all = getContracts().filter(row => !query || JSON.stringify(row).toLocaleLowerCase('es').includes(query));
-      return json(res, 200, { data: all.slice((page - 1) * pageSize, page * pageSize), meta: { page, pageSize, total: all.length, dataStatus: all.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message } });
+      const all = getContracts().map(contractListRow).filter(row => (!query || JSON.stringify(row).toLocaleLowerCase('es').includes(query)) && (!singleBidder || Number(row.number_of_tenders) === 1));
+      return json(res, 200, { data: all.slice((page - 1) * pageSize, page * pageSize), meta: { page, pageSize, total: all.length, dataStatus: all.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message, filters: { q: query || null, singleBidder } } });
     }
   }
   if (url.pathname === '/api/companies') {
