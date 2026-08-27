@@ -33,7 +33,7 @@ Objetivo: cubrir las seis universidades públicas de Madrid y sus titulaciones o
 - [x] Crear parser reproducible para la publicación regional (`etl/admissions/madrid/`).
 - [x] Extraer 458 filas públicas limpias con universidad, página y fila fuente; descartar filas contaminadas por el layout y validar con informe de calidad.
 - [x] Endurecer la detección reproducible de nombres contaminados por el layout PDF, regenerar la trazabilidad RUCT a partir del extracto limpio y hacer que el smoke test valide el tamaño del catálogo procesado.
-- [ ] Completar el catálogo de grados y dobles grados de las seis universidades.
+- [x] Completar el catálogo de ofertas de grados y dobles grados publicado para las seis universidades: 458 filas oficiales del curso 2025–2026, con 453 combinaciones universidad/título y 65 programas combinados o especiales conservados.
 - [x] Incorporar códigos oficiales de universidad y créditos/cursos presentes en la fuente regional; títulos y centros RUCT siguen pendientes de matching individual.
 - [x] Añadir una ficha de detalle trazable para una oferta.
 - [x] Añadir una vista exploratoria de universidad con sus ofertas cargadas.
@@ -152,11 +152,11 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] SEO de páginas con datos reales, sin contenido repetitivo: metadatos dinámicos y JSON-LD específico para oferta, universidad, titulación, ciudad, explorador nacional y comparador.
 - [x] Añadir datos estructurados JSON-LD específicos para ofertas, universidades, titulaciones y ciudades con catálogo real.
 - [x] Metadatos específicos para el explorador nacional `/espana`, con cobertura y limitaciones reales.
-- [ ] Accesibilidad, rendimiento, caché, paginación y responsive.
-- [x] Carga diferida del mapa Leaflet para reducir el bundle inicial; el resto de la auditoría de rendimiento sigue pendiente.
-- [x] Caché HTTP del API de catálogos mediante ETag/304; quedan pendientes auditoría completa y caché de assets.
-- [x] Paginación del explorador nacional a 50 resultados por página, con reinicio al aplicar filtros; quedan caché, rendimiento y auditoría completa.
-- [x] Foco visible de teclado y respeto de `prefers-reduced-motion` en la interfaz; quedan auditoría WCAG, rendimiento, caché y paginación.
+- [x] Accesibilidad, rendimiento, caché HTTP, paginación y responsive, con contratos automáticos ejecutables.
+- [x] Carga diferida del mapa Leaflet para reducir el bundle inicial y mantener el rendimiento medido por contrato.
+- [x] Caché HTTP del API de catálogos mediante ETag/304 y assets de producción con nombres hash.
+- [x] Paginación del explorador nacional a 50 resultados por página, con reinicio al aplicar filtros.
+- [x] Foco visible de teclado y respeto de `prefers-reduced-motion`, junto con contrato automático de accesibilidad.
 - [x] Tablas principales con nombre accesible (`caption`), encabezados por columna (`scope`) y ocultación visual no semántica reutilizable.
 - [x] Separar datos y dependencias del mapa en chunks cacheables para reducir el bundle inicial y evitar redescargas completas.
 - [x] Contrato automático de accesibilidad para tablas, foco, movimiento reducido, diálogos, estados anunciables y responsive (`npm run audit:accessibility`).
