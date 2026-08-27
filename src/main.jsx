@@ -88,6 +88,9 @@ function FilterBar({branch,setBranch,university,setUniversity,city,setCity,kind,
 function App(){
   const [query,setQuery]=useState(''); const [branch,setBranch]=useState('Todas las ramas'); const [universityFilter,setUniversityFilter]=useState('Todas las universidades'); const [city,setCity]=useState('Todas las ciudades'); const [kind,setKind]=useState('Todos los tipos'); const [filterMode,setFilterMode]=useState('intersection'); const [appliedFilters,setAppliedFilters]=useState({branch:'Todas las ramas',university:'Todas las universidades',city:'Todas las ciudades',kind:'Todos los tipos',mode:'intersection'}); const [sort,setSort]=useState('cutoff'); const [selected,setSelected]=useState([]); const [view,setView]=useState('explore'); const [score,setScore]=useState(''); const [detail,setDetail]=useState(null); const [universityDetail,setUniversityDetail]=useState(null);
   const [route,setRoute]=useState(()=>parseRoute());
+  const [catalog,setCatalog]=useState(madridOffers);
+  const offers=catalog;
+  useEffect(()=>{fetch('http://127.0.0.1:8787/api/offers?limit=1000').then(response=>response.ok?response.json():Promise.reject(new Error('API unavailable'))).then(payload=>{if(Array.isArray(payload.data)&&payload.data.length)setCatalog(payload.data)}).catch(()=>{/* El catálogo local es el fallback intencionado. */})},[]);
   useEffect(()=>{const onPop=()=>setRoute(parseRoute());window.addEventListener('popstate',onPop);return()=>window.removeEventListener('popstate',onPop)},[]);
   const navigate=path=>{window.history.pushState({},'',path);setRoute(parseRoute())};
   useEffect(()=>{

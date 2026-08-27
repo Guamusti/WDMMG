@@ -7,8 +7,12 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dataPath = resolve(root, 'data/processed/admissions/madrid-2025-2026.json');
 const sourceUrl = 'https://www.comunidad.madrid/docs/assets/2026/02/25/notas_de_corte_2025-26_publicacion_para_web.pdf?VersionId=TQubbLf9LLERJuuTNTnhd4CGSZZjgmUx';
 
+const shortByCode = { '010':'UCM', '023':'UAM', '025':'UPM', '029':'UAH', '036':'UC3M', '056':'URJC' };
+const cities = ['Alcalá de Henares','Aranjuez','Alcorcón','Boadilla del Monte','Colmenarejo','Fuenlabrada','Getafe','Guadalajara','Leganés','Madrid','Móstoles'];
 function normalize(row, index) {
-  return { id: `madrid-${row.university_ruct_code || 'unknown'}-${index + 1}`, university: row.university_name_source, universityRuctCode: row.university_ruct_code, degree: row.degree_name_source, branch: row.branch_name_source, cutoff: row.cutoff_score, scaleMax: row.score_scale_max, ects: row.ects_source, durationYears: row.duration_years_source, academicYear: row.academic_year, sourcePage: row.source_page, sourceUrl };
+  const degree = String(row.degree_name_source || '').replaceAll('�', '').replace(/\s+/g, ' ').trim();
+  const city = cities.find(name => degree.endsWith(`(${name})`)) || 'Madrid';
+  return { id: `madrid-${row.university_ruct_code || 'unknown'}-${index + 1}`, university: row.university_name_source, short: shortByCode[row.university_ruct_code], universityRuctCode: row.university_ruct_code, degree, campus: city, city, double: /\s-\s/.test(degree), branch: String(row.branch_name_source || '').replaceAll('�', '').trim() || 'Rama pendiente de RUCT', cutoff: row.cutoff_score, scaleMax: row.score_scale_max, ects: row.ects_source, durationYears: row.duration_years_source, academicYear: row.academic_year, sourcePage: row.source_page, source: 'Comunidad de Madrid · notas 2025–2026', sourceUrl };
 }
 
 const server = createServer(async (request, response) => {
@@ -23,7 +27,7 @@ const server = createServer(async (request, response) => {
     const university = url.searchParams.get('university');
     const branch = url.searchParams.get('branch');
     const page = Math.max(1, Number(url.searchParams.get('page') || 1));
-    const limit = Math.min(100, Math.max(1, Number(url.searchParams.get('limit') || 25)));
+    const limit = Math.min(1000, Math.max(1, Number(url.searchParams.get('limit') || 25)));
     const filtered = rows.filter(row => (!q || `${row.degree} ${row.university}`.toLocaleLowerCase().includes(q)) && (!university || row.universityRuctCode === university) && (!branch || row.branch === branch));
     const start = (page - 1) * limit;
     response.end(JSON.stringify({ data: filtered.slice(start, start + limit), page, limit, total: filtered.length, source: sourceUrl }));
