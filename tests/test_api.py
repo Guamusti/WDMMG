@@ -112,6 +112,15 @@ def test_publication_datasets_are_not_presented_as_budget_payments():
     assert not financial_execution_fields.intersection(*(row.keys() for row in grants["data"]))
 
 
+def test_policy_export_contains_parent_and_child_rows():
+    with urlopen(f"{BASE_URL}/api/export.csv?entity=policies", timeout=5) as response:
+        body = response.read().decode("utf-8-sig")
+        assert response.status == 200
+        assert "partida" in body and "nivel" in body
+        assert "Pensiones" in body
+        assert '"partida"' in body
+
+
 def test_companies_csv_export_is_available():
     try:
         with urlopen(f"{BASE_URL}/api/export.csv?entity=companies", timeout=4) as response:

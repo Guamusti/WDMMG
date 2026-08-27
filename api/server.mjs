@@ -487,6 +487,12 @@ const server = createServer(async (req, res) => {
     const entity = url.searchParams.get('entity') || 'contracts';
     const query = (url.searchParams.get('q') || '').trim();
     try {
+      if (entity === 'policies') {
+        const source = readJson(join(root, 'data', 'processed', 'igae', 'functional-policies-2024.json'));
+        if (!source?.policies?.length) return csv(res, 'partidas-funcionales-2024.csv', []);
+        const rows = source.policies.flatMap(policy => [{ partida: policy.label, nivel: 'partida', importe_eur: policy.amount, porcentaje_total: source.total ? (policy.amount / source.total) * 100 : null, padre: '' }, ...(policy.children || []).map(child => ({ partida: child.label, nivel: 'subpartida', importe_eur: child.amount, porcentaje_total: source.total ? (child.amount / source.total) * 100 : null, padre: policy.label }))]);
+        return csv(res, 'partidas-funcionales-2024.csv', rows);
+      }
       if (entity === 'contracts') return csv(res, 'contratos-placsp.csv', await databaseContracts(query, 1, 10000));
       if (entity === 'grants') return csv(res, 'convocatorias-bdns.csv', await databaseGrants(query, 1, 10000));
       if (entity === 'companies') return csv(res, 'empresas-adjudicatarias-placsp.csv', await databaseCompanies(query, 10000));

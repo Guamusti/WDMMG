@@ -161,7 +161,7 @@ Referencia MD: secciones 21, 22, 24, 25, 30, 31, 32, 33, 35, 46, 47 y 57.
 - [x] Añadir series históricas y evolución durante el ejercicio; abril y mayo de 2026 validados como cortes AGE compatibles.
 - [x] Añadir comparador de administraciones/territorios; dos CCAA seleccionables con diferencia absoluta.
 - [ ] Añadir nominal €/habitante y documentar cualquier € constante.
-- [ ] Añadir explorador jerárquico de partidas y descarga CSV.
+- [~] Añadir explorador jerárquico de partidas y descarga CSV; rueda/drill-down y exportación funcional activas, subpartidas solo cuando la fuente las publica.
 - [~] Añadir indicadores descriptivos: ejecución, ranking territorial, relatos y concentración de adjudicatarios activos; ofertas y menores pendientes.
 - [~] Permitir abrir el dataset subyacente desde cada indicador; fichas oficiales y exportación activas.
 - [ ] Añadir URLs compartibles y SEO para exploraciones importantes.
@@ -297,3 +297,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Trazabilidad del snapshot geográfico: fecha de captura, SHA-256 y fuente OGC registrados en `docs/DATA_SOURCES.md` | `en curso` |
 | 27/08/2026 | QA territorial: `/api/quality` audita la geometría IGN con 50 elementos, 0 IDs ausentes, 0 duplicados y 0 anomalías | `en curso` |
 | 27/08/2026 | Integridad semántica: test API confirma que contratos y convocatorias no exponen campos de pagos, compromisos ni crédito presupuestario | `en curso` |
+| 27/08/2026 | Exportación del desglose funcional: `/api/export.csv?entity=policies` descarga partidas y subpartidas disponibles sin inventar niveles ausentes | `en curso` |
