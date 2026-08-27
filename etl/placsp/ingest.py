@@ -14,10 +14,13 @@ def local_name(tag: str) -> str:
 
 
 def text_of(node: ET.Element, *names: str) -> str | None:
-    wanted = {name.lower() for name in names}
-    for child in node.iter():
-        if local_name(child.tag) in wanted and child.text and child.text.strip():
-            return child.text.strip()
+    # El orden de `names` expresa prioridad: CODICE debe ganar al id ATOM
+    # cuando ambos identificadores están presentes en una entry.
+    for name in names:
+        wanted = name.lower()
+        for child in node.iter():
+            if local_name(child.tag) == wanted and child.text and child.text.strip():
+                return child.text.strip()
     return None
 
 
