@@ -228,6 +228,7 @@ def test_company_detail_exposes_linked_contracts():
     status, payload = get_json(f"/api/companies/{companies['data'][0]['id']}")
     assert status == 200
     assert payload["data"]["contract_count"] >= 1
+    assert "average_award" in payload["data"] and "largest_award" in payload["data"]
     assert isinstance(payload["data"]["contracts"], list)
     assert isinstance(payload["data"]["authorities"], list)
 

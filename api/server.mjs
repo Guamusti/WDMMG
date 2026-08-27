@@ -78,7 +78,9 @@ async function databaseCompanies(query, limit) {
     SELECT re.id, re.name, re.tax_id,
       COUNT(DISTINCT ca.contract_id)::int AS contract_count,
       COUNT(DISTINCT c.contracting_authority_id)::int AS authority_count,
-      COALESCE(SUM(ca.award_amount), 0) AS award_amount
+      COALESCE(SUM(ca.award_amount), 0) AS award_amount,
+      COALESCE(AVG(ca.award_amount), 0) AS average_award,
+      COALESCE(MAX(ca.award_amount), 0) AS largest_award
     FROM recipient_entities re
     JOIN contract_awards ca ON ca.winner_entity_id = re.id
     JOIN contracts c ON c.id = ca.contract_id
@@ -109,7 +111,9 @@ async function databaseCompanyById(id) {
     SELECT re.id, re.name, re.tax_id,
       COUNT(DISTINCT ca.contract_id)::int AS contract_count,
       COUNT(DISTINCT c.contracting_authority_id)::int AS authority_count,
-      COALESCE(SUM(ca.award_amount), 0) AS award_amount
+      COALESCE(SUM(ca.award_amount), 0) AS award_amount,
+      COALESCE(AVG(ca.award_amount), 0) AS average_award,
+      COALESCE(MAX(ca.award_amount), 0) AS largest_award
     FROM recipient_entities re
     JOIN contract_awards ca ON ca.winner_entity_id = re.id
     JOIN contracts c ON c.id = ca.contract_id
@@ -138,14 +142,14 @@ function companyFromJsonl(id) {
     for (const award of contract.awards || []) {
       const key = String(award.winner_id || award.winner_name || '').trim();
       if (key !== id) continue;
-      company ||= { id: key, name: award.winner_name || key, tax_id: award.winner_id || null, contract_count: 0, authority_count: 0, award_amount: 0, contracts, authorities: new Set() };
+      company ||= { id: key, name: award.winner_name || key, tax_id: award.winner_id || null, contract_count: 0, authority_count: 0, award_amount: 0, average_award: 0, largest_award: 0, contracts, authorities: new Set() };
       if (contract.contracting_authority) company.authorities.add(contract.contracting_authority);
       company.authority_count = company.authorities.size;
       if (!contracts.some(item => item.procurement_id === contract.procurement_id)) { company.contract_count += 1; contracts.push({ procurement_id: contract.procurement_id, title: contract.title, source_url: contract.source_url, contracting_authority: contract.contracting_authority, award_amount: award.award_amount, award_amount_with_tax: award.award_amount_with_tax, number_of_tenders: award.number_of_tenders }); }
       company.award_amount += Number(award.award_amount || 0);
     }
   }
-  if (company) company.authorities = [...company.authorities];
+  if (company) { company.authorities = [...company.authorities]; company.average_award = company.contract_count ? company.award_amount / company.contract_count : 0; company.largest_award = Math.max(...company.contracts.map(item => Number(item.award_amount) || 0), 0); }
   return company;
 }
 
