@@ -285,5 +285,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Búsqueda municipal ajustada al filtro GIS del INE y probada con respuesta oficial; estado de carga visible por latencia variable del proveedor | `en curso` |
 | 27/08/2026 | Histórico añade variación explícita entre cortes: cambio de euros pagados por euro previsto, manteniendo el denominador | `en curso` |
 | 27/08/2026 | Filtros de búsqueda conectados a convocatorias BDNS en la vista y en su exportación CSV | `en curso` |
+| 27/08/2026 | Búsqueda municipal INE compartible mediante `municipio`, con recuperación automática de resultados al abrir la URL | `en curso` |
 | 27/08/2026 | Tooltips accesibles para previsto, comprometido, gasto reconocido y pagado en el detalle de capítulo | `en curso` |
 | 27/08/2026 | Revisión responsive: overflow horizontal controlado, reducción de movimiento respetada y foco visible conservado | `en curso` |
