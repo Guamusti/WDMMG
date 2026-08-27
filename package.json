@@ -7,6 +7,7 @@
     "dev": "vite",
     "api": "node --watch api/server.mjs",
     "build": "vite build",
+    "smoke": "node scripts/smoke-check.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -126,6 +126,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Calculadora PAU sobre 14 con nota de acceso, dos ponderaciones y fórmula visible.
 - [x] Cobertura de datos visible.
 - [x] Quality gate reproducible para datos procesados y build (`etl/quality_check.py` + GitHub Actions).
+- [x] Smoke test reproducible de frontend, API, contrato nacional y caché HTTP (`npm run smoke`).
 - [ ] SEO de páginas con datos reales, sin contenido repetitivo.
 - [x] Añadir datos estructurados JSON-LD específicos para ofertas, universidades, titulaciones y ciudades con catálogo real.
 - [x] Metadatos específicos para el explorador nacional `/espana`, con cobertura y limitaciones reales.
