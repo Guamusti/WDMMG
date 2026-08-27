@@ -97,7 +97,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 
 - [ ] Home, buscador global, mapa, página de grado, universidad, oferta y ciudad.
 - [ ] Comparador de ofertas y universidades.
-- [ ] Descargas CSV de filtros actuales.
+- [x] Descargas CSV de filtros actuales (incluye columnas laborales cuando existe una referencia compatible).
 - [x] Descarga CSV de los resultados actuales de Madrid.
 - [x] Metodología visible dentro de la interfaz con definiciones y limitaciones.
 - [x] Cobertura de datos visible.
