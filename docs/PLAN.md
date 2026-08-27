@@ -70,6 +70,7 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [ ] Separación de grupo, convocatoria, ronda inicial y nota final.
 - [ ] Percentiles nacionales, regionales, por rama y por ámbito.
 - [ ] Explorador nacional de notas, mapa y “qué puedo estudiar con mi nota”.
+- [x] Explorador nacional inicial `/espana` con búsqueda, comunidad, nota/tolerancia, orden, procedencia y estado de cobertura; mapa nacional pendiente.
 
 Criterio de terminado: el filtro España permite comparar solo ofertas metodológicamente compatibles y muestra cobertura por comunidad.
 
