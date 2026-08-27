@@ -33,6 +33,13 @@ def test_metrics_keep_budget_contracts_and_grants_separate():
     assert payload["data"]["budget"]["unit"] == "miles de euros"
     assert payload["data"]["contracts"]["unit"] == "EUR"
     assert payload["data"]["grants"]["unit"] == "EUR"
+
+
+def test_metrics_accept_a_historical_execution_period():
+    status, payload = get_json("/api/metrics?period=2026-04")
+    assert status == 200
+    assert payload["data"]["budget"]["period"] == "2026-04"
+    assert payload["data"]["execution"]["period"] == "2026-04"
     assert payload["meta"]["cacheSeconds"] == 30
 
 
