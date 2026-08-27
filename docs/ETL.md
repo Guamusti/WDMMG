@@ -22,9 +22,11 @@ El límite de servicio y el contrato técnico se configuran por entorno. Si la r
 
 ```bash
 python -m etl.bdns.concessions --grant-code "925963"
+
+python -m etl.bdns.load_concessions --input data/processed/bdns/concessions.jsonl
 ```
 
-El ingestor recorre páginas de hasta 100 elementos, guarda cada respuesta raw con su hash y produce `data/processed/bdns/concessions.jsonl`. Convocatoria y concesión permanecen como entidades separadas; una respuesta vacía se conserva como cero registros de esa consulta, no como prueba de que no existan concesiones en toda la BDNS.
+El ingestor recorre páginas de hasta 100 elementos, guarda cada respuesta raw con su hash y produce `data/processed/bdns/concessions.jsonl`. El segundo comando carga esas concesiones en `grant_awards`, relacionándolas con la convocatoria y el beneficiario cuando existen. La carga es repetible por `source_record_id`: volver a procesar la misma concesión no crea otra fila. Convocatoria y concesión permanecen como entidades separadas; una respuesta vacía se conserva como cero registros de esa consulta, no como prueba de que no existan concesiones en toda la BDNS.
 
 ## IGAE / ejecución AGE
 
