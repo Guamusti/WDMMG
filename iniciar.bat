@@ -19,11 +19,11 @@ echo.
 for /f %%A in ('powershell -NoProfile -Command "$p=8787; while (Get-NetTCPConnection -LocalPort $p -State Listen -ErrorAction SilentlyContinue) { $p++ }; $p"') do set "APIPORT=%%A"
 powershell -NoProfile -Command "$json = @{ port = %APIPORT% } | ConvertTo-Json; Set-Content -LiteralPath 'public/api-port.json' -Value $json -Encoding utf8"
 echo Iniciando API local en http://127.0.0.1:%APIPORT%
-start "Atlas Universitario - API" /D "%~dp0" cmd /c "set ATLAS_API_PORT=%APIPORT%&& npm run api"
+powershell -NoProfile -Command "$apiArgs = '/c set ATLAS_API_PORT=%APIPORT%&& npm run api'; Start-Process -FilePath 'cmd.exe' -ArgumentList $apiArgs -WorkingDirectory '%~dp0' -WindowStyle Hidden"
 
 for /f %%P in ('powershell -NoProfile -Command "$p=5173; while (Get-NetTCPConnection -LocalPort $p -State Listen -ErrorAction SilentlyContinue) { $p++ }; $p"') do set "PORT=%%P"
 echo Iniciando la ultima version en http://localhost:%PORT%
-start "Atlas Universitario - servidor" /D "%~dp0" npm run dev -- --host=127.0.0.1 --port=%PORT%
+powershell -NoProfile -Command "$viteArgs = '/c npm run dev -- --host=127.0.0.1 --port=%PORT%'; Start-Process -FilePath 'cmd.exe' -ArgumentList $viteArgs -WorkingDirectory '%~dp0' -WindowStyle Hidden"
 
 timeout /t 4 /nobreak >nul
 start "" "http://localhost:%PORT%"
