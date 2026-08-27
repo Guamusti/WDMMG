@@ -186,6 +186,8 @@ def test_contract_rows_expose_adjudicatario_when_available():
     for row in payload["data"]:
         assert "winner_name" in row
         assert "number_of_tenders" in row
+        assert "contract_type_label" in row
+        assert "procedure_type_label" in row
 
 
 def test_contract_insights_aggregate_published_signals():

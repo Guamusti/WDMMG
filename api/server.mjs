@@ -51,8 +51,11 @@ function getContracts() {
 
 function contractListRow(contract) {
   const award = (contract.awards || []).slice().sort((a, b) => Number(b.award_amount || 0) - Number(a.award_amount || 0))[0] || {};
-  return { ...contract, winner_name: award.winner_name || null, winner_tax_id: award.winner_id || null, award_amount: award.award_amount ?? null, award_amount_with_tax: award.award_amount_with_tax ?? null, number_of_tenders: award.number_of_tenders == null ? null : Number(award.number_of_tenders) };
+  return { ...contract, winner_name: award.winner_name || null, winner_tax_id: award.winner_id || null, award_amount: award.award_amount ?? null, award_amount_with_tax: award.award_amount_with_tax ?? null, number_of_tenders: award.number_of_tenders == null ? null : Number(award.number_of_tenders), contract_type_label: contractTypeLabel(contract.contract_type), procedure_type_label: procedureTypeLabel(contract.procedure_type) };
 }
+
+function contractTypeLabel(code) { return ({ '1': 'Suministros', '2': 'Servicios', '3': 'Obras', '7': 'Administrativo especial', '8': 'Privado', '21': 'Gestión de servicios públicos', '22': 'Concesión de servicios', '31': 'Concesión de obras públicas', '32': 'Concesión de obras', '40': 'Colaboración público-privada', '50': 'Patrimonial' })[String(code)] || (code ? `Código ${code}` : null); }
+function procedureTypeLabel(code) { return ({ '1': 'Abierto', '2': 'Restringido', '3': 'Negociado sin publicidad', '4': 'Negociado con publicidad', '5': 'Diálogo competitivo', '6': 'Contrato menor', '7': 'Basado en acuerdo marco', '8': 'Concurso de proyectos', '9': 'Abierto simplificado', '10': 'Asociación para la innovación', '11': 'Derivado de asociación para la innovación', '12': 'Sistema dinámico de adquisición', '13': 'Licitación con negociación', '100': 'Normas internas', '999': 'Otros' })[String(code)] || (code ? `Código ${code}` : null); }
 
 function getGrants() {
   return readJsonl(join(root, 'data', 'processed', 'bdns', 'records.jsonl'));
@@ -242,7 +245,7 @@ async function databaseContracts(query, page, pageSize, singleBidder = false) {
     WHERE ($1 = '' OR c.title ILIKE $2 OR c.procurement_id ILIKE $2 OR pe.name ILIKE $2 OR re.name ILIKE $2)
       AND ($5 = FALSE OR ca.number_of_tenders = 1)
     ORDER BY c.publication_date DESC NULLS LAST, c.id DESC LIMIT $3 OFFSET $4`, [query, search, pageSize, offset, singleBidder]);
-  return result.rows;
+  return result.rows.map(row => ({ ...row, contract_type_label: contractTypeLabel(row.contract_type), procedure_type_label: procedureTypeLabel(row.procedure_type) }));
 }
 
 async function databaseContractInsights() {
