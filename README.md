@@ -19,3 +19,6 @@ npm run dev
 - Las anomalías se marcan para revisión; no se borran automáticamente.
 
 Consulta [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md) para la investigación inicial y [docs/DATA_MODEL.md](docs/DATA_MODEL.md) para el modelo normalizado.
+## Mantenimiento rápido
+
+En Windows, ejecuta `iniciar.bat`: sincroniza la rama `master`, instala dependencias si hacen falta, levanta API y frontend y abre `http://localhost:5173/`. La guía completa está en [`docs/MAINTENANCE.md`](docs/MAINTENANCE.md).

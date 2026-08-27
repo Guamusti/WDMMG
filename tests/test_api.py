@@ -35,6 +35,20 @@ def test_api_sets_basic_security_headers():
         pytest.skip(f"API local no disponible: {error}")
 
 
+def test_frontend_and_api_smoke_flow():
+    try:
+        with urlopen("http://localhost:5173/", timeout=2) as response:
+            html = response.read().decode("utf-8")
+            assert response.status == 200
+            assert 'id="root"' in html
+            assert "/src/main.jsx" in html
+        status, payload = get_json("/api/overview")
+        assert status == 200
+        assert "dataStatus" in payload
+    except (URLError, TimeoutError) as error:
+        pytest.skip(f"Frontend/API local no disponible: {error}")
+
+
 @pytest.mark.parametrize("path", ["/api/overview", "/api/history", "/api/quality", "/api/budgets", "/api/contracts?pageSize=2", "/api/companies?limit=2", "/api/grants?pageSize=2", "/api/coverage", "/api/policies"])
 def test_public_dataset_endpoints_return_json(path):
     status, payload = get_json(path)

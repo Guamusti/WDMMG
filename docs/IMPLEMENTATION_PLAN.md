@@ -185,14 +185,14 @@ Referencia MD: secciones 34, 35, 36, 37, 38, 39, 41, 42, 44, 45, 54, 55, 56, 60,
 
 - [ ] Tests de parsers con fixtures oficiales.
 - [~] Tests de normalización y validaciones contables; endpoint visible de calidad con duplicados, IDs ausentes y alertas.
-- [ ] Tests de API y permisos de descarga.
-- [ ] Tests end-to-end frontend → API → datos → fuente.
+- [x] Tests de API y permisos de descarga; endpoints JSON y CSV cubiertos.
+- [~] Tests end-to-end frontend → API → datos → fuente; smoke frontend/API activo, comprobación visual automatizada completa pendiente.
 - [x] Página pública de cobertura y actualización.
 - [x] Página de metodología completa y glosario.
 - [~] Monitorización inicial de calidad y cobertura mediante `/api/quality`; monitorización histórica y de esquema pendiente.
 - [ ] Jobs según frecuencia real comprobada, no asumida.
 - [~] Revisión de accesibilidad, seguridad, privacidad y licencias; foco visible de teclado, estados y cabeceras básicas API activo, auditoría WCAG/licencias completa pendiente.
-- [ ] Deploy reproducible y guía de mantenimiento.
+- [~] Deploy reproducible y guía de mantenimiento; `iniciar.bat` y `docs/MAINTENANCE.md` activos, despliegue público pendiente.
 - [ ] Evaluación final contra el criterio de éxito del MVP.
 
 ## Estado global actual
@@ -280,3 +280,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Relación verificable PLACSP en ficha: órgano contratante → expediente → adjudicatario, con importe y fuente | `en curso` |
 | 27/08/2026 | Control de calidad visible en Metodología y endpoint `/api/quality`: conteos, duplicados, IDs ausentes y alertas por dataset | `en curso` |
 | 27/08/2026 | Cabeceras API `nosniff`, `no-referrer`, `no-store` y metadescripción ciudadana; prueba automatizada de seguridad básica | `en curso` |
+| 27/08/2026 | Smoke end-to-end frontend/API y guía `docs/MAINTENANCE.md` para arranque, validación y actualización del MVP | `en curso` |
