@@ -257,7 +257,9 @@ async function databaseContractInsights() {
     SELECT COUNT(*)::int AS total_contracts,
       COUNT(*) FILTER (WHERE ca.number_of_tenders IS NOT NULL)::int AS known_tender_counts,
       COUNT(*) FILTER (WHERE ca.number_of_tenders = 1)::int AS single_bidder_contracts,
-      COUNT(*) FILTER (WHERE EXISTS (SELECT 1 FROM contract_events ce WHERE ce.contract_id = c.id))::int AS modified_contracts
+      COUNT(*) FILTER (WHERE EXISTS (SELECT 1 FROM contract_events ce WHERE ce.contract_id = c.id))::int AS modified_contracts,
+      COUNT(*) FILTER (WHERE c.base_tender_budget > 0 AND ca.award_amount IS NOT NULL AND ca.award_amount >= 0 AND ca.award_amount <= c.base_tender_budget)::int AS known_discounts,
+      COALESCE(AVG((c.base_tender_budget - ca.award_amount) / c.base_tender_budget * 100) FILTER (WHERE c.base_tender_budget > 0 AND ca.award_amount IS NOT NULL AND ca.award_amount >= 0 AND ca.award_amount <= c.base_tender_budget), 0)::numeric AS average_discount
     FROM contracts c
     LEFT JOIN LATERAL (SELECT ca.number_of_tenders FROM contract_awards ca WHERE ca.contract_id = c.id ORDER BY ca.id LIMIT 1) ca ON TRUE`);
   return result.rows[0];
@@ -709,8 +711,8 @@ const server = createServer(async (req, res) => {
     catch (error) { return json(res, 503, { error: 'detail_unavailable', detail: error.message }); }
   }
   if (url.pathname === '/api/contracts/insights') {
-    try { return json(res, 200, { data: await databaseContractInsights(), meta: { backend: 'postgresql', dataStatus: 'imported', definition: 'Conteos sobre contratos cargados; solo se cuentan campos publicados por PLACSP.' } }); }
-    catch (error) { const rows = getContracts(); const known = rows.filter(row => row.awards?.[0]?.number_of_tenders != null); return json(res, 200, { data: { total_contracts: rows.length, known_tender_counts: known.length, single_bidder_contracts: known.filter(row => Number(row.awards[0].number_of_tenders) === 1).length, modified_contracts: rows.filter(row => row.events?.length).length }, meta: { backend: 'jsonl-fallback', dataStatus: rows.length ? 'imported' : 'awaiting_validated_ingestion', warning: error.message } }); }
+    try { return json(res, 200, { data: await databaseContractInsights(), meta: { backend: 'postgresql', dataStatus: 'imported', definition: 'Conteos y descuentos sobre contratos cargados; solo se cuentan campos publicados por PLACSP.' } }); }
+    catch (error) { const rows = getContracts(); const known = rows.filter(row => row.awards?.[0]?.number_of_tenders != null); const discounts = rows.map(row => ({ base: Number(row.base_tender_budget), award: Number(row.awards?.[0]?.award_amount) })).filter(row => row.base > 0 && row.award >= 0 && row.award <= row.base); return json(res, 200, { data: { total_contracts: rows.length, known_tender_counts: known.length, single_bidder_contracts: known.filter(row => Number(row.awards[0].number_of_tenders) === 1).length, modified_contracts: rows.filter(row => row.events?.length).length, known_discounts: discounts.length, average_discount: discounts.length ? discounts.reduce((sum, row) => sum + ((row.base - row.award) / row.base * 100), 0) / discounts.length : 0 }, meta: { backend: 'jsonl-fallback', dataStatus: rows.length ? 'imported' : 'awaiting_validated_ingestion', warning: error.message } }); }
   }
   if (url.pathname === '/api/grants') {
     const query = (url.searchParams.get('q') || '').trim();

@@ -68,6 +68,8 @@ Al seleccionar un capítulo, la aplicación muestra sus cuatro estados contables
 
 La vista de empresas incluye una señal descriptiva de concentración: qué porcentaje del importe publicado acumulan las cinco primeras empresas del resultado. El denominador, número de empresas y advertencia interpretativa aparecen junto al indicador.
 
+La contratación también muestra el descuento medio frente al presupuesto base únicamente en expedientes con ambas cifras válidas y comparables; no se calcula con valor estimado ni se interpreta como ahorro efectivo.
+
 La tabla de contratos permite abrir una ficha interna con valor estimado, presupuesto base, procedimiento, fechas y lotes publicados, manteniendo el enlace a PLACSP.
 
 Las fichas de contrato son compartibles: el parámetro `contrato` conserva la selección y el buscador global enlaza directamente a ella.
