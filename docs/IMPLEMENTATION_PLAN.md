@@ -134,7 +134,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [~] Construir vista de subvención con convocatoria/concesiones; vista de convocatorias activa, concesiones pendientes.
 - [x] Añadir presupuesto → ejecución con definiciones y estados en el detalle de cada capítulo.
 - [~] Priorizar políticas de gasto reconocibles (pensiones, infraestructuras, sanidad, educación) sobre el detalle de contratación.
-- [ ] Añadir tooltips de conceptos técnicos.
+- [x] Añadir tooltips de conceptos técnicos en el detalle de ejecución de capítulos.
 - [x] Priorizar ratios comprensibles en portada sin atribuir causalidad no demostrada.
 - [x] Traducir titulares contables a lenguaje ciudadano y reservar la precisión técnica para el contexto.
 - [~] Añadir patrón de drill-down visual; el nivel inferior queda bloqueado hasta disponer de una relación padre-hijo oficial.
@@ -284,3 +284,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Primera búsqueda municipal INE en vivo: nombre, código, provincia, comunidad y población oficial 2024; gasto por habitante reservado hasta disponer de ejecución compatible | `en curso` |
 | 27/08/2026 | Búsqueda municipal ajustada al filtro GIS del INE y probada con respuesta oficial; estado de carga visible por latencia variable del proveedor | `en curso` |
 | 27/08/2026 | Filtros de búsqueda conectados a convocatorias BDNS en la vista y en su exportación CSV | `en curso` |
+| 27/08/2026 | Tooltips accesibles para previsto, comprometido, gasto reconocido y pagado en el detalle de capítulo | `en curso` |
