@@ -364,6 +364,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Selección territorial ofrece saltos inmediatos a búsquedas de contratos y organismos, etiquetadas como coincidencias textuales y no como atribución de gasto | `en curso` |
 | 27/08/2026 | Ranking visible de los 5 organismos con mayor importe adjudicado, contratos y adjudicatarios, con enlace directo a investigar cada organismo | `en curso` |
 | 27/08/2026 | Ranking de organismos abre ficha interna por ID estable, con contratos publicados y adjudicatarios enlazables a sus expedientes | `en curso` |
+| 27/08/2026 | Ficha de organismo añade empresas adjudicatarias enlazables a búsqueda de empresas, manteniendo el alcance limitado a contratos PLACSP publicados | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |
