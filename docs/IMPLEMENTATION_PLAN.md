@@ -386,6 +386,8 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Cobertura resistente: `/api/coverage` mantiene visibles datasets, recuentos y estados parciales desde los JSONL locales cuando PostgreSQL no responde | `en curso` |
 | 27/08/2026 | Descarga PLACSP exacta: el CSV respeta búsqueda, licitador único, tipo de contrato y procedimiento seleccionados en pantalla | `en curso` |
 | 27/08/2026 | Modelo de presupuestos prorrogados: `budget_origin_year` e `is_extended_budget` añadidos al esquema y al cargador, con valores nulos si la fuente no los identifica | `en curso` |
+| 27/08/2026 | Modelo de integridad: transferencias con bruto/consolidado y resolución de entidades con aliases y candidatos pendientes de revisión humana | `en curso` |
+| 27/08/2026 | Migración incremental de transferencias añadida para instalaciones PostgreSQL existentes; esquema inicial y actualización quedan reproducibles | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |
