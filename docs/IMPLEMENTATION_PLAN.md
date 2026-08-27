@@ -147,7 +147,7 @@ Referencia MD: secciones 9, 11, 12, 24, 25, 32, 35, 50 y 51.
 
 - [~] Incorporar presupuestos y ejecución de CCAA; muestra mensual de 17 comunidades normalizada, falta carga completa.
 - [~] Incorporar presupuestos, ejecución y liquidación local; fuente Access 2026 localizada y descargada, parser bloqueado por ausencia de lector Access compatible en el entorno.
-- [ ] Incorporar inventario de entidades públicas y jerarquías.
+- [~] Incorporar inventario de entidades públicas y jerarquías; inventario de organismos contratantes con contratos PLACSP publicado, jerarquías completas pendientes.
 - [~] Incorporar geografía, códigos territoriales y población INE; búsqueda municipal y agregación provincial oficial activas.
 - [~] Añadir CCAA, provincias y municipios a filtros y páginas; CCAA, municipio y provincia ya explorables, falta integrarlo en filtros de gasto.
 - [~] Añadir mapa España → CCAA → provincia → municipio; mapa de límites CCAA del IGN activo con carga diferida, simplificación y cache en proceso, faltan provincias/municipios.
@@ -341,3 +341,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Explorador INE ampliado a comunidades autónomas con suma oficial de población y número de municipios; mantiene separado el gasto 2026 por incompatibilidad temporal | `en curso` |
 | 27/08/2026 | API y UI de población verificadas contra el endpoint oficial del INE para municipio, provincia y comunidad; se evita calcular €/habitante con periodos incompatibles | `en curso` |
 | 27/08/2026 | `/api/budgets` añade filtros de nivel/texto y paginación, conservando el fallback JSONL y metadatos de filtros | `en curso` |
+| 27/08/2026 | Nueva vista Organismos y endpoint `/api/entities`: ranking de órganos contratantes, contratos, adjudicatarios e importe publicado con alcance explícito | `en curso` |

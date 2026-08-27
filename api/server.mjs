@@ -106,6 +106,38 @@ async function databaseCompanyInsight(query) {
   return result.rows[0];
 }
 
+async function databaseEntities(query, limit) {
+  const search = `%${query}%`;
+  const result = await pool.query(`
+    SELECT pe.id, pe.name, pe.administration_level,
+      COUNT(DISTINCT c.id)::int AS contract_count,
+      COUNT(DISTINCT ca.winner_entity_id)::int AS contractor_count,
+      COALESCE(SUM(ca.award_amount), 0) AS awarded_amount
+    FROM public_entities pe
+    JOIN contracts c ON c.contracting_authority_id = pe.id
+    LEFT JOIN contract_awards ca ON ca.contract_id = c.id
+    WHERE ($1 = '' OR pe.name ILIKE $2)
+    GROUP BY pe.id, pe.name, pe.administration_level
+    ORDER BY contract_count DESC, pe.name
+    LIMIT $3`, [query, search, limit]);
+  return result.rows;
+}
+
+function entitiesFromJsonl(query = '', limit = 50) {
+  const needle = query.toLocaleLowerCase('es');
+  const groups = new Map();
+  for (const contract of getContracts()) {
+    const name = String(contract.contracting_authority || '').trim();
+    if (!name || (needle && !name.toLocaleLowerCase('es').includes(needle))) continue;
+    const current = groups.get(name) || { id: name, name, administration_level: 'unknown', contract_count: 0, contractor_count: 0, awarded_amount: 0 };
+    current.contract_count += 1;
+    current.awarded_amount += (contract.awards || []).reduce((sum, award) => sum + (Number(award.award_amount) || 0), 0);
+    current.contractor_count += new Set((contract.awards || []).map(award => award.winner_id || award.winner_name).filter(Boolean)).size;
+    groups.set(name, current);
+  }
+  return [...groups.values()].sort((a, b) => b.contract_count - a.contract_count || a.name.localeCompare(b.name, 'es')).slice(0, limit);
+}
+
 async function databaseCompanyById(id) {
   const summary = await pool.query(`
     SELECT re.id, re.name, re.tax_id,
@@ -509,6 +541,12 @@ const server = createServer(async (req, res) => {
       const top5 = rows.slice().sort((a, b) => Number(b.award_amount || 0) - Number(a.award_amount || 0)).slice(0, 5).reduce((sum, row) => sum + Number(row.award_amount || 0), 0);
       return json(res, 200, { data: { entity_count: rows.length, total_amount: total, top5_amount: top5 }, meta: { backend: 'jsonl-fallback', dataStatus: rows.length ? 'imported' : 'awaiting_validated_ingestion', warning: error.message } });
     }
+  }
+  if (url.pathname === '/api/entities') {
+    const query = (url.searchParams.get('q') || '').trim();
+    const limit = Math.min(100, Math.max(1, Number(url.searchParams.get('limit') || 50)));
+    try { const data = await databaseEntities(query, limit); return json(res, 200, { data: data.length ? data : entitiesFromJsonl(query, limit), meta: { total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'postgresql', definition: 'Organismos con contratos PLACSP publicados.' } }); }
+    catch (error) { const data = entitiesFromJsonl(query, limit); return json(res, 200, { data, meta: { total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', definition: 'Organismos con contratos PLACSP publicados.', warning: error.message } }); }
   }
   if (url.pathname.startsWith('/api/companies/')) {
     const id = decodeURIComponent(url.pathname.slice('/api/companies/'.length));
