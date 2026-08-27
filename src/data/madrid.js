@@ -56,14 +56,14 @@ const universityByRuctCode = Object.fromEntries(ructUniversities.map(item => [it
 const cleanPdf = value => String(value || '').replaceAll('�', '').replace(/\s+/g, ' ').trim();
 const cityNames = ['Alcalá de Henares', 'Aranjuez', 'Alcorcón', 'Boadilla del Monte', 'Colmenarejo', 'Fuenlabrada', 'Getafe', 'Guadalajara', 'Leganés', 'Madrid', 'Móstoles'];
 const matchKey = (universityCode, degree) => `${universityCode}|${cleanPdf(degree).toLowerCase().replace(/\([^)]*\)/g, '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim()}`;
-const ructMatchByKey = new Map(ructDegreeMatches.filter(match => match.status === 'matched').map(match => [matchKey(match.university_ruct_code, match.admission_degree), match]));
+const ructMatchByKey = new Map(ructDegreeMatches.map(match => [matchKey(match.university_ruct_code, match.admission_degree), match]));
 const fullOffers = fullMadridAdmissions.map((row, index) => {
   const universityName = universityByRuctCode[row.university_ruct_code] || cleanPdf(row.university_name_source);
   const rawDegree = cleanPdf(row.degree_name_source);
   const city = cityNames.find(name => rawDegree.endsWith(`(${name})`)) || (universityName === 'Universidad Carlos III de Madrid' ? 'Leganés' : universityName === 'Universidad Rey Juan Carlos' ? 'Móstoles' : universityName === 'Universidad de Alcalá' ? 'Alcalá de Henares' : 'Madrid');
   const campus = rawDegree.match(/\(([^()]+)\)$/)?.[1] || city;
   const ructMatch = ructMatchByKey.get(matchKey(row.university_ruct_code, rawDegree));
-  return { id:`madrid-${shortByUniversity[universityName] || 'oferta'}-${index + 1}`, university:universityName, short:shortByUniversity[universityName], ructCode:row.university_ruct_code, degree:rawDegree, campus, city, cutoff:row.cutoff_score, branch:cleanPdf(row.branch_name_source) || cleanPdf(ructMatch?.ruct_branch) || 'Rama pendiente de RUCT', places:null, double:/\s-\s/.test(rawDegree), durationYears:row.duration_years_source, ects:row.ects_source || (ructMatch?.ruct_ects ? Number(ructMatch.ruct_ects) : null), ructMatchStatus:ructMatch?.status || 'pending', ructMatchMethod:ructMatch?.match_method || 'not_available', ructDegreeCode:ructMatch?.ruct_degree_code || null, ructDegreeName:ructMatch?.ruct_degree_name || null, ructSourceUrl:ructMatch?.ruct_source_url || null, ructField:ructMatch?.ruct_field || null, ructCenters:ructMatch?.ruct_centers || [], source:'Comunidad de Madrid · notas 2025–2026', sourcePage:row.source_page };
+  return { id:`madrid-${shortByUniversity[universityName] || 'oferta'}-${index + 1}`, university:universityName, short:shortByUniversity[universityName], ructCode:row.university_ruct_code, degree:rawDegree, campus, city, cutoff:row.cutoff_score, branch:cleanPdf(row.branch_name_source) || cleanPdf(ructMatch?.ruct_branch) || 'Rama pendiente de RUCT', places:null, double:/\s-\s/.test(rawDegree), durationYears:row.duration_years_source, ects:row.ects_source || (ructMatch?.ruct_ects ? Number(ructMatch.ruct_ects) : null), ructMatchStatus:ructMatch?.status || 'pending', ructMatchMethod:ructMatch?.match_method || 'not_available', ructPendingReason:ructMatch?.pending_reason || null, programType:ructMatch?.program_type || null, ructDegreeCode:ructMatch?.ruct_degree_code || null, ructDegreeName:ructMatch?.ruct_degree_name || null, ructSourceUrl:ructMatch?.ruct_source_url || null, ructField:ructMatch?.ruct_field || null, ructCenters:ructMatch?.ruct_centers || [], source:'Comunidad de Madrid · notas 2025–2026', sourcePage:row.source_page };
 });
 
 const canonicalName = value => cleanPdf(value).toLowerCase().replace(/\([^)]*\)/g, '').replace(/\s+/g, ' ').replace(/\s[-+]\s/g, '+').trim();
@@ -74,7 +74,7 @@ const mergedOffers = new Map();
 export const madridOffers = [...mergedOffers.values()].map(offer => {
   if (offer.ructDegreeCode) return { ...offer, ructCenters: offer.ructCenters?.length ? offer.ructCenters : null };
   const match = ructMatchByKey.get(matchKey(offer.ructCode, offer.degree));
-  const enriched = match ? { ...offer, ructDegreeCode:match.ruct_degree_code, ructDegreeName:match.ruct_degree_name, ructSourceUrl:match.ruct_source_url, ructField:match.ruct_field, ructCenters:match.ruct_centers } : offer;
+  const enriched = match ? { ...offer, ructMatchStatus:match.status, ructMatchMethod:match.match_method, ructPendingReason:match.pending_reason || null, programType:match.program_type, ructDegreeCode:match.ruct_degree_code, ructDegreeName:match.ruct_degree_name, ructSourceUrl:match.ruct_source_url, ructField:match.ruct_field, ructCenters:match.ruct_centers } : offer;
   return { ...enriched, ructCenters: enriched.ructCenters?.length ? enriched.ructCenters : null };
 });
 const ructByShort = Object.fromEntries(ructUniversities.map(item => [item.short, item.ruct_code]));
