@@ -118,6 +118,17 @@ def test_population_endpoint_returns_official_municipal_result():
         pytest.skip(f"INE no disponible: {error}")
 
 
+def test_population_endpoint_supports_official_province_aggregate():
+    try:
+        status, payload = get_json("/api/population?q=Madrid&level=province")
+        assert status == 200
+        assert payload["meta"]["searchField"] == "province"
+        assert payload["meta"]["aggregation"]
+        assert payload["data"] and {"province", "population", "municipality_count"}.issubset(payload["data"][0])
+    except (URLError, TimeoutError) as error:
+        pytest.skip(f"INE no disponible: {error}")
+
+
 def test_contract_rows_expose_adjudicatario_when_available():
     status, payload = get_json("/api/contracts?pageSize=2")
     assert status == 200
