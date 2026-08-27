@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ArrowUpRight, ChevronRight, Database, ExternalLink, Search, ShieldCheck, SlidersHorizontal } from 'lucide-react';
 import './styles.css';
@@ -32,7 +32,11 @@ function App() {
   const [query, setQuery] = useState('');
   const [view, setView] = useState('overview');
   const [activeCategory, setActiveCategory] = useState(null);
+  const [overview, setOverview] = useState(null);
   const filteredContracts = useMemo(() => contracts.filter(c => `${c.title} ${c.authority} ${c.winner}`.toLowerCase().includes(query.toLowerCase())), [query]);
+  useEffect(() => { fetch('http://localhost:8787/api/overview').then(response => response.ok ? response.json() : null).then(setOverview).catch(() => setOverview(null)); }, []);
+  const imported = overview?.dataStatus === 'imported';
+  const execution = overview?.execution;
 
   return <div className="app">
     <header className="topbar">
@@ -51,12 +55,12 @@ function App() {
 
       {view === 'methodology' ? <Methodology /> : view === 'contracts' ? <Contracts rows={filteredContracts} /> : <>
         <section className="stats">
-          <Stat label="Presupuesto AGE" value="Dato pendiente" note="Conector IGAE preparado" />
-          <Stat label="Ejecución" value="Dato pendiente" note="Separaremos obligación y pago" />
-          <Stat label="Contratos" value="Muestra técnica" note="Feed PLACSP / ATOM" />
-          <Stat label="Subvenciones" value="Muestra técnica" note="BDNS / servicios web" />
+          <Stat label="Crédito definitivo AGE" value={imported ? `${millions(execution.finalCredit)} M€` : 'Cargando…'} note={imported ? `${overview.period} · ${overview.unit}` : 'Conector IGAE'} />
+          <Stat label="Obligaciones reconocidas" value={imported ? `${millions(execution.recognized)} M€` : 'Cargando…'} note={imported ? `${percent(execution.recognized, execution.finalCredit)}% del crédito` : 'Separado del pago'} />
+          <Stat label="Pagos realizados" value={imported ? `${millions(execution.paid)} M€` : 'Cargando…'} note={imported ? `${percent(execution.paid, execution.recognized)}% de las obligaciones` : 'Dato IGAE'} />
+          <Stat label="Contratos" value="Pendiente" note="Feed PLACSP / ATOM" />
         </section>
-        <section className="notice"><ShieldCheck size={17}/><span><strong>Transparencia de datos.</strong> Esta primera iteración muestra la arquitectura y el flujo de exploración. Las cifras económicas no se presentan hasta completar la ingesta validada.</span><a href={sources.hacienda} target="_blank">Ver fuente central <ExternalLink size={13}/></a></section>
+        <section className="notice"><ShieldCheck size={17}/><span><strong>Fuente conectada.</strong> Ejecución AGE IGAE · {imported ? `${overview.period} · estado provisional · unidad ${overview.unit}` : 'cargando datos'}. Contratos y subvenciones todavía no se agregan.</span><a href={overview?.sourceUrl || sources.hacienda} target="_blank">Ver fuente original <ExternalLink size={13}/></a></section>
         <section className="section-head"><div><span className="eyebrow">01 · PRESUPUESTO</span><h2>¿En qué se gasta?</h2></div><button className="filter"><SlidersHorizontal size={16}/> Filtrar</button></section>
         <section className="explorer-grid">
           <div className="treemap" aria-label="Clasificación funcional del gasto">
@@ -73,6 +77,8 @@ function App() {
   </div>
 }
 
+function millions(value) { return new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 }).format(Number(value) / 1000); }
+function percent(value, total) { return total ? new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 }).format((Number(value) / Number(total)) * 100) : '—'; }
 function Stat({ label, value, note }) { return <div className="stat"><span className="eyebrow">{label}</span><strong>{value}</strong><small>{note}</small></div> }
 function Contracts({ rows, compact }) { return <section className={`contracts ${compact ? 'compact-table' : ''}`}><div className="table-head"><span>Expediente / objeto</span><span>Órgano contratante</span><span>Adjudicatario</span><span>Importe</span><span>Estado</span></div>{rows.map((row, i) => <div className="contract-row" key={i}><div><b>{row.title}</b><small>Registro de integración · PLACSP</small></div><span>{row.authority}</span><span>{row.winner}</span><Money>{row.amount}</Money><span className="pill">{row.status}</span></div>)}</section> }
 function Methodology() { return <section className="methodology"><span className="eyebrow">METODOLOGÍA</span><h2>Una cifra, una definición, una fuente.</h2><p>El producto separa presupuesto, ejecución, contratos y subvenciones. No suma magnitudes que puedan solaparse y no infiere relaciones entre una partida y una adjudicación sin evidencia.</p><div className="source-list">{[['Hacienda / IGAE','Ejecución AGE mensual y presupuestos',sources.igae],['PLACSP','Feeds abiertos ATOM/XML de licitaciones',sources.placsp],['BDNS','Servicios web y especificaciones BDNS20',sources.bdns],['INE','API JSON y población municipal oficial',sources.ine]].map(([n,d,u]) => <a href={u} target="_blank" className="source-item" key={n}><span><b>{n}</b><small>{d}</small></span><ExternalLink size={16}/></a>)}</div></section> }
