@@ -245,8 +245,10 @@ async function databaseCoverage() {
       (SELECT COUNT(*) FROM grant_calls gc WHERE gc.source_id = ds.id) AS grant_records
     FROM data_sources ds WHERE ds.is_official = TRUE ORDER BY ds.id`);
   const ccaaRows = getTerritorialExecution();
+  const executionStamp = getExecution()[0]?.retrieved_at || null;
+  const databaseRows = result.rows.map(row => row.name === 'Ejecución AGE' && executionStamp ? { ...row, last_checked_at: row.last_checked_at || executionStamp, last_imported_at: row.last_imported_at || executionStamp } : row);
   return [
-    ...result.rows,
+    ...databaseRows,
     {
       id: 'ccaa-execution-2026-05',
       name: 'Ejecución presupuestaria de CCAA',
