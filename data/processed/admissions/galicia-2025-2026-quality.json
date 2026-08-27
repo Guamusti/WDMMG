@@ -1,0 +1,12 @@
+{
+  "source_url": "https://ciug.gal/PDF/2025/ACCESO/notas_de_corte_2025.pdf",
+  "academic_year": "2025-2026",
+  "records": 333,
+  "rejected_rows": 0,
+  "rejections": [],
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "no_replacement_glyph_in_names": true,
+    "rounds_explicit": true
+  }
+}

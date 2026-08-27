@@ -25,6 +25,14 @@
 - URJC: publicación institucional de notas 2025/2026 enlazada desde sus páginas de admisión.
 - Uso: validar campus y ofertas específicas cuando la publicación regional no expone el contexto con suficiente detalle.
 
+## Notas de corte — Galicia
+
+- Organismo: Comisión Interuniversitaria de Galicia (CIUG).
+- Publicación de referencia: “Notas de corte 2025” para el curso 2025-2026.
+- Fuente: https://ciug.gal/PDF/2025/ACCESO/notas_de_corte_2025.pdf
+- Estado: PDF conservado en `data/raw/admissions/galicia/2025-2026/`; parser reproducible en `etl/admissions/galicia/` y extracto separado en `data/processed/admissions/galicia-2025-2026.json`.
+- Cobertura validada: 194 titulaciones en seis campus y 333 observaciones con ronda ordinaria/extraordinaria. No se mezcla aún con el catálogo de Madrid hasta completar el modelo nacional común y el matching RUCT.
+
 ## SIIU / estadísticas universitarias
 
 - Organismo: Ministerio competente en universidades.

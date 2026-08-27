@@ -8,3 +8,11 @@ Los ingestors deben pasar sus filas por `normalize_record` y conservar los
 campos específicos de la fuente junto a `academic_year`, `admission_round`,
 `admission_group` y `cutoff_score`. Una nota de corte sin ronda o grupo no se
 mezcla con otra comparable.
+
+## Galicia
+
+`python etl/admissions/galicia/download_galicia.py` conserva la publicación
+oficial del CIUG y `python etl/admissions/galicia/parse_galicia.py` genera el
+extracto procesado de 2025-2026. El parser lee los bloques visuales del PDF
+para no cruzar campus en páginas con dos columnas, conserva ronda y grupo de
+acceso, y rechaza títulos con glifos no decodificables.
