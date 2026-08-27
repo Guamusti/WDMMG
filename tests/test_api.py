@@ -226,6 +226,7 @@ def test_coverage_exposes_partial_and_blocked_sources():
     assert payload["meta"]["checkedAt"]
     sources = {source["id"]: source for source in payload["data"]}
     assert sources["ccaa-execution-2026-05"]["data_status"] == "partial"
+    assert sources["ccaa-execution-2026-05"]["last_imported_at"]
     assert sources["local-budgets-2026"]["data_status"] == "blocked_reader"
     imported = [source for source in payload["data"] if int(source.get("contract_records", 0)) > 0]
     assert imported and imported[0]["last_imported_at"]
