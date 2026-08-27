@@ -18,6 +18,14 @@ python -m etl.bdns.ingest --url "ENDPOINT_BDNS_OFICIAL"
 
 El límite de servicio y el contrato técnico se configuran por entorno. Si la respuesta es XML/WSDL, el raw se conserva sin fingir una normalización JSON; el siguiente paso es seleccionar el servicio de convocatorias o concesiones y mapearlo contra su XSD.
 
+## IGAE / ejecución AGE
+
+```bash
+python -m etl.budgets.igae_extract --url "URL_XLSX_IGAE"
+```
+
+El extractor lee los XLSX oficiales sin convertir importes a `float`, conserva hojas, filas, columnas originales, unidad (`miles de euros`) y provenance. Es una capa de aterrizaje: la clasificación económica/funcional y los estados contables se normalizarán después de validar todas las hojas.
+
 ## Estados
 
 Cada ejecución debe terminar en `success`, `partial` o `failed`, con contadores y errores. No se sobrescriben payloads raw: su nombre incluye el instante de ejecución.

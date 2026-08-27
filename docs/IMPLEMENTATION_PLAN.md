@@ -24,7 +24,7 @@ Referencia MD: secciones 11, 12, 13, 14, 35, 42, 55 y 62.B–D.
 - [ ] Descargar una muestra real de cada fuente prioritaria.
 - [ ] Guardar muestras/fixtures con fecha, hash y licencia.
 - [~] Verificar campos contra documentación vigente; falta validar con descargas de datos.
-- [ ] Completar matriz de cobertura efectiva por año y administración.
+- [~] Completar matriz de cobertura efectiva por año y administración; ya se ha validado una descarga AGE de mayo de 2026.
 
 Entregable: `docs/DATA_SOURCES.md`.
 
@@ -59,6 +59,7 @@ Referencia MD: secciones 6, 7, 10, 13, 34, 40, 41, 43, 44 y 55.
 - [ ] Implementar normalización NIF/CIF, nombres, fechas, euros y códigos.
 - [ ] Implementar flags de calidad: duplicados, fechas, IDs, importes y ejercicios.
 - [~] Añadir tests unitarios del parser y IO; faltan fixtures descargados de producción.
+- [x] Inspeccionar una descarga XLSX real de ejecución AGE (9 hojas, mayo de 2026).
 
 Entregables: `etl/`, `requirements.txt`, `docs/ETL.md`.
 
@@ -80,8 +81,9 @@ Referencia MD: secciones 6, 7, 10, 13, 18, 26, 27, 28, 29, 33, 46, 47, 57, 58 y 
 
 Referencia MD: secciones 4, 5, 11, 16, 17, 20, 23, 30, 31, 32, 33, 36, 42, 56, 58, 59 y 62.H–I.
 
-- [ ] Seleccionar XLS estructurado de presupuesto y ejecución AGE.
-- [ ] Descargar muestra mensual y documentar estructura real.
+- [x] Seleccionar XLS estructurado de presupuesto y ejecución AGE.
+- [x] Descargar muestra mensual y documentar estructura real.
+- [~] Extraer filas del XLSX a JSONL auditable; falta normalización contable completa.
 - [ ] Parsear clasificación orgánica, económica y funcional/programas.
 - [ ] Importar crédito inicial, modificaciones, definitivo, comprometido, obligaciones y pagos.
 - [ ] Conservar periodo, estado provisional/avance/definitivo y versión.
