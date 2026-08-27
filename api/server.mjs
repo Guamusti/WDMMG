@@ -72,6 +72,28 @@ function companiesFromJsonl(query = '', limit = 100) {
   return [...groups.values()].sort((a, b) => b.award_amount - a.award_amount).slice(0, limit).map(({ contract_ids, authorities, ...company }) => company);
 }
 
+function mergeKey(value) {
+  return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('es').replace(/\b(s\.?\s*a\.?|s\.?\s*l\.?|s\.?\s*cooperativa|sociedad anonima|sociedad limitada)\b/g, '').replace(/[^a-z0-9]+/g, '').trim();
+}
+
+function companyMergeCandidates() {
+  const groups = new Map();
+  for (const contract of getContracts()) for (const award of contract.awards || []) {
+    const name = String(award.winner_name || '').trim();
+    if (!name) continue;
+    const key = mergeKey(name);
+    if (!key) continue;
+    const current = groups.get(key) || new Map();
+    const identity = String(award.winner_id || name).trim();
+    const item = current.get(identity) || { identity, name, tax_id: award.winner_id || null, contract_count: 0, award_amount: 0 };
+    item.contract_count += 1;
+    item.award_amount += Number(award.award_amount) || 0;
+    current.set(identity, item);
+    groups.set(key, current);
+  }
+  return [...groups.entries()].filter(([, values]) => values.size > 1).map(([key, values]) => ({ candidate_key: key, candidates: [...values.values()] })).slice(0, 100);
+}
+
 async function databaseCompanies(query, limit) {
   const search = `%${query}%`;
   const result = await pool.query(`
@@ -558,6 +580,9 @@ const server = createServer(async (req, res) => {
       const top5 = rows.slice().sort((a, b) => Number(b.award_amount || 0) - Number(a.award_amount || 0)).slice(0, 5).reduce((sum, row) => sum + Number(row.award_amount || 0), 0);
       return json(res, 200, { data: { entity_count: rows.length, total_amount: total, top5_amount: top5 }, meta: { backend: 'jsonl-fallback', dataStatus: rows.length ? 'imported' : 'awaiting_validated_ingestion', warning: error.message } });
     }
+  }
+  if (url.pathname === '/api/companies/merge-candidates') {
+    return json(res, 200, { data: companyMergeCandidates(), meta: { dataStatus: 'imported', definition: 'Posibles coincidencias por nombre normalizado; no son fusiones automáticas y requieren revisión humana.', source: 'PLACSP' } });
   }
   if (url.pathname === '/api/entities') {
     const query = (url.searchParams.get('q') || '').trim();

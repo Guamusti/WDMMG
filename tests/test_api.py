@@ -324,6 +324,13 @@ def test_entity_detail_exposes_contracting_relationships():
     assert "contract_count" in payload["data"]
 
 
+def test_company_merge_candidates_are_review_only():
+    status, payload = get_json("/api/companies/merge-candidates")
+    assert status == 200
+    assert isinstance(payload["data"], list)
+    assert "revisión humana" in payload["meta"]["definition"]
+
+
 def test_entities_csv_export_is_available():
     with urlopen(f"{BASE_URL}/api/export.csv?entity=entities", timeout=5) as response:
         body = response.read().decode("utf-8-sig")
