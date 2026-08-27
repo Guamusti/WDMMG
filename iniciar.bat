@@ -32,7 +32,7 @@ if defined PORT set "FRONTEND_REUSED=1"
 if not defined PORT for /f %%P in ('powershell -NoProfile -Command "$p=5173; while (Get-NetTCPConnection -LocalPort $p -State Listen -ErrorAction SilentlyContinue) { $p++ }; $p"') do set "PORT=%%P"
 >".atlas-frontend-port" echo %PORT%
 echo Frontend local en http://localhost:%PORT% %FRONTEND_REUSED%
-if not defined FRONTEND_REUSED powershell -NoProfile -Command "$viteArgs = '/c npm run dev -- --host=127.0.0.1 --port=%PORT%'; Start-Process -FilePath 'cmd.exe' -ArgumentList $viteArgs -WorkingDirectory '%~dp0' -WindowStyle Hidden -RedirectStandardOutput '%~dp0vite.log' -RedirectStandardError '%~dp0vite-error.log'"
+if not defined FRONTEND_REUSED powershell -NoProfile -Command "$viteArgs = '/c set ATLAS_API_PORT=%APIPORT%&& npm run dev -- --host=127.0.0.1 --port=%PORT%'; Start-Process -FilePath 'cmd.exe' -ArgumentList $viteArgs -WorkingDirectory '%~dp0' -WindowStyle Hidden -RedirectStandardOutput '%~dp0vite.log' -RedirectStandardError '%~dp0vite-error.log'"
 
 powershell -NoProfile -Command "Start-Sleep -Seconds 4"
 start "" "http://localhost:%PORT%"

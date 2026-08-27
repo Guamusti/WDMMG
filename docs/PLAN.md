@@ -56,6 +56,7 @@ Las rutas actuales del MVP son `/oferta/<id>`, `/universidad/<sigla>` y `/grado/
 - [x] Centros RUCT, rama, campo y créditos recuperados desde las fichas de los 329 títulos emparejados; el censo completo de centros y ofertas sigue pendiente.
 - [x] Preparar vistas materializadas para percentiles y cobertura (`db/migrations/002_views.sql`).
 - [x] API interna con filtros básicos, paginación, fuente y URLs compartibles (`api/server.mjs`); el launcher selecciona puerto libre.
+- [x] Proxy Vite mismo-origen para `/api/*`, con el puerto de API heredado por el único proceso frontend del launcher.
 - [x] Endpoint nacional separado (`/api/national-offers`) y cobertura agregada (`/api/coverage`) con filtro por comunidad y procedencia preservada.
 - [x] Explorador conectado a la API con fallback local para preservar el arranque si el servicio no está disponible.
 - [x] Caché de JSON de la API invalidada por `mtime`, manteniendo disponibles las actualizaciones del catálogo sin lecturas repetidas.
@@ -127,6 +128,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Cobertura de datos visible.
 - [x] Quality gate reproducible para datos procesados y build (`etl/quality_check.py` + GitHub Actions).
 - [x] Smoke test reproducible de frontend, API, contrato nacional y caché HTTP (`npm run smoke`).
+- [x] Verificación visual de home, catálogo completo, navegación a oferta y `/espana` sin errores de consola.
 - [ ] SEO de páginas con datos reales, sin contenido repetitivo.
 - [x] Añadir datos estructurados JSON-LD específicos para ofertas, universidades, titulaciones y ciudades con catálogo real.
 - [x] Metadatos específicos para el explorador nacional `/espana`, con cobertura y limitaciones reales.

@@ -13,6 +13,8 @@ async function expectOk(url, label) {
 
 const page = await expectOk(`${frontend}/`, 'frontend');
 if (!(await page.text()).includes('/src/main.jsx')) throw new Error('frontend: Vite entrypoint missing');
+const proxiedMadrid = await (await expectOk(`${frontend}/api/offers?limit=1`, 'Vite API proxy')).json();
+if (proxiedMadrid.total < 459 || !proxiedMadrid.data[0]?.sourceUrl) throw new Error('Vite API proxy: catalog contract missing');
 await expectOk(`${api}/api/health`, 'health');
 
 const madrid = await (await expectOk(`${api}/api/offers?limit=1`, 'Madrid offers')).json();

@@ -43,10 +43,7 @@ export default function NationalPagePaged({ onBack }) {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch('/api-port.json?ts=' + Date.now())
-      .then(response => response.ok ? response.json() : { port: 8787 })
-      .catch(() => ({ port: 8787 }))
-      .then(config => fetch(`http://127.0.0.1:${config.port || 8787}/api/national-offers?limit=5000`))
+    fetch('/api/national-offers?limit=5000')
       .then(response => response.ok ? response.json() : Promise.reject(new Error('No se pudo cargar el catálogo nacional')))
       .then(payload => setRows(payload.data || []))
       .catch(reason => setError(reason.message));
