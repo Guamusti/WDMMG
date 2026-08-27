@@ -114,7 +114,7 @@ Referencia MD: secciones 17, 18, 19, 22, 23, 24, 26, 27, 28, 29, 30, 32, 33, 34,
 - [x] Implementar filtros server-side y paginación básica para contratos.
 - [x] Implementar buscador global multi-entidad para contratos, convocatorias BDNS y partidas IGAE.
 - [ ] Implementar agregaciones separadas por magnitud.
-- [ ] Implementar exportación CSV de la consulta exacta.
+- [x] Implementar exportación CSV de la consulta exacta para contratos, convocatorias y presupuesto.
 - [ ] Persistir filtros importantes en query params.
 - [ ] Añadir cache/preagregaciones sin enviar datasets completos al navegador.
 
@@ -221,3 +221,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Endpoint y vista inicial BDNS; convocatoria real 925963 visible desde la navegación | `en curso` |
 | 27/08/2026 | Buscador global PostgreSQL con resultados etiquetados por PLACSP, BDNS e IGAE | `en curso` |
 | 27/08/2026 | Endpoint y página de cobertura con conteos efectivos: 91 IGAE, 382 PLACSP y 1 BDNS | `en curso` |
+| 27/08/2026 | Exportación CSV con filtros para contratos PLACSP, convocatorias BDNS y presupuesto IGAE | `en curso` |

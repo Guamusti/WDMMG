@@ -20,6 +20,14 @@ function json(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
+function csv(res, filename, rows) {
+  const columns = rows.length ? Object.keys(rows[0]) : [];
+  const quote = value => `"${String(value ?? '').replaceAll('"', '""')}"`;
+  const body = [columns.map(quote).join(','), ...rows.map(row => columns.map(column => quote(row[column])).join(','))].join('\r\n');
+  res.writeHead(200, { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename="${filename}"`, 'access-control-allow-origin': '*' });
+  res.end(`\uFEFF${body}`);
+}
+
 function getContracts() {
   return readJsonl(join(root, 'data', 'processed', 'placsp', 'contracts.jsonl'));
 }
@@ -145,6 +153,20 @@ const server = createServer(async (req, res) => {
     } catch (error) {
       return json(res, 200, { data: [], meta: { page, pageSize, total: 0, dataStatus: 'awaiting_validated_ingestion', backend: 'unavailable', warning: error.message } });
     }
+  }
+  if (url.pathname === '/api/export.csv') {
+    const entity = url.searchParams.get('entity') || 'contracts';
+    const query = (url.searchParams.get('q') || '').trim();
+    try {
+      if (entity === 'contracts') return csv(res, 'contratos-placsp.csv', await databaseContracts(query, 1, 10000));
+      if (entity === 'grants') return csv(res, 'convocatorias-bdns.csv', await databaseGrants(query, 1, 10000));
+      if (entity === 'budgets') {
+        const search = `%${query}%`;
+        const result = await pool.query(`SELECT br.fiscal_year, br.period, br.economic_code, br.economic_level, br.final_amount, be.committed_amount, be.recognized_amount, be.paid_amount, ds.source_url FROM budget_records br LEFT JOIN budget_execution be ON be.budget_record_id = br.id JOIN data_sources ds ON ds.id = br.source_id WHERE ($1 = '' OR br.economic_code ILIKE $2) ORDER BY br.fiscal_year DESC, br.period DESC, br.id`, [query, search]);
+        return csv(res, 'presupuesto-igae.csv', result.rows);
+      }
+      return json(res, 400, { error: 'unsupported_export_entity' });
+    } catch (error) { return json(res, 503, { error: 'export_unavailable', detail: error.message }); }
   }
   if (url.pathname === '/api/search') {
     const query = (url.searchParams.get('q') || '').trim().toLocaleLowerCase('es');
