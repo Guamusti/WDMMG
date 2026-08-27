@@ -23,7 +23,7 @@ Referencia MD: secciones 11, 12, 13, 14, 35, 42, 55 y 62.B–D.
 - [x] Registrar URL, formato, cobertura, frecuencia, campos y limitaciones conocidas.
 - [ ] Descargar una muestra real de cada fuente prioritaria.
 - [ ] Guardar muestras/fixtures con fecha, hash y licencia.
-- [ ] Verificar campos reales contra XSD, XLS o documentación vigente.
+- [~] Verificar campos contra documentación vigente; falta validar con descargas de datos.
 - [ ] Completar matriz de cobertura efectiva por año y administración.
 
 Entregable: `docs/DATA_SOURCES.md`.
@@ -58,7 +58,7 @@ Referencia MD: secciones 6, 7, 10, 13, 34, 40, 41, 43, 44 y 55.
 - [ ] Añadir cliente BDNS20 por servicio, paginación, throttling y cache.
 - [ ] Implementar normalización NIF/CIF, nombres, fechas, euros y códigos.
 - [ ] Implementar flags de calidad: duplicados, fechas, IDs, importes y ejercicios.
-- [ ] Añadir tests unitarios con fixtures reales.
+- [~] Añadir tests unitarios del parser y IO; faltan fixtures descargados de producción.
 
 Entregables: `etl/`, `requirements.txt`, `docs/ETL.md`.
 
@@ -66,7 +66,7 @@ Entregables: `etl/`, `requirements.txt`, `docs/ETL.md`.
 
 Referencia MD: secciones 6, 7, 10, 13, 18, 26, 27, 28, 29, 33, 46, 47, 57, 58 y 62.G.
 
-- [ ] Configurar una sindicacion/feed PLACSP oficial.
+- [~] Localizar el portal oficial y la documentación del feed; falta configurar una sindicacion concreta.
 - [ ] Importar una muestra real y auditar el conteo raw/parseado/normalizado.
 - [ ] Resolver contratos ordinarios, menores y actualizaciones sin duplicar.
 - [ ] Importar lotes y adjudicaciones con adjudicatarios canónicos.
@@ -180,7 +180,7 @@ Referencia MD: secciones 34, 35, 36, 37, 38, 39, 41, 42, 44, 45, 54, 55, 56, 60,
 
 **Fase 3 — ETL reproducible y calidad de datos, en curso.**
 
-La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la interfaz inicial existen. El cuello de botella pendiente es importar muestras oficiales reales y validar sus esquemas; hasta entonces la UI no debe presentar cifras económicas como si fueran datos del producto.
+La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la interfaz inicial existen. Se han confirmado el portal de Datos Abiertos PLACSP y la base API v2.1 del SNPSAP, pero todavía falta descargar muestras productivas reales y validar sus esquemas; hasta entonces la UI no debe presentar cifras económicas como si fueran datos del producto.
 
 ## Registro de avances
 
@@ -190,3 +190,5 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Limpieza de caches Python | `de34dfe` |
 | 27/08/2026 | API local y arranque frontend/API | `181ffea` |
 | 27/08/2026 | `iniciar.bat` sincroniza GitHub antes de arrancar | `6de774e` |
+| 27/08/2026 | Endpoints oficiales concretos, campos PLACSP y tests estructurales | `29c2741` |
+| 27/08/2026 | Corrección de prioridad del identificador de expediente PLACSP; tests verdes | `5de8f23` |
