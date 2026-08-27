@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "api": "node api/server.mjs",
+    "api": "node --watch api/server.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
