@@ -84,6 +84,7 @@ Referencia MD: secciones 4, 5, 11, 16, 17, 20, 23, 30, 31, 32, 33, 36, 42, 56, 5
 - [x] Seleccionar XLS estructurado de presupuesto y ejecución AGE.
 - [x] Descargar muestra mensual y documentar estructura real.
 - [~] Extraer filas del XLSX a JSONL auditable; falta normalización contable completa.
+- [~] Normalizar hojas GTOS 001/002/004 a campos de ejecución separados; falta cargar en PostgreSQL y validar totales.
 - [ ] Parsear clasificación orgánica, económica y funcional/programas.
 - [ ] Importar crédito inicial, modificaciones, definitivo, comprometido, obligaciones y pagos.
 - [ ] Conservar periodo, estado provisional/avance/definitivo y versión.

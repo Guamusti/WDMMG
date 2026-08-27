@@ -26,6 +26,8 @@ python -m etl.budgets.igae_extract --url "URL_XLSX_IGAE"
 
 El extractor lee los XLSX oficiales sin convertir importes a `float`, conserva hojas, filas, columnas originales, unidad (`miles de euros`) y provenance. Es una capa de aterrizaje: la clasificación económica/funcional y los estados contables se normalizarán después de validar todas las hojas.
 
+Para las hojas de ejecución por secciones/capítulos/inversiones genera además `execution-2026-05.jsonl`, separando crédito definitivo, gasto comprometido, obligaciones reconocidas y pagos. El resultado sigue marcado como provisional y conserva flags de calidad; no se presenta todavía como cifra agregada de producción.
+
 ## Estados
 
 Cada ejecución debe terminar en `success`, `partial` o `failed`, con contadores y errores. No se sobrescriben payloads raw: su nombre incluye el instante de ejecución.

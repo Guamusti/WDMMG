@@ -75,18 +75,63 @@ def parse_workbook(path: Path, source_url: str, run_id: str) -> list[dict]:
     return records
 
 
+def numeric(value: str | None) -> str | None:
+    if value in (None, "", "-"):
+        return None
+    return value
+
+
+def parse_execution_workbook(path: Path, source_url: str, run_id: str) -> list[dict]:
+    """Map the AGE execution sheets without collapsing accounting concepts."""
+    levels = {"GTOS 001": "section", "GTOS 004": "chapter", "GTOS 002": "investment_section"}
+    with ZipFile(path) as archive:
+        strings = shared_strings(archive)
+        result = []
+        for sheet_name, sheet_path in sheet_names(archive):
+            if sheet_name not in levels:
+                continue
+            root = ET.fromstring(archive.read(sheet_path))
+            for row in root.findall(".//m:row", NS):
+                values = {cell.attrib["r"]: cell_value(cell, strings) for cell in row.findall("m:c", NS)}
+                label = values.get(f"A{row.attrib.get('r')}")
+                if not label or row.attrib.get("r", "0") in {"1", "2", "3"}:
+                    continue
+                result.append({
+                    "fiscal_year": 2026,
+                    "period": "2026-05",
+                    "classification_level": levels[sheet_name],
+                    "classification_label": label.strip(),
+                    "final_credit": numeric(values.get(f"B{row.attrib.get('r')}")),
+                    "committed_amount": numeric(values.get(f"C{row.attrib.get('r')}")),
+                    "recognized_amount": numeric(values.get(f"D{row.attrib.get('r')}")),
+                    "paid_amount": numeric(values.get(f"E{row.attrib.get('r')}")),
+                    "unit": "miles de euros",
+                    "data_status": "provisional",
+                    "source_url": source_url,
+                    "source_record_id": f"{sheet_name}:{row.attrib.get('r')}",
+                    "retrieved_at": datetime.now(timezone.utc).isoformat(),
+                    "ingestion_run_id": run_id,
+                    "raw_workbook_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                    "quality_flags": (["missing_final_credit"] if numeric(values.get(f"B{row.attrib.get('r')}")) is None else []),
+                })
+    return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Extrae filas auditables del Excel oficial de ejecución AGE publicado por IGAE.")
     parser.add_argument("--url", required=True, help="URL oficial de un XLSX de IGAE")
     parser.add_argument("--raw-dir", default="data/raw/igae")
     parser.add_argument("--out", default="data/processed/igae/extract-2026-05.jsonl")
+    parser.add_argument("--normalized-out", default="data/processed/igae/execution-2026-05.jsonl")
     args = parser.parse_args()
     run_id = datetime.now(timezone.utc).strftime("igae-%Y%m%dT%H%M%SZ")
     raw_path = Path(args.raw_dir) / f"{run_id}.xlsx"
     metadata = download(args.url, raw_path)
     records = parse_workbook(raw_path, args.url, run_id)
     write_jsonl(records, Path(args.out))
-    print({"run_id": run_id, "sheets": len({row['sheet'] for row in records}), "records_created": len(records), "raw": metadata})
+    execution = parse_execution_workbook(raw_path, args.url, run_id)
+    write_jsonl(execution, Path(args.normalized_out))
+    print({"run_id": run_id, "sheets": len({row['sheet'] for row in records}), "raw_records": len(records), "execution_records": len(execution), "raw": metadata})
 
 
 if __name__ == "__main__":
