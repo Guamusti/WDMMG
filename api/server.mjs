@@ -234,7 +234,8 @@ async function databaseSearch(query) {
 async function databaseCoverage() {
   const result = await pool.query(`
     SELECT ds.id, ds.name, ds.institution, ds.source_url, ds.format, ds.coverage_description,
-      ds.last_checked_at, ds.last_imported_at,
+      COALESCE(ds.last_checked_at, (SELECT MAX(ir.finished_at) FROM ingestion_runs ir WHERE ir.source_id = ds.id)) AS last_checked_at,
+      COALESCE(ds.last_imported_at, (SELECT MAX(ir.finished_at) FROM ingestion_runs ir WHERE ir.source_id = ds.id AND ir.status = 'success')) AS last_imported_at,
       (SELECT COUNT(*) FROM budget_records br WHERE br.source_id = ds.id) AS budget_records,
       (SELECT COUNT(*) FROM contracts c WHERE c.source_id = ds.id) AS contract_records,
       (SELECT COUNT(*) FROM grant_calls gc WHERE gc.source_id = ds.id) AS grant_records
