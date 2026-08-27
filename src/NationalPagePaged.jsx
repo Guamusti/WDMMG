@@ -3,6 +3,8 @@ import { ArrowUpDown, ExternalLink } from 'lucide-react';
 import { CircleMarker, MapContainer, TileLayer, Tooltip } from 'react-leaflet';
 
 const ALL = 'Todas las comunidades';
+const ALL_UNIVERSITIES = 'Todas las universidades';
+const ALL_BRANCHES = 'Todas las ramas';
 const ALL_FIELDS = 'Todos los campos RUCT';
 const ALL_ROUNDS = 'Todas las convocatorias';
 const ALL_GROUPS = 'Todos los cupos';
@@ -32,12 +34,14 @@ export default function NationalPagePaged({ onBack }) {
   const [rows, setRows] = useState([]);
   const [query, setQuery] = useState('');
   const [community, setCommunity] = useState(ALL);
+  const [university, setUniversity] = useState(ALL_UNIVERSITIES);
+  const [branch, setBranch] = useState(ALL_BRANCHES);
   const [field, setField] = useState(ALL_FIELDS);
   const [round, setRound] = useState(ALL_ROUNDS);
   const [group, setGroup] = useState(ALL_GROUPS);
   const [draftScore, setDraftScore] = useState('');
   const [draftTolerance, setDraftTolerance] = useState('0');
-  const [applied, setApplied] = useState({ query: '', community: ALL, field: ALL_FIELDS, round: ALL_ROUNDS, group: ALL_GROUPS, score: '', tolerance: '0' });
+  const [applied, setApplied] = useState({ query: '', community: ALL, university: ALL_UNIVERSITIES, branch: ALL_BRANCHES, field: ALL_FIELDS, round: ALL_ROUNDS, group: ALL_GROUPS, score: '', tolerance: '0' });
   const [sort, setSort] = useState('cutoff');
   const [page, setPage] = useState(1);
   const [error, setError] = useState('');
@@ -50,15 +54,19 @@ export default function NationalPagePaged({ onBack }) {
   }, []);
 
   const communities = [ALL, ...new Set(rows.map(row => row.community).filter(Boolean))];
+  const universities = [ALL_UNIVERSITIES, ...new Set(rows.map(row => row.university).filter(Boolean))].sort((a, b) => a === ALL_UNIVERSITIES ? -1 : b === ALL_UNIVERSITIES ? 1 : a.localeCompare(b));
+  const branches = [ALL_BRANCHES, ...new Set(rows.map(row => row.branch).filter(Boolean))].sort((a, b) => a === ALL_BRANCHES ? -1 : b === ALL_BRANCHES ? 1 : a.localeCompare(b));
   const fields = [ALL_FIELDS, ...new Set(rows.map(row => row.field).filter(Boolean))];
   const rounds = [ALL_ROUNDS, ...new Set(rows.map(row => row.admissionRound).filter(Boolean))];
   const groups = [ALL_GROUPS, ...new Set(rows.map(row => row.admissionGroup).filter(Boolean))];
-  const filters = [query, community !== ALL, field !== ALL_FIELDS, round !== ALL_ROUNDS, group !== ALL_GROUPS, draftScore.trim()].filter(Boolean).length;
+  const filters = [query, community !== ALL, university !== ALL_UNIVERSITIES, branch !== ALL_BRANCHES, field !== ALL_FIELDS, round !== ALL_ROUNDS, group !== ALL_GROUPS, draftScore.trim()].filter(Boolean).length;
   const filtered = useMemo(() => {
     const value = number(applied.score);
     return rows
       .filter(row => (!applied.query || `${row.degree} ${row.university} ${row.campus || ''} ${row.center || ''}`.toLocaleLowerCase().includes(applied.query.toLocaleLowerCase()))
         && (applied.community === ALL || row.community === applied.community)
+        && (applied.university === ALL_UNIVERSITIES || row.university === applied.university)
+        && (applied.branch === ALL_BRANCHES || row.branch === applied.branch)
         && (applied.field === ALL_FIELDS || row.field === applied.field)
         && (applied.round === ALL_ROUNDS || row.admissionRound === applied.round)
         && (applied.group === ALL_GROUPS || row.admissionGroup === applied.group)
@@ -67,7 +75,7 @@ export default function NationalPagePaged({ onBack }) {
   }, [rows, applied, sort]);
   const pageCount = Math.max(1, Math.ceil(filtered.length / 50));
   const visible = filtered.slice((page - 1) * 50, page * 50);
-  const apply = () => { setApplied({ query, community, field, round, group, score: draftScore, tolerance: draftTolerance }); setPage(1); };
+  const apply = () => { setApplied({ query, community, university, branch, field, round, group, score: draftScore, tolerance: draftTolerance }); setPage(1); };
   const points = [...new Set(rows.map(row => row.campus).filter(campus => coordinates[campus]))]
     .map(campus => ({ campus, position: coordinates[campus], count: rows.filter(row => row.campus === campus).length }));
 
@@ -81,6 +89,8 @@ export default function NationalPagePaged({ onBack }) {
       <div className="national-controls">
         <label>Buscar carrera o universidad<input value={query} onChange={event => setQuery(event.target.value)} placeholder="Informática, Zaragoza…" /></label>
         <label>Comunidad<select value={community} onChange={event => setCommunity(event.target.value)}>{communities.map(option => <option key={option}>{option}</option>)}</select></label>
+        <label>Universidad<select value={university} onChange={event => setUniversity(event.target.value)}>{universities.map(option => <option key={option}>{option}</option>)}</select></label>
+        <label>Rama<select value={branch} onChange={event => setBranch(event.target.value)}>{branches.map(option => <option key={option}>{option}</option>)}</select></label>
         <label>Campo RUCT<select value={field} onChange={event => setField(event.target.value)}>{fields.map(option => <option key={option}>{option}</option>)}</select></label>
         <label>Convocatoria<select value={round} onChange={event => setRound(event.target.value)}>{rounds.map(option => <option key={option} value={option}>{option === ALL_ROUNDS ? option : roundLabel(option)}</option>)}</select></label>
         <label>Cupo<select value={group} onChange={event => setGroup(event.target.value)}>{groups.map(option => <option key={option} value={option}>{option === ALL_GROUPS ? option : groupLabel(option)}</option>)}</select></label>
