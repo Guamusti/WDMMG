@@ -13,7 +13,7 @@
   {"community":"Galicia","status":"verified","url":"https://ciug.gal/PDF/2025/ACCESO/notas_de_corte_2025.pdf","format":"HTML/PDF","rounds":["ordinary","extraordinary"],"coverage":"CIUG · grados de las universidades gallegas"},
   {"community":"Comunidad de Madrid","status":"verified","url":"https://www.comunidad.madrid/docs/assets/2026/02/25/notas_de_corte_2025-26_publicacion_para_web.pdf?VersionId=TQubbLf9LLERJuuTNTnhd4CGSZZjgmUx","format":"PDF","rounds":["ordinary"],"coverage":"Seis universidades públicas · curso 2025-2026"},
   {"community":"Región de Murcia","status":"pending","url":null,"format":null,"rounds":null},
-  {"community":"Navarra","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Navarra","status":"verified","url":"https://www.unavarra.es/sites/estudios/acceso-y-admision/admision-en-estudios-de-grado/notas-de-corte-y-simulador.html","format":"PDF","rounds":["last_call","extraordinary"],"coverage":"UPNA · sexta lista de admitidos del 10 de septiembre de 2025 · 41 ofertas"},
   {"community":"País Vasco","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"La Rioja","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"Ceuta","status":"pending","url":null,"format":null,"rounds":null},

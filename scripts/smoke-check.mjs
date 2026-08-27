@@ -7,6 +7,7 @@ const expectedAndalucia = JSON.parse(await readFile('data/processed/admissions/a
 const expectedCastillaLeon = JSON.parse(await readFile('data/processed/admissions/castilla-leon-2025-2026.json', 'utf8')).length;
 const expectedSalamanca = JSON.parse(await readFile('data/processed/admissions/salamanca-2025-2026.json', 'utf8')).length;
 const expectedCantabria = JSON.parse(await readFile('data/processed/admissions/cantabria-2025-2026.json', 'utf8')).length;
+const expectedNavarra = JSON.parse(await readFile('data/processed/admissions/navarra-2025-2026.json', 'utf8')).length;
 const frontend = `http://127.0.0.1:${frontendPort}`;
 const api = `http://127.0.0.1:${apiPort}`;
 
@@ -42,6 +43,8 @@ const salamanca = await (await expectOk(`${api}/api/national-offers?community=Ca
 if (salamanca.total !== expectedSalamanca || !salamanca.data[0]?.cutoff) throw new Error('Salamanca offers: source contract missing');
 const cantabria = await (await expectOk(`${api}/api/national-offers?community=Cantabria&limit=1`, 'Cantabria offers')).json();
 if (cantabria.total !== expectedCantabria || cantabria.data[0]?.admissionRound !== 'last_call') throw new Error('Cantabria offers: round/source contract missing');
+const navarra = await (await expectOk(`${api}/api/national-offers?community=Navarra&limit=1`, 'Navarra offers')).json();
+if (navarra.total !== expectedNavarra || !navarra.data[0]?.sourceUrl || !['last_call', 'extraordinary'].includes(navarra.data[0]?.admissionRound)) throw new Error('Navarra offers: round/source contract missing');
 
 const etag = nationalResponse.headers.get('etag');
 if (!etag || !nationalResponse.headers.get('cache-control')) throw new Error('National offers: HTTP cache headers missing');

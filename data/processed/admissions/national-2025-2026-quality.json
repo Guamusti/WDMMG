@@ -1,5 +1,5 @@
 {
-  "records": 2153,
+  "records": 2194,
   "communities": [
     "Andalucía",
     "Aragón",
@@ -7,7 +7,8 @@
     "Castilla y León",
     "Cataluña",
     "Comunidad de Madrid",
-    "Galicia"
+    "Galicia",
+    "Navarra"
   ],
   "by_community": {
     "Andalucía": 581,
@@ -16,7 +17,8 @@
     "Castilla y León": 122,
     "Cataluña": 549,
     "Comunidad de Madrid": 458,
-    "Galicia": 333
+    "Galicia": 333,
+    "Navarra": 41
   },
   "duplicates": 0,
   "comparability": {

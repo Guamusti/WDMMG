@@ -51,11 +51,20 @@ etl/admissions/cantabria/parse_cantabria.py` genera el extracto de
 separada de una primera adjudicación, porque es la dimensión que publica la
 fuente.
 
+## Navarra
+
+`python etl/admissions/navarra/download_navarra.py` conserva la sexta lista
+oficial de admitidos de la UPNA del 10 de septiembre de 2025 y `python
+etl/admissions/navarra/parse_navarra.py` genera el extracto de 2025-2026.
+El parser conserva el cupo general, separa las marcas de convocatoria
+extraordinaria y normaliza los títulos en castellano; la fuente no publica
+rama ni centro para este listado y esos campos permanecen ausentes.
+
 ## Catálogo nacional de trabajo
 
 `python etl/admissions/build_national_catalog.py` reúne los extractos
-procesados de Madrid, Galicia, Aragón, Cataluña, Andalucía, Castilla y León y
-Cantabria en
+procesados de Madrid, Galicia, Aragón, Cataluña, Andalucía, Castilla y León,
+Cantabria y Navarra en
 `data/processed/admissions/`.
 Conserva la procedencia regional y genera un informe de comparabilidad; no
 rellena ramas, RUCT ni métricas que una fuente no publique.

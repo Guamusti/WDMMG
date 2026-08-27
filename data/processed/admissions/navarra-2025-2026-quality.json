@@ -1,0 +1,16 @@
+{
+  "source_url": "https://www2.unavarra.es/gesadj/Estudios/acceso_matricula/notas_corte/2025/NOTASDECORTE2025-10septiembre.pdf",
+  "academic_year": "2025-2026",
+  "records": 41,
+  "rejected_rows": 0,
+  "duplicates": 0,
+  "round": "6th list · 10 September 2025; extraordinary marks preserved",
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "no_replacement_glyph_in_names": true,
+    "admission_round_explicit": true,
+    "general_group_explicit": true,
+    "no_duplicate_keys": true
+  },
+  "rejections": []
+}

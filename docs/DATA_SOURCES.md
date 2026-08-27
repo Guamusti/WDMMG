@@ -68,8 +68,15 @@
 
 ## Catálogo nacional de trabajo
 
-- `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de siete comunidades: Madrid (458), Galicia (333), Aragón (73), Cataluña (549), Andalucía (581), Castilla y León (122) y Cantabria (37).
-- `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial (1002/2153) y la de campo RUCT también (351/2153), por lo que el catálogo no se presenta como ranking nacional único.
+- `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de ocho comunidades: Madrid (458), Galicia (333), Aragón (73), Cataluña (549), Andalucía (581), Castilla y León (122), Cantabria (37) y Navarra (41).
+- `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial y la de campo RUCT también, por lo que el catálogo no se presenta como ranking nacional único.
+
+## Notas de corte — Navarra
+
+- Organismo: Universidad Pública de Navarra.
+- Fuente primaria: [UPNA, notas de corte y simulador](https://www.unavarra.es/sites/estudios/acceso-y-admision/admision-en-estudios-de-grado/notas-de-corte-y-simulador.html).
+- Extracto: PDF oficial de la sexta lista de admitidos del 10 de septiembre de 2025, 41 ofertas, cupo general.
+- El asterisco de la fuente se conserva como `extraordinary`; el resto de filas se guarda como `last_call`. La publicación no ofrece rama ni centro, por lo que esos campos quedan ausentes.
 
 ## SIIU / estadísticas universitarias
 
