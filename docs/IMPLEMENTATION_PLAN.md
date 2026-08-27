@@ -117,7 +117,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [x] Crear portada editorial, selector de año, búsqueda y navegación base.
 - [x] Crear treemap interactivo de validación visual.
 - [x] Crear tabla de contratos y vista metodológica.
-- [ ] Conectar overview a agregaciones reales.
+- [x] Conectar overview a agregaciones IGAE reales, mostrando periodo, unidad y estado.
 - [ ] Construir vista de administración AGE.
 - [ ] Construir vista de empresa con contratos y subvenciones.
 - [ ] Construir vista de contrato con lotes, eventos y fuente oficial.
@@ -197,3 +197,5 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | `iniciar.bat` sincroniza GitHub antes de arrancar | `6de774e` |
 | 27/08/2026 | Endpoints oficiales concretos, campos PLACSP y tests estructurales | `29c2741` |
 | 27/08/2026 | Corrección de prioridad del identificador de expediente PLACSP; tests verdes | `5de8f23` |
+| 27/08/2026 | Extractor real IGAE: 9 hojas, 392 filas y 91 registros de ejecución | `49b52a6` |
+| 27/08/2026 | API y frontend conectados al resumen IGAE real; agregado sin filas TOTAL | `e6c2f61` |
