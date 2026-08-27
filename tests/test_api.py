@@ -188,6 +188,13 @@ def test_contract_rows_expose_adjudicatario_when_available():
         assert "number_of_tenders" in row
 
 
+def test_contract_insights_aggregate_published_signals():
+    status, payload = get_json("/api/contracts/insights")
+    assert status == 200
+    assert {"total_contracts", "known_tender_counts", "single_bidder_contracts", "modified_contracts"}.issubset(payload["data"])
+    assert payload["data"]["single_bidder_contracts"] <= payload["data"]["known_tender_counts"] <= payload["data"]["total_contracts"]
+
+
 def test_community_geography_returns_simplified_official_boundaries():
     status, payload = get_json("/api/geography/communities")
     assert status == 200

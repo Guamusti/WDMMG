@@ -239,6 +239,17 @@ async function databaseContracts(query, page, pageSize) {
   return result.rows;
 }
 
+async function databaseContractInsights() {
+  const result = await pool.query(`
+    SELECT COUNT(*)::int AS total_contracts,
+      COUNT(*) FILTER (WHERE ca.number_of_tenders IS NOT NULL)::int AS known_tender_counts,
+      COUNT(*) FILTER (WHERE ca.number_of_tenders = 1)::int AS single_bidder_contracts,
+      COUNT(*) FILTER (WHERE EXISTS (SELECT 1 FROM contract_events ce WHERE ce.contract_id = c.id))::int AS modified_contracts
+    FROM contracts c
+    LEFT JOIN LATERAL (SELECT ca.number_of_tenders FROM contract_awards ca WHERE ca.contract_id = c.id ORDER BY ca.id LIMIT 1) ca ON TRUE`);
+  return result.rows[0];
+}
+
 async function databaseContractById(id) {
   const result = await pool.query(`
     SELECT c.procurement_id, c.title, c.contract_type, c.procedure_type, c.status,
@@ -610,10 +621,14 @@ const server = createServer(async (req, res) => {
       return data ? json(res, 200, { data, meta: { backend: 'jsonl-fallback', dataStatus: 'imported', warning: error.message } }) : json(res, 404, { error: 'company_not_found' });
     }
   }
-  if (url.pathname.startsWith('/api/contracts/')) {
+  if (url.pathname.startsWith('/api/contracts/') && url.pathname !== '/api/contracts/insights') {
     const id = decodeURIComponent(url.pathname.slice('/api/contracts/'.length));
     try { const data = await databaseContractById(id); return data ? json(res, 200, { data, meta: { backend: 'postgresql' } }) : json(res, 404, { error: 'contract_not_found' }); }
     catch (error) { return json(res, 503, { error: 'detail_unavailable', detail: error.message }); }
+  }
+  if (url.pathname === '/api/contracts/insights') {
+    try { return json(res, 200, { data: await databaseContractInsights(), meta: { backend: 'postgresql', dataStatus: 'imported', definition: 'Conteos sobre contratos cargados; solo se cuentan campos publicados por PLACSP.' } }); }
+    catch (error) { const rows = getContracts(); const known = rows.filter(row => row.awards?.[0]?.number_of_tenders != null); return json(res, 200, { data: { total_contracts: rows.length, known_tender_counts: known.length, single_bidder_contracts: known.filter(row => Number(row.awards[0].number_of_tenders) === 1).length, modified_contracts: rows.filter(row => row.events?.length).length }, meta: { backend: 'jsonl-fallback', dataStatus: rows.length ? 'imported' : 'awaiting_validated_ingestion', warning: error.message } }); }
   }
   if (url.pathname === '/api/grants') {
     const query = (url.searchParams.get('q') || '').trim();
