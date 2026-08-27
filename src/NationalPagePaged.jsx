@@ -4,6 +4,10 @@ import { CircleMarker, MapContainer, TileLayer, Tooltip } from 'react-leaflet';
 
 const ALL = 'Todas las comunidades';
 const ALL_FIELDS = 'Todos los campos RUCT';
+const ALL_ROUNDS = 'Todas las convocatorias';
+const ALL_GROUPS = 'Todos los cupos';
+const roundLabel = value => ({ assignment_1: 'Primera asignación', ordinary: 'Ordinaria', extraordinary: 'Extraordinaria' }[value] || value);
+const groupLabel = value => value === 'group_1' ? 'Grupo 1 / general' : value === 'n' ? 'Cupo general (N)' : value ? `Cupo ${value.toUpperCase()}` : 'Cupo no publicado';
 const coordinates = {
   'Campus de Ourense': [42.336, -7.864], 'Campus de Pontevedra': [42.431, -8.644],
   'Campus de Vigo': [42.240, -8.720], 'Campus de Santiago': [42.878, -8.544],
@@ -29,9 +33,11 @@ export default function NationalPagePaged({ onBack }) {
   const [query, setQuery] = useState('');
   const [community, setCommunity] = useState(ALL);
   const [field, setField] = useState(ALL_FIELDS);
+  const [round, setRound] = useState(ALL_ROUNDS);
+  const [group, setGroup] = useState(ALL_GROUPS);
   const [draftScore, setDraftScore] = useState('');
   const [draftTolerance, setDraftTolerance] = useState('0');
-  const [applied, setApplied] = useState({ query: '', community: ALL, field: ALL_FIELDS, score: '', tolerance: '0' });
+  const [applied, setApplied] = useState({ query: '', community: ALL, field: ALL_FIELDS, round: ALL_ROUNDS, group: ALL_GROUPS, score: '', tolerance: '0' });
   const [sort, setSort] = useState('cutoff');
   const [page, setPage] = useState(1);
   const [error, setError] = useState('');
@@ -48,19 +54,23 @@ export default function NationalPagePaged({ onBack }) {
 
   const communities = [ALL, ...new Set(rows.map(row => row.community).filter(Boolean))];
   const fields = [ALL_FIELDS, ...new Set(rows.map(row => row.field).filter(Boolean))];
-  const filters = [applied.query, applied.community !== ALL, applied.field !== ALL_FIELDS, applied.score].filter(Boolean).length;
+  const rounds = [ALL_ROUNDS, ...new Set(rows.map(row => row.admissionRound).filter(Boolean))];
+  const groups = [ALL_GROUPS, ...new Set(rows.map(row => row.admissionGroup).filter(Boolean))];
+  const filters = [applied.query, applied.community !== ALL, applied.field !== ALL_FIELDS, applied.round !== ALL_ROUNDS, applied.group !== ALL_GROUPS, applied.score].filter(Boolean).length;
   const filtered = useMemo(() => {
     const value = number(applied.score);
     return rows
       .filter(row => (!applied.query || `${row.degree} ${row.university} ${row.campus || ''}`.toLocaleLowerCase().includes(applied.query.toLocaleLowerCase()))
         && (applied.community === ALL || row.community === applied.community)
         && (applied.field === ALL_FIELDS || row.field === applied.field)
+        && (applied.round === ALL_ROUNDS || row.admissionRound === applied.round)
+        && (applied.group === ALL_GROUPS || row.admissionGroup === applied.group)
         && (!applied.score || (Number.isFinite(value) && row.cutoff <= value + Number(applied.tolerance))))
       .sort((a, b) => sort === 'name' ? a.degree.localeCompare(b.degree) : b.cutoff - a.cutoff);
   }, [rows, applied, sort]);
   const pageCount = Math.max(1, Math.ceil(filtered.length / 50));
   const visible = filtered.slice((page - 1) * 50, page * 50);
-  const apply = () => { setApplied({ query, community, field, score: draftScore, tolerance: draftTolerance }); setPage(1); };
+  const apply = () => { setApplied({ query, community, field, round, group, score: draftScore, tolerance: draftTolerance }); setPage(1); };
   const points = [...new Set(rows.map(row => row.campus).filter(campus => coordinates[campus]))]
     .map(campus => ({ campus, position: coordinates[campus], count: rows.filter(row => row.campus === campus).length }));
 
@@ -75,14 +85,16 @@ export default function NationalPagePaged({ onBack }) {
         <label>Buscar carrera o universidad<input value={query} onChange={event => setQuery(event.target.value)} placeholder="Informática, Zaragoza…" /></label>
         <label>Comunidad<select value={community} onChange={event => setCommunity(event.target.value)}>{communities.map(option => <option key={option}>{option}</option>)}</select></label>
         <label>Campo RUCT<select value={field} onChange={event => setField(event.target.value)}>{fields.map(option => <option key={option}>{option}</option>)}</select></label>
+        <label>Convocatoria<select value={round} onChange={event => setRound(event.target.value)}>{rounds.map(option => <option key={option} value={option}>{option === ALL_ROUNDS ? option : roundLabel(option)}</option>)}</select></label>
+        <label>Cupo<select value={group} onChange={event => setGroup(event.target.value)}>{groups.map(option => <option key={option} value={option}>{option === ALL_GROUPS ? option : groupLabel(option)}</option>)}</select></label>
         <label>Tu nota<input inputMode="decimal" value={draftScore} onChange={event => setDraftScore(event.target.value)} placeholder="12,40" /></label>
         <label>Tolerancia<select value={draftTolerance} onChange={event => setDraftTolerance(event.target.value)}><option value="0">Sin tolerancia</option><option value="0.1">+0,1</option><option value="0.2">+0,2</option><option value="0.3">+0,3</option><option value="0.5">+0,5</option></select></label>
-        <button className="apply-filters" onClick={apply}>Aplicar {filters} filtros</button>
+        <button className="apply-filters" onClick={apply}>Aplicar {filters} {filters === 1 ? 'filtro' : 'filtros'}</button>
         <button className="sort" onClick={() => setSort(sort === 'cutoff' ? 'name' : 'cutoff')}><ArrowUpDown size={15} /> {sort === 'cutoff' ? 'Ordenar por nota' : 'Ordenar por nombre'}</button>
       </div>
       {error ? <div className="national-empty"><strong>{error}</strong><p>Comprueba que has iniciado el proyecto con <code>iniciar.bat</code>.</p></div> : <>
         <div className="national-summary"><strong>{filtered.length}</strong> resultados · página {page} de {pageCount}{applied.score && ` · hasta ${format(number(applied.score) + Number(applied.tolerance))}`}</div>
-        <div className="national-table-wrap"><table><thead><tr><th>CARRERA</th><th>UNIVERSIDAD · CAMPUS</th><th>COMUNIDAD</th><th>NOTA</th><th>PERCENTILES</th><th>FUENTE</th></tr></thead><tbody>{visible.map(row => { const scores = scopedPercentiles(row, rows); return <tr key={row.id}><td><strong>{row.degree}</strong></td><td>{row.university}<small>{row.campus || 'Campus no publicado'}</small></td><td>{row.community}</td><td><b>{format(row.cutoff)}</b><small>/ 14 · {row.admissionRound === 'ordinary' ? 'ordinaria' : 'extraordinaria'}</small></td><td><b>{scores.national === null ? '—' : `${scores.national}º`}</b><small>Nacional · {scores.community === null ? '—' : `${scores.community}º`} comunidad</small><small>{row.branch ? `Rama · ${scores.branch}º` : 'Rama no publicada'}</small><small>{row.field ? `Campo · ${scores.field}º` : 'Campo no publicado'}</small></td><td><a href={row.sourceUrl} target="_blank" rel="noreferrer">Publicación oficial <ExternalLink size={13} /></a></td></tr>; })}</tbody></table></div>
+        <div className="national-table-wrap"><table><thead><tr><th>CARRERA</th><th>UNIVERSIDAD · CAMPUS</th><th>COMUNIDAD</th><th>NOTA</th><th>CONVOCATORIA · CUPO</th><th>PERCENTILES</th><th>FUENTE</th></tr></thead><tbody>{visible.map(row => { const scores = scopedPercentiles(row, rows); return <tr key={row.id}><td><strong>{row.degree}</strong></td><td>{row.university}<small>{row.campus || 'Campus no publicado'}</small></td><td>{row.community}</td><td><b>{format(row.cutoff)}</b><small>/ 14</small></td><td><small>{roundLabel(row.admissionRound)}</small><small>{groupLabel(row.admissionGroup)}</small></td><td><b>{scores.national === null ? '—' : `${scores.national}º`}</b><small>Nacional · {scores.community === null ? '—' : `${scores.community}º`} comunidad</small><small>{row.branch ? `Rama · ${scores.branch}º` : 'Rama no publicada'}</small><small>{row.field ? `Campo · ${scores.field}º` : 'Campo no publicado'}</small></td><td><a href={row.sourceUrl} target="_blank" rel="noreferrer">Publicación oficial <ExternalLink size={13} /></a></td></tr>; })}</tbody></table></div>
         <div className="national-pagination"><button className="sort" disabled={page === 1} onClick={() => setPage(current => current - 1)}>Anterior</button><span>Página {page} de {pageCount}</span><button className="sort" disabled={page >= pageCount} onClick={() => setPage(current => current + 1)}>Siguiente</button></div>
       </>}
     </main>
