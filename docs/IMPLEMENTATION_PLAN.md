@@ -328,5 +328,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Comparador territorial incorpora enlaces visibles al CSV subyacente y a la fuente oficial CIMCANET | `en curso` |
 | 27/08/2026 | Cada comunidad ofrece una búsqueda etiquetada en contratos PLACSP, diferenciando coincidencia textual de atribución territorial | `en curso` |
 | 27/08/2026 | Resumen territorial ampliado con gasto e ingresos no financieros reconocidos y peso de cada CCAA sobre el total publicado | `en curso` |
+| 27/08/2026 | Ficha de empresa muestra en pantalla total, media y mayor adjudicación al abrir una URL de empresa | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |

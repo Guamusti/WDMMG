@@ -48,6 +48,7 @@ def test_index_exposes_share_metadata_in_spanish():
     assert "function ShareMetadata" in app
     assert "function ContractEventTimeline" in app
     assert "function TerritoryMapBridge" in app
+    assert "function CompanyMetricPanel" in app
     assert "setInterval(sync, 500)" in app
     assert "document.title = title" in app
 

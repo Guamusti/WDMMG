@@ -70,3 +70,11 @@
 .territory-context-grid article small, .territory-context-grid article span { color: var(--muted); font-size: .68rem; }
 @media (max-width: 760px) { .territory-context-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 480px) { .territory-context-grid { grid-template-columns: 1fr; } }
+.company-metric-panel { display: grid; grid-template-columns: minmax(240px, 1fr) 2fr; gap: 20px; margin: 20px 0 26px; padding: 20px; background: #e2e8df; border-left: 4px solid var(--coral); }
+.company-metric-panel h3 { margin: 6px 0; font-size: 1.3rem; }
+.company-metric-panel p { margin: 0; color: var(--muted); font-size: .78rem; }
+.company-metric-panel > div:last-child { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.company-metric-panel > div:last-child span { display: flex; flex-direction: column; justify-content: center; padding: 12px; background: var(--paper); }
+.company-metric-panel > div:last-child b { font: 500 1.25rem 'DM Mono', monospace; }
+.company-metric-panel > div:last-child small { margin-top: 5px; color: var(--muted); font-size: .68rem; }
+@media (max-width: 700px) { .company-metric-panel { grid-template-columns: 1fr; } }
