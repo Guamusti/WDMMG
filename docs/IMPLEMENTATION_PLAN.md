@@ -57,7 +57,7 @@ Referencia MD: secciones 6, 7, 10, 13, 34, 40, 41, 43, 44 y 55.
 - [~] Añadir parser completo CODICE para licitaciones, lotes, adjudicaciones y eventos; licitaciones, lotes y `TenderResult` ya se extraen, quedan eventos/versionado.
 - [x] Añadir cliente BDNS20 por servicio, paginación, throttling y cache; cliente común con caché raw por URL, intervalo mínimo, tratamiento de `429` y paginación de concesiones configurable.
 - [~] Implementar normalización NIF/CIF, nombres, fechas, euros y códigos; utilidades compartidas aplicadas a entidades PLACSP/BDNS y formatos españoles de NIF/euro, faltan validadores específicos de cada fuente.
-- [ ] Implementar flags de calidad: duplicados, fechas, IDs, importes y ejercicios.
+- [~] Implementar flags de calidad: duplicados, fechas, IDs, importes y ejercicios; flags por registro añadidos a PLACSP y auditoría agregada activa, falta consolidar duplicados entre versiones y fuentes.
 - [~] Añadir tests unitarios del parser y IO; faltan fixtures descargados de producción.
 - [x] Inspeccionar una descarga XLSX real de ejecución AGE (9 hojas, mayo de 2026).
 
@@ -337,3 +337,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |
 | 27/08/2026 | Cliente BDNS20 común con caché raw por URL, throttling configurable, tratamiento explícito de HTTP 429 y paginación de concesiones | `en curso` |
 | 27/08/2026 | Normalización compartida para nombres, NIF/CIF, códigos y euros españoles aplicada a loaders PLACSP/BDNS, conservando siempre el raw | `en curso` |
+| 27/08/2026 | Flags de calidad por registro en PLACSP para IDs, fechas, importes y ejercicios; anomalías conservadas junto al raw y cubiertas por tests | `en curso` |

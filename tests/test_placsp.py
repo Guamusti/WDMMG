@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from etl.placsp.ingest import parse_atom
+from etl.shared.quality import record_quality_flags
 
 
 def test_parse_atom_keeps_provenance_and_core_fields(tmp_path: Path):
@@ -46,3 +47,8 @@ def test_parse_atom_keeps_provenance_and_core_fields(tmp_path: Path):
     assert rows[0]["awards"][0]["award_amount"] == "80.00"
     assert rows[0]["events"][0]["event_type"] == "contract_modification"
     assert rows[0]["events"][0]["event_id"] == "MOD-1"
+
+
+def test_quality_flags_report_id_date_amount_and_exercise_problems():
+    flags = record_quality_flags({"date": "tomorrow", "amount": "-2", "year": "1999"}, "id", ("date",), ("amount",), ("year",))
+    assert flags == ["missing_id", "invalid_date:date", "negative_amount:amount", "invalid_exercise:year"]

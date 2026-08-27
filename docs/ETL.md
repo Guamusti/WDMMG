@@ -32,6 +32,8 @@ El cliente `etl.bdns.client.BDNS20Client` centraliza las lecturas de servicios B
 
 La normalización compartida de entidades elimina diferencias de espacios, mayúsculas, separadores de NIF/CIF y formatos de euros españoles antes de resolver relaciones. El valor original se conserva en el payload raw; normalizar no borra ni convierte silenciosamente un importe ilegible.
 
+Los registros PLACSP incluyen `quality_flags` por contrato y adjudicación para IDs ausentes, fechas inválidas, importes ilegibles o negativos y ejercicios fuera de rango. Estos avisos no eliminan el registro: permiten enseñar la anomalía y conservar la trazabilidad con la fuente oficial.
+
 ## IGAE / ejecución AGE
 
 ```bash

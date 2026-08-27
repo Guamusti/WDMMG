@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from etl.shared.io import download, write_jsonl
+from etl.shared.quality import record_quality_flags
 
 
 def local_name(tag: str) -> str:
@@ -102,7 +103,7 @@ def parse_atom(path: Path, source_url: str, run_id: str) -> list[dict]:
         title = text_of(entry, "title")
         link = next((child.attrib.get("href") for child in entry if local_name(child.tag) == "link" and child.attrib.get("href")), None)
         record_id = identifier or link or hashlib.sha256(ET.tostring(entry)).hexdigest()
-        records.append({
+        record = {
             "procurement_id": record_id,
             "title": title,
             "contracting_authority": text_of(entry, "name", "contractingPartyName", "buyerProfileURI"),
@@ -124,7 +125,11 @@ def parse_atom(path: Path, source_url: str, run_id: str) -> list[dict]:
             "lots": parse_lots(entry),
             "awards": parse_awards(entry, identifier),
             "events": parse_events(entry),
-        })
+        }
+        record['quality_flags'] = record_quality_flags(record, 'source_record_id', ('updated_at', 'publication_date'), ('estimated_value', 'base_tender_budget'), ('fiscal_year',))
+        for award in record['awards']:
+            award['quality_flags'] = record_quality_flags(award, 'award_id', ('award_date',), ('award_amount', 'award_amount_with_tax'))
+        records.append(record)
     return records
 
 
