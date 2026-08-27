@@ -126,9 +126,14 @@ async function databaseContracts(query, page, pageSize) {
   const offset = (page - 1) * pageSize;
   const search = `%${query}%`;
   const result = await pool.query(`
-    SELECT c.procurement_id, c.title, pe.name AS contracting_authority, c.estimated_value, c.base_tender_budget, c.status, c.source_url, c.source_record_id
-    FROM contracts c LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id
-    WHERE ($1 = '' OR c.title ILIKE $2 OR c.procurement_id ILIKE $2 OR pe.name ILIKE $2)
+    SELECT c.procurement_id, c.title, pe.name AS contracting_authority, re.name AS winner_name, re.tax_id AS winner_tax_id,
+      c.estimated_value, c.base_tender_budget, c.status, c.source_url, c.source_record_id,
+      ca.award_amount, ca.award_amount_with_tax
+    FROM contracts c
+    LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id
+    LEFT JOIN contract_awards ca ON ca.contract_id = c.id
+    LEFT JOIN recipient_entities re ON re.id = ca.winner_entity_id
+    WHERE ($1 = '' OR c.title ILIKE $2 OR c.procurement_id ILIKE $2 OR pe.name ILIKE $2 OR re.name ILIKE $2)
     ORDER BY c.publication_date DESC NULLS LAST, c.id DESC LIMIT $3 OFFSET $4`, [query, search, pageSize, offset]);
   return result.rows;
 }
@@ -365,6 +370,7 @@ const server = createServer(async (req, res) => {
     try {
       if (entity === 'contracts') return csv(res, 'contratos-placsp.csv', await databaseContracts(query, 1, 10000));
       if (entity === 'grants') return csv(res, 'convocatorias-bdns.csv', await databaseGrants(query, 1, 10000));
+      if (entity === 'companies') return csv(res, 'empresas-adjudicatarias-placsp.csv', await databaseCompanies(query, 10000));
       if (entity === 'budgets') {
         const search = `%${query}%`;
         const result = await pool.query(`SELECT br.fiscal_year, br.period, br.economic_code, br.economic_level, br.final_amount, be.committed_amount, be.recognized_amount, be.paid_amount, ds.source_url FROM budget_records br LEFT JOIN budget_execution be ON be.budget_record_id = br.id JOIN data_sources ds ON ds.id = br.source_id WHERE ($1 = '' OR br.economic_code ILIKE $2) ORDER BY br.fiscal_year DESC, br.period DESC, br.id`, [query, search]);

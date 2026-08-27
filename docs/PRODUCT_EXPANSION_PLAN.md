@@ -58,6 +58,8 @@ Entrega incorporada: el buscador global también localiza adjudicatarios por nom
 
 La ficha de empresa incluye además el listado de organismos contratantes detectados en PLACSP, para seguir la relación empresa-organismo desde una evidencia publicada.
 
+La tabla de contratación también muestra ahora el adjudicatario publicado y la vista de empresas permite descargar el resultado filtrado en CSV.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.

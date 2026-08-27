@@ -33,6 +33,24 @@ def test_public_dataset_endpoints_return_json(path):
     assert "data" in payload or "execution" in payload or "dataStatus" in payload
 
 
+def test_contract_rows_expose_adjudicatario_when_available():
+    status, payload = get_json("/api/contracts?pageSize=2")
+    assert status == 200
+    assert isinstance(payload["data"], list)
+    for row in payload["data"]:
+        assert "winner_name" in row
+
+
+def test_companies_csv_export_is_available():
+    try:
+        with urlopen(f"{BASE_URL}/api/export.csv?entity=companies", timeout=4) as response:
+            body = response.read(300).decode("utf-8-sig")
+            assert response.status == 200
+            assert "name" in body
+    except (URLError, TimeoutError) as error:
+        pytest.skip(f"API local no disponible: {error}")
+
+
 def test_empty_search_is_a_stable_empty_result():
     status, payload = get_json("/api/search?q=")
     assert status == 200
