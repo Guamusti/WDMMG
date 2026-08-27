@@ -86,6 +86,8 @@ La navegación de convocatorias BDNS aplica la búsqueda global al listado y al 
 
 El detalle contable incorpora ayudas contextuales para traducir los cuatro estados de ejecución a lenguaje ciudadano.
 
+La capa visual respeta preferencias de movimiento reducido y evita desbordamientos horizontales en pantallas pequeñas.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.

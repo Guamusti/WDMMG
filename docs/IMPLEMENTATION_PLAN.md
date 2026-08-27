@@ -139,7 +139,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [x] Traducir titulares contables a lenguaje ciudadano y reservar la precisión técnica para el contexto.
 - [~] Añadir patrón de drill-down visual; el nivel inferior queda bloqueado hasta disponer de una relación padre-hijo oficial.
 - [x] Añadir estados loading/error/empty para la tabla de contratos.
-- [ ] Revisar responsive, accesibilidad y rendimiento.
+- [~] Revisar responsive, accesibilidad y rendimiento; foco visible, navegación móvil, estados y `prefers-reduced-motion` activos, auditoría visual/WCAG completa pendiente.
 
 ## Fase 8 — Ampliación territorial y entidades
 
@@ -285,3 +285,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Búsqueda municipal ajustada al filtro GIS del INE y probada con respuesta oficial; estado de carga visible por latencia variable del proveedor | `en curso` |
 | 27/08/2026 | Filtros de búsqueda conectados a convocatorias BDNS en la vista y en su exportación CSV | `en curso` |
 | 27/08/2026 | Tooltips accesibles para previsto, comprometido, gasto reconocido y pagado en el detalle de capítulo | `en curso` |
+| 27/08/2026 | Revisión responsive: overflow horizontal controlado, reducción de movimiento respetada y foco visible conservado | `en curso` |
