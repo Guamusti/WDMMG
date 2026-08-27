@@ -100,6 +100,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Descargas CSV de filtros actuales (incluye columnas laborales cuando existe una referencia compatible).
 - [x] Descarga CSV de los resultados actuales de Madrid.
 - [x] Metodología visible dentro de la interfaz con definiciones y limitaciones.
+- [x] Calculadora PAU sobre 14 con nota de acceso, dos ponderaciones y fórmula visible.
 - [x] Cobertura de datos visible.
 - [ ] SEO de páginas con datos reales, sin contenido repetitivo.
 - [ ] Accesibilidad, rendimiento, caché, paginación y responsive.

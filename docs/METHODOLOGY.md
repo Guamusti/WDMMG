@@ -22,3 +22,11 @@ Los empates ocupan la misma posición conceptual. El resultado expresa posición
 - Los campos de plazas solo aparecen cuando la fuente utilizada los documenta explícitamente.
 - No se mezclan datos de universidades privadas sin una tabla oficial comparable.
 - La nota orienta: no garantiza admisión en el futuro.
+## Calculadora PAU
+
+La herramienta estima la nota de admisión para el acceso desde Bachillerato:
+`0,6 × nota media de Bachillerato + 0,4 × fase obligatoria + a × M1 + b × M2`.
+La fase obligatoria debe alcanzar 4 puntos y la nota de acceso 5 para que se
+sumen las ponderaciones. Las materias de admisión solo cuentan desde 5 y se
+usan las dos mejores aportaciones. Las ponderaciones reales dependen del grado,
+la universidad y la convocatoria; la calculadora no sustituye sus tablas.
