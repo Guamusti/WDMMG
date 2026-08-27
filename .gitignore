@@ -4,6 +4,7 @@ dist/
 *.log
 __pycache__/
 *.pyc
+tmp/
 public/api-port.json
 .atlas-frontend-port
 .atlas-frontend-api-port

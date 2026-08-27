@@ -71,6 +71,13 @@
 - `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de diez comunidades: Madrid (458), Galicia (333), Aragón (73), Cataluña (549), Andalucía (581), Castilla y León (122), Cantabria (37), Navarra (41), Asturias (68) e Illes Balears (296).
 - `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial y la de campo RUCT también, por lo que el catálogo no se presenta como ranking nacional único.
 
+## Notas de corte — País Vasco
+
+- Organismo: Euskal Herriko Unibertsitatea / Universidad del País Vasco (EHU/UPV).
+- Fuente oficial: https://www.ehu.eus/es/web/graduak/preinscripcion-y-admision/notas-de-corte
+- Publicación de referencia: “Notas de admisión para el curso 2025-2026”.
+- Estado: el PDF original se conserva en `data/raw/admissions/pais-vasco/2025-2026/ehu-notas-2025-2026.pdf`, pero es un escaneado sin capa de texto; los extractores estructurados no devuelven filas y no se incorpora al catálogo hasta disponer de OCR revisado o una fuente tabular equivalente.
+
 ## Notas de corte — Navarra
 
 - Organismo: Universidad Pública de Navarra.
