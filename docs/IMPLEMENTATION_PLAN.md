@@ -306,5 +306,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Eventos CODICE iniciales: `ContractModification` conserva ID, expediente, nota, cambio de duración y duración final; feed real auditado: 5 modificaciones | `en curso` |
 | 27/08/2026 | Persistencia de eventos: el cargador PostgreSQL guarda modificaciones en `contract_events` y la ficha API las devuelve junto a los lotes | `en curso` |
 | 27/08/2026 | Línea temporal visible de eventos CODICE en la app: identifica modificaciones, fecha e ID, y aclara que no son pagos ni adjudicaciones nuevas | `en curso` |
+| 27/08/2026 | Línea temporal sincronizada con la tabla: detecta cambios de `contrato` en la URL sin recargar y actualiza los eventos de la ficha | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |
