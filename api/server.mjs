@@ -35,6 +35,18 @@ async function databaseContracts(query, page, pageSize) {
   return result.rows;
 }
 
+async function databaseGrants(query, page, pageSize) {
+  const offset = (page - 1) * pageSize;
+  const search = `%${query}%`;
+  const result = await pool.query(`
+    SELECT gc.bdns_code, gc.title, gc.registration_date, gc.publication_date, gc.budget,
+      gc.purpose, gc.source_url, pe.name AS granting_entity
+    FROM grant_calls gc LEFT JOIN public_entities pe ON pe.id = gc.granting_entity_id
+    WHERE ($1 = '' OR gc.title ILIKE $2 OR gc.bdns_code ILIKE $2 OR gc.purpose ILIKE $2 OR pe.name ILIKE $2)
+    ORDER BY gc.registration_date DESC NULLS LAST, gc.id DESC LIMIT $3 OFFSET $4`, [query, search, pageSize, offset]);
+  return result.rows;
+}
+
 function getExecution() {
   return readJsonl(join(root, 'data', 'processed', 'igae', 'execution-2026-05.jsonl'));
 }
@@ -100,6 +112,17 @@ const server = createServer(async (req, res) => {
     } catch (error) {
       const all = getContracts().filter(row => !query || JSON.stringify(row).toLocaleLowerCase('es').includes(query));
       return json(res, 200, { data: all.slice((page - 1) * pageSize, page * pageSize), meta: { page, pageSize, total: all.length, dataStatus: all.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message } });
+    }
+  }
+  if (url.pathname === '/api/grants') {
+    const query = (url.searchParams.get('q') || '').trim();
+    const page = Math.max(1, Number(url.searchParams.get('page') || 1));
+    const pageSize = Math.min(100, Math.max(1, Number(url.searchParams.get('pageSize') || 25)));
+    try {
+      const data = await databaseGrants(query, page, pageSize);
+      return json(res, 200, { data, meta: { page, pageSize, total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'postgresql' } });
+    } catch (error) {
+      return json(res, 200, { data: [], meta: { page, pageSize, total: 0, dataStatus: 'awaiting_validated_ingestion', backend: 'unavailable', warning: error.message } });
     }
   }
   if (url.pathname === '/api/search') {

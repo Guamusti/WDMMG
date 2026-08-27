@@ -75,7 +75,7 @@ Referencia MD: secciones 6, 7, 10, 13, 18, 26, 27, 28, 29, 33, 46, 47, 57, 58 y 
 - [~] Importar lotes y adjudicaciones con adjudicatarios canónicos; expediente base importado, adjudicaciones/lotes pendientes.
 - [ ] Configurar el servicio BDNS oficial de convocatorias.
 - [x] Configurar endpoint oficial BDNS de convocatoria y descargar una respuesta JSON real (`925963`).
-- [~] Normalizar y cargar convocatorias BDNS; 1 convocatoria real cargada y repetible, filtros y concesiones pendientes.
+- [~] Normalizar y cargar convocatorias BDNS; 1 convocatoria real cargada y repetible, endpoint y vista inicial activos, filtros y concesiones pendientes.
 - [ ] Configurar el servicio BDNS oficial de concesiones.
 - [~] Importar muestras reales con URLs de origen; PLACSP y 1 convocatoria BDNS importadas.
 - [ ] Verificar que ningún contrato/subvención se presenta como pago presupuestario.
@@ -109,7 +109,7 @@ Referencia MD: secciones 17, 18, 19, 22, 23, 24, 26, 27, 28, 29, 30, 32, 33, 34,
 - [x] Conectar `/api/overview` y `/api/budgets` al aterrizaje IGAE real disponible.
 - [x] Evitar doble conteo en el resumen IGAE excluyendo filas TOTAL de la suma de capítulos.
 - [x] Conectar API a PostgreSQL, manteniendo JSONL como fallback explícito.
-- [ ] Implementar endpoints de presupuestos, entidades, programas, empresas, contratos, subvenciones y geografía.
+- [~] Implementar endpoints de presupuestos, entidades, programas, empresas, contratos, subvenciones y geografía; presupuestos, contratos y convocatorias BDNS activos.
 - [x] Implementar filtros server-side y paginación.
 - [x] Implementar filtros server-side y paginación básica para contratos.
 - [ ] Implementar buscador global multi-entidad.
@@ -129,7 +129,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [~] Construir vista inicial AGE: overview, ratio de lectura rápida y detalle de capítulo conectados; faltan niveles contables completos.
 - [ ] Construir vista de empresa con contratos y subvenciones.
 - [ ] Construir vista de contrato con lotes, eventos y fuente oficial.
-- [ ] Construir vista de subvención con convocatoria/concesiones.
+- [~] Construir vista de subvención con convocatoria/concesiones; vista de convocatorias activa, concesiones pendientes.
 - [ ] Añadir presupuesto → ejecución con definiciones y estados.
 - [ ] Añadir tooltips de conceptos técnicos.
 - [x] Priorizar ratios comprensibles en portada sin atribuir causalidad no demostrada.
@@ -218,3 +218,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Feed PLACSP real cargado en PostgreSQL: 387 entradas, 382 contratos canónicos | `76d5ba7` |
 | 27/08/2026 | BDNS real: convocatoria 925963 normalizada y carga repetida sin duplicados | `0def8b7` |
 | 27/08/2026 | Portada con ratios IGAE verificables y treemap por capítulos reales; drill-down del nivel inferior disponible | `en curso` |
+| 27/08/2026 | Endpoint y vista inicial BDNS; convocatoria real 925963 visible desde la navegación | `en curso` |
