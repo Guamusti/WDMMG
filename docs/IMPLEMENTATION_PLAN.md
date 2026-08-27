@@ -300,5 +300,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Exportación del desglose funcional: `/api/export.csv?entity=policies` descarga partidas y subpartidas disponibles sin inventar niveles ausentes | `en curso` |
 | 27/08/2026 | SEO base para compartir: metadatos Open Graph/Twitter, idioma español y robots añadidos; test estático de metadatos | `en curso` |
 | 27/08/2026 | Metadatos dinámicos en cliente: título y descripción cambian según vista, búsqueda o partida seleccionada al abrir una URL compartida | `en curso` |
+| 27/08/2026 | Descubribilidad y acceso directo: `robots.txt` y manifest web en español añadidos, sin asumir dominio de producción | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |

@@ -1,0 +1,10 @@
+{
+  "name": "Dinero Público",
+  "short_name": "Dinero Público",
+  "description": "Explora el gasto público español con datos oficiales y fuentes visibles.",
+  "lang": "es",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f1eb",
+  "theme_color": "#f3f1eb"
+}

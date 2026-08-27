@@ -46,6 +46,15 @@ def test_windows_launcher_syncs_and_waits_for_frontend():
     assert "http://127.0.0.1:5173/" in launcher
 
 
+def test_public_discovery_assets_are_present():
+    with open("public/robots.txt", encoding="utf-8") as handle:
+        assert "Allow: /" in handle.read()
+    with open("public/site.webmanifest", encoding="utf-8") as handle:
+        manifest = json.load(handle)
+    assert manifest["lang"] == "es"
+    assert manifest["start_url"] == "/"
+
+
 def test_api_sets_basic_security_headers():
     try:
         with urlopen(f"{BASE_URL}/api/health", timeout=2) as response:
