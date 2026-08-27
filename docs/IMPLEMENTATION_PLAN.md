@@ -128,7 +128,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [x] Conectar overview a agregaciones IGAE reales, mostrando periodo, unidad y estado.
 - [~] Construir vista inicial AGE: overview, ratio de lectura rápida y detalle de capítulo conectados; faltan niveles contables completos.
 - [ ] Construir vista de empresa con contratos y subvenciones.
-- [ ] Construir vista de contrato con lotes, eventos y fuente oficial.
+- [~] Construir vista de contrato con lotes, eventos y fuente oficial; detalle base y enlace a ficha PLACSP activos, lotes/eventos pendientes.
 - [~] Construir vista de subvención con convocatoria/concesiones; vista de convocatorias activa, concesiones pendientes.
 - [ ] Añadir presupuesto → ejecución con definiciones y estados.
 - [ ] Añadir tooltips de conceptos técnicos.
@@ -160,7 +160,7 @@ Referencia MD: secciones 21, 22, 24, 25, 30, 31, 32, 33, 35, 46, 47 y 57.
 - [ ] Añadir nominal €/habitante y documentar cualquier € constante.
 - [ ] Añadir explorador jerárquico de partidas y descarga CSV.
 - [ ] Añadir indicadores descriptivos: concentración, ofertas, menores y ejecución.
-- [ ] Permitir abrir el dataset subyacente desde cada indicador.
+- [~] Permitir abrir el dataset subyacente desde cada indicador; fichas oficiales y exportación activas.
 - [ ] Añadir URLs compartibles y SEO para exploraciones importantes.
 
 ## Fase 10 — Consolidación, relaciones y escala
@@ -226,3 +226,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Revisión de lenguaje: “de cada 1 € previsto, 0,29 € ya se han pagado” y capítulos con nombres comprensibles | `en curso` |
 | 27/08/2026 | Segunda pasada de UX: portada, fuentes, reparto y desglose reescritos para lenguaje ciudadano | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
+| 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |

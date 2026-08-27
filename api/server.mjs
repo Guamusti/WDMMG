@@ -43,6 +43,16 @@ async function databaseContracts(query, page, pageSize) {
   return result.rows;
 }
 
+async function databaseContractById(id) {
+  const result = await pool.query(`
+    SELECT c.procurement_id, c.title, c.contract_type, c.procedure_type, c.status,
+      c.estimated_value, c.base_tender_budget, c.publication_date, c.award_date,
+      c.source_url, c.source_record_id, pe.name AS contracting_authority
+    FROM contracts c LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id
+    WHERE c.procurement_id = $1 OR c.source_record_id = $1 LIMIT 1`, [id]);
+  return result.rows[0] || null;
+}
+
 async function databaseGrants(query, page, pageSize) {
   const offset = (page - 1) * pageSize;
   const search = `%${query}%`;
@@ -142,6 +152,11 @@ const server = createServer(async (req, res) => {
       const all = getContracts().filter(row => !query || JSON.stringify(row).toLocaleLowerCase('es').includes(query));
       return json(res, 200, { data: all.slice((page - 1) * pageSize, page * pageSize), meta: { page, pageSize, total: all.length, dataStatus: all.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message } });
     }
+  }
+  if (url.pathname.startsWith('/api/contracts/')) {
+    const id = decodeURIComponent(url.pathname.slice('/api/contracts/'.length));
+    try { const data = await databaseContractById(id); return data ? json(res, 200, { data, meta: { backend: 'postgresql' } }) : json(res, 404, { error: 'contract_not_found' }); }
+    catch (error) { return json(res, 503, { error: 'detail_unavailable', detail: error.message }); }
   }
   if (url.pathname === '/api/grants') {
     const query = (url.searchParams.get('q') || '').trim();
