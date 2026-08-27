@@ -162,7 +162,7 @@ Referencia MD: secciones 21, 22, 24, 25, 30, 31, 32, 33, 35, 46, 47 y 57.
 - [x] Añadir comparador de administraciones/territorios; dos CCAA seleccionables con diferencia absoluta.
 - [ ] Añadir nominal €/habitante y documentar cualquier € constante.
 - [ ] Añadir explorador jerárquico de partidas y descarga CSV.
-- [~] Añadir indicadores descriptivos: ejecución, ranking territorial y relatos de datos activos; concentración, ofertas y menores pendientes.
+- [~] Añadir indicadores descriptivos: ejecución, ranking territorial, relatos y concentración de adjudicatarios activos; ofertas y menores pendientes.
 - [~] Permitir abrir el dataset subyacente desde cada indicador; fichas oficiales y exportación activas.
 - [ ] Añadir URLs compartibles y SEO para exploraciones importantes.
 
@@ -274,3 +274,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Descarga y parseo oficial IGAE abril 2026 validado contra mayo: 91 filas compatibles y endpoint `/api/history` | `en curso` |
 | 27/08/2026 | Evolución visual abril→mayo: pagos acumulados por euro de crédito definitivo, con advertencia de unidad y no doble conteo | `en curso` |
 | 27/08/2026 | Detalle de capítulo económico con cadena previsto → comprometido → reconocido → pagado y definiciones ciudadanas | `en curso` |
+| 27/08/2026 | Indicador de concentración PLACSP: porcentaje del importe acumulado de las cinco empresas principales, con denominador y advertencia interpretativa | `en curso` |

@@ -66,6 +66,8 @@ La evolución AGE ya tiene dos cortes oficiales compatibles (abril y mayo de 202
 
 Al seleccionar un capítulo, la aplicación muestra sus cuatro estados contables con importes grandes y explica que no son contratos ni subvenciones.
 
+La vista de empresas incluye una señal descriptiva de concentración: qué porcentaje del importe publicado acumulan las cinco primeras empresas del resultado. El denominador, número de empresas y advertencia interpretativa aparecen junto al indicador.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.

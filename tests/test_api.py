@@ -59,6 +59,13 @@ def test_companies_csv_export_is_available():
         pytest.skip(f"API local no disponible: {error}")
 
 
+def test_company_insights_report_concentration_denominator():
+    status, payload = get_json("/api/companies/insights")
+    assert status == 200
+    assert payload["data"]["entity_count"] >= 1
+    assert float(payload["data"]["top5_amount"]) <= float(payload["data"]["total_amount"])
+
+
 def test_empty_search_is_a_stable_empty_result():
     status, payload = get_json("/api/search?q=")
     assert status == 200

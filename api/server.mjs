@@ -77,6 +77,21 @@ async function databaseCompanies(query, limit) {
   return result.rows;
 }
 
+async function databaseCompanyInsight(query) {
+  const search = `%${query}%`;
+  const result = await pool.query(`
+    WITH grouped AS (
+      SELECT re.id, COALESCE(SUM(ca.award_amount), 0) AS amount
+      FROM recipient_entities re JOIN contract_awards ca ON ca.winner_entity_id = re.id
+      WHERE ($1 = '' OR re.name ILIKE $2 OR COALESCE(re.tax_id, '') ILIKE $2)
+      GROUP BY re.id
+    )
+    SELECT COUNT(*)::int AS entity_count, COALESCE(SUM(amount), 0) AS total_amount,
+      COALESCE((SELECT SUM(amount) FROM (SELECT amount FROM grouped ORDER BY amount DESC LIMIT 5) top_five), 0) AS top5_amount
+    FROM grouped`, [query, search]);
+  return result.rows[0];
+}
+
 async function databaseCompanyById(id) {
   const summary = await pool.query(`
     SELECT re.id, re.name, re.tax_id,
@@ -333,6 +348,16 @@ const server = createServer(async (req, res) => {
     } catch (error) {
       const data = companiesFromJsonl(query, limit);
       return json(res, 200, { data, meta: { total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message } });
+    }
+  }
+  if (url.pathname === '/api/companies/insights') {
+    const query = (url.searchParams.get('q') || '').trim();
+    try { return json(res, 200, { data: await databaseCompanyInsight(query), meta: { backend: 'postgresql', dataStatus: 'imported' } }); }
+    catch (error) {
+      const rows = companiesFromJsonl(query, 100000);
+      const total = rows.reduce((sum, row) => sum + Number(row.award_amount || 0), 0);
+      const top5 = rows.slice().sort((a, b) => Number(b.award_amount || 0) - Number(a.award_amount || 0)).slice(0, 5).reduce((sum, row) => sum + Number(row.award_amount || 0), 0);
+      return json(res, 200, { data: { entity_count: rows.length, total_amount: total, top5_amount: top5 }, meta: { backend: 'jsonl-fallback', dataStatus: rows.length ? 'imported' : 'awaiting_validated_ingestion', warning: error.message } });
     }
   }
   if (url.pathname.startsWith('/api/companies/')) {

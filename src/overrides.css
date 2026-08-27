@@ -27,3 +27,4 @@
 .company-authorities { border-top: 1px solid var(--line); padding: 1.2rem 0; }
 .company-authorities > div { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .7rem; }
 .company-authorities span:not(.eyebrow) { background: var(--paper); border: 1px solid var(--line); padding: .55rem .7rem; font-size: .82rem; }
+.company-insight{margin:16px 0;background:#183535;color:#f3f1eb;padding:18px;display:flex;justify-content:space-between;align-items:end;gap:20px}.company-insight div{display:flex;align-items:baseline;gap:12px}.company-insight strong{font:500 clamp(34px,5vw,52px) 'DM Mono';color:#f47a58}.company-insight span{font-size:15px;max-width:420px}.company-insight small{font-size:10px;color:#b8c8bd;text-align:right}@media(max-width:600px){.company-insight{display:block}.company-insight div{display:block}.company-insight span{display:block;margin-top:5px}.company-insight small{display:block;text-align:left;margin-top:12px}}
