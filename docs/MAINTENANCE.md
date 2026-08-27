@@ -31,3 +31,5 @@ No se deben mezclar presupuesto, ejecución, contratos, convocatorias o concesio
 3. Ejecutar parser, tests y `npm run build`.
 4. Revisar `/api/coverage` y `/api/quality`.
 5. Documentar cambios y publicar un commit separado.
+
+`python -m etl.run_available --dry-run` no modifica la base: devuelve el estado de cada loader, el motivo de cualquier omisión y las marcas de inicio/fin. Una ejecución real añade duración, stdout/stderr y `success` o `failed`, lo que permite conservar el resultado de cada actualización en el registro operativo.
