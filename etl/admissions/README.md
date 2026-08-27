@@ -95,6 +95,14 @@ Se carga la nota inicial de la convocatoria ordinaria del cupo general, se
 mantienen rama y campus, y se rechazan las titulaciones marcadas como `SNC`
 (sin nota de corte).
 
+## País Vasco · EHU
+
+`python etl/admissions/pais-vasco/parse_ehu.py` genera el extracto de 2025-2026
+desde la transcripción JSON revisada visualmente del PDF oficial. La cobertura
+actual es parcial y explícita: Campus de Álava, cupo general, 25 ofertas; las
+filas sin nota general se conservan como rechazos y Gipuzkoa/Bizkaia siguen
+pendientes de una extracción estructurada revisada.
+
 ## Catálogo nacional de trabajo
 
 `build_national_catalog.py` reúne los extractos procesados de Madrid, Galicia,

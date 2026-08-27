@@ -1,0 +1,29 @@
+{
+  "source_url": "https://www.ehu.eus/es/web/graduak/preinscripcion-y-admision/notas-de-corte",
+  "source_pdf": "data/raw/admissions/pais-vasco/2025-2026/ehu-notas-2025-2026.pdf",
+  "academic_year": "2025-2026",
+  "records": 25,
+  "coverage": "EHU · Campus de Álava · cupo general · transcripción visual auditada",
+  "rejected_rows": 2,
+  "duplicates": 0,
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "places_positive": true,
+    "round_explicit": true,
+    "general_group_explicit": true,
+    "no_duplicate_keys": true,
+    "transcription_rows_audited": true
+  },
+  "rejections": [
+    {
+      "source_page": 1,
+      "reason": "NO_GENERAL_CUTOFF",
+      "detail": "Geografía y Ordenación del Territorio"
+    },
+    {
+      "source_page": 1,
+      "reason": "NO_GENERAL_CUTOFF",
+      "detail": "Historia del Arte"
+    }
+  ]
+}
