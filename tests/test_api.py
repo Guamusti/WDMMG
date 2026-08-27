@@ -25,7 +25,7 @@ def test_health_reports_service_and_contract_count():
     assert isinstance(payload["data"]["contracts"], int)
 
 
-@pytest.mark.parametrize("path", ["/api/overview", "/api/budgets", "/api/contracts?pageSize=2", "/api/grants?pageSize=2", "/api/coverage"])
+@pytest.mark.parametrize("path", ["/api/overview", "/api/budgets", "/api/contracts?pageSize=2", "/api/grants?pageSize=2", "/api/coverage", "/api/policies"])
 def test_public_dataset_endpoints_return_json(path):
     status, payload = get_json(path)
     assert status == 200

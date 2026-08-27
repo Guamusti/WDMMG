@@ -15,6 +15,11 @@ function readJsonl(path) {
   return readFileSync(path, 'utf8').split(/\r?\n/).filter(Boolean).map(line => JSON.parse(line));
 }
 
+function readJson(path) {
+  if (!existsSync(path)) return null;
+  return JSON.parse(readFileSync(path, 'utf8'));
+}
+
 function json(res, status, body) {
   res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'access-control-allow-origin': '*' });
   res.end(JSON.stringify(body));
@@ -194,6 +199,10 @@ const server = createServer(async (req, res) => {
   if (url.pathname === '/api/coverage') {
     try { return json(res, 200, { data: await databaseCoverage(), meta: { backend: 'postgresql' } }); }
     catch (error) { return json(res, 200, { data: [], meta: { backend: 'unavailable', warning: error.message } }); }
+  }
+  if (url.pathname === '/api/policies') {
+    const policies = readJson(join(root, 'data', 'processed', 'igae', 'functional-policies-2024.json'));
+    return policies ? json(res, 200, { data: policies.policies, meta: { fiscalYear: policies.fiscal_year, unit: policies.unit, total: policies.total, sourceUrl: policies.source_url, sourceSection: policies.source_section, dataStatus: policies.data_status, backend: 'file' } }) : json(res, 503, { error: 'policies_unavailable' });
   }
   return json(res, 404, { error: 'not_found' });
 });
