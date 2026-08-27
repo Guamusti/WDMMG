@@ -65,6 +65,7 @@ def test_company_detail_exposes_linked_contracts():
     assert status == 200
     assert payload["data"]["contract_count"] >= 1
     assert isinstance(payload["data"]["contracts"], list)
+    assert isinstance(payload["data"]["authorities"], list)
 
 
 def test_grant_detail_exposes_official_call():

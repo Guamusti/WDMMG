@@ -100,7 +100,8 @@ async function databaseCompanyById(id) {
     LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id
     WHERE re.id::text = $1 OR COALESCE(re.tax_id, '') = $1
     ORDER BY ca.award_amount DESC NULLS LAST, c.publication_date DESC NULLS LAST`, [id]);
-  return { ...summary.rows[0], contracts: contracts.rows };
+  const authorities = [...new Set(contracts.rows.map(row => row.contracting_authority).filter(Boolean))];
+  return { ...summary.rows[0], authorities, contracts: contracts.rows };
 }
 
 function companyFromJsonl(id) {
