@@ -78,6 +78,10 @@ La metodología incluye un control de calidad navegable por dataset: registros, 
 
 El MVP incorpora además cabeceras de seguridad básicas y metadatos descriptivos para compartir y descubrir la página correctamente.
 
+La ampliación territorial incorpora una búsqueda rápida de municipio por nombre contra el Censo Anual INE 2024. La población se mantiene separada de la ejecución y el cálculo por habitante queda bloqueado hasta tener el mismo territorio y periodo.
+
+La búsqueda consulta el campo municipal admitido por el servicio GIS del INE, devuelve código, provincia, comunidad y población, y muestra su estado de carga mientras responde.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.

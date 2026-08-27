@@ -281,3 +281,5 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Control de calidad visible en Metodología y endpoint `/api/quality`: conteos, duplicados, IDs ausentes y alertas por dataset | `en curso` |
 | 27/08/2026 | Cabeceras API `nosniff`, `no-referrer`, `no-store` y metadescripción ciudadana; prueba automatizada de seguridad básica | `en curso` |
 | 27/08/2026 | Smoke end-to-end frontend/API y guía `docs/MAINTENANCE.md` para arranque, validación y actualización del MVP | `en curso` |
+| 27/08/2026 | Primera búsqueda municipal INE en vivo: nombre, código, provincia, comunidad y población oficial 2024; gasto por habitante reservado hasta disponer de ejecución compatible | `en curso` |
+| 27/08/2026 | Búsqueda municipal ajustada al filtro GIS del INE y probada con respuesta oficial; estado de carga visible por latencia variable del proveedor | `en curso` |

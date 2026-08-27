@@ -286,6 +286,18 @@ function qualityReport() {
   ];
 }
 
+async function officialPopulation(query, limit = 12) {
+  const safeQuery = query.replaceAll("'", "''").trim();
+  const base = 'https://ine.es/servergis/rest/services/Hosted/Censo_2024___N%C3%BAmero_de_personas/FeatureServer/1/query';
+  const params = new URLSearchParams({ where: `NMUN LIKE '%${safeQuery}%'`, outFields: 'cumun,nmun,npro,nca,n_personas', returnGeometry: 'false', resultRecordCount: String(limit), f: 'json' });
+  const endpoint = `${base}?${params}`;
+  const response = await fetch(endpoint, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(8000) });
+  if (!response.ok) throw new Error(`INE respondió ${response.status}`);
+  const payload = await response.json();
+  if (payload.error) throw new Error(payload.error.message || 'INE rechazó la consulta');
+  return { data: (payload.features || []).map(feature => feature.attributes).map(row => ({ code: row.cumun, municipality: row.nmun, province: row.npro, community: row.nca, population: row.n_personas })), meta: { dataStatus: 'official_live', sourceUrl: endpoint, referenceDate: '2024-01-01', source: 'INE Censo Anual de Población 2024', searchField: 'municipality' } };
+}
+
 async function databaseOverview() {
   const result = await pool.query(`
     SELECT br.fiscal_year, br.period, br.data_status, ds.source_url,
@@ -336,6 +348,13 @@ const server = createServer(async (req, res) => {
     return json(res, 200, { data, meta: { dataStatus: data.length > 1 ? 'imported' : 'partial', unit: 'miles de euros', source: 'IGAE' } });
   }
   if (url.pathname === '/api/quality') return json(res, 200, { data: qualityReport(), meta: { dataStatus: 'imported', definition: 'Los registros se auditan sin eliminar anomalías; una ausencia no se convierte en cero.' } });
+  if (url.pathname === '/api/population') {
+    const query = (url.searchParams.get('q') || '').trim();
+    const limit = Math.min(50, Math.max(1, Number(url.searchParams.get('limit') || 12)));
+    if (!query) return json(res, 200, { data: [], meta: { dataStatus: 'awaiting_query', source: 'INE' } });
+    try { return json(res, 200, await officialPopulation(query, limit)); }
+    catch (error) { return json(res, 503, { error: 'population_unavailable', detail: error.message, meta: { dataStatus: 'unavailable', source: 'INE' } }); }
+  }
   if (url.pathname === '/api/budgets') {
     try {
       const result = await pool.query(`SELECT br.*, be.committed_amount, be.recognized_amount, be.paid_amount, be.raw_payload FROM budget_records br LEFT JOIN budget_execution be ON be.budget_record_id = br.id ORDER BY br.fiscal_year DESC, br.period DESC, br.id`);

@@ -72,6 +72,19 @@ def test_quality_report_keeps_audit_counts():
     assert all(row["records"] >= 0 and row["duplicates"] >= 0 for row in payload["data"])
 
 
+def test_population_endpoint_returns_official_municipal_result():
+    try:
+        with urlopen(f"{BASE_URL}/api/population?q=Sevilla&limit=3", timeout=12) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+            assert response.status == 200
+            assert payload["meta"]["dataStatus"] == "official_live"
+            assert payload["meta"]["searchField"] == "municipality"
+            assert payload["data"]
+            assert {"municipality", "province", "population"}.issubset(payload["data"][0])
+    except (URLError, TimeoutError) as error:
+        pytest.skip(f"INE no disponible: {error}")
+
+
 def test_contract_rows_expose_adjudicatario_when_available():
     status, payload = get_json("/api/contracts?pageSize=2")
     assert status == 200
