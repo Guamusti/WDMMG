@@ -82,6 +82,8 @@ La ampliación territorial incorpora una búsqueda rápida de municipio por nomb
 
 La búsqueda consulta el campo municipal admitido por el servicio GIS del INE, devuelve código, provincia, comunidad y población, y muestra su estado de carga mientras responde.
 
+La navegación de convocatorias BDNS aplica la búsqueda global al listado y al CSV, mostrando el término activo y un estado vacío específico cuando no hay coincidencias.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.
