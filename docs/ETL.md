@@ -16,7 +16,7 @@ El proceso guarda el payload raw, calcula SHA-256, extrae una fila por `entry` A
 python -m etl.bdns.ingest --url "ENDPOINT_BDNS_OFICIAL"
 ```
 
-El límite de servicio y el contrato técnico se configuran por entorno. Si la respuesta es XML/WSDL, el raw se conserva sin fingir una normalización JSON; el siguiente paso es seleccionar el servicio de convocatorias o concesiones y mapearlo contra su XSD.
+El límite de servicio y el contrato técnico se configuran por entorno. La aplicación consulta en vivo los endpoints oficiales de convocatorias y concesiones v2.1; si la respuesta es XML/WSDL, el raw se conserva sin fingir una normalización JSON.
 
 ### Concesiones BDNS
 

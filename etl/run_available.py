@@ -22,23 +22,23 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     jobs = [
-        ("igae-ejecucion", Path("data/processed/igae/execution-2026-05.jsonl"), "etl.budgets.load_postgres"),
-        ("placsp", Path("data/processed/placsp/contracts.jsonl"), "etl.placsp.load_postgres"),
-        ("bdns-concesiones", Path("data/processed/bdns/concessions.jsonl"), "etl.bdns.load_concessions"),
+        ("igae-ejecucion", Path("data/processed/igae/execution-2026-05.jsonl"), "etl.budgets.load_postgres", "mensual"),
+        ("placsp", Path("data/processed/placsp/contracts.jsonl"), "etl.placsp.load_postgres", "actualización del feed"),
+        ("bdns-concesiones", Path("data/processed/bdns/concessions.jsonl"), "etl.bdns.load_concessions", "continua"),
     ]
     run_started_at = datetime.now(timezone.utc).isoformat()
     results = []
-    for name, input_path, module in jobs:
+    for name, input_path, module, cadence in jobs:
         started_at = datetime.now(timezone.utc).isoformat()
         started_clock = time.perf_counter()
         if not input_path.exists():
-            results.append({"dataset": name, "status": "skipped", "reason": "input_missing", "input": str(input_path), "started_at": started_at, "finished_at": datetime.now(timezone.utc).isoformat(), "duration_ms": 0})
+            results.append({"dataset": name, "status": "skipped", "cadence": cadence, "reason": "input_missing", "input": str(input_path), "started_at": started_at, "finished_at": datetime.now(timezone.utc).isoformat(), "duration_ms": 0})
             continue
         if args.dry_run:
-            results.append({"dataset": name, "status": "ready", "input": str(input_path), "started_at": started_at, "finished_at": datetime.now(timezone.utc).isoformat(), "duration_ms": round((time.perf_counter() - started_clock) * 1000)})
+            results.append({"dataset": name, "status": "ready", "cadence": cadence, "input": str(input_path), "started_at": started_at, "finished_at": datetime.now(timezone.utc).isoformat(), "duration_ms": round((time.perf_counter() - started_clock) * 1000)})
             continue
         completed = subprocess.run([sys.executable, "-m", module, "--input", str(input_path), "--database-url", args.database_url], check=False, text=True, capture_output=True)
-        results.append({"dataset": name, "status": "success" if completed.returncode == 0 else "failed", "input": str(input_path), "output": completed.stdout.strip(), "error": completed.stderr.strip(), "started_at": started_at, "finished_at": datetime.now(timezone.utc).isoformat(), "duration_ms": round((time.perf_counter() - started_clock) * 1000)})
+        results.append({"dataset": name, "status": "success" if completed.returncode == 0 else "failed", "cadence": cadence, "input": str(input_path), "output": completed.stdout.strip(), "error": completed.stderr.strip(), "started_at": started_at, "finished_at": datetime.now(timezone.utc).isoformat(), "duration_ms": round((time.perf_counter() - started_clock) * 1000)})
     print(json.dumps({"run_started_at": run_started_at, "finished_at": datetime.now(timezone.utc).isoformat(), "jobs": results}, ensure_ascii=False))
     return 0 if all(item["status"] in {"success", "ready", "skipped"} for item in results) else 1
 
