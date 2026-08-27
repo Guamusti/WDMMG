@@ -7,6 +7,7 @@
     "missing_degree": 0,
     "missing_university": 0,
     "malformed_degree_name": 0,
+    "concatenated_branch_name": 0,
     "missing_university_ruct_code": 0,
     "unexpected_academic_year": 0
   },

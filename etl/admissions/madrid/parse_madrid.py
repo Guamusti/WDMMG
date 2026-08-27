@@ -31,6 +31,14 @@ def clean(value):
     return re.sub(r"\s+", " ", str(value or "")).strip()
 
 
+def clean_branch(value):
+    """Do not expose concatenated side-by-side PDF headers as a real branch."""
+    branch = clean(value)
+    if "Rama de conocimiento" in branch:
+        return "Rama pendiente de separación"
+    return branch
+
+
 def split_rows(line):
     """Split rows accidentally joined by the PDF's side-by-side layout."""
     candidates = list(re.finditer(SCORE_3, line))
@@ -81,7 +89,7 @@ def parse():
                         "admission_group": "group_1",
                     "university_name_source": UNIVERSITY_BY_PAGE.get(page_number),
                     "university_ruct_code": RUCT_CODE_BY_UNIVERSITY.get(UNIVERSITY_BY_PAGE.get(page_number)),
-                        "branch_name_source": branch,
+                        "branch_name_source": clean_branch(branch),
                         "degree_name_source": degree_name,
                         "cutoff_score": float(cutoff_value.replace(",", ".")),
                         "group_2_score_source": float(group_2.replace(",", ".")),
