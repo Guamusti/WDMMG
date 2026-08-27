@@ -52,8 +52,8 @@ Las rutas actuales del MVP son `/oferta/<id>`, `/universidad/<sigla>` y `/grado/
 - [x] Añadir reporte reproducible de calidad del extracto madrileño (`etl/shared/quality_report.py`).
 - [x] Matching por código RUCT para las seis universidades públicas de Madrid; alias solo como apoyo auditado.
 - [ ] Matching de códigos RUCT de títulos y centros.
-- [ ] Vistas materializadas para métricas y percentiles.
-- [ ] API interna con filtros, paginación y URLs compartibles.
+- [x] Preparar vistas materializadas para percentiles y cobertura (`db/migrations/002_views.sql`).
+- [x] API interna con filtros básicos, paginación, fuente y URLs compartibles (`api/server.mjs`); el launcher selecciona puerto libre.
 
 Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cada registro permite responder “¿de dónde sale este dato?”.
 
