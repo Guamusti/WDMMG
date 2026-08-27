@@ -5,6 +5,7 @@ const files = {
   national: await readFile('src/NationalPagePaged.jsx', 'utf8'),
   styles: await readFile('src/styles.css', 'utf8'),
   outcomes: await readFile('src/outcomes.css', 'utf8'),
+  madrid: await readFile('src/data/madrid.js', 'utf8'),
 };
 
 const checks = [
@@ -17,6 +18,7 @@ const checks = [
   ['dialogs expose their role and modal state', files.main.includes('role="dialog"') && files.main.includes('aria-modal="true"')],
   ['loading/results states are announced', files.main.includes('role="status"') && files.national.includes('aria-live="polite"')],
   ['responsive layout breakpoints exist', files.styles.includes('@media(max-width:800px)') && files.outcomes.includes('@media(max-width:600px)')],
+  ['map legend uses unique university colors', new Set([...files.madrid.matchAll(/short:'[^']+'.*?color:'([^']+)'/g)].map(match => match[1])).size >= 6],
 ];
 
 const failed = checks.filter(([, passed]) => !passed).map(([label]) => label);

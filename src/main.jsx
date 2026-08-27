@@ -67,12 +67,12 @@ legacyOffers.push(
   { id:'upm-aero', university:'Universidad Politécnica de Madrid', short:'UPM', degree:'Ingeniería Aeroespacial', campus:'Campus Sur', city:'Madrid', cutoff:12.484, branch:'Ingeniería y Arquitectura', places:null, source:'Comunidad de Madrid · notas 2025–2026' }
 );
 const legacyUniversities = [
-  { short:'UCM', name:'Universidad Complutense de Madrid', city:'Madrid', position:[40.448, -3.726], color:'#e35d48' },
-  { short:'UPM', name:'Universidad Politécnica de Madrid', city:'Madrid', position:[40.389, -3.628], color:'#ef9b44' },
-  { short:'UC3M', name:'Universidad Carlos III de Madrid', city:'Leganés', position:[40.334, -3.764], color:'#e35d48' },
-  { short:'URJC', name:'Universidad Rey Juan Carlos', city:'Móstoles', position:[40.334, -3.881], color:'#ef9b44' },
-  { short:'UAH', name:'Universidad de Alcalá', city:'Alcalá de Henares', position:[40.482, -3.364], color:'#8a9c68' },
-  { short:'UAM', name:'Universidad Autónoma de Madrid', city:'Cantoblanco', position:[40.545, -3.696], color:'#8a9c68' }
+  { short:'UCM', name:'Universidad Complutense de Madrid', city:'Madrid', position:[40.448, -3.726], color:'#c95d4b' },
+  { short:'UPM', name:'Universidad Politécnica de Madrid', city:'Madrid', position:[40.389, -3.628], color:'#d49a3a' },
+  { short:'UC3M', name:'Universidad Carlos III de Madrid', city:'Leganés', position:[40.334, -3.764], color:'#4f8f8a' },
+  { short:'URJC', name:'Universidad Rey Juan Carlos', city:'Móstoles', position:[40.334, -3.881], color:'#7a70b4' },
+  { short:'UAH', name:'Universidad de Alcalá', city:'Alcalá de Henares', position:[40.482, -3.364], color:'#708b57' },
+  { short:'UAM', name:'Universidad Autónoma de Madrid', city:'Cantoblanco', position:[40.545, -3.696], color:'#b05e8c' }
 ];
 const offers = madridOffers;
 const universities = madridUniversities;
