@@ -68,7 +68,7 @@ def test_history_returns_compatible_igae_cuts():
 def test_quality_report_keeps_audit_counts():
     status, payload = get_json("/api/quality")
     assert status == 200
-    assert {row["id"] for row in payload["data"]} == {"placsp", "igae", "bdns"}
+    assert {"placsp", "igae", "bdns", "ign-geography"}.issubset({row["id"] for row in payload["data"]})
     assert all(row["records"] >= 0 and row["duplicates"] >= 0 for row in payload["data"])
 
 

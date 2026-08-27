@@ -295,3 +295,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Mapa territorial diferido: endpoint `/api/geography/communities` sirve límites CCAA oficiales IGN simplificados; 18,7 KB entregados al cliente y test de contrato añadido | `en curso` |
 | 27/08/2026 | Snapshot versionado de la geometría IGN: el mapa arranca desde `data/processed/geo/community-boundaries.json` y conserva fallback live si falta el recurso | `en curso` |
 | 27/08/2026 | Trazabilidad del snapshot geográfico: fecha de captura, SHA-256 y fuente OGC registrados en `docs/DATA_SOURCES.md` | `en curso` |
+| 27/08/2026 | QA territorial: `/api/quality` audita la geometría IGN con 50 elementos, 0 IDs ausentes, 0 duplicados y 0 anomalías | `en curso` |

@@ -289,11 +289,13 @@ function qualityReport() {
   const contractIds = contracts.map(row => row.procurement_id || row.source_record_id).filter(Boolean);
   const execution = getExecution();
   const grants = getGrants();
+  const geography = readJson(join(root, 'data', 'processed', 'geo', 'community-boundaries.json'))?.data || [];
   const duplicateCount = values => values.length - new Set(values).size;
   return [
     { id: 'placsp', name: 'Contratos PLACSP', records: contracts.length, missingIds: contracts.length - contractIds.length, duplicates: duplicateCount(contractIds), anomalies: contracts.filter(row => !row.source_url).length, sourceUrl: 'https://contrataciondelestado.es/' },
     { id: 'igae', name: 'Ejecución AGE · mayo 2026', records: execution.length, missingIds: execution.filter(row => !row.source_record_id).length, duplicates: duplicateCount(execution.map(row => row.source_record_id).filter(Boolean)), anomalies: execution.filter(row => (row.quality_flags || []).length).length, sourceUrl: execution[0]?.source_url || null },
-    { id: 'bdns', name: 'Convocatorias BDNS', records: grants.length, missingIds: grants.filter(row => !(row.bdns_code || row.source_record_id)).length, duplicates: duplicateCount(grants.map(row => row.bdns_code || row.source_record_id).filter(Boolean)), anomalies: grants.filter(row => !row.source_url).length, sourceUrl: grants[0]?.source_url || null }
+    { id: 'bdns', name: 'Convocatorias BDNS', records: grants.length, missingIds: grants.filter(row => !(row.bdns_code || row.source_record_id)).length, duplicates: duplicateCount(grants.map(row => row.bdns_code || row.source_record_id).filter(Boolean)), anomalies: grants.filter(row => !row.source_url).length, sourceUrl: grants[0]?.source_url || null },
+    { id: 'ign-geography', name: 'Límites CCAA · IGN', records: geography.length, missingIds: geography.filter(row => !row.id).length, duplicates: duplicateCount(geography.map(row => row.id).filter(Boolean)), anomalies: geography.filter(row => !Array.isArray(row.coordinates) || row.coordinates.length < 2).length, sourceUrl: 'https://api-features.ign.es/collections/administrativeboundary?f=json' }
   ];
 }
 
