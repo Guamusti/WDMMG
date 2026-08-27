@@ -145,7 +145,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 
 Referencia MD: secciones 9, 11, 12, 24, 25, 32, 35, 50 y 51.
 
-- [ ] Incorporar presupuestos y ejecución de CCAA.
+- [~] Incorporar presupuestos y ejecución de CCAA; muestra mensual de 17 comunidades normalizada, falta carga completa.
 - [ ] Incorporar presupuestos, ejecución y liquidación local.
 - [ ] Incorporar inventario de entidades públicas y jerarquías.
 - [ ] Incorporar geografía, códigos territoriales y población INE.
