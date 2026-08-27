@@ -435,7 +435,7 @@ function qualityReport() {
   ];
 }
 
-async function officialPopulation(query, limit = 12, level = 'municipality') {
+async function fetchOfficialPopulation(query, limit = 12, level = 'municipality') {
   const safeQuery = query.replaceAll("'", "''").trim();
   const base = 'https://ine.es/servergis/rest/services/Hosted/Censo_2024___N%C3%BAmero_de_personas/FeatureServer/1/query';
   if (level === 'community') {
@@ -464,6 +464,16 @@ async function officialPopulation(query, limit = 12, level = 'municipality') {
     grouped.set(row.province, current);
   }
   return { data: [...grouped.values()].sort((a, b) => b.population - a.population), meta: { dataStatus: 'official_live_aggregate', sourceUrl: endpoint, referenceDate: '2024-01-01', source: 'INE Censo Anual de Población 2024', searchField: 'province', aggregation: 'suma de municipios devueltos por el INE' } };
+}
+
+const populationCache = new Map();
+async function officialPopulation(query, limit = 12, level = 'municipality') {
+  const key = `${level}:${query.trim().toLocaleLowerCase('es')}:${limit}`;
+  const cached = populationCache.get(key);
+  if (cached && cached.expiresAt > Date.now()) return cached.value;
+  const value = await fetchOfficialPopulation(query, limit, level);
+  populationCache.set(key, { value, expiresAt: Date.now() + 600000 });
+  return value;
 }
 
 let communityMapCache = null;
