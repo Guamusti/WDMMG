@@ -17,6 +17,7 @@ SCORE_3 = r"\d{1,2}[,.]\d{3}(?:\(\d+\))?"
 SCORE_2 = r"\d{1,2}[,.]\d{2}(?:\(\d+\))?"
 SCORE_ANY = r"\d{1,2}[,.]\d{2,3}(?:\(\d+\))?"
 ROW = re.compile(rf"^(.+?)\s+({SCORE_3})\s+({SCORE_2})(?:\s+{SCORE_ANY}){{0,5}}\s+(\d+(?:[,.]\d+)?)\s+(\d+)\s*$")
+ECTS_END = re.compile(r"\b(?:180|200|210|216|220|225|230|240|270|300|330|345|354|360|366|378|381|390|417)(?:\+\d+)?\s+\d+\b")
 UNIVERSITY_BY_PAGE = {
     2: 'Universidad de Alcalá', 3: 'Universidad Carlos III de Madrid',
     4: 'Universidad Autónoma de Madrid', 5: 'Universidad Politécnica de Madrid',
@@ -27,6 +28,24 @@ UNIVERSITY_BY_PAGE = {
 
 def clean(value):
     return re.sub(r"\s+", " ", str(value or "")).strip()
+
+
+def split_rows(line):
+    """Split rows accidentally joined by the PDF's side-by-side layout."""
+    candidates = list(re.finditer(SCORE_3, line))
+    if not candidates:
+        return []
+    rows = []
+    cursor = 0
+    for candidate in candidates:
+        if candidate.start() < cursor:
+            continue
+        end = ECTS_END.search(line, candidate.end())
+        if not end:
+            continue
+        rows.append(line[cursor:end.end()].strip())
+        cursor = end.end()
+    return rows
 
 
 def score(value):
@@ -42,34 +61,35 @@ def parse():
             # side by side. The normal reading order keeps each visible row intact
             # and the expanded expression also supports five access groups.
             branch = None
-            for line in (page.extract_text(layout=False) or "").splitlines():
-                line = clean(line)
+            for source_line in (page.extract_text(layout=False) or "").splitlines():
+                line = clean(source_line)
                 branch_match = re.match(r"^Rama de conocimiento de (.+)$", line, re.IGNORECASE)
                 if branch_match:
                     branch = branch_match.group(1)
                     continue
-                match = ROW.match(line)
-                if not match:
-                    continue
-                degree_name, cutoff_value, group_2, ects, years = match.groups()
-                if degree_name.lower() in {"titulaciones oficiales", "titulación"}:
-                    continue
-                records.append({
-                    "academic_year": "2025-2026",
-                    "admission_round": "ordinary",
-                    "admission_group": "group_1",
-                    "university_name_source": UNIVERSITY_BY_PAGE.get(page_number),
-                    "branch_name_source": branch,
-                    "degree_name_source": degree_name,
-                    "cutoff_score": float(cutoff_value.replace(",", ".")),
-                    "group_2_score_source": float(group_2.replace(",", ".")),
-                    "ects_source": float(ects.replace(",", ".")),
-                    "duration_years_source": int(years),
-                    "score_scale_max": 14,
-                    "source_page": page_number,
-                    "source_file": str(SOURCE).replace("\\", "/"),
-                    "raw_row": line,
-                })
+                for row_line in split_rows(line):
+                    match = ROW.match(row_line)
+                    if not match:
+                        continue
+                    degree_name, cutoff_value, group_2, ects, years = match.groups()
+                    if degree_name.lower() in {"titulaciones oficiales", "titulación"} or re.search(r"\d[,.]\d", degree_name):
+                        continue
+                    records.append({
+                        "academic_year": "2025-2026",
+                        "admission_round": "ordinary",
+                        "admission_group": "group_1",
+                        "university_name_source": UNIVERSITY_BY_PAGE.get(page_number),
+                        "branch_name_source": branch,
+                        "degree_name_source": degree_name,
+                        "cutoff_score": float(cutoff_value.replace(",", ".")),
+                        "group_2_score_source": float(group_2.replace(",", ".")),
+                        "ects_source": float(ects.replace(",", ".")),
+                        "duration_years_source": int(years),
+                        "score_scale_max": 14,
+                        "source_page": page_number,
+                        "source_file": str(SOURCE).replace("\\", "/"),
+                        "raw_row": row_line,
+                    })
     unique = list({(record["source_page"], record["raw_row"]): record for record in records}.values())
     TARGET.parent.mkdir(parents=True, exist_ok=True)
     TARGET.write_text(json.dumps(unique, ensure_ascii=False, indent=2), encoding="utf-8")

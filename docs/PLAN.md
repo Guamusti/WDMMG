@@ -31,13 +31,14 @@ Objetivo: cubrir las seis universidades públicas de Madrid y sus titulaciones o
 - [x] Color del mapa explicado: cada color identifica una universidad, con leyenda y tooltip.
 - [x] Descargar y conservar el PDF oficial en `data/raw/`.
 - [x] Crear parser reproducible para la publicación regional (`etl/admissions/madrid/`).
-- [x] Extraer 426 filas públicas con universidad, página y fila fuente; validar con informe de calidad.
+- [x] Extraer 497 filas públicas con universidad, página y fila fuente; validar con informe de calidad.
 - [ ] Completar el catálogo de grados y dobles grados de las seis universidades.
 - [ ] Incorporar códigos oficiales, créditos, cursos y centros desde la fuente.
 - [x] Añadir una ficha de detalle trazable para una oferta.
 - [x] Añadir una vista exploratoria de universidad con sus ofertas cargadas.
 - [x] Añadir páginas navegables y compartibles de oferta, universidad y grado.
 - [x] Añadir metadatos SEO básicos dinámicos por ruta (título, descripción y canonical).
+- [x] Integrar filtros por universidad, rama y ciudad con modo unión/intersección y subir “Tu nota” al inicio.
 - [ ] Añadir páginas completas indexables de detalle de universidad y grado con metadatos SEO.
 
 Criterio de terminado: buscar una carrera madrileña, localizar todas sus ofertas públicas cargadas, abrir fuente y ver nota, curso, campus, universidad y percentil sin ambigüedad.
@@ -94,6 +95,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [ ] Home, buscador global, mapa, página de grado, universidad, oferta y ciudad.
 - [ ] Comparador de ofertas y universidades.
 - [ ] Descargas CSV de filtros actuales.
+- [x] Descarga CSV de los resultados actuales de Madrid.
 - [ ] Cobertura de datos visible.
 - [ ] SEO de páginas con datos reales, sin contenido repetitivo.
 - [ ] Accesibilidad, rendimiento, caché, paginación y responsive.

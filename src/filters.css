@@ -1,0 +1,7 @@
+.controls{display:flex;flex-wrap:wrap;gap:8px}
+.controls select{max-width:210px}
+.table-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.top-actions{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
+.top-actions .score-section{flex:1;margin:0}
+.table-section~.score-section{display:none}
+@media(max-width:760px){.controls select{max-width:none;flex:1}.controls .filter{display:none}.score-section{margin-top:18px}}
