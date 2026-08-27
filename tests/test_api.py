@@ -234,6 +234,14 @@ def test_policy_export_contains_parent_and_child_rows():
         assert '"partida"' in body
 
 
+def test_latest_grant_calls_comes_from_official_live_bdns():
+    status, payload = get_json("/api/grants/latest?pageSize=3")
+    assert status == 200
+    assert payload["meta"]["dataStatus"] == "official_live"
+    assert payload["data"]
+    assert {"bdns_code", "title", "administration", "granting_entity", "source_url"}.issubset(payload["data"][0])
+
+
 def test_companies_csv_export_is_available():
     try:
         with urlopen(f"{BASE_URL}/api/export.csv?entity=companies", timeout=4) as response:

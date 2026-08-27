@@ -371,6 +371,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Metodología muestra candidatos de fusión por nombre normalizado, con identidades, contratos e importes y decisión siempre manual | `en curso` |
 | 27/08/2026 | Contratación: filtro compartible de expedientes cuyo adjudicatario publicado tuvo 1 licitador; API y fallback mantienen la misma estructura y señal explícita | `en curso` |
 | 27/08/2026 | Contratación: códigos CODICE traducidos a nombres oficiales de tipos y procedimientos, visibles en resumen sin perder el código original | `en curso` |
+| 27/08/2026 | BDNS: endpoint oficial de últimas convocatorias integrado con caché de 5 minutos, normalización visible y enlaces directos a ficha | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |

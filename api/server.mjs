@@ -11,6 +11,7 @@ const port = Number(process.env.API_PORT || 8787);
 const root = process.cwd();
 const fileCache = new Map();
 const grantConcessionsCache = new Map();
+let latestGrantCallsCache = null;
 
 function readJsonl(path) {
   if (!existsSync(path)) return [];
@@ -650,6 +651,20 @@ const server = createServer(async (req, res) => {
     } catch (error) {
       return json(res, 200, { data: [], meta: { page, pageSize, total: 0, dataStatus: 'awaiting_validated_ingestion', backend: 'unavailable', warning: error.message } });
     }
+  }
+  if (url.pathname === '/api/grants/latest') {
+    const pageSize = Math.min(50, Math.max(1, Number(url.searchParams.get('pageSize') || 12)));
+    const now = Date.now();
+    if (latestGrantCallsCache && now - latestGrantCallsCache.at < 300000 && latestGrantCallsCache.pageSize >= pageSize) return json(res, 200, { data: latestGrantCallsCache.data.slice(0, pageSize), meta: latestGrantCallsCache.meta });
+    try {
+      const response = await fetch(`https://www.infosubvenciones.es/bdnstrans/api/convocatorias/ultimas?page=0&pageSize=${pageSize}`);
+      if (!response.ok) throw new Error(`BDNS HTTP ${response.status}`);
+      const payload = await response.json();
+      const data = (payload.content || []).map(item => ({ bdns_code: String(item.numeroConvocatoria || item.codigoBDNS || item.id), title: item.descripcion || item.titulo || null, administration: item.nivel1 || null, region: item.nivel2 || null, granting_entity: item.nivel3 || null, registration_date: item.fechaRecepcion || null, source_url: `https://www.infosubvenciones.es/bdnstrans/GE/es/convocatoria/${item.numeroConvocatoria}` }));
+      const meta = { dataStatus: 'official_live', sourceUrl: 'https://www.infosubvenciones.es/bdnstrans/api/convocatorias/ultimas', definition: 'Últimas convocatorias registradas por BDNS; no son concesiones ni pagos.' };
+      latestGrantCallsCache = { at: now, pageSize, data, meta };
+      return json(res, 200, { data, meta });
+    } catch (error) { return json(res, 503, { error: 'grant_latest_unavailable', detail: error.message, meta: { dataStatus: 'unavailable', sourceUrl: 'https://www.infosubvenciones.es/bdnstrans/api/convocatorias/ultimas' } }); }
   }
   if (url.pathname.endsWith('/concesiones') && url.pathname.startsWith('/api/grants/')) {
     const code = decodeURIComponent(url.pathname.slice('/api/grants/'.length, -'/concesiones'.length));
