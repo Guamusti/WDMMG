@@ -185,6 +185,7 @@ def test_contract_rows_expose_adjudicatario_when_available():
     assert isinstance(payload["data"], list)
     for row in payload["data"]:
         assert "winner_name" in row
+        assert "number_of_tenders" in row
 
 
 def test_community_geography_returns_simplified_official_boundaries():

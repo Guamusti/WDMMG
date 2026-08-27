@@ -229,7 +229,7 @@ async function databaseContracts(query, page, pageSize) {
   const result = await pool.query(`
     SELECT c.procurement_id, c.title, pe.name AS contracting_authority, re.name AS winner_name, re.tax_id AS winner_tax_id,
       c.estimated_value, c.base_tender_budget, c.status, c.source_url, c.source_record_id,
-      ca.award_amount, ca.award_amount_with_tax
+      ca.award_amount, ca.award_amount_with_tax, ca.number_of_tenders
     FROM contracts c
     LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id
     LEFT JOIN LATERAL (SELECT ca.* FROM contract_awards ca WHERE ca.contract_id = c.id ORDER BY ca.award_amount DESC NULLS LAST, ca.id LIMIT 1) ca ON TRUE
@@ -244,7 +244,7 @@ async function databaseContractById(id) {
     SELECT c.procurement_id, c.title, c.contract_type, c.procedure_type, c.status,
       c.estimated_value, c.base_tender_budget, c.publication_date, c.award_date,
       c.source_url, c.source_record_id, pe.name AS contracting_authority,
-      re.name AS winner_name, re.tax_id AS winner_tax_id, ca.award_amount, ca.award_amount_with_tax,
+      re.name AS winner_name, re.tax_id AS winner_tax_id, ca.award_amount, ca.award_amount_with_tax, ca.number_of_tenders,
       COALESCE(json_agg(json_build_object('lot_number', cl.lot_number, 'title', cl.title, 'budget', cl.budget)) FILTER (WHERE cl.id IS NOT NULL), '[]') AS lots,
       (SELECT COALESCE(json_agg(json_build_object('event_type', ce.event_type, 'event_date', ce.event_date, 'source_record_id', ce.source_record_id, 'payload', ce.payload) ORDER BY ce.event_date NULLS LAST, ce.id), '[]') FROM contract_events ce WHERE ce.contract_id = c.id) AS events
     FROM contracts c LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id LEFT JOIN contract_awards ca ON ca.contract_id = c.id LEFT JOIN recipient_entities re ON re.id = ca.winner_entity_id LEFT JOIN contract_lots cl ON cl.contract_id = c.id

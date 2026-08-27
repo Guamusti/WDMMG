@@ -356,6 +356,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | `/api/metrics?period=YYYY-MM` y la franja superior sincronizan presupuesto y ejecución con el corte histórico; contratos y ayudas permanecen separados | `en curso` |
 | 27/08/2026 | Explorador contable incorpora búsqueda visible de capítulos sin alterar el denominador: filtrar no convierte los porcentajes en un falso 100% | `en curso` |
 | 27/08/2026 | Explorador contable permite alternar capítulos de gasto y secciones administrativas, con búsqueda y porcentaje recalculado solo dentro del nivel elegido | `en curso` |
+| 27/08/2026 | Señal visible de adjudicaciones con un único licitador: solo usa el campo publicado por PLACSP y explicita cuántos registros sí lo informan | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |
