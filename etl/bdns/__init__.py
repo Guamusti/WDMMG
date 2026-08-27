@@ -1,0 +1,1 @@
+"""BDNS/SNPSAP client boundary."""

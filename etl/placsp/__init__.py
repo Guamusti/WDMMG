@@ -1,0 +1,1 @@
+"""PLACSP ATOM/XML ingestor."""
