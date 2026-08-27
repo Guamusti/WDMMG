@@ -38,6 +38,8 @@ Cuando hay un NIF/CIF completo se valida su formato y control; los identificador
 
 Cada fila de ejecución IGAE conserva `fiscal_year`, `period`, `data_status`, `period_state` y una `dataset_version` derivada del hash del workbook. Dos descargas del mismo mes no se confunden aunque la fuente publique una revisión provisional.
 
+El extractor lee el ejercicio y el periodo desde la cabecera de cada hoja, y separa `classification_code` de `classification_name` cuando la fuente publica un código. No reutiliza el mes de otra descarga ni confunde una etiqueta administrativa con una clasificación económica.
+
 ## IGAE / ejecución AGE
 
 ```bash

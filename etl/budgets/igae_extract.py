@@ -53,6 +53,7 @@ def parse_workbook(path: Path, source_url: str, run_id: str) -> list[dict]:
         records = []
         for sheet_name, sheet_path in sheet_names(archive):
             root = ET.fromstring(archive.read(sheet_path))
+            fiscal_year, period = workbook_period(root, strings)
             for row in root.findall(".//m:row", NS):
                 values = {cell.attrib["r"]: cell_value(cell, strings) for cell in row.findall("m:c", NS)}
                 values = {key: value for key, value in values.items() if value not in (None, "")}
@@ -65,8 +66,8 @@ def parse_workbook(path: Path, source_url: str, run_id: str) -> list[dict]:
                     "label": label,
                     "columns": values,
                     "unit": "miles de euros",
-                    "fiscal_year": 2026,
-                    "period": "2026-05",
+                    "fiscal_year": fiscal_year,
+                    "period": period,
                     "source_url": source_url,
                     "source_record_id": f"{sheet_name}:{row.attrib.get('r', '0')}",
                     "retrieved_at": datetime.now(timezone.utc).isoformat(),
@@ -128,11 +129,16 @@ def parse_execution_workbook(path: Path, source_url: str, run_id: str) -> list[d
                 label = values.get(f"A{row.attrib.get('r')}")
                 if not label or row.attrib.get("r", "0") in {"1", "2", "3"}:
                     continue
+                classification_code, separator, classification_name = label.partition(".")
+                if not separator or not classification_code.strip().isdigit():
+                    classification_code, classification_name = None, label
                 result.append({
                     "fiscal_year": fiscal_year,
                     "period": period,
                     "classification_level": levels[sheet_name],
                     "classification_label": label.strip(),
+                    "classification_code": classification_code.strip() if classification_code else None,
+                    "classification_name": classification_name.strip() if classification_name else label.strip(),
                     "final_credit": numeric(values.get(f"B{row.attrib.get('r')}")),
                     "committed_amount": numeric(values.get(f"C{row.attrib.get('r')}")),
                     "recognized_amount": numeric(values.get(f"D{row.attrib.get('r')}")),

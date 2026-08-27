@@ -87,7 +87,7 @@ Referencia MD: secciones 4, 5, 11, 16, 17, 20, 23, 30, 31, 32, 33, 36, 42, 56, 5
 
 - [x] Seleccionar XLS estructurado de presupuesto y ejecución AGE.
 - [x] Descargar muestra mensual y documentar estructura real.
-- [~] Extraer filas del XLSX a JSONL auditable; falta normalización contable completa.
+- [~] Extraer filas del XLSX a JSONL auditable; periodo leído de cabecera y códigos/nombres separados cuando existen, falta normalización contable completa.
 - [~] Normalizar hojas GTOS 001/002/004 a campos de ejecución separados; cargadas en PostgreSQL, falta validar totales completos.
 - [x] Detectar periodo desde cabeceras y marcar anomalías contables sin eliminar registros.
 - [x] Añadir cargador transaccional PostgreSQL para el JSONL IGAE y entorno Docker local.
@@ -349,6 +349,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Vistas analíticas PostgreSQL `db/004_analytics_views.sql` para cadena presupuestaria y totales de organismos/receptores, sin mezclar pagos y adjudicaciones | `en curso` |
 | 27/08/2026 | Runner de actualización con run global, estado por loader, motivo de skip, timestamps y duración; dry-run y ejecución real quedan auditables | `en curso` |
 | 27/08/2026 | Extractor IGAE conserva `period_state` y `dataset_version` derivada del SHA-256 del workbook; test con muestra real | `en curso` |
+| 27/08/2026 | Extractor IGAE deja de fijar el mes, lee cabeceras reales y separa código/nombre de clasificación; tests con XLSX real | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |
