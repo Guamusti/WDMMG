@@ -87,6 +87,8 @@ CREATE TABLE budget_records (
   initial_amount NUMERIC(18,2),
   modifications_amount NUMERIC(18,2),
   final_amount NUMERIC(18,2),
+  budget_origin_year INTEGER,
+  is_extended_budget BOOLEAN,
   data_status TEXT CHECK (data_status IN ('project','provisional','advance','definitive')),
   source_id BIGINT NOT NULL REFERENCES data_sources(id),
   source_record_id TEXT NOT NULL,

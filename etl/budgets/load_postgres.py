@@ -39,9 +39,9 @@ def load(path: Path, database_url: str) -> int:
             for row in rows:
                 cursor.execute("DELETE FROM budget_records WHERE source_id = %s AND source_record_id = %s", (source_id, row["source_record_id"]))
                 cursor.execute("""
-                    INSERT INTO budget_records (fiscal_year, period, entity_id, budget_side, economic_code, economic_level, initial_amount, modifications_amount, final_amount, data_status, source_id, source_record_id, ingestion_run_id)
-                    VALUES (%s,%s,%s,'expense',%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING id
-                """, (row["fiscal_year"], row["period"], entity_id, row["classification_label"], row["classification_level"], row.get("initial_credit"), row.get("budget_modifications"), row["final_credit"], row["data_status"], source_id, row["source_record_id"], ingestion_id))
+                    INSERT INTO budget_records (fiscal_year, period, entity_id, budget_side, economic_code, economic_level, initial_amount, modifications_amount, final_amount, budget_origin_year, is_extended_budget, data_status, source_id, source_record_id, ingestion_run_id)
+                    VALUES (%s,%s,%s,'expense',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING id
+                """, (row["fiscal_year"], row["period"], entity_id, row["classification_label"], row["classification_level"], row.get("initial_credit"), row.get("budget_modifications"), row["final_credit"], row.get("budget_origin_year"), row.get("is_extended_budget"), row["data_status"], source_id, row["source_record_id"], ingestion_id))
                 budget_id = cursor.fetchone()[0]
                 cursor.execute("""
                     INSERT INTO budget_execution (budget_record_id, committed_amount, recognized_amount, paid_amount, raw_payload)

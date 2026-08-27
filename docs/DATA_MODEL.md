@@ -6,7 +6,7 @@ El modelo está diseñado para que una base PostgreSQL pueda crecer sin crear co
 
 - `public_entities`: organismos y administraciones con jerarquía `parent_id`.
 - `recipient_entities`: empresas y beneficiarios; matching por NIF/identificador antes que nombre.
-- `budget_records`: una fila por dimensión presupuestaria y periodo.
+- `budget_records`: una fila por dimensión presupuestaria y periodo; admite `budget_origin_year` e `is_extended_budget` para identificar prórrogas solo cuando la fuente lo publica.
 - `budget_execution`: estados de ejecución separados de la dotación presupuestaria.
 - `contracts`, `contract_lots`, `contract_awards`, `contract_events`.
 - `grant_calls`, `grant_awards`.
