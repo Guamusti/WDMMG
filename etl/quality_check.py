@@ -71,6 +71,8 @@ for row in matches:
         raise AssertionError(f"Double degree without components: {row['admission_id']}")
     if row["program_type"] != "double_degree" and components:
         raise AssertionError(f"Non-double offer with components: {row['admission_id']}")
+    if row["status"] == "pending" and not row.get("pending_reason"):
+        raise AssertionError(f"Pending RUCT match without reason: {row['admission_id']}")
     if row["status"] == "matched" and not re.fullmatch(r"\d{7}", str(row["ruct_degree_code"])):
         raise AssertionError(f"RUCT match without a seven-digit title code: {row['admission_id']}")
     if row["status"] == "matched" and not row.get("ruct_centers"):
@@ -82,7 +84,13 @@ if MADRID_QUALITY_REPORT.exists():
     madrid_report = json.loads(MADRID_QUALITY_REPORT.read_text(encoding="utf-8"))
     pending_count = sum(row.get("status") != "matched" for row in matches)
     warnings = [warning for warning in madrid_report.get("warnings", []) if warning.get("code") == "RUCT_TITLE_CENTER_MATCH_PENDING"]
-    if madrid_report.get("records") != len(madrid_count) or not warnings or warnings[0].get("count") != pending_count:
+    report_reasons = warnings[0].get("by_reason", {}) if warnings else {}
+    actual_reasons = {}
+    for row in matches:
+        if row.get("status") != "matched":
+            reason = row.get("pending_reason")
+            actual_reasons[reason] = actual_reasons.get(reason, 0) + 1
+    if madrid_report.get("records") != len(madrid_count) or not warnings or warnings[0].get("count") != pending_count or report_reasons != dict(sorted(actual_reasons.items())):
         raise AssertionError("Madrid quality report: stale record or RUCT pending count")
 enrolment = json.loads(OUTCOME_ENROLMENT.read_text(encoding="utf-8"))
 if enrolment.get("academic_year") != "2023-2024" or enrolment.get("granularity") != "Universidad · grados presenciales":

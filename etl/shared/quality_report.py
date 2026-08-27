@@ -23,6 +23,11 @@ unknown_ruct_code = [row for row in rows if row.get('university_ruct_code') not 
 duplicate_keys = len(keys) - len(set(keys))
 ruct_matches = json.loads(RUCT_MATCHES.read_text(encoding='utf-8')) if RUCT_MATCHES.exists() else []
 ruct_pending = sum(row.get('status') != 'matched' for row in ruct_matches)
+ruct_pending_by_reason = {}
+for row in ruct_matches:
+    if row.get('status') != 'matched':
+        reason = row.get('pending_reason') or 'unclassified_pending'
+        ruct_pending_by_reason[reason] = ruct_pending_by_reason.get(reason, 0) + 1
 report = {
     'dataset': 'madrid-2025-2026-admission-cutoffs',
     'records': len(rows),
@@ -38,7 +43,7 @@ report = {
         'unexpected_academic_year': sum(row.get('academic_year') != '2025-2026' for row in rows),
     },
     'warnings': [
-        {'code': 'RUCT_TITLE_CENTER_MATCH_PENDING', 'count': ruct_pending, 'message': 'Las ofertas sin coincidencia RUCT exacta única permanecen pendientes; no se asignan códigos por similitud.'},
+        {'code': 'RUCT_TITLE_CENTER_MATCH_PENDING', 'count': ruct_pending, 'by_reason': dict(sorted(ruct_pending_by_reason.items())), 'message': 'Las ofertas sin coincidencia RUCT exacta única permanecen pendientes; no se asignan códigos por similitud.'},
     ],
     'status': 'pass' if not invalid_cutoff and not duplicate_keys and not missing_degree and not malformed_degree and not concatenated_branch and not missing_ruct_code and not unknown_ruct_code else 'review',
 }

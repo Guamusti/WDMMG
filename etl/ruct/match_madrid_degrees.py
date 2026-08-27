@@ -76,6 +76,21 @@ def classify_offer(value):
     return 'degree', []
 
 
+def pending_reason(program_type, match_method):
+    """Explain why a pending offer cannot receive a RUCT code safely."""
+    if match_method == 'ambiguous_normalized_exact':
+        return 'ambiguous_ruct_title'
+    if program_type == 'double_degree':
+        return 'combined_offer_without_unique_ruct_title'
+    if program_type == 'special_program':
+        return 'special_admission_program_without_degree_code'
+    if program_type == 'international_program':
+        return 'international_program_without_unique_ruct_title'
+    if program_type == 'alliance_program':
+        return 'alliance_program_without_unique_ruct_title'
+    return 'ruct_title_not_found_after_normalization'
+
+
 def request_data(session, university_code):
     url = urljoin('https://www.educacion.gob.es/ruct/', 'consultaestudios.action?actual=estudios')
     payload = {'consulta': '1', 'codigoUniversidad': university_code, 'descripcionEstudio': '',
@@ -150,14 +165,17 @@ def main():
         matches.append({'admission_id': offer.get('id') or f'madrid:{index}', 'admission_degree': offer.get('degree_name_source'),
                         'university_ruct_code': str(offer.get('university_ruct_code')), 'program_type': program_type,
                         'component_names': component_names, 'status': status,
+                        'pending_reason': pending_reason(program_type, method) if status == 'pending' else None,
                         'match_method': method, 'ruct_degree_code': candidate['ruct_degree_code'] if candidate else None,
                         'ruct_degree_name': candidate['ruct_degree_name'] if candidate else None,
                         'ruct_source_url': candidate['source_url'] if candidate else None,
                         'ruct_branch': detail['branch'] if detail else None, 'ruct_field': detail['field'] if detail else None,
                         'ruct_ects': detail['ects'] if detail else None, 'ruct_centers': detail['centers'] if detail else []})
+    pending_rows = [row for row in matches if row['status'] == 'pending']
     quality = {'source': 'RUCT · consulta oficial de títulos · estado publicado · grado',
                'source_url': 'https://www.educacion.gob.es/ruct/consultaestudios.action?actual=estudios',
                'ruct_titles_downloaded': len(ruct), 'ruct_details_downloaded': len(detail_by_code), 'admission_offers_reviewed': len(offers), 'counts': counts,
+               'pending_by_reason': {reason: sum(row.get('pending_reason') == reason for row in pending_rows) for reason in sorted({row.get('pending_reason') for row in pending_rows})},
                'accepted_only_unique_normalized_matches': True, 'unmatched_are_not_inferred': True}
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(matches, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

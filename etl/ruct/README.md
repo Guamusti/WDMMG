@@ -25,3 +25,8 @@ simples, 60 dobles, 21 programas especiales, 2 internacionales y 1 de alianza.
 Esta clasificación describe la oferta de admisión; no inventa un código RUCT
 para el programa conjunto cuando el registro oficial no lo publica de forma
 unívoca.
+
+Cada pendiente conserva `pending_reason` y el informe de calidad las agrupa por
+motivo: doble grado sin título único, programa especial/internacional/alianza
+sin código unívoco, título ambiguo o ausencia de coincidencia exacta tras
+normalización.
