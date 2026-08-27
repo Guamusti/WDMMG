@@ -35,7 +35,9 @@ function App() {
   const execution = overview?.execution;
   const chapters = budgetRows.filter(row => row.economic_level === 'chapter' && /^[1-9]\.\s/.test(row.economic_code || '') && Number(row.final_amount) > 0);
   const budgetTotal = chapters.reduce((sum, row) => sum + Number(row.final_amount || 0), 0);
-  const selectedSubrows = selectedChapter ? budgetRows.filter(row => row.economic_level === 'investment_section' && (row.economic_code || '').startsWith('6.')) : [];
+  // GTOS 002 is a separate administrative view, not a child hierarchy of chapters.
+  // Until a parent key is modeled, do not present those rows as nested chapter data.
+  const selectedSubrows = [];
 
   return <div className="app">
     <header className="topbar">
@@ -73,7 +75,7 @@ function App() {
           </div>
           <aside className="side-card"><div className="eyebrow">ADMINISTRACIÓN PILOTO</div><h3>Administración General del Estado</h3><p>La primera rebanada conecta presupuesto, ejecución, contratación y subvenciones con identificadores de fuente independientes.</p><button className="text-link" onClick={() => setView('contracts')}>Ver contrataciones <ArrowUpRight size={15}/></button><div className="source-line"><Database size={15}/> Datos estructurados en preparación</div></aside>
         </section>
-        {selectedChapter && <section className="drilldown-panel"><div><span className="eyebrow">DESGLOSE · {selectedChapter.economic_code}</span><h3>{selectedChapter.economic_code}</h3><p>{millions(selectedChapter.final_amount)} M€ de crédito definitivo · {percent(selectedChapter.final_amount, budgetTotal)}% del total de capítulos.</p></div>{selectedSubrows.length ? <div className="drilldown-tiles">{selectedSubrows.map((row, i) => <div className="drilldown-tile" key={row.id || row.economic_code} style={{ borderTopColor: tileColors[i % tileColors.length] }}><span>{row.economic_code}</span><b>{millions(row.final_amount)} M€</b><small>{percent(row.final_amount, selectedChapter.final_amount)}% del capítulo</small></div>)}</div> : <div className="drilldown-empty"><strong>Este nivel aún no está disponible en la descarga conectada.</strong><span>La muestra IGAE ofrece subpartidas verificables para inversiones; no inventamos subcategorías como pensiones o IMV si esta fuente no las publica en esta vista.</span></div>}</section>}
+        {selectedChapter && <section className="drilldown-panel"><div><span className="eyebrow">DESGLOSE · {selectedChapter.economic_code}</span><h3>{selectedChapter.economic_code}</h3><p>{millions(selectedChapter.final_amount)} M€ de crédito definitivo · {percent(selectedChapter.final_amount, budgetTotal)}% del total de capítulos.</p></div>{selectedSubrows.length ? <div className="drilldown-tiles">{selectedSubrows.map((row, i) => <div className="drilldown-tile" key={row.id || row.economic_code} style={{ borderTopColor: tileColors[i % tileColors.length] }}><span>{row.economic_code}</span><b>{millions(row.final_amount)} M€</b><small>{percent(row.final_amount, selectedChapter.final_amount)}% del capítulo</small></div>)}</div> : <div className="drilldown-empty"><strong>El siguiente nivel todavía no está disponible.</strong><span>La descarga IGAE conectada permite ver capítulos, pero no aporta aquí una relación padre-hijo para subcategorías como pensiones o IMV. Las vistas administrativas de inversión se mantienen separadas hasta poder enlazarlas correctamente.</span></div>}</section>}
         <p className="footnote">Distribución por capítulos económicos del extracto IGAE conectado · importes en miles de euros.</p>
         <section className="section-head compact"><div><span className="eyebrow">02 · ÚLTIMOS REGISTROS</span><h2>Contratación pública</h2></div><button className="text-link" onClick={() => setView('contracts')}>Ver todo <ChevronRight size={15}/></button></section>
         <Contracts rows={contracts} loading={contractsLoading} compact />

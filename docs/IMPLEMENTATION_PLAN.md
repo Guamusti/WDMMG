@@ -133,7 +133,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [ ] Añadir presupuesto → ejecución con definiciones y estados.
 - [ ] Añadir tooltips de conceptos técnicos.
 - [x] Priorizar ratios comprensibles en portada sin atribuir causalidad no demostrada.
-- [x] Añadir drill-down visual para el nivel inferior disponible en la muestra oficial.
+- [~] Añadir patrón de drill-down visual; el nivel inferior queda bloqueado hasta disponer de una relación padre-hijo oficial.
 - [x] Añadir estados loading/error/empty para la tabla de contratos.
 - [ ] Revisar responsive, accesibilidad y rendimiento.
 
