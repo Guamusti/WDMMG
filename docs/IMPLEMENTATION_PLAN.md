@@ -318,6 +318,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Fichas de empresa ampliadas con importe medio y mayor adjudicación, calculados desde `contract_awards` y separados de pagos | `en curso` |
 | 27/08/2026 | Auditoría de ficha de empresa: indicadores de adjudicación comprobados en PostgreSQL y API, con tests de detalle | `en curso` |
 | 27/08/2026 | Control de identificadores PLACSP corregido: 234 adjudicaciones con IDs compuestos estables, 0 duplicados y reprocesado PostgreSQL verificado | `en curso` |
+| 27/08/2026 | QA ampliado con validación de fechas e importes no negativos para contratos, adjudicaciones y partidas IGAE; las anomalías se conservan visibles | `en curso` |
 | 27/08/2026 | Endpoint `/api/metrics` con presupuesto, ejecución, adjudicaciones y concesiones separados por unidad, periodo y fuente | `en curso` |
 | 27/08/2026 | Portada consume `/api/metrics` en una franja visual de cuatro magnitudes, con periodo/fuente y aviso de separación semántica | `en curso` |
 | 27/08/2026 | Cobertura CCAA muestra fecha real de recuperación desde `retrieved_at` y conserva el estado parcial explícito | `en curso` |
