@@ -96,6 +96,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 ## Fase 7 — Producto completo
 
 - [ ] Home, buscador global, mapa, página de grado, universidad, oferta y ciudad.
+- [x] Ruta de ciudad `/ciudad/<slug>` con ofertas verificables y enlaces a cada detalle.
 - [ ] Comparador de ofertas y universidades.
 - [x] Descargas CSV de filtros actuales (incluye columnas laborales cuando existe una referencia compatible).
 - [x] Descarga CSV de los resultados actuales de Madrid.
