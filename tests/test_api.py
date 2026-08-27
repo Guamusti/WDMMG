@@ -32,6 +32,10 @@ def test_index_exposes_share_metadata_in_spanish():
     assert 'property="og:title"' in body
     assert 'name="twitter:card"' in body
     assert 'name="robots" content="index,follow"' in body
+    with open("src/main.jsx", encoding="utf-8") as handle:
+        app = handle.read()
+    assert "function PageMetadata" in app
+    assert "document.title = title" in app
 
 
 def test_api_sets_basic_security_headers():

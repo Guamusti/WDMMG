@@ -59,6 +59,7 @@ function buildPolicyWheelItems(rows) {
 
 function Money({ children }) { return <span className="money">{children}</span>; }
 
+function PageMetadata({ view, policy, query }) { useEffect(() => { const labels = { overview: 'Explora el gasto público', companies: 'Empresas adjudicatarias', contracts: 'Contratos públicos', grants: 'Subvenciones públicas', methodology: 'Metodología y fuentes' }; const context = policy?.label ? ` · ${policy.label}` : query ? ` · ${query}` : ''; const title = `Dinero Público — ${labels[view] || labels.overview}${context}`; document.title = title; const description = document.querySelector('meta[name="description"]'); if (description) description.setAttribute('content', `${labels[view] || labels.overview}${context}. Datos oficiales de España, explicados en lenguaje claro y con fuentes visibles.`); }, [view, policy?.label, query]); return null }
 function App() {
   const [query, setQuery] = useState(() => new URLSearchParams(window.location.search).get('q') || '');
   const [view, setView] = useState(() => { const value = new URLSearchParams(window.location.search).get('vista'); return ['overview', 'companies', 'contracts', 'grants', 'methodology'].includes(value) ? value : 'overview'; });
@@ -96,7 +97,7 @@ function App() {
   // Until a parent key is modeled, do not present those rows as nested chapter data.
   const selectedSubrows = [];
 
-  return <div className="app">
+  return <div className="app"><PageMetadata view={view} policy={selectedPolicy} query={query} />
     <header className="topbar">
       <button className="brand" onClick={() => setView('overview')}><span className="brand-mark">€</span><span>DINERO<br/><i>PÚBLICO</i></span></button>
       <nav aria-label="Secciones principales"><button aria-current={view === 'overview' ? 'page' : undefined} className={view === 'overview' ? 'active' : ''} onClick={() => setView('overview')}>Explorar</button><button aria-current={view === 'companies' ? 'page' : undefined} className={view === 'companies' ? 'active' : ''} onClick={() => setView('companies')}>Empresas</button><button aria-current={view === 'contracts' ? 'page' : undefined} className={view === 'contracts' ? 'active' : ''} onClick={() => setView('contracts')}>Contratos</button><button aria-current={view === 'grants' ? 'page' : undefined} className={view === 'grants' ? 'active' : ''} onClick={() => setView('grants')}>Subvenciones</button><button aria-current={view === 'methodology' ? 'page' : undefined} className={view === 'methodology' ? 'active' : ''} onClick={() => setView('methodology')}>Metodología</button></nav>
