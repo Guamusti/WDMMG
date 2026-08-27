@@ -56,6 +56,7 @@ Las rutas actuales del MVP son `/oferta/<id>`, `/universidad/<sigla>` y `/grado/
 - [x] API interna con filtros básicos, paginación, fuente y URLs compartibles (`api/server.mjs`); el launcher selecciona puerto libre.
 - [x] Endpoint nacional separado (`/api/national-offers`) y cobertura agregada (`/api/coverage`) con filtro por comunidad y procedencia preservada.
 - [x] Explorador conectado a la API con fallback local para preservar el arranque si el servicio no está disponible.
+- [x] Caché de JSON de la API invalidada por `mtime`, manteniendo disponibles las actualizaciones del catálogo sin lecturas repetidas.
 
 Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cada registro permite responder “¿de dónde sale este dato?”.
 

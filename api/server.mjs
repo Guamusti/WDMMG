@@ -1,5 +1,5 @@
 import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
@@ -11,6 +11,15 @@ const sourceUrl = 'https://www.comunidad.madrid/docs/assets/2026/02/25/notas_de_
 
 const shortByCode = { '010':'UCM', '023':'UAM', '025':'UPM', '029':'UAH', '036':'UC3M', '056':'URJC' };
 const universityByCode = { '010':'Universidad Complutense de Madrid', '023':'Universidad Autónoma de Madrid', '025':'Universidad Politécnica de Madrid', '029':'Universidad de Alcalá', '036':'Universidad Carlos III de Madrid', '056':'Universidad Rey Juan Carlos' };
+const jsonCache = new Map();
+async function readJsonCached(path) {
+  const modified = (await stat(path)).mtimeMs;
+  const cached = jsonCache.get(path);
+  if (cached?.modified === modified) return cached.value;
+  const value = JSON.parse(await readFile(path, 'utf8'));
+  jsonCache.set(path, { modified, value });
+  return value;
+}
 const cities = ['Alcalá de Henares','Aranjuez','Alcorcón','Boadilla del Monte','Colmenarejo','Fuenlabrada','Getafe','Guadalajara','Leganés','Madrid','Móstoles'];
 function normalize(row, index) {
   const degree = String(row.degree_name_source || '').replaceAll('�', '').replace(/\s+/g, ' ').trim();
@@ -26,14 +35,14 @@ const server = createServer(async (request, response) => {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');
   if (request.url === '/api/health') { response.end(JSON.stringify({ status: 'ok', service: 'atlas-api' })); return; }
   if (request.url === '/api/coverage') {
-    try { response.end(await readFile(nationalQualityPath, 'utf8')); } catch (error) { response.statusCode = 500; response.end(JSON.stringify({ error: 'coverage_unavailable', detail: error.message })); }
+    try { response.end(JSON.stringify(await readJsonCached(nationalQualityPath))); } catch (error) { response.statusCode = 500; response.end(JSON.stringify({ error: 'coverage_unavailable', detail: error.message })); }
     return;
   }
   if (!request.url?.startsWith('/api/offers') && !request.url?.startsWith('/api/national-offers')) { response.statusCode = 404; response.end(JSON.stringify({ error: 'not_found' })); return; }
   try {
     const url = new URL(request.url, 'http://localhost');
     const national = url.pathname === '/api/national-offers';
-    const rows = JSON.parse(await readFile(national ? nationalDataPath : dataPath, 'utf8')).map(national ? normalizeNational : normalize);
+    const rows = (await readJsonCached(national ? nationalDataPath : dataPath)).map(national ? normalizeNational : normalize);
     const q = (url.searchParams.get('q') || '').toLocaleLowerCase();
     const university = url.searchParams.get('university');
     const branch = url.searchParams.get('branch');
