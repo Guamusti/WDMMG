@@ -62,6 +62,8 @@ La tabla de contratación también muestra ahora el adjudicatario publicado y la
 
 La portada incorpora tres historias breves: peso de pensiones, peso de deuda y mayor gasto reconocido en la muestra autonómica. Cada una enlaza con su contexto y declara periodo y limitaciones.
 
+La evolución AGE ya tiene dos cortes oficiales compatibles (abril y mayo de 2026) y se muestra como pagos acumulados por cada euro previsto, sin presentarla como gasto mensual.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.

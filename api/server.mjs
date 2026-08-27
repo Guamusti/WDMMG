@@ -243,6 +243,16 @@ function getExecution() {
   return readJsonl(join(root, 'data', 'processed', 'igae', 'execution-2026-05.jsonl'));
 }
 
+function getExecutionHistory() {
+  const files = ['execution-2026-04.jsonl', 'execution-2026-05.jsonl'];
+  return files.map(file => {
+    const rows = readJsonl(join(root, 'data', 'processed', 'igae', file)).filter(row => row.classification_level === 'chapter' && /^[1-9]\.\s/.test(row.classification_label));
+    if (!rows.length) return null;
+    const sum = key => rows.reduce((total, row) => total + (Number(row[key]) || 0), 0);
+    return { fiscalYear: rows[0].fiscal_year, period: rows[0].period, unit: rows[0].unit, finalCredit: sum('final_credit'), committed: sum('committed_amount'), recognized: sum('recognized_amount'), paid: sum('paid_amount'), sourceUrl: rows[0].source_url, dataStatus: rows[0].data_status, records: rows.length };
+  }).filter(Boolean);
+}
+
 function getTerritorialExecution() {
   return readJsonl(join(root, 'data', 'processed', 'ccaa', 'execution-2026-05.jsonl'));
 }
@@ -292,6 +302,10 @@ const server = createServer(async (req, res) => {
   if (req.method !== 'GET') return json(res, 405, { error: 'method_not_allowed' });
   if (url.pathname === '/api/health') return json(res, 200, { ok: true, service: 'dinero-publico-api', data: { contracts: getContracts().length } });
   if (url.pathname === '/api/overview') return json(res, 200, await overview());
+  if (url.pathname === '/api/history') {
+    const data = getExecutionHistory();
+    return json(res, 200, { data, meta: { dataStatus: data.length > 1 ? 'imported' : 'partial', unit: 'miles de euros', source: 'IGAE' } });
+  }
   if (url.pathname === '/api/budgets') {
     try {
       const result = await pool.query(`SELECT br.*, be.committed_amount, be.recognized_amount, be.paid_amount, be.raw_payload FROM budget_records br LEFT JOIN budget_execution be ON be.budget_record_id = br.id ORDER BY br.fiscal_year DESC, br.period DESC, br.id`);

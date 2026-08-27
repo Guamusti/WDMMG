@@ -271,3 +271,5 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Ficha de empresa ampliada con el listado de organismos públicos vinculados a sus contratos publicados | `en curso` |
 | 27/08/2026 | Contratos muestran adjudicatario y NIF cuando están disponibles; empresas incorporan exportación CSV filtrable | `en curso` |
 | 27/08/2026 | Portada incorpora tres historias descriptivas con cifras grandes, periodo, denominador y enlaces al desglose territorial o funcional | `en curso` |
+| 27/08/2026 | Descarga y parseo oficial IGAE abril 2026 validado contra mayo: 91 filas compatibles y endpoint `/api/history` | `en curso` |
+| 27/08/2026 | Evolución visual abril→mayo: pagos acumulados por euro de crédito definitivo, con advertencia de unidad y no doble conteo | `en curso` |
