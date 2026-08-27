@@ -33,10 +33,19 @@ HTML de la consulta oficial de notas de corte del Distrito Único Andaluz y
 2025-2026. Se carga exclusivamente la columna de acceso general (`Gral.`),
 conserva rama, universidad y centro, y rechaza filas incompletas.
 
+## Castilla y León
+
+`python etl/admissions/castilla-leon/download_castilla_leon.py` conserva el
+PDF oficial de notas de corte de la Universidad de León y
+`python etl/admissions/castilla-leon/parse_castilla_leon.py` genera el
+extracto de 2025-2026. La cobertura es parcial: se carga la nota general de
+las ofertas publicadas por esa universidad y se mantienen las filas con
+campus/centro identificables.
+
 ## Catálogo nacional de trabajo
 
 `python etl/admissions/build_national_catalog.py` reúne los extractos
-procesados de Madrid, Galicia, Aragón, Cataluña y Andalucía en
+procesados de Madrid, Galicia, Aragón, Cataluña, Andalucía y Castilla y León en
 `data/processed/admissions/`.
 Conserva la procedencia regional y genera un informe de comparabilidad; no
 rellena ramas, RUCT ni métricas que una fuente no publique.

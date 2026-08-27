@@ -80,6 +80,7 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [x] Catálogo nacional de trabajo reproducible con los extractos de Madrid, Galicia, Aragón, Cataluña y Andalucía, informe de comparabilidad y procedencia regional.
 - [x] Tercer ingestor regional adicional (Cataluña), con primera asignación, código de estudio, centro/población y cupo PAU/CFGS conservados.
 - [x] Cuarto ingestor regional adicional (Andalucía), con consulta oficial 2025-2026, nota general, rama, centro y nueve universidades públicas conservados.
+- [x] Quinto ingestor regional adicional (Castilla y León), con PDF oficial 2025-2026 y 49 ofertas de la Universidad de León conservadas como cobertura parcial explícita.
 - [x] Separación de grupo, convocatoria, ronda inicial y nota final en el modelo nacional; cada fuente conserva solo las dimensiones que publica y las ausencias quedan explícitas.
 - [x] Exponer convocatoria y cupo como filtros aplicables en `/espana`, manteniendo sus valores originales por fila.
 - [x] Percentiles nacionales, regionales, por rama y por campo RUCT cuando existe una clasificación oficial; el catálogo mantiene cobertura parcial y no infiere campos ausentes.

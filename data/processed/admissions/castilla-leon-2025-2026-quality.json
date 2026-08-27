@@ -1,0 +1,91 @@
+{
+  "source_url": "https://www.unileon.es/files/2025-11/notas_de_corte_2025nw.pdf",
+  "academic_year": "2025-2026",
+  "records": 49,
+  "rejected_rows": 15,
+  "duplicates": 0,
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "no_replacement_glyph_in_names": true,
+    "ordinary_round_explicit": true,
+    "general_group_explicit": true,
+    "no_duplicate_keys": true
+  },
+  "rejections": [
+    {
+      "line": 1,
+      "title": "General PAEU/Form.Prof.",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 22,
+      "title": "g 5,000",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 102,
+      "title": "g 5,000",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 110,
+      "title": "g 5,000",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 158,
+      "title": "g 5,000",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 166,
+      "title": "g 9,427",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 192,
+      "title": "g 9,403",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 233,
+      "title": "g 8,372",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 256,
+      "title": "g 9,085",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 264,
+      "title": "g 8,710",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 272,
+      "title": "g 8,770",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 280,
+      "title": "g 6,675",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 328,
+      "title": "g 5,000",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 336,
+      "title": "g 5,000",
+      "reason": "MISSING_PLACES"
+    },
+    {
+      "line": 368,
+      "title": "g 5,000",
+      "reason": "MISSING_PLACES"
+    }
+  ]
+}

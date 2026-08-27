@@ -11,6 +11,7 @@ GALICIA = ROOT / "data/processed/admissions/galicia-2025-2026.json"
 ARAGON = ROOT / "data/processed/admissions/aragon-2025-2026.json"
 CATALUNA = ROOT / "data/processed/admissions/cataluna-2025-2026.json"
 ANDALUCIA = ROOT / "data/processed/admissions/andalucia-2025-2026.json"
+CASTILLA_LEON = ROOT / "data/processed/admissions/castilla-leon-2025-2026.json"
 RUCT_MATCHES = ROOT / "data/processed/ruct/madrid-degree-matches.json"
 OUTPUT = ROOT / "data/processed/admissions/national-2025-2026.json"
 REPORT = ROOT / "data/processed/admissions/national-2025-2026-quality.json"
@@ -45,7 +46,7 @@ def build() -> tuple[list[dict], dict]:
             "source_file": source["source_file"],
             "source_url": "https://www.comunidad.madrid/docs/assets/2026/02/25/notas_de_corte_2025-26_publicacion_para_web.pdf?VersionId=TQubbLf9LLERJuuTNTnhd4CGSZZjgmUx",
         })
-    for path in (GALICIA, ARAGON, CATALUNA, ANDALUCIA):
+    for path in (GALICIA, ARAGON, CATALUNA, ANDALUCIA, CASTILLA_LEON):
         for source in load(path):
             rows.append({
                 "id": f"{source['community'].lower()}:{len(rows) + 1}",
@@ -54,6 +55,7 @@ def build() -> tuple[list[dict], dict]:
                 "university_ruct_code": None,
                 "campus": source.get("campus"),
                 "center": source.get("center"),
+                "source_row": source.get("source_row"),
                 "degree": source["degree"],
                 "branch": source.get("branch"),
                 "field": None,
@@ -67,7 +69,7 @@ def build() -> tuple[list[dict], dict]:
                 "source_file": str(path.relative_to(ROOT)),
                 "source_url": source["source_url"],
             })
-    keys = [(r["community"], r["university"], r["campus"], r["degree"], r["academic_year"], r["admission_round"], r["admission_group"], r["cutoff_score"], r["source_page"]) for r in rows]
+    keys = [(r["community"], r["university"], r["campus"], r.get("center"), r.get("source_row"), r["degree"], r["academic_year"], r["admission_round"], r["admission_group"], r["cutoff_score"], r["source_page"]) for r in rows]
     report = {
         "records": len(rows),
         "communities": sorted({r["community"] for r in rows}),

@@ -6,7 +6,7 @@
   {"community":"Canarias","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"Cantabria","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"Castilla-La Mancha","status":"pending","url":null,"format":null,"rounds":null},
-  {"community":"Castilla y León","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Castilla y León","status":"verified","url":"https://www.unileon.es/files/2025-11/notas_de_corte_2025nw.pdf","format":"PDF","rounds":["ordinary"],"coverage":"Universidad de León · 49 ofertas con nota general 2025-2026"},
   {"community":"Cataluña","status":"verified","url":"https://universitats.gencat.cat/ca/preinscripcions/notes-tall","format":"HTML/PDF","rounds":["assignment_1","assignment_final"],"coverage":"Preinscripción universitaria de Cataluña"},
   {"community":"Comunitat Valenciana","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"Extremadura","status":"pending","url":null,"format":null,"rounds":null},
