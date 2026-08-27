@@ -82,11 +82,12 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [x] Cuarto ingestor regional adicional (Andalucía), con consulta oficial 2025-2026, nota general, rama, centro y nueve universidades públicas conservados.
 - [x] Quinto ingestor regional adicional (Castilla y León), con PDF oficial 2025-2026 y 49 ofertas de la Universidad de León conservadas como cobertura parcial explícita.
 - [x] Sexta cobertura oficial adicional dentro de Castilla y León, con el segundo listado ordinario 2025-2026 de la Universidad de Salamanca y 73 ofertas conservadas.
+- [x] Séptimo ingestor regional adicional (Cantabria), con nota de julio como `last_call` y 37 ofertas de la Universidad de Cantabria conservadas.
 - [x] Separación de grupo, convocatoria, ronda inicial y nota final en el modelo nacional; cada fuente conserva solo las dimensiones que publica y las ausencias quedan explícitas.
 - [x] Exponer convocatoria y cupo como filtros aplicables en `/espana`, manteniendo sus valores originales por fila.
 - [x] Percentiles nacionales, regionales, por rama y por campo RUCT cuando existe una clasificación oficial; el catálogo mantiene cobertura parcial y no infiere campos ausentes.
 - [x] Percentiles nacional, por comunidad, rama y campo RUCT sobre las observaciones cargadas en `/espana`, con el ámbito de comparación indicado en cada fila.
-- [x] Explorador nacional inicial de notas, mapa orientativo y “qué puedo estudiar con mi nota” para las seis comunidades procesadas; percentiles comparables visibles según cobertura.
+- [x] Explorador nacional inicial de notas, mapa orientativo y “qué puedo estudiar con mi nota” para las siete comunidades procesadas; percentiles comparables visibles según cobertura.
 - [x] Explorador nacional inicial `/espana` con búsqueda, comunidad, nota/tolerancia, orden, procedencia, estado de cobertura y carga completa del catálogo; el mapa sigue siendo orientativo.
 
 Criterio de terminado: el filtro España permite comparar solo ofertas metodológicamente compatibles y muestra cobertura por comunidad.

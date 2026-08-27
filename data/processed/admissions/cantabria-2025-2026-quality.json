@@ -1,0 +1,16 @@
+{
+  "source_url": "https://web.unican.es/estudiantesuc/Documents/Estad%C3%ADsticas/Grado/Estad%C3%ADsticas%20de%20Ordenaci%C3%B3n%20Acad%C3%A9mica/7%20Notas%20de%20corte.pdf",
+  "academic_year": "2025-2026",
+  "records": 37,
+  "rejected_rows": 0,
+  "duplicates": 0,
+  "round": "July cutoff / last_call",
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "no_replacement_glyph_in_names": true,
+    "last_call_round_explicit": true,
+    "general_group_explicit": true,
+    "no_duplicate_keys": true
+  },
+  "rejections": []
+}

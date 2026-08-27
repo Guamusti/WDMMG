@@ -13,6 +13,7 @@ CATALUNA = ROOT / "data/processed/admissions/cataluna-2025-2026.json"
 ANDALUCIA = ROOT / "data/processed/admissions/andalucia-2025-2026.json"
 CASTILLA_LEON = ROOT / "data/processed/admissions/castilla-leon-2025-2026.json"
 SALAMANCA = ROOT / "data/processed/admissions/salamanca-2025-2026.json"
+CANTABRIA = ROOT / "data/processed/admissions/cantabria-2025-2026.json"
 RUCT_MATCHES = ROOT / "data/processed/ruct/madrid-degree-matches.json"
 OUTPUT = ROOT / "data/processed/admissions/national-2025-2026.json"
 REPORT = ROOT / "data/processed/admissions/national-2025-2026-quality.json"
@@ -47,7 +48,7 @@ def build() -> tuple[list[dict], dict]:
             "source_file": source["source_file"],
             "source_url": "https://www.comunidad.madrid/docs/assets/2026/02/25/notas_de_corte_2025-26_publicacion_para_web.pdf?VersionId=TQubbLf9LLERJuuTNTnhd4CGSZZjgmUx",
         })
-    for path in (GALICIA, ARAGON, CATALUNA, ANDALUCIA, CASTILLA_LEON, SALAMANCA):
+    for path in (GALICIA, ARAGON, CATALUNA, ANDALUCIA, CASTILLA_LEON, SALAMANCA, CANTABRIA):
         for source in load(path):
             rows.append({
                 "id": f"{source['community'].lower()}:{len(rows) + 1}",

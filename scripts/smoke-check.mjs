@@ -6,6 +6,7 @@ const expectedMadrid = JSON.parse(await readFile('data/processed/admissions/madr
 const expectedAndalucia = JSON.parse(await readFile('data/processed/admissions/andalucia-2025-2026.json', 'utf8')).length;
 const expectedCastillaLeon = JSON.parse(await readFile('data/processed/admissions/castilla-leon-2025-2026.json', 'utf8')).length;
 const expectedSalamanca = JSON.parse(await readFile('data/processed/admissions/salamanca-2025-2026.json', 'utf8')).length;
+const expectedCantabria = JSON.parse(await readFile('data/processed/admissions/cantabria-2025-2026.json', 'utf8')).length;
 const frontend = `http://127.0.0.1:${frontendPort}`;
 const api = `http://127.0.0.1:${apiPort}`;
 
@@ -39,6 +40,8 @@ const castillaLeon = await (await expectOk(`${api}/api/national-offers?community
 if (castillaLeon.total !== expectedCastillaLeon + expectedSalamanca || !castillaLeon.data[0]?.cutoff) throw new Error('Castilla y León offers: source contract missing');
 const salamanca = await (await expectOk(`${api}/api/national-offers?community=Castilla%20y%20Le%C3%B3n&university=Universidad%20de%20Salamanca&limit=1`, 'Salamanca offers')).json();
 if (salamanca.total !== expectedSalamanca || !salamanca.data[0]?.cutoff) throw new Error('Salamanca offers: source contract missing');
+const cantabria = await (await expectOk(`${api}/api/national-offers?community=Cantabria&limit=1`, 'Cantabria offers')).json();
+if (cantabria.total !== expectedCantabria || cantabria.data[0]?.admissionRound !== 'last_call') throw new Error('Cantabria offers: round/source contract missing');
 
 const etag = nationalResponse.headers.get('etag');
 if (!etag || !nationalResponse.headers.get('cache-control')) throw new Error('National offers: HTTP cache headers missing');

@@ -1,8 +1,9 @@
 {
-  "records": 2116,
+  "records": 2153,
   "communities": [
     "Andalucía",
     "Aragón",
+    "Cantabria",
     "Castilla y León",
     "Cataluña",
     "Comunidad de Madrid",
@@ -11,6 +12,7 @@
   "by_community": {
     "Andalucía": 581,
     "Aragón": 73,
+    "Cantabria": 37,
     "Castilla y León": 122,
     "Cataluña": 549,
     "Comunidad de Madrid": 458,

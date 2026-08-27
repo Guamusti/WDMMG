@@ -4,7 +4,7 @@
   {"community":"Asturias","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"Illes Balears","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"Canarias","status":"pending","url":null,"format":null,"rounds":null},
-  {"community":"Cantabria","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Cantabria","status":"verified","url":"https://web.unican.es/estudiantesuc/Documents/Estad%C3%ADsticas/Grado/Estad%C3%ADsticas%20de%20Ordenaci%C3%B3n%20Acad%C3%A9mica/7%20Notas%20de%20corte.pdf","format":"PDF","rounds":["last_call"],"coverage":"Universidad de Cantabria · 37 ofertas · nota de julio 2025-2026"},
   {"community":"Castilla-La Mancha","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"Castilla y León","status":"verified","url":"https://www.unileon.es/files/2025-11/notas_de_corte_2025nw.pdf","additional_urls":["https://comunicacion.usal.es/sites/comunicacion.usal.es/files/180725_2___Listado_Notas_de_corte_2025_2026..pdf"],"format":"PDF","rounds":["ordinary"],"coverage":"Universidad de León (49) y Universidad de Salamanca (73) · nota general 2025-2026"},
   {"community":"Cataluña","status":"verified","url":"https://universitats.gencat.cat/ca/preinscripcions/notes-tall","format":"HTML/PDF","rounds":["assignment_1","assignment_final"],"coverage":"Preinscripción universitaria de Cataluña"},

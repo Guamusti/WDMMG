@@ -42,10 +42,20 @@ extracto de 2025-2026. La cobertura es parcial: se carga la nota general de
 las ofertas publicadas por esa universidad y se mantienen las filas con
 campus/centro identificables.
 
+## Cantabria
+
+`python etl/admissions/cantabria/download_cantabria.py` conserva el PDF
+oficial de la Universidad de Cantabria y `python
+etl/admissions/cantabria/parse_cantabria.py` genera el extracto de
+2025-2026. Se carga la nota de julio del cupo general como `last_call`,
+separada de una primera adjudicación, porque es la dimensión que publica la
+fuente.
+
 ## Catálogo nacional de trabajo
 
 `python etl/admissions/build_national_catalog.py` reúne los extractos
-procesados de Madrid, Galicia, Aragón, Cataluña, Andalucía y Castilla y León en
+procesados de Madrid, Galicia, Aragón, Cataluña, Andalucía, Castilla y León y
+Cantabria en
 `data/processed/admissions/`.
 Conserva la procedencia regional y genera un informe de comparabilidad; no
 rellena ramas, RUCT ni métricas que una fuente no publique.
