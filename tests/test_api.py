@@ -309,6 +309,21 @@ def test_territory_csv_export_is_available():
         assert "Andaluc\u00eda" in body
 
 
+def test_entities_endpoint_exposes_contracting_authority_inventory():
+    status, payload = get_json("/api/entities?limit=2")
+    assert status == 200 and payload["data"]
+    assert {"name", "contract_count", "contractor_count", "awarded_amount"}.issubset(payload["data"][0])
+
+
+def test_entity_detail_exposes_contracting_relationships():
+    status, entities = get_json("/api/entities?limit=1")
+    assert status == 200 and entities["data"]
+    status, payload = get_json(f"/api/entities/{entities['data'][0]['id']}")
+    assert status == 200
+    assert isinstance(payload["data"]["contracts"], list)
+    assert "contract_count" in payload["data"]
+
+
 def test_unknown_route_is_not_found():
     with pytest.raises(HTTPError) as error:
         urlopen(f"{BASE_URL}/api/does-not-exist", timeout=2)

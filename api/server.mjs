@@ -123,6 +123,22 @@ async function databaseEntities(query, limit) {
   return result.rows;
 }
 
+async function databaseEntityById(id) {
+  const result = await pool.query(`
+    SELECT pe.id, pe.name, pe.administration_level,
+      COUNT(DISTINCT c.id)::int AS contract_count,
+      COUNT(DISTINCT ca.winner_entity_id)::int AS contractor_count,
+      COALESCE(SUM(ca.award_amount), 0) AS awarded_amount,
+      COALESCE(json_agg(DISTINCT jsonb_build_object('procurement_id', c.procurement_id, 'title', c.title, 'source_url', c.source_url, 'winner_name', re.name, 'award_amount', ca.award_amount)) FILTER (WHERE c.id IS NOT NULL), '[]') AS contracts
+    FROM public_entities pe
+    LEFT JOIN contracts c ON c.contracting_authority_id = pe.id
+    LEFT JOIN contract_awards ca ON ca.contract_id = c.id
+    LEFT JOIN recipient_entities re ON re.id = ca.winner_entity_id
+    WHERE pe.id::text = $1
+    GROUP BY pe.id, pe.name, pe.administration_level`, [id]);
+  return result.rows[0] || null;
+}
+
 function entitiesFromJsonl(query = '', limit = 50) {
   const needle = query.toLocaleLowerCase('es');
   const groups = new Map();
@@ -548,6 +564,11 @@ const server = createServer(async (req, res) => {
     const limit = Math.min(100, Math.max(1, Number(url.searchParams.get('limit') || 50)));
     try { const data = await databaseEntities(query, limit); return json(res, 200, { data: data.length ? data : entitiesFromJsonl(query, limit), meta: { total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'postgresql', definition: 'Organismos con contratos PLACSP publicados.' } }); }
     catch (error) { const data = entitiesFromJsonl(query, limit); return json(res, 200, { data, meta: { total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', definition: 'Organismos con contratos PLACSP publicados.', warning: error.message } }); }
+  }
+  if (url.pathname.startsWith('/api/entities/')) {
+    const id = decodeURIComponent(url.pathname.slice('/api/entities/'.length));
+    try { const data = await databaseEntityById(id); return data ? json(res, 200, { data, meta: { backend: 'postgresql', dataStatus: 'imported', definition: 'Contratos publicados por el organismo y adjudicatarios vinculados.' } }) : json(res, 404, { error: 'entity_not_found' }); }
+    catch (error) { return json(res, 503, { error: 'entity_unavailable', detail: error.message, meta: { dataStatus: 'unavailable' } }); }
   }
   if (url.pathname.startsWith('/api/companies/')) {
     const id = decodeURIComponent(url.pathname.slice('/api/companies/'.length));
