@@ -52,3 +52,8 @@ def test_parse_atom_keeps_provenance_and_core_fields(tmp_path: Path):
 def test_quality_flags_report_id_date_amount_and_exercise_problems():
     flags = record_quality_flags({"date": "tomorrow", "amount": "-2", "year": "1999"}, "id", ("date",), ("amount",), ("year",))
     assert flags == ["missing_id", "invalid_date:date", "negative_amount:amount", "invalid_exercise:year"]
+
+
+def test_quality_flags_validate_only_complete_tax_ids():
+    assert record_quality_flags({"id": "1", "tax": "B99286321"}, "id", tax_id_field="tax") == ["invalid_tax_id:tax"]
+    assert record_quality_flags({"id": "1", "tax": "***6433**"}, "id", tax_id_field="tax") == []

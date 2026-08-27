@@ -56,7 +56,7 @@ Referencia MD: secciones 6, 7, 10, 13, 34, 40, 41, 43, 44 y 55.
 - [x] Conservar XML BDNS sin fingir un mapeo cuando falta el servicio/XSD concreto.
 - [~] Añadir parser completo CODICE para licitaciones, lotes, adjudicaciones y eventos; licitaciones, lotes y `TenderResult` ya se extraen, quedan eventos/versionado.
 - [x] Añadir cliente BDNS20 por servicio, paginación, throttling y cache; cliente común con caché raw por URL, intervalo mínimo, tratamiento de `429` y paginación de concesiones configurable.
-- [~] Implementar normalización NIF/CIF, nombres, fechas, euros y códigos; utilidades compartidas aplicadas a entidades PLACSP/BDNS y formatos españoles de NIF/euro, faltan validadores específicos de cada fuente.
+- [~] Implementar normalización NIF/CIF, nombres, fechas, euros y códigos; utilidades compartidas aplicadas a entidades PLACSP/BDNS, validación de control NIF/CIF y formatos españoles de euro añadidas, faltan validadores específicos de cada fuente.
 - [~] Implementar flags de calidad: duplicados, fechas, IDs, importes y ejercicios; flags por registro añadidos a PLACSP y auditoría agregada activa, falta consolidar duplicados entre versiones y fuentes.
 - [~] Añadir tests unitarios del parser y IO; faltan fixtures descargados de producción.
 - [x] Inspeccionar una descarga XLSX real de ejecución AGE (9 hojas, mayo de 2026).

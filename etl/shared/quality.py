@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Any, Iterable
 
-from etl.shared.normalize import parse_euro
+from etl.shared.normalize import parse_euro, valid_spanish_tax_id
 
 
 def _valid_date(value: Any) -> bool:
@@ -21,7 +21,7 @@ def _valid_date(value: Any) -> bool:
             return False
 
 
-def record_quality_flags(record: dict[str, Any], id_field: str, date_fields: Iterable[str] = (), amount_fields: Iterable[str] = (), exercise_fields: Iterable[str] = ()) -> list[str]:
+def record_quality_flags(record: dict[str, Any], id_field: str, date_fields: Iterable[str] = (), amount_fields: Iterable[str] = (), exercise_fields: Iterable[str] = (), tax_id_field: str | None = None) -> list[str]:
     flags: list[str] = []
     if not record.get(id_field):
         flags.append("missing_id")
@@ -46,4 +46,8 @@ def record_quality_flags(record: dict[str, Any], id_field: str, date_fields: Ite
                     flags.append(f"invalid_exercise:{field}")
             except (TypeError, ValueError):
                 flags.append(f"invalid_exercise:{field}")
+    if tax_id_field:
+        valid = valid_spanish_tax_id(record.get(tax_id_field))
+        if valid is False:
+            flags.append(f"invalid_tax_id:{tax_id_field}")
     return flags

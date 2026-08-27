@@ -34,6 +34,8 @@ La normalización compartida de entidades elimina diferencias de espacios, mayú
 
 Los registros PLACSP incluyen `quality_flags` por contrato y adjudicación para IDs ausentes, fechas inválidas, importes ilegibles o negativos y ejercicios fuera de rango. Estos avisos no eliminan el registro: permiten enseñar la anomalía y conservar la trazabilidad con la fuente oficial.
 
+Cuando hay un NIF/CIF completo se valida su formato y control; los identificadores anonimizados no se califican como inválidos porque no permiten una comprobación honesta.
+
 ## IGAE / ejecución AGE
 
 ```bash

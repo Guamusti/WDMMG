@@ -1,7 +1,7 @@
 from etl.bdns.concessions import parse_page
 from etl.bdns.client import BDNS20Client
 from etl.bdns.load_concessions import parse_date
-from etl.shared.normalize import normalize_tax_id, parse_euro
+from etl.shared.normalize import normalize_tax_id, parse_euro, valid_spanish_tax_id
 from pathlib import Path
 from decimal import Decimal
 
@@ -56,3 +56,5 @@ def test_normalization_handles_spanish_tax_ids_and_euro_formats():
     assert normalize_tax_id(" b-123 456 78 ") == "B12345678"
     assert parse_euro("1.234,56") == Decimal("1234.56")
     assert parse_euro("1234.56") == Decimal("1234.56")
+    assert valid_spanish_tax_id("B99286320") is True
+    assert valid_spanish_tax_id("***6433**") is None

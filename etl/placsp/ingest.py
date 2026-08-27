@@ -128,7 +128,7 @@ def parse_atom(path: Path, source_url: str, run_id: str) -> list[dict]:
         }
         record['quality_flags'] = record_quality_flags(record, 'source_record_id', ('updated_at', 'publication_date'), ('estimated_value', 'base_tender_budget'), ('fiscal_year',))
         for award in record['awards']:
-            award['quality_flags'] = record_quality_flags(award, 'award_id', ('award_date',), ('award_amount', 'award_amount_with_tax'))
+            award['quality_flags'] = record_quality_flags(award, 'award_id', ('award_date',), ('award_amount', 'award_amount_with_tax'), tax_id_field='winner_id')
         records.append(record)
     return records
 
