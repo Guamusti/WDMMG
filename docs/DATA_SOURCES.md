@@ -15,7 +15,7 @@
 - Fuente editorial: https://www.comunidad.madrid/educacion/publicaciones-interes-universitario
 - Publicación de referencia: “Notas de acceso de las titulaciones universitarias oficiales de la Comunidad de Madrid. Curso 2025-2026”.
 - Formato observado: PDF/HTML publicado por la Comunidad; contiene código, titulación, grupos de acceso y columnas ordinaria/extraordinaria.
-- Estado: muestra integrada en la interfaz; ingestor PDF/HTML pendiente.
+- Estado: PDF conservado en `data/raw/`, parser reproducible en `etl/admissions/madrid/` y muestra integrada en la interfaz. El matching contra RUCT sigue pendiente.
 
 ## Notas institucionales complementarias
 

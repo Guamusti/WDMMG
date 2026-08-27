@@ -28,11 +28,12 @@ Objetivo: cubrir las seis universidades públicas de Madrid y sus titulaciones o
 - [x] Catálogo inicial ampliado a 40 ofertas reales.
 - [x] UAH, UAM, UC3M, UCM, UPM y URJC representadas.
 - [x] Color del mapa explicado: cada color identifica una universidad, con leyenda y tooltip.
-- [ ] Descargar y conservar el PDF/HTML oficial en `data/raw/`.
-- [ ] Crear parser reproducible para la publicación regional.
+- [x] Descargar y conservar el PDF oficial en `data/raw/`.
+- [x] Crear parser reproducible para la publicación regional (`etl/admissions/madrid/`).
 - [ ] Completar el catálogo de grados y dobles grados de las seis universidades.
 - [ ] Incorporar códigos oficiales, créditos, cursos y centros desde la fuente.
-- [ ] Añadir páginas de detalle de universidad, grado y oferta.
+- [x] Añadir una ficha de detalle trazable para una oferta.
+- [ ] Añadir páginas completas de detalle de universidad y grado.
 
 Criterio de terminado: buscar una carrera madrileña, localizar todas sus ofertas públicas cargadas, abrir fuente y ver nota, curso, campus, universidad y percentil sin ambigüedad.
 
