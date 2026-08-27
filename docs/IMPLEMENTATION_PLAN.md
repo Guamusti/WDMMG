@@ -86,6 +86,8 @@ Referencia MD: secciones 4, 5, 11, 16, 17, 20, 23, 30, 31, 32, 33, 36, 42, 56, 5
 - [~] Extraer filas del XLSX a JSONL auditable; falta normalización contable completa.
 - [~] Normalizar hojas GTOS 001/002/004 a campos de ejecución separados; falta cargar en PostgreSQL y validar totales.
 - [x] Detectar periodo desde cabeceras y marcar anomalías contables sin eliminar registros.
+- [x] Añadir cargador transaccional PostgreSQL para el JSONL IGAE y entorno Docker local.
+- [x] Verificar carga repetida sin duplicados: 91 `budget_records` y 91 `budget_execution`.
 - [ ] Parsear clasificación orgánica, económica y funcional/programas.
 - [ ] Importar crédito inicial, modificaciones, definitivo, comprometido, obligaciones y pagos.
 - [ ] Conservar periodo, estado provisional/avance/definitivo y versión.
@@ -201,3 +203,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Extractor real IGAE: 9 hojas, 392 filas y 91 registros de ejecución | `49b52a6` |
 | 27/08/2026 | API y frontend conectados al resumen IGAE real; agregado sin filas TOTAL | `e6c2f61` |
 | 27/08/2026 | Validación de periodo IGAE y flags contables; 91 filas procesadas, 10 marcadas | `61fea32` |
+| 27/08/2026 | Cargador PostgreSQL IGAE y entorno Docker local; carga repetida sin duplicados | `en curso` |

@@ -14,6 +14,7 @@ CREATE TABLE data_sources (
   last_checked_at TIMESTAMPTZ,
   last_imported_at TIMESTAMPTZ
 );
+CREATE UNIQUE INDEX data_sources_url_idx ON data_sources(source_url);
 
 CREATE TABLE ingestion_runs (
   id BIGSERIAL PRIMARY KEY,
@@ -45,6 +46,7 @@ CREATE TABLE public_entities (
 );
 CREATE INDEX public_entities_name_idx ON public_entities USING gin (to_tsvector('simple', name));
 CREATE UNIQUE INDEX public_entities_tax_id_idx ON public_entities(tax_id) WHERE tax_id IS NOT NULL;
+CREATE UNIQUE INDEX public_entities_official_code_idx ON public_entities(official_code) WHERE official_code IS NOT NULL;
 
 CREATE TABLE recipient_entities (
   id BIGSERIAL PRIMARY KEY,
@@ -100,6 +102,7 @@ CREATE TABLE budget_execution (
   paid_amount NUMERIC(18,2),
   raw_payload JSONB
 );
+CREATE UNIQUE INDEX budget_records_source_record_idx ON budget_records(source_id, source_record_id);
 
 CREATE TABLE contracts (
   id BIGSERIAL PRIMARY KEY,

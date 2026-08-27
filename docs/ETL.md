@@ -28,6 +28,17 @@ El extractor lee los XLSX oficiales sin convertir importes a `float`, conserva h
 
 Para las hojas de ejecución por secciones/capítulos/inversiones genera además `execution-2026-05.jsonl`, separando crédito definitivo, gasto comprometido, obligaciones reconocidas y pagos. La API local expone ese aterrizaje en `/api/budgets` y calcula el resumen de `/api/overview` solo cuando el fichero existe. El resultado sigue marcado como provisional y conserva flags de calidad.
 
+## PostgreSQL local
+
+```bash
+docker compose up -d postgres
+psql "postgresql://postgres:postgres@localhost:55432/dinero_publico" -f db/001_initial_schema.sql
+psql "postgresql://postgres:postgres@localhost:55432/dinero_publico" -f db/002_seed_sources.sql
+python -m etl.budgets.load_postgres
+```
+
+El cargador usa una transacción, crea la fuente AGE y la entidad piloto, conserva la unidad de origen y es repetible por `source_id + source_record_id`. El compose publica PostgreSQL en `localhost:55432` para evitar colisiones con instalaciones locales.
+
 ## Estados
 
 Cada ejecución debe terminar en `success`, `partial` o `failed`, con contadores y errores. No se sobrescriben payloads raw: su nombre incluye el instante de ejecución.
