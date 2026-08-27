@@ -43,3 +43,13 @@ La documentación oficial lista servicios BDNS20 para consultas de convocatorias
 ## Criterio de ingesta
 
 `descargar → guardar raw → parsear → validar → normalizar → upsert → registrar run`. Cada fila financiera conservará `source_id`, `source_record_id`, `source_url`, `retrieved_at`, `dataset_version` e `ingestion_run_id`.
+
+## Snapshot geográfico publicado
+
+El mapa de comunidades usa una derivación simplificada del servicio OGC del IGN para no descargar geometrías pesadas en cada visita. La fuente de origen y el recurso publicado quedan identificados así:
+
+| Recurso | Captura | SHA-256 | Licencia/fuente |
+|---|---|---|---|
+| `data/processed/geo/community-boundaries.json` | 27/08/2026 | `CA026C4C9422FC21AFA41E22F5280ADDEECE71F9E4A2E72C0F97F6A89893BA0B` | [API OGC IGN](https://api-features.ign.es/collections/administrativeboundary?f=json); consultar condiciones del servicio |
+
+La simplificación solo afecta a la visualización. Este recurso no se utiliza para calcular población, gasto ni superficies.
