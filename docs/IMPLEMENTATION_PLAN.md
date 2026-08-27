@@ -146,7 +146,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 Referencia MD: secciones 9, 11, 12, 24, 25, 32, 35, 50 y 51.
 
 - [~] Incorporar presupuestos y ejecución de CCAA; muestra mensual de 17 comunidades normalizada, falta carga completa.
-- [~] Incorporar presupuestos, ejecución y liquidación local; fuente Access 2026 localizada y descargada, parser pendiente.
+- [~] Incorporar presupuestos, ejecución y liquidación local; fuente Access 2026 localizada y descargada, parser bloqueado por ausencia de lector Access compatible en el entorno.
 - [ ] Incorporar inventario de entidades públicas y jerarquías.
 - [ ] Incorporar geografía, códigos territoriales y población INE.
 - [ ] Añadir CCAA, provincias y municipios a filtros y páginas.
@@ -197,7 +197,7 @@ Referencia MD: secciones 34, 35, 36, 37, 38, 39, 41, 42, 44, 45, 54, 55, 56, 60,
 
 ## Estado global actual
 
-**Fase 4/7 — Importación real y UI MVP conectada, en curso.**
+**Fase 8/11 — Ampliación territorial y entidades, en curso.**
 
 La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la interfaz inicial existen. La UI ya consume IGAE, PLACSP y la muestra BDNS cargada; el siguiente trabajo es ampliar niveles contables, relaciones y cobertura sin mezclar magnitudes.
 
@@ -243,7 +243,9 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Matriz de cobertura efectiva: AGE, gasto funcional, PLACSP, BDNS, CCAA, local, entidades e INE | `en curso` |
 | 27/08/2026 | Primera vista territorial conectada: 17 CCAA + total, gasto no financiero acumulado mayo 2026 y estado avance | `en curso` |
 | 27/08/2026 | Filtro territorial accesible para consultar todas las CCAA o una comunidad sin mezclarla con AGE | `en curso` |
-| 27/08/2026 | Fuente local CONPREL validada: ZIP Access 2026 descargable, hash registrado y parser pendiente | `en curso` |
+| 27/08/2026 | Fuente local CONPREL validada: ZIP Access 2026 descargable, hash registrado; parser bloqueado por dependencia de lector Access no instalada | `en curso` |
+| 27/08/2026 | Comprobación de lectores Access 32/64 bits; sin proveedor OLE DB ni controlador ODBC disponible para extraer el esquema | `en curso` |
+| 27/08/2026 | Cobertura API ampliada: 18 registros CCAA visibles como parcial y fuente local visible como bloqueada por lector | `en curso` |
 | 27/08/2026 | La portada arranca con Pensiones seleccionada (32,1%) y el detalle es accesible con `aria-live` | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |

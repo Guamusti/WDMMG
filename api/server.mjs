@@ -90,7 +90,38 @@ async function databaseCoverage() {
       (SELECT COUNT(*) FROM contracts c WHERE c.source_id = ds.id) AS contract_records,
       (SELECT COUNT(*) FROM grant_calls gc WHERE gc.source_id = ds.id) AS grant_records
     FROM data_sources ds WHERE ds.is_official = TRUE ORDER BY ds.id`);
-  return result.rows;
+  const ccaaRows = getTerritorialExecution();
+  return [
+    ...result.rows,
+    {
+      id: 'ccaa-execution-2026-05',
+      name: 'Ejecución presupuestaria de CCAA',
+      institution: 'Ministerio de Hacienda / CIMCANET',
+      source_url: 'https://serviciostelematicosext.hacienda.gob.es/SGCIEF/Cimcanet/aspx/consulta/consulta.aspx',
+      format: 'XLSX',
+      coverage_description: '17 comunidades y total CCAA; mayo de 2026; avance no financiero acumulado. No se suma a la AGE.',
+      last_checked_at: null,
+      last_imported_at: null,
+      budget_records: ccaaRows.length,
+      contract_records: 0,
+      grant_records: 0,
+      data_status: ccaaRows.length ? 'partial' : 'awaiting_validated_ingestion'
+    },
+    {
+      id: 'local-budgets-2026',
+      name: 'Presupuestos de entidades locales',
+      institution: 'Ministerio de Hacienda / CONPREL',
+      source_url: 'https://serviciostelematicosext.hacienda.gob.es/SGFAL/CONPREL?acc=null&cd_camp=null',
+      format: 'Access dentro de ZIP',
+      coverage_description: 'Fuente oficial localizada y descargada; pendiente de extraer tablas con un lector Access compatible.',
+      last_checked_at: null,
+      last_imported_at: null,
+      budget_records: 0,
+      contract_records: 0,
+      grant_records: 0,
+      data_status: 'blocked_reader'
+    }
+  ];
 }
 
 function getExecution() {

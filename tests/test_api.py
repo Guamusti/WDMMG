@@ -39,6 +39,14 @@ def test_empty_search_is_a_stable_empty_result():
     assert payload == {"data": []}
 
 
+def test_coverage_exposes_partial_and_blocked_sources():
+    status, payload = get_json("/api/coverage")
+    assert status == 200
+    sources = {source["id"]: source for source in payload["data"]}
+    assert sources["ccaa-execution-2026-05"]["data_status"] == "partial"
+    assert sources["local-budgets-2026"]["data_status"] == "blocked_reader"
+
+
 def test_unknown_route_is_not_found():
     with pytest.raises(HTTPError) as error:
         urlopen(f"{BASE_URL}/api/does-not-exist", timeout=2)
