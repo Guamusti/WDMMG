@@ -7,6 +7,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import psycopg
+
+from etl.shared.normalize import normalize_entity_name, normalize_tax_id, normalize_text
 from psycopg.types.json import Json
 
 
@@ -37,7 +39,7 @@ def load(path: Path, database_url: str) -> int:
                 authority_id = None
                 authority = row.get("contracting_authority")
                 if authority:
-                    normalized = " ".join(authority.lower().split())
+                    normalized = normalize_entity_name(authority)
                     cursor.execute("SELECT id FROM public_entities WHERE normalized_name = %s LIMIT 1", (normalized,))
                     found = cursor.fetchone()
                     if found:
@@ -59,18 +61,18 @@ def load(path: Path, database_url: str) -> int:
                 for award in row.get("awards", []):
                     winner_id = None
                     winner_name = (award.get("winner_name") or "").strip()
-                    winner_tax_id = (award.get("winner_id") or "").strip() or None
+                    winner_tax_id = normalize_tax_id(award.get("winner_id"))
                     if winner_name or winner_tax_id:
                         if winner_tax_id:
                             cursor.execute("SELECT id FROM recipient_entities WHERE tax_id = %s LIMIT 1", (winner_tax_id,))
                         else:
-                            normalized = " ".join(winner_name.lower().split())
+                            normalized = normalize_entity_name(winner_name)
                             cursor.execute("SELECT id FROM recipient_entities WHERE normalized_name = %s LIMIT 1", (normalized,))
                         found = cursor.fetchone()
                         if found:
                             winner_id = found[0]
                         else:
-                            normalized = " ".join((winner_name or winner_tax_id).lower().split())
+                            normalized = normalize_entity_name(winner_name or winner_tax_id)
                             cursor.execute("INSERT INTO recipient_entities (name, normalized_name, tax_id, entity_type, source_id, source_record_id) VALUES (%s,%s,%s,'contractor',%s,%s) RETURNING id", (winner_name or winner_tax_id, normalized, winner_tax_id, source_id, row.get("source_record_id")))
                             winner_id = cursor.fetchone()[0]
                     lot_id = None

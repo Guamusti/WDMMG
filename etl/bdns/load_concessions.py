@@ -8,6 +8,8 @@ from pathlib import Path
 
 import psycopg
 
+from etl.shared.normalize import normalize_entity_name, normalize_text
+
 
 SOURCE_URL = "https://www.infosubvenciones.es/bdnstrans/api/concesiones/busqueda"
 
@@ -43,9 +45,9 @@ def load(path: Path, database_url: str) -> int:
             call_id = call[0] if call else None
             for row in rows:
                 beneficiary_id = None
-                name = (row.get("beneficiary") or "").strip()
+                name = normalize_text(row.get("beneficiary")) or ""
                 if name:
-                    normalized = " ".join(name.lower().split())
+                    normalized = normalize_entity_name(name)
                     cursor.execute("SELECT id FROM recipient_entities WHERE normalized_name=%s LIMIT 1", (normalized,))
                     found = cursor.fetchone()
                     if found:

@@ -1,7 +1,9 @@
 from etl.bdns.concessions import parse_page
 from etl.bdns.client import BDNS20Client
 from etl.bdns.load_concessions import parse_date
+from etl.shared.normalize import normalize_tax_id, parse_euro
 from pathlib import Path
+from decimal import Decimal
 
 
 def test_parse_concession_page_keeps_provenance_and_separates_call():
@@ -48,3 +50,9 @@ def test_bdns20_client_uses_disk_cache_without_second_request(tmp_path):
     assert session.calls == 1
     assert cached["cache_hit"] is True
     assert Path(tmp_path / "two.payload").read_bytes() == FakeResponse.content
+
+
+def test_normalization_handles_spanish_tax_ids_and_euro_formats():
+    assert normalize_tax_id(" b-123 456 78 ") == "B12345678"
+    assert parse_euro("1.234,56") == Decimal("1234.56")
+    assert parse_euro("1234.56") == Decimal("1234.56")

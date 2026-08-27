@@ -30,6 +30,8 @@ El ingestor recorre páginas de hasta 100 elementos, guarda cada respuesta raw c
 
 El cliente `etl.bdns.client.BDNS20Client` centraliza las lecturas de servicios BDNS/BDNS20: aplica un intervalo mínimo entre peticiones, conserva caché raw por URL con hash y marca `cache_hit` en la metadata. Ante un `429` detiene la ejecución con el `Retry-After` disponible para que el operador pueda reintentarlo sin saturar el servicio. La paginación de concesiones limita cada página a 100 registros y permite configurar `--min-interval` y `--cache-ttl`.
 
+La normalización compartida de entidades elimina diferencias de espacios, mayúsculas, separadores de NIF/CIF y formatos de euros españoles antes de resolver relaciones. El valor original se conserva en el payload raw; normalizar no borra ni convierte silenciosamente un importe ilegible.
+
 ## IGAE / ejecución AGE
 
 ```bash
