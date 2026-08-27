@@ -77,7 +77,7 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [x] Segundo ingestor regional reproducible (Aragón), con provincia, convocatoria y cupo general conservados; faltan el modelo común de cupos y la integración nacional.
 - [x] Catálogo nacional de trabajo reproducible con los extractos de Madrid, Galicia y Aragón, informe de comparabilidad y procedencia regional.
 - [x] Tercer ingestor regional adicional (Cataluña), con primera asignación, código de estudio, centro/población y cupo PAU/CFGS conservados.
-- [ ] Separación de grupo, convocatoria, ronda inicial y nota final.
+- [x] Separación de grupo, convocatoria, ronda inicial y nota final en el modelo nacional; cada fuente conserva solo las dimensiones que publica y las ausencias quedan explícitas.
 - [x] Exponer convocatoria y cupo como filtros aplicables en `/espana`, manteniendo sus valores originales por fila.
 - [x] Percentiles nacionales, regionales, por rama y por campo RUCT cuando existe una clasificación oficial; el catálogo mantiene cobertura parcial y no infiere campos ausentes.
 - [x] Percentiles nacional, por comunidad, rama y campo RUCT sobre las observaciones cargadas en `/espana`, con el ámbito de comparación indicado en cada fila.
