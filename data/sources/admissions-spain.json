@@ -1,7 +1,7 @@
 [
   {"community":"Andalucía","status":"verified","url":"https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/sguit/index.php?d=g_not_cor_anteriores_top.php&q=grados","format":"HTML","rounds":["ordinary"],"coverage":"Distrito Único Andaluz · nueve universidades públicas · nota general 2025-2026"},
   {"community":"Aragón","status":"verified","url":"https://academico.unizar.es/acceso-admision-grado/corte","format":"PDF","rounds":["ordinary","last_call","definitive"],"coverage":"Universidad de Zaragoza"},
-  {"community":"Asturias","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Asturias","status":"verified","url":"https://torres.epv.uniovi.es/centon/notas-acceso-oviedo-25.html","format":"HTML","rounds":["first_call"],"coverage":"Universidad de Oviedo · primera fase de julio 2025 · 68 ofertas"},
   {"community":"Illes Balears","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"Canarias","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"Cantabria","status":"verified","url":"https://web.unican.es/estudiantesuc/Documents/Estad%C3%ADsticas/Grado/Estad%C3%ADsticas%20de%20Ordenaci%C3%B3n%20Acad%C3%A9mica/7%20Notas%20de%20corte.pdf","format":"PDF","rounds":["last_call"],"coverage":"Universidad de Cantabria · 37 ofertas · nota de julio 2025-2026"},

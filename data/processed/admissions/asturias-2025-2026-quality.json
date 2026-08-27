@@ -1,0 +1,17 @@
+{
+  "source_url": "https://torres.epv.uniovi.es/centon/notas-acceso-oviedo-25.html",
+  "academic_year": "2025-2026",
+  "records": 68,
+  "rejected_rows": 0,
+  "duplicates": 0,
+  "round": "first phase of July 2025",
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "places_positive": true,
+    "no_replacement_glyph_in_names": true,
+    "round_explicit": true,
+    "general_group_explicit": true,
+    "no_duplicate_keys": true
+  },
+  "rejections": []
+}

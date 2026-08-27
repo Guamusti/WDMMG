@@ -43,7 +43,7 @@ normalize = (row, index, ructMatch) => {
 };
 
 function normalizeNational(row) {
-  return { id: row.id, community: row.community, university: row.university, universityRuctCode: row.university_ruct_code, degree: row.degree, branch: row.branch, field: row.field, ructDegreeCode: row.ruct_degree_code, centers: row.ruct_centers || [], center: row.center || null, campus: row.campus, city: row.campus, cutoff: row.cutoff_score, scaleMax: 14, academicYear: row.academic_year, admissionRound: row.admission_round, admissionGroup: row.admission_group, sourcePage: row.source_page, source: `Fuente oficial · ${row.community} · notas ${row.academic_year}`, sourceUrl: row.source_url };
+  return { id: row.id, community: row.community, university: row.university, universityRuctCode: row.university_ruct_code, degree: row.degree, branch: row.branch, field: row.field, ructDegreeCode: row.ruct_degree_code, centers: row.ruct_centers || [], center: row.center || null, campus: row.campus, city: row.campus, places: row.places ?? null, cutoff: row.cutoff_score, scaleMax: 14, academicYear: row.academic_year, admissionRound: row.admission_round, admissionGroup: row.admission_group, sourcePage: row.source_page, source: `Fuente oficial · ${row.community} · notas ${row.academic_year}`, sourceUrl: row.source_url };
 }
 
 const server = createServer(async (request, response) => {
