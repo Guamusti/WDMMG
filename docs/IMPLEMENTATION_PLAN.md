@@ -235,6 +235,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Corrección de legibilidad del donut: nombres largos fuera del gráfico y porcentaje limpio en el centro | `en curso` |
 | 27/08/2026 | Lenguaje de portada simplificado a “¿En qué se gastaron 100 €?” y lectura “DE CADA 100 €” | `en curso` |
 | 27/08/2026 | Rueda responsive en móvil y foco visible para teclado en controles principales | `en curso` |
+| 27/08/2026 | Glosario ciudadano en Metodología: presupuesto, gasto registrado, dinero pagado y contratos | `en curso` |
 | 27/08/2026 | La portada arranca con Pensiones seleccionada (32,1%) y el detalle es accesible con `aria-live` | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |
