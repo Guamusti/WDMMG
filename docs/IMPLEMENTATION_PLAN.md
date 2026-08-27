@@ -394,6 +394,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Exportaciones resilientes: convocatorias, empresas y organismos usan sus aterrizajes JSONL como respaldo si PostgreSQL no responde | `en curso` |
 | 27/08/2026 | Auditoría actualizada: 64 pruebas pasan y 2 se omiten por dependencias externas; CONPREL permanece explícitamente bloqueado por falta de lector Access | `en curso` |
 | 27/08/2026 | Provenance raw: tabla `source_files` y migración incremental para conservar hash, versión, URL, fecha y clave de almacenamiento de cada fichero original | `en curso` |
+| 27/08/2026 | Contexto territorial ampliado: población oficial INE 2024 visible para las 17 CCAA junto a la ejecución, con €/habitante bloqueado por incompatibilidad de periodo | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |

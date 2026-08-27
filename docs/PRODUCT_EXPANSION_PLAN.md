@@ -84,6 +84,8 @@ La ampliación territorial incorpora una búsqueda rápida de municipio por nomb
 
 La búsqueda consulta el campo municipal admitido por el servicio GIS del INE, devuelve código, provincia, comunidad y población, y muestra su estado de carga mientras responde.
 
+La vista territorial también presenta la población agregada oficial de las comunidades cargadas. No calcula €/habitante mientras la población y el corte de ejecución no sean compatibles.
+
 La búsqueda municipal conserva el término en la URL mediante `municipio` y repone los resultados al compartirla.
 
 La navegación de convocatorias BDNS aplica la búsqueda global al listado y al CSV, mostrando el término activo y un estado vacío específico cuando no hay coincidencias.

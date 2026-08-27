@@ -622,8 +622,8 @@ const server = createServer(async (req, res) => {
   if (url.pathname === '/api/population') {
     const query = (url.searchParams.get('q') || '').trim();
     const limit = Math.min(50, Math.max(1, Number(url.searchParams.get('limit') || 12)));
-    if (!query) return json(res, 200, { data: [], meta: { dataStatus: 'awaiting_query', source: 'INE' } });
     const level = ['community', 'province'].includes(url.searchParams.get('level')) ? url.searchParams.get('level') : 'municipality';
+    if (!query && !(url.searchParams.get('all') === '1' && level === 'community')) return json(res, 200, { data: [], meta: { dataStatus: 'awaiting_query', source: 'INE' } });
     try { return json(res, 200, await officialPopulation(query, limit, level)); }
     catch (error) { return json(res, 503, { error: 'population_unavailable', detail: error.message, meta: { dataStatus: 'unavailable', source: 'INE' } }); }
   }
