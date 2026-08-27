@@ -36,6 +36,7 @@ Objetivo: cubrir las seis universidades públicas de Madrid y sus titulaciones o
 - [x] Añadir una ficha de detalle trazable para una oferta.
 - [x] Añadir una vista exploratoria de universidad con sus ofertas cargadas.
 - [x] Añadir páginas navegables y compartibles de oferta, universidad y grado.
+- [x] Añadir metadatos SEO básicos dinámicos por ruta (título, descripción y canonical).
 - [ ] Añadir páginas completas indexables de detalle de universidad y grado con metadatos SEO.
 
 Criterio de terminado: buscar una carrera madrileña, localizar todas sus ofertas públicas cargadas, abrir fuente y ver nota, curso, campus, universidad y percentil sin ambigüedad.
