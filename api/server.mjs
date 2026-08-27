@@ -309,6 +309,30 @@ async function officialPopulation(query, limit = 12) {
   return { data: (payload.features || []).map(feature => feature.attributes).map(row => ({ code: row.cumun, municipality: row.nmun, province: row.npro, community: row.nca, population: row.n_personas })), meta: { dataStatus: 'official_live', sourceUrl: endpoint, referenceDate: '2024-01-01', source: 'INE Censo Anual de Población 2024', searchField: 'municipality' } };
 }
 
+let communityMapCache = null;
+function simplifyLine(points, tolerance = 0.04) {
+  if (!Array.isArray(points) || points.length < 3) return points || [];
+  const square = tolerance * tolerance;
+  const distance = (point, start, end) => {
+    let x = start[0], y = start[1], dx = end[0] - x, dy = end[1] - y;
+    if (dx || dy) { const t = ((point[0] - x) * dx + (point[1] - y) * dy) / (dx * dx + dy * dy); if (t > 1) { x = end[0]; y = end[1]; } else if (t > 0) { x += dx * t; y += dy * t; } }
+    dx = point[0] - x; dy = point[1] - y; return dx * dx + dy * dy;
+  };
+  const reduce = (start, end) => { let index = -1, max = square; for (let i = start + 1; i < end; i += 1) { const value = distance(points[i], points[start], points[end]); if (value > max) { index = i; max = value; } } if (index < 0) return [points[start], points[end]]; const left = reduce(start, index); const right = reduce(index, end); return left.slice(0, -1).concat(right); };
+  return reduce(0, points.length - 1);
+}
+
+async function officialCommunityMap() {
+  if (communityMapCache) return communityMapCache;
+  const sourceUrl = 'https://api-features.ign.es/collections/administrativeboundary/items?f=json&limit=50&filter-lang=cql-text&filter=nationallevelname%20%3D%20%27Comunidad%20aut%C3%B3noma%27';
+  const response = await fetch(sourceUrl, { headers: { Accept: 'application/geo+json' }, signal: AbortSignal.timeout(20000) });
+  if (!response.ok) throw new Error(`IGN respondió ${response.status}`);
+  const payload = await response.json();
+  const data = (payload.features || []).filter(feature => feature.geometry?.type === 'LineString').map(feature => ({ id: String(feature.id), names: String(feature.properties?.name_boundary || '').split('#').filter(Boolean), coordinates: simplifyLine(feature.geometry.coordinates) }));
+  communityMapCache = { data, meta: { dataStatus: data.length ? 'official_live_simplified' : 'unavailable', sourceUrl, source: 'IGN OGC API Features · Unidades administrativas', geometry: 'límites entre comunidades autónomas simplificados en servidor', featureCount: data.length } };
+  return communityMapCache;
+}
+
 async function databaseOverview() {
   const result = await pool.query(`
     SELECT br.fiscal_year, br.period, br.data_status, ds.source_url,
@@ -365,6 +389,10 @@ const server = createServer(async (req, res) => {
     if (!query) return json(res, 200, { data: [], meta: { dataStatus: 'awaiting_query', source: 'INE' } });
     try { return json(res, 200, await officialPopulation(query, limit)); }
     catch (error) { return json(res, 503, { error: 'population_unavailable', detail: error.message, meta: { dataStatus: 'unavailable', source: 'INE' } }); }
+  }
+  if (url.pathname === '/api/geography/communities') {
+    try { return json(res, 200, await officialCommunityMap()); }
+    catch (error) { return json(res, 503, { error: 'geography_unavailable', detail: error.message, meta: { dataStatus: 'unavailable', source: 'IGN' } }); }
   }
   if (url.pathname === '/api/budgets') {
     try {

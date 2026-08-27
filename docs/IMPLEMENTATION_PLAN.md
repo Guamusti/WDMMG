@@ -150,7 +150,7 @@ Referencia MD: secciones 9, 11, 12, 24, 25, 32, 35, 50 y 51.
 - [ ] Incorporar inventario de entidades públicas y jerarquías.
 - [ ] Incorporar geografía, códigos territoriales y población INE.
 - [ ] Añadir CCAA, provincias y municipios a filtros y páginas.
-- [ ] Añadir mapa España → CCAA → provincia → municipio.
+- [~] Añadir mapa España → CCAA → provincia → municipio; mapa de límites CCAA del IGN activo con carga diferida, simplificación y cache en proceso, faltan provincias/municipios.
 - [ ] Calcular gasto por habitante solo con población y periodo compatibles.
 - [x] Medir cobertura real: completa, parcial, no disponible, en procesamiento.
 
@@ -292,3 +292,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Localizado WFS oficial IGN para geometrías de CCAA, provincias y municipios; se registra fuente y licencia antes de construir el mapa | `en curso` |
 | 27/08/2026 | Simulador ciudadano “Pon tu cifra”: convierte cualquier cantidad en euros por partida y enlaza cada fila con su desglose interactivo | `en curso` |
 | 27/08/2026 | Caché en memoria invalidable por `mtime` para JSONL/JSON de la API; reduce lecturas repetidas y conserva actualización automática de ficheros | `en curso` |
+| 27/08/2026 | Mapa territorial diferido: endpoint `/api/geography/communities` sirve límites CCAA oficiales IGN simplificados; 18,7 KB entregados al cliente y test de contrato añadido | `en curso` |

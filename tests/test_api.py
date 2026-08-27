@@ -93,6 +93,15 @@ def test_contract_rows_expose_adjudicatario_when_available():
         assert "winner_name" in row
 
 
+def test_community_geography_returns_simplified_official_boundaries():
+    status, payload = get_json("/api/geography/communities")
+    assert status == 200
+    assert payload["meta"]["dataStatus"] == "official_live_simplified"
+    assert payload["meta"]["source"].startswith("IGN")
+    assert payload["data"]
+    assert {"id", "names", "coordinates"}.issubset(payload["data"][0])
+
+
 def test_companies_csv_export_is_available():
     try:
         with urlopen(f"{BASE_URL}/api/export.csv?entity=companies", timeout=4) as response:
