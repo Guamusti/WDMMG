@@ -152,7 +152,7 @@ Referencia MD: secciones 9, 11, 12, 24, 25, 32, 35, 50 y 51.
 - [ ] Añadir CCAA, provincias y municipios a filtros y páginas.
 - [ ] Añadir mapa España → CCAA → provincia → municipio.
 - [ ] Calcular gasto por habitante solo con población y periodo compatibles.
-- [ ] Medir cobertura real: completa, parcial, no disponible, en procesamiento.
+- [x] Medir cobertura real: completa, parcial, no disponible, en procesamiento.
 
 ## Fase 9 — Históricos, comparador y exploración avanzada
 
@@ -240,6 +240,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Dataset funcional IGAE 2024 reproducible y endpoint `/api/policies`; 28 políticas y total oficial servidos | `en curso` |
 | 27/08/2026 | La rueda consume `/api/policies` con fallback validado; agrupación de partidas principales y “Resto” conservada | `en curso` |
 | 27/08/2026 | Metodología ampliada: glosario, separación de datasets, no doble conteo y estados de cobertura | `en curso` |
+| 27/08/2026 | Matriz de cobertura efectiva: AGE, gasto funcional, PLACSP, BDNS, CCAA, local, entidades e INE | `en curso` |
 | 27/08/2026 | La portada arranca con Pensiones seleccionada (32,1%) y el detalle es accesible con `aria-live` | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |
