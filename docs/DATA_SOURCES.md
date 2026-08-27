@@ -9,7 +9,7 @@
 - Limitación: la consulta pública no sustituye a un export histórico; el ingestor debe conservar la evidencia de cada consulta.
 - Estado: consulta reproducible de títulos de Grado activa para las seis universidades públicas madrileñas; el matching de centros y las coincidencias no exactas siguen pendientes.
 - Distribución estructurada auxiliar de códigos de universidad: https://datos.canarias.es/api/estadisticas/structural-resources/v1.0/codelists/ISTAC/CL_RUCT_UNIVERSIDADES/01.000/codes.csv?fields=+description
-- Estado actual: códigos de universidad y 352 coincidencias únicas de títulos están conservados en `data/processed/ruct/`, junto con centro, rama, campo y créditos cuando la ficha los publica; las 106 ofertas restantes quedan pendientes por falta de coincidencia exacta o ambigüedad. El censo completo de centros requiere ampliar la consulta.
+- Estado actual: códigos de universidad y 359 coincidencias únicas de títulos están conservados en `data/processed/ruct/`, junto con centro, rama, campo y créditos cuando la ficha los publica; las 99 ofertas restantes quedan pendientes por falta de coincidencia exacta o ambigüedad. El censo completo de centros requiere ampliar la consulta.
 - La API local une ese extracto con las filas de admisión por `madrid:<índice>` y expone el código, campo, centros y enlace RUCT en la ficha; el smoke test comprueba que este enriquecimiento no se pierde al pasar por el proxy.
 
 ## Notas de corte — Comunidad de Madrid

@@ -1390,15 +1390,20 @@
     "admission_id": "madrid:71",
     "admission_degree": "Matemáticas y Computación (inglés) (Leganés)",
     "university_ruct_code": "036",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2503904",
+    "ruct_degree_name": "Graduado o Graduada en Matemáticas y Computación / Mathematics and Computing por la Universidad Carlos III de Madrid",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2503904&actual=estudios",
+    "ruct_branch": "Ingeniería y Arquitectura",
+    "ruct_field": "Ingeniería informática y de sistemas",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28042292",
+        "name": "Escuela Politécnica Superior"
+      }
+    ]
   },
   {
     "admission_id": "madrid:72",
@@ -3891,15 +3896,20 @@
     "admission_id": "madrid:211",
     "admission_degree": "Ingeniería en Sonido e Imagen",
     "university_ruct_code": "025",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2500396",
+    "ruct_degree_name": "Graduado o Graduada en Ingeniería de Sonido e Imagen por la Universidad Politécnica de Madrid",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2500396&actual=estudios",
+    "ruct_branch": "Ingeniería y Arquitectura",
+    "ruct_field": "Ingeniería eléctrica, ingeniería electrónica e ingeniería de la telecomunicación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28026808",
+        "name": "Escuela Técnica Superior de Ingeniería y Sistemas de Telecomunicación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:212",
@@ -5460,29 +5470,63 @@
     "admission_id": "madrid:291",
     "admission_degree": "Maestro de Educación Infantil",
     "university_ruct_code": "010",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2500911",
+    "ruct_degree_name": "Graduado o Graduada en Maestro en Educación Infantil por la Universidad Complutense de Madrid",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2500911&actual=estudios",
+    "ruct_branch": "Ciencias Sociales y Jurídicas",
+    "ruct_field": "Ciencias de la educación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28027229",
+        "name": "Centro de Enseñanza Superior en Humanidades y Ciencias de la Educación Don Bosco"
+      },
+      {
+        "code": "28027205",
+        "name": "Escuela Universitaria de Profesorado de E.G.B. Escuni"
+      },
+      {
+        "code": "28027709",
+        "name": "Escuela Universitaria de Profesorado de E.G.B. Fomento de Centros de Enseñanza"
+      },
+      {
+        "code": "28043119",
+        "name": "Facultad de Educación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:292",
     "admission_degree": "Maestro de Educación Primaria",
     "university_ruct_code": "010",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2500912",
+    "ruct_degree_name": "Graduado o Graduada en Maestro en Educación Primaria por la Universidad Complutense de Madrid",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2500912&actual=estudios",
+    "ruct_branch": "Ciencias Sociales y Jurídicas",
+    "ruct_field": "Ciencias de la educación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28027229",
+        "name": "Centro de Enseñanza Superior en Humanidades y Ciencias de la Educación Don Bosco"
+      },
+      {
+        "code": "28027205",
+        "name": "Escuela Universitaria de Profesorado de E.G.B. Escuni"
+      },
+      {
+        "code": "28027709",
+        "name": "Escuela Universitaria de Profesorado de E.G.B. Fomento de Centros de Enseñanza"
+      },
+      {
+        "code": "28043119",
+        "name": "Facultad de Educación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:293",
@@ -5988,15 +6032,32 @@
     "admission_id": "madrid:325",
     "admission_degree": "Maestro de Educación Primaria",
     "university_ruct_code": "010",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2500912",
+    "ruct_degree_name": "Graduado o Graduada en Maestro en Educación Primaria por la Universidad Complutense de Madrid",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2500912&actual=estudios",
+    "ruct_branch": "Ciencias Sociales y Jurídicas",
+    "ruct_field": "Ciencias de la educación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28027229",
+        "name": "Centro de Enseñanza Superior en Humanidades y Ciencias de la Educación Don Bosco"
+      },
+      {
+        "code": "28027205",
+        "name": "Escuela Universitaria de Profesorado de E.G.B. Escuni"
+      },
+      {
+        "code": "28027709",
+        "name": "Escuela Universitaria de Profesorado de E.G.B. Fomento de Centros de Enseñanza"
+      },
+      {
+        "code": "28043119",
+        "name": "Facultad de Educación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:326",
@@ -6397,15 +6458,20 @@
     "admission_id": "madrid:344",
     "admission_degree": "Historia de Arte y Patrimonio Cultural (Aranjuez)",
     "university_ruct_code": "056",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "1500420",
+    "ruct_degree_name": "Graduado o Graduada en Historia del Arte y Patrimonio Cultural por la Universidad Rey Juan Carlos",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=1500420&actual=estudios",
+    "ruct_branch": "Artes y Humanidades",
+    "ruct_field": "Historia del arte y de la expresión artística, y bellas artes",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28055663",
+        "name": "Facultad de Artes y Humanidades. Campus de Aranjuez"
+      }
+    ]
   },
   {
     "admission_id": "madrid:345",
@@ -7727,15 +7793,20 @@
     "admission_id": "madrid:402",
     "admission_degree": "Ingeniería en Materiales (Móstoles)",
     "university_ruct_code": "056",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2500430",
+    "ruct_degree_name": "Graduado o Graduada en Ingeniería de Materiales por la Universidad Rey Juan Carlos",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2500430&actual=estudios",
+    "ruct_branch": "Ingeniería y Arquitectura",
+    "ruct_field": "Ingeniería química, ingeniería de los materiales e ingeniería del medio natural",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28048361",
+        "name": "Escuela Superior de Ciencias Experimentales y Tecnología. Campus de Móstoles"
+      }
+    ]
   },
   {
     "admission_id": "madrid:403",
