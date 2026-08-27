@@ -325,5 +325,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | El mapa IGN sincroniza la comunidad seleccionada con el comparador de gasto autonómico; municipio/provincia permanecen demográficos hasta disponer de gasto compatible | `en curso` |
 | 27/08/2026 | `/api/metrics` incorpora caché de 30 segundos y solo entrega agregaciones, evitando enviar tablas completas al navegador | `en curso` |
 | 27/08/2026 | Exportación territorial `/api/export.csv?entity=territories` con CCAA, total, periodo, estado, unidad, importe y fuente | `en curso` |
+| 27/08/2026 | Comparador territorial incorpora enlaces visibles al CSV subyacente y a la fuente oficial CIMCANET | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |

@@ -49,3 +49,8 @@
 .metric-strip > p { grid-column: 1 / -1; margin: 0; padding: 10px 0; color: var(--muted); font-size: .72rem; }
 @media (max-width: 760px) { .metric-strip { grid-template-columns: repeat(2, 1fr); } .metric-strip-card:nth-of-type(2) { border-right: 0; } }
 @media (max-width: 480px) { .metric-strip { grid-template-columns: 1fr; } .metric-strip-card { border-right: 0; margin-right: 0; } }
+.territory-data-links { display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 12px 0 28px; color: var(--muted); font-size: .72rem; border-bottom: 1px solid var(--line); }
+.territory-data-links span:last-child { display: flex; gap: 18px; }
+.territory-data-links a { color: var(--ink); font-weight: 600; text-decoration: none; }
+.territory-data-links a:hover { color: var(--teal); text-decoration: underline; }
+@media (max-width: 640px) { .territory-data-links { display: block; } .territory-data-links span:last-child { margin-top: 9px; } }
