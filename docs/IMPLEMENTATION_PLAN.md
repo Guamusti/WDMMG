@@ -312,5 +312,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Loader PostgreSQL de concesiones BDNS: relaciona convocatoria/beneficiario, registra `grant_awards` y evita duplicados por `source_record_id` | `en curso` |
 | 27/08/2026 | Loader PLACSP persiste `TenderResult` en `contract_awards`, enlaza adjudicatarios por NIF/nombre y asocia lote cuando el feed lo publica | `en curso` |
 | 27/08/2026 | Explorador territorial INE ampliado: búsqueda por municipio o provincia, suma provincial explícita y URL compartible | `en curso` |
+| 27/08/2026 | Exportación funcional alineada con la rueda: `Resto de políticas` aparece como padre y sus partidas oficiales como subpartidas | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |
