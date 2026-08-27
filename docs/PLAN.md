@@ -110,6 +110,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Metodología visible dentro de la interfaz con definiciones y limitaciones.
 - [x] Calculadora PAU sobre 14 con nota de acceso, dos ponderaciones y fórmula visible.
 - [x] Cobertura de datos visible.
+- [x] Quality gate reproducible para datos procesados y build (`etl/quality_check.py` + GitHub Actions).
 - [ ] SEO de páginas con datos reales, sin contenido repetitivo.
 - [x] Metadatos específicos para el explorador nacional `/espana`, con cobertura y limitaciones reales.
 - [ ] Accesibilidad, rendimiento, caché, paginación y responsive.
