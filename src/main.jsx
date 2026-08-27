@@ -8,6 +8,7 @@ import { SelectivityCalculator } from './selectivity.jsx';
 import admissionsSources from '../data/sources/admissions-spain.json';
 import nationalQuality from '../data/processed/admissions/national-2025-2026-quality.json';
 import { tuitionForOffer } from './data/tuition';
+import NationalPageV2 from './NationalPageV2.jsx';
 import 'leaflet/dist/leaflet.css';
 import './styles.css';
 import './university.css';
@@ -139,7 +140,7 @@ function App(){
     if(!canonical){canonical=document.createElement('link');canonical.rel='canonical';document.head.appendChild(canonical)}
     canonical.href=`${window.location.origin}${window.location.pathname}`;
   },[route]);
-  if(route.type==='national') return <NationalPage onBack={()=>navigate('/')}/>;
+  if(route.type==='national') return <NationalPageV2 onBack={()=>navigate('/')}/>;
   if(route.type!=='home') return <StandalonePage route={route} offers={offers} onBack={()=>navigate('/')} onNavigate={navigate}/>;
   const baseFiltered=useMemo(()=>{const normalizedQuery=query.toLowerCase();const queryMatches=o=>!query||`${o.degree} ${o.university} ${o.city}`.toLowerCase().includes(normalizedQuery);const selectors=[appliedFilters.branch!=='Todas las ramas'?o=>o.branch===appliedFilters.branch:null,appliedFilters.university!=='Todas las universidades'?o=>o.short===appliedFilters.university:null,appliedFilters.city!=='Todas las ciudades'?o=>o.city===appliedFilters.city:null,appliedFilters.kind!=='Todos los tipos'?o=>(appliedFilters.kind==='Doble grado'?o.double:!o.double):null,appliedScore!==''?o=>o.cutoff<=Number(String(appliedScore).replace(',','.'))+Number(appliedTolerance):null,appliedEmploymentFilter==='with-data'?o=>Boolean(employmentForOffer(o)):null,appliedTuitionFilter!=='any'?o=>{const annual=tuitionForOffer(o)?.annual;return appliedTuitionFilter==='no-data'?!annual:annual&&((appliedTuitionFilter==='lt1000'&&annual<1000)||(appliedTuitionFilter==='1000to1300'&&annual>=1000&&annual<1300)||(appliedTuitionFilter==='gte1300'&&annual>=1300))}:null].filter(Boolean);return offers.filter(o=>queryMatches(o)&&(selectors.length===0||(appliedFilters.mode==='union'?selectors.some(c=>c(o)):selectors.every(c=>c(o))))).sort((a,b)=>sort==='cutoff'?b.cutoff-a.cutoff:sort==='employment'?(employmentForOffer(b)?.contributionBase4??-1)-(employmentForOffer(a)?.contributionBase4??-1):a.degree.localeCompare(b.degree))},[query,appliedFilters,sort,appliedScore,appliedTolerance,appliedEmploymentFilter,appliedTuitionFilter]);
   const filtered=baseFiltered;
