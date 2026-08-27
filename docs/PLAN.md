@@ -26,6 +26,7 @@ Este documento convierte la especificación inicial del proyecto en un plan de t
 Objetivo: cubrir las seis universidades públicas de Madrid y sus titulaciones oficiales de grado del curso 2025–2026.
 
 - [x] Catálogo inicial ampliado a 40 ofertas reales.
+- [x] Catálogo de la interfaz desacoplado en `src/data/madrid.js`.
 - [x] UAH, UAM, UC3M, UCM, UPM y URJC representadas.
 - [x] Color del mapa explicado: cada color identifica una universidad, con leyenda y tooltip.
 - [x] Descargar y conservar el PDF oficial en `data/raw/`.
@@ -33,7 +34,8 @@ Objetivo: cubrir las seis universidades públicas de Madrid y sus titulaciones o
 - [ ] Completar el catálogo de grados y dobles grados de las seis universidades.
 - [ ] Incorporar códigos oficiales, créditos, cursos y centros desde la fuente.
 - [x] Añadir una ficha de detalle trazable para una oferta.
-- [ ] Añadir páginas completas de detalle de universidad y grado.
+- [x] Añadir una vista exploratoria de universidad con sus ofertas cargadas.
+- [ ] Añadir páginas completas indexables de detalle de universidad y grado.
 
 Criterio de terminado: buscar una carrera madrileña, localizar todas sus ofertas públicas cargadas, abrir fuente y ver nota, curso, campus, universidad y percentil sin ambigüedad.
 
