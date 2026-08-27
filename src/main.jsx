@@ -13,6 +13,17 @@ const sources = {
 };
 
 const tileColors = ['#de6c4c', '#1c7770', '#dcae42', '#8f9f58', '#466b8a', '#b06b86', '#6d7a9d', '#9b715c', '#547d73'];
+const functionalPolicies = [
+  { id: 'pensions', label: 'Pensiones', amount: 206433.02474055, color: '#de6c4c', children: [{ label: 'Pensiones de la Seguridad Social', amount: 184243 }, { label: 'Clases Pasivas del Estado', amount: 22190 }] },
+  { id: 'infrastructure', label: 'Carreteras e infraestructuras', officialLabel: '45 Infraestructuras y Ecosistemas Resilientes', amount: 27508.06879148, color: '#1c7770' },
+  { id: 'health', label: 'Sanidad', amount: 5464.75503014, color: '#8f9f58' },
+  { id: 'education', label: 'Educación', amount: 4065.96558990, color: '#466b8a' },
+  { id: 'unemployment', label: 'Desempleo', amount: 17097.35425723, color: '#dcae42' },
+  { id: 'benefits', label: 'Otras prestaciones', amount: 28883.24154409, color: '#b06b86' },
+  { id: 'debt', label: 'Deuda pública', amount: 145748.32908582, color: '#6d7a9d' },
+  { id: 'transfers', label: 'Transferencias a otras administraciones', amount: 70971.03025089, color: '#9b715c' }
+];
+const functionalTotal = 644186.15102535;
 
 function Money({ children }) { return <span className="money">{children}</span>; }
 
@@ -26,6 +37,7 @@ function App() {
   const [budgetRows, setBudgetRows] = useState([]);
   const [budgetLoading, setBudgetLoading] = useState(true);
   const [selectedChapter, setSelectedChapter] = useState(null);
+  const [selectedPolicy, setSelectedPolicy] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   useEffect(() => { const url = new URL(window.location.href); if (query.trim()) url.searchParams.set('q', query.trim()); else url.searchParams.delete('q'); if (view === 'overview') url.searchParams.delete('vista'); else url.searchParams.set('vista', view); window.history.replaceState(null, '', `${url.pathname}${url.search}`); }, [query, view]);
   useEffect(() => { fetch('http://localhost:8787/api/overview').then(response => response.ok ? response.json() : null).then(setOverview).catch(() => setOverview(null)); }, []);
@@ -57,6 +69,7 @@ function App() {
       </section>
 
       {view === 'methodology' ? <Methodology /> : view === 'contracts' ? <Contracts rows={contracts} loading={contractsLoading} query={query} /> : view === 'grants' ? <Grants /> : <>
+        <section className="policy-section"><div className="section-head policy-head"><div><span className="eyebrow">EL DESGLOSE QUE SE ENTIENDE · CUENTA GENERAL DEL ESTADO 2024</span><h2>¿En qué se gastó el dinero?</h2><p className="section-subtitle">Las partidas están agrupadas por su finalidad: pensiones, sanidad, educación, carreteras e infraestructuras.</p></div><a className="source-mini" href="https://www.igae.pap.hacienda.gob.es/sitios/igae/es-ES/Contabilidad/ContabilidadPublica/CPE/EjecucionPresupuestaria/Documents/C.G.E.%202024.pdf" target="_blank">Fuente IGAE ↗</a></div><div className="policy-grid">{functionalPolicies.map(policy => <button key={policy.id} className={`policy-card ${selectedPolicy?.id === policy.id ? 'selected' : ''}`} style={{ borderTopColor: policy.color }} onClick={() => setSelectedPolicy(policy)}><span>{policy.label}</span><small className="official-policy-label">{policy.officialLabel || policy.label}</small><strong>{moneyMillions(policy.amount)} M€</strong><small>{percent(policy.amount, functionalTotal)}% del gasto · pulsa para abrir</small></button>)}</div>{selectedPolicy && <div className="policy-drilldown"><div><span className="eyebrow">HAS ELEGIDO</span><h3>{selectedPolicy.label}</h3><p>{moneyMillions(selectedPolicy.amount)} M€ · {percent(selectedPolicy.amount, functionalTotal)}% del gasto público en 2024.</p></div>{selectedPolicy.children ? <div className="policy-children">{selectedPolicy.children.map(child => <div key={child.label}><b>{child.label}</b><strong>{moneyMillions(child.amount)} M€</strong><small>{percent(child.amount, selectedPolicy.amount)}% de esta partida</small></div>)}</div> : <div className="drilldown-empty"><strong>La fuente no baja más al detalle en esta tabla.</strong><span>Cuando exista un desglose oficial —por ejemplo, una separación verificable de prestaciones— aparecerá aquí.</span></div>}</div>}</section>
         <section className="insight-panel">
           <div><span className="eyebrow insight-kicker">EN DOS CIFRAS · ADMINISTRACIÓN DEL ESTADO · {overview?.period ? periodLabel(overview.period) : 'MAYO 2026'}</span><p className="insight-label">De cada 1 € que el Estado tenía previsto gastar</p><strong className="insight-value">{imported ? `${decimal(execution.paid, execution.finalCredit)} €` : '—'}</strong><p className="insight-caption">ya se ha pagado</p></div>
           <div className="insight-grid"><div className="insight-card"><span>Ya están comprometidos</span><b>{imported ? `${decimal(execution.committed, execution.finalCredit)} €` : '—'}</b><small>por cada euro previsto</small></div><div className="insight-card"><span>Ya constan como gasto</span><b>{imported ? `${decimal(execution.recognized, execution.finalCredit)} €` : '—'}</b><small>por cada euro previsto</small></div></div>
@@ -69,7 +82,7 @@ function App() {
           <Stat label="Contratos publicados" value={overview?.contracts?.records ? overview.contracts.records.toLocaleString('es-ES') : '—'} note="Registros oficiales cargados" />
         </section>
         <section className="notice"><ShieldCheck size={17}/><span><strong>Datos oficiales.</strong> La información llega hasta {imported ? periodLabel(overview.period).toLowerCase() : 'el último mes disponible'}. Presupuesto, contratos y ayudas aparecen por separado.</span><a href={overview?.sourceUrl || sources.hacienda} target="_blank">Comprobar fuente <ExternalLink size={13}/></a></section>
-        <section className="section-head"><div><span className="eyebrow">01 · EL REPARTO</span><h2>¿A qué se dedica el dinero?</h2><p className="section-subtitle">Toca un bloque para ver cuánto representa y qué información hay disponible.</p></div><button className="filter"><SlidersHorizontal size={16}/> Filtrar</button></section>
+        <section className="section-head"><div><span className="eyebrow">02 · CÓMO SE REGISTRA</span><h2>¿Cómo aparece en las cuentas?</h2><p className="section-subtitle">Esta segunda vista usa capítulos contables oficiales: sirve para comprobar de dónde sale cada cifra.</p></div><button className="filter"><SlidersHorizontal size={16}/> Filtrar</button></section>
         <section className="explorer-grid">
           <div className="treemap" aria-label="Clasificación funcional del gasto">
             {budgetLoading ? <div className="drilldown-empty">Cargando reparto…</div> : chapters.length ? chapters.map((row, i) => <button key={row.id || row.economic_code} className={`tile tile-${i} ${selectedChapter?.economic_code === row.economic_code ? 'selected' : ''}`} style={{ background: tileColors[i % tileColors.length] }} onClick={() => { setActiveCategory(row.economic_code); setSelectedChapter(row); }}><span>{friendlyChapter(row.economic_code)}<small>{row.economic_code}</small></span><b>{selectedChapter?.economic_code === row.economic_code ? 'Ver detalle →' : `${percent(row.final_amount, budgetTotal)}%`}</b></button>) : <div className="drilldown-empty">No hay capítulos importados.</div>}
@@ -78,7 +91,7 @@ function App() {
         </section>
         {selectedChapter && <section className="drilldown-panel"><div><span className="eyebrow">HAS ELEGIDO</span><h3>{friendlyChapter(selectedChapter.economic_code)}</h3><p>{millions(selectedChapter.final_amount)} M€ reservados · {percent(selectedChapter.final_amount, budgetTotal)}% del total.</p></div>{selectedSubrows.length ? <div className="drilldown-tiles">{selectedSubrows.map((row, i) => <div className="drilldown-tile" key={row.id || row.economic_code} style={{ borderTopColor: tileColors[i % tileColors.length] }}><span>{row.economic_code}</span><b>{millions(row.final_amount)} M€</b><small>{percent(row.final_amount, selectedChapter.final_amount)}% del capítulo</small></div>)}</div> : <div className="drilldown-empty"><strong>Aún no podemos abrir este bloque en más partes.</strong><span>La fuente conectada publica el total del capítulo, pero no su reparto interno. Cuando exista ese detalle oficial, aparecerá aquí; no rellenamos el hueco con estimaciones.</span></div>}</section>}
         <p className="footnote">Distribución por capítulos económicos del extracto IGAE conectado · importes en miles de euros.</p>
-        <section className="section-head compact"><div><span className="eyebrow">02 · ÚLTIMOS REGISTROS</span><h2>Contratación pública</h2></div><button className="text-link" onClick={() => setView('contracts')}>Ver todo <ChevronRight size={15}/></button></section>
+        <section className="section-head compact"><div><span className="eyebrow">03 · ÚLTIMOS REGISTROS</span><h2>Contratación pública</h2></div><button className="text-link" onClick={() => setView('contracts')}>Ver todo <ChevronRight size={15}/></button></section>
         <Contracts rows={contracts} loading={contractsLoading} compact query={query} />
       </>}
     </main>
@@ -87,6 +100,7 @@ function App() {
 }
 
 function millions(value) { return new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 }).format(Number(value) / 1000); }
+function moneyMillions(value) { return new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 }).format(Number(value)); }
 function percent(value, total) { return total ? new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 }).format((Number(value) / Number(total)) * 100) : '—'; }
 function decimal(value, total) { return total ? new Intl.NumberFormat('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(value) / Number(total)) : '—'; }
 function periodLabel(period) { const month = String(period || '').split('-')[1]; const names = { '01': 'ENERO', '02': 'FEBRERO', '03': 'MARZO', '04': 'ABRIL', '05': 'MAYO', '06': 'JUNIO', '07': 'JULIO', '08': 'AGOSTO', '09': 'SEPTIEMBRE', '10': 'OCTUBRE', '11': 'NOVIEMBRE', '12': 'DICIEMBRE' }; return `${names[month] || period} ${String(period || '').split('-')[0] || ''}`.trim(); }
