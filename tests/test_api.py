@@ -235,6 +235,18 @@ def test_grant_detail_exposes_official_call():
     assert payload["data"]["source_url"]
 
 
+def test_grant_concessions_expose_pagination_metadata():
+    try:
+        status, payload = get_json("/api/grants/925963/concesiones?page=0&pageSize=10")
+        assert status == 200
+        assert payload["meta"]["dataStatus"] == "official_live"
+        assert payload["meta"]["page"] == 0
+        assert payload["meta"]["pageSize"] == 10
+        assert isinstance(payload["data"], list)
+    except (URLError, TimeoutError) as error:
+        pytest.skip(f"BDNS no disponible: {error}")
+
+
 def test_unknown_route_is_not_found():
     with pytest.raises(HTTPError) as error:
         urlopen(f"{BASE_URL}/api/does-not-exist", timeout=2)

@@ -10,6 +10,7 @@ const pool = new Pool({ connectionString: databaseUrl, connectionTimeoutMillis: 
 const port = Number(process.env.API_PORT || 8787);
 const root = process.cwd();
 const fileCache = new Map();
+const grantConcessionsCache = new Map();
 
 function readJsonl(path) {
   if (!existsSync(path)) return [];
@@ -205,13 +206,18 @@ function grantFromJsonl(code) {
   return { bdns_code: row.bdns_code, title: row.title, registration_date: row.registration_date, publication_date: row.publication_date, budget: row.raw_record?.convocatoria?.financiacion?.[0]?.importe || null, purpose: row.purpose, source_url: row.source_url, source_record_id: row.source_record_id, granting_entity: row.granting_body };
 }
 
-async function officialGrantConcessions(code) {
-  const endpoint = `https://www.infosubvenciones.es/bdnstrans/api/concesiones/busqueda?numeroConvocatoria=${encodeURIComponent(code)}&pageSize=100&page=0`;
+async function officialGrantConcessions(code, page = 0, pageSize = 100) {
+  const cacheKey = `${code}:${page}:${pageSize}`;
+  const cached = grantConcessionsCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) return cached.value;
+  const endpoint = `https://www.infosubvenciones.es/bdnstrans/api/concesiones/busqueda?numeroConvocatoria=${encodeURIComponent(code)}&pageSize=${pageSize}&page=${page}`;
   const response = await fetch(endpoint, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(8000) });
   if (!response.ok) throw new Error(`BDNS respondió ${response.status}`);
   const payload = await response.json();
   const data = (payload.content || []).map(row => ({ id: row.codConcesion || row.id, beneficiary: row.beneficiario || null, amount: row.importe ?? null, date: row.fechaConcesion || null, instrument: row.instrumento || null, callCode: row.numeroConvocatoria || code }));
-  return { data, meta: { total: Number(payload.totalElements || data.length), page: 0, pageSize: 100, dataStatus: 'official_live', sourceUrl: endpoint, warning: payload.advertencia || null } };
+  const value = { data, meta: { total: Number(payload.totalElements || data.length), page, pageSize, dataStatus: 'official_live', sourceUrl: endpoint, warning: payload.advertencia || null } };
+  grantConcessionsCache.set(cacheKey, { value, expiresAt: Date.now() + 300000 });
+  return value;
 }
 
 async function databaseSearch(query) {
@@ -469,7 +475,9 @@ const server = createServer(async (req, res) => {
   }
   if (url.pathname.endsWith('/concesiones') && url.pathname.startsWith('/api/grants/')) {
     const code = decodeURIComponent(url.pathname.slice('/api/grants/'.length, -'/concesiones'.length));
-    try { return json(res, 200, await officialGrantConcessions(code)); }
+    const page = Math.max(0, Number(url.searchParams.get('page') || 0));
+    const pageSize = Math.min(100, Math.max(1, Number(url.searchParams.get('pageSize') || 100)));
+    try { return json(res, 200, await officialGrantConcessions(code, page, pageSize)); }
     catch (error) { return json(res, 503, { error: 'grant_concessions_unavailable', detail: error.message, meta: { dataStatus: 'unavailable', sourceUrl: 'https://www.infosubvenciones.es/bdnstrans/api/concesiones/busqueda' } }); }
   }
   if (url.pathname.startsWith('/api/grants/')) {

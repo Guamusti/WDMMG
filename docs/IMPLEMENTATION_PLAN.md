@@ -76,7 +76,7 @@ Referencia MD: secciones 6, 7, 10, 13, 18, 26, 27, 28, 29, 33, 46, 47, 57, 58 y 
 - [ ] Configurar el servicio BDNS oficial de convocatorias.
 - [x] Configurar endpoint oficial BDNS de convocatoria y descargar una respuesta JSON real (`925963`).
 - [~] Normalizar y cargar convocatorias BDNS; 1 convocatoria real cargada y repetible, endpoint y vista inicial activos, filtros y concesiones pendientes.
-- [ ] Configurar el servicio BDNS oficial de concesiones.
+- [~] Configurar el servicio BDNS oficial de concesiones; consulta live activa con paginación y caché de 5 minutos, falta ingesta masiva persistente.
 - [~] Importar muestras reales con URLs de origen; PLACSP y 1 convocatoria BDNS importadas.
 - [x] Verificar que ningún contrato/subvención se presenta como pago presupuestario; test de integridad semántica añadido sobre las respuestas API.
 - [ ] Publicar estado y fecha de actualización de cada dataset.
@@ -307,5 +307,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Persistencia de eventos: el cargador PostgreSQL guarda modificaciones en `contract_events` y la ficha API las devuelve junto a los lotes | `en curso` |
 | 27/08/2026 | Línea temporal visible de eventos CODICE en la app: identifica modificaciones, fecha e ID, y aclara que no son pagos ni adjudicaciones nuevas | `en curso` |
 | 27/08/2026 | Línea temporal sincronizada con la tabla: detecta cambios de `contrato` en la URL sin recargar y actualiza los eventos de la ficha | `en curso` |
+| 27/08/2026 | BDNS concesiones: endpoint live admite `page`/`pageSize` y cachea respuestas 5 minutos para explorar más resultados sin repetir llamadas | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |
