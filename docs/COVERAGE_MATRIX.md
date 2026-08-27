@@ -4,7 +4,7 @@ Fecha de revisión: 27/08/2026. “Disponible” significa que existe una public
 
 | Ámbito / dataset | Fuente oficial | Periodicidad publicada | Estado actual | Qué puede mostrar el MVP |
 |---|---|---:|---|---|
-| AGE — ejecución y presupuesto | IGAE | Mensual | **Cargado**: 91 filas de ejecución | Crédito, obligaciones, pagos y periodo |
+| AGE — ejecución y presupuesto | IGAE | Mensual | **Cargado**: 91 filas por corte; abril y mayo de 2026 disponibles para evolución | Crédito, obligaciones, pagos y periodo |
 | AGE — gasto por finalidad | Cuenta General del Estado 2024 | Anual | **Cargado**: 28 políticas | Rueda, partidas principales y “Resto” desglosado |
 | Contratos del sector público | PLACSP, sindicaciones abiertas | Continua / incremental | **Cargado**: 382 contratos canónicos | Expediente, órgano, lotes, importes y fuente |
 | Convocatorias de ayudas | BDNS / SNPSAP | Continua | **Cargado**: 1 convocatoria de muestra | Convocatoria independiente del presupuesto |

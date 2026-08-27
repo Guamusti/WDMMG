@@ -158,11 +158,11 @@ Referencia MD: secciones 9, 11, 12, 24, 25, 32, 35, 50 y 51.
 
 Referencia MD: secciones 21, 22, 24, 25, 30, 31, 32, 33, 35, 46, 47 y 57.
 
-- [ ] Añadir series históricas y evolución durante el ejercicio.
-- [ ] Añadir comparador de administraciones/territorios.
+- [x] Añadir series históricas y evolución durante el ejercicio; abril y mayo de 2026 validados como cortes AGE compatibles.
+- [x] Añadir comparador de administraciones/territorios; dos CCAA seleccionables con diferencia absoluta.
 - [ ] Añadir nominal €/habitante y documentar cualquier € constante.
 - [ ] Añadir explorador jerárquico de partidas y descarga CSV.
-- [ ] Añadir indicadores descriptivos: concentración, ofertas, menores y ejecución.
+- [~] Añadir indicadores descriptivos: ejecución, ranking territorial y relatos de datos activos; concentración, ofertas y menores pendientes.
 - [~] Permitir abrir el dataset subyacente desde cada indicador; fichas oficiales y exportación activas.
 - [ ] Añadir URLs compartibles y SEO para exploraciones importantes.
 
@@ -197,7 +197,7 @@ Referencia MD: secciones 34, 35, 36, 37, 38, 39, 41, 42, 44, 45, 54, 55, 56, 60,
 
 ## Estado global actual
 
-**Fase 8/11 — Ampliación territorial y entidades, en curso.**
+**Fase 9/11 — Históricos, comparador y exploración avanzada, en curso.**
 
 La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la interfaz inicial existen. La UI ya consume IGAE, PLACSP y la muestra BDNS cargada; el siguiente trabajo es ampliar niveles contables, relaciones y cobertura sin mezclar magnitudes.
 
