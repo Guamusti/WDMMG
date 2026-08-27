@@ -11,7 +11,7 @@ Fecha de revisión: 27/08/2026. “Disponible” significa que existe una public
 | Comunidades autónomas | Central de Información de Hacienda | Variable | **Cargado parcialmente**: 17 CCAA + total, mayo 2026 | Gasto no financiero acumulado; no se suma a AGE |
 | Entidades locales | Portal de Hacienda / CONPREL | Trimestral / anual según conjunto | **Descarga validada, parser bloqueado** | ZIP Access 2026 localizado; el ODBC Access 32-bit disponible devuelve `Cannot open database` para `Presupuestos2026.accdb` |
 | Entidades públicas y jerarquía | Inventario de entes públicos | Según publicación | **Localizado, no cargado** | Pendiente de IDs estables y relaciones |
-| Población y geografía | INE | Anual | **Población municipal consultable en vivo** | Código, provincia, comunidad y población 2024; gasto por habitante pendiente de ejecución local compatible |
+| Población y geografía | INE / IGN | Anual / servicio geográfico | **Población municipal consultable en vivo; geometría localizada** | Código, provincia, comunidad y población 2024; límites oficiales disponibles vía WFS; gasto por habitante pendiente de ejecución local compatible |
 
 ## Reglas para ampliar cobertura
 
