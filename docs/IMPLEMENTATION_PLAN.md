@@ -104,7 +104,7 @@ Referencia MD: secciones 17, 18, 19, 22, 23, 24, 26, 27, 28, 29, 30, 32, 33, 34,
 - [x] Crear scaffold local de `/api/health`, `/api/overview`, `/api/contracts` y `/api/search`.
 - [x] Conectar `/api/overview` y `/api/budgets` al aterrizaje IGAE real disponible.
 - [x] Evitar doble conteo en el resumen IGAE excluyendo filas TOTAL de la suma de capítulos.
-- [ ] Conectar API a PostgreSQL.
+- [x] Conectar API a PostgreSQL, manteniendo JSONL como fallback explícito.
 - [ ] Implementar endpoints de presupuestos, entidades, programas, empresas, contratos, subvenciones y geografía.
 - [ ] Implementar filtros server-side y paginación.
 - [ ] Implementar buscador global multi-entidad.
@@ -204,5 +204,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | API y frontend conectados al resumen IGAE real; agregado sin filas TOTAL | `e6c2f61` |
 | 27/08/2026 | Cargador PostgreSQL verificado en Docker: 91 filas y segunda carga sin duplicados | `fcf047d` |
 | 27/08/2026 | Dependencia psycopg declarada para el cargador | `73c97ea` |
+| 27/08/2026 | API consulta PostgreSQL real para overview y presupuestos | `8419c64` |
 | 27/08/2026 | Validación de periodo IGAE y flags contables; 91 filas procesadas, 10 marcadas | `61fea32` |
 | 27/08/2026 | Cargador PostgreSQL IGAE y entorno Docker local; carga repetida sin duplicados | `en curso` |
