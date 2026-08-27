@@ -26,6 +26,10 @@ python -m etl.budgets.igae_extract --url "URL_XLSX_IGAE"
 
 El extractor lee los XLSX oficiales sin convertir importes a `float`, conserva hojas, filas, columnas originales, unidad (`miles de euros`) y provenance. Es una capa de aterrizaje: la clasificación económica/funcional y los estados contables se normalizarán después de validar todas las hojas.
 
+### CONPREL y formato Access
+
+La descarga oficial `Presupuestos2026.accdb` dentro de `eell-2026.zip` se ha validado por URL, tamaño y hash, pero la extracción queda bloqueada en este entorno: Python es de 64 bits y no tiene proveedor ACE/OLE DB; el controlador ODBC Access de 32 bits instalado tampoco reconoce el archivo y devuelve `Cannot open database`. Hasta disponer de un lector compatible, la API conserva el estado `blocked_reader` y no publica importes locales.
+
 Para las hojas de ejecución por secciones/capítulos/inversiones genera además `execution-2026-05.jsonl`, separando crédito definitivo, gasto comprometido, obligaciones reconocidas y pagos. La API local expone ese aterrizaje en `/api/budgets` y calcula el resumen de `/api/overview` solo cuando el fichero existe. El resultado sigue marcado como provisional y conserva flags de calidad.
 
 ## PostgreSQL local

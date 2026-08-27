@@ -288,3 +288,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Búsqueda municipal INE compartible mediante `municipio`, con recuperación automática de resultados al abrir la URL | `en curso` |
 | 27/08/2026 | Tooltips accesibles para previsto, comprometido, gasto reconocido y pagado en el detalle de capítulo | `en curso` |
 | 27/08/2026 | Revisión responsive: overflow horizontal controlado, reducción de movimiento respetada y foco visible conservado | `en curso` |
+| 27/08/2026 | Diagnóstico reproducible de CONPREL: controlador Access 32-bit disponible no reconoce `Presupuestos2026.accdb`; fuente permanece bloqueada y sin cifras inventadas | `en curso` |

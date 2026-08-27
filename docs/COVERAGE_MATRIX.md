@@ -9,9 +9,9 @@ Fecha de revisión: 27/08/2026. “Disponible” significa que existe una public
 | Contratos del sector público | PLACSP, sindicaciones abiertas | Continua / incremental | **Cargado**: 382 contratos canónicos | Expediente, órgano, lotes, importes y fuente |
 | Convocatorias de ayudas | BDNS / SNPSAP | Continua | **Cargado**: 1 convocatoria de muestra | Convocatoria independiente del presupuesto |
 | Comunidades autónomas | Central de Información de Hacienda | Variable | **Cargado parcialmente**: 17 CCAA + total, mayo 2026 | Gasto no financiero acumulado; no se suma a AGE |
-| Entidades locales | Portal de Hacienda / CONPREL | Trimestral / anual según conjunto | **Descarga validada, parser bloqueado** | ZIP Access 2026 localizado; falta lector Access compatible para identificar tablas y claves |
+| Entidades locales | Portal de Hacienda / CONPREL | Trimestral / anual según conjunto | **Descarga validada, parser bloqueado** | ZIP Access 2026 localizado; el ODBC Access 32-bit disponible devuelve `Cannot open database` para `Presupuestos2026.accdb` |
 | Entidades públicas y jerarquía | Inventario de entes públicos | Según publicación | **Localizado, no cargado** | Pendiente de IDs estables y relaciones |
-| Población y geografía | INE | Anual | **Localizado, no cargado** | Pendiente de códigos territoriales compatibles |
+| Población y geografía | INE | Anual | **Población municipal consultable en vivo** | Código, provincia, comunidad y población 2024; gasto por habitante pendiente de ejecución local compatible |
 
 ## Reglas para ampliar cobertura
 
