@@ -1,5 +1,5 @@
 [
-  {"community":"Andalucía","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Andalucía","status":"verified","url":"https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/sguit/index.php?d=g_not_cor_anteriores_top.php&q=grados","format":"HTML","rounds":["ordinary"],"coverage":"Distrito Único Andaluz · nueve universidades públicas · nota general 2025-2026"},
   {"community":"Aragón","status":"verified","url":"https://academico.unizar.es/acceso-admision-grado/corte","format":"PDF","rounds":["ordinary","last_call","definitive"],"coverage":"Universidad de Zaragoza"},
   {"community":"Asturias","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"Illes Balears","status":"pending","url":null,"format":null,"rounds":null},

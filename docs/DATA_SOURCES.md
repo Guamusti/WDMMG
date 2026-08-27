@@ -50,10 +50,18 @@
 - Estado: PDF conservado en `data/raw/admissions/cataluna/2025-2026/`; parser reproducible en `etl/admissions/cataluna/` y extracto separado en `data/processed/admissions/cataluna-2025-2026.json`.
 - Cobertura validada: 549 observaciones con código de estudio, centro/población, primera asignación y cupo PAU/CFGS. Se rechazan 5 filas de maquetación ambigua, registradas en `cataluna-2025-2026-quality.json`, para evitar nombres contaminados.
 
+## Notas de corte — Andalucía
+
+- Organismo: Distrito Único Andaluz de la Junta de Andalucía.
+- Publicación de referencia: consulta oficial de notas de corte de años anteriores, curso de acceso 2025/2026.
+- Fuente oficial: https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/sguit/index.php?d=g_not_cor_anteriores_top.php&q=grados
+- Estado: respuesta HTML conservada en `data/raw/admissions/andalucia/2025-2026/`; parser reproducible en `etl/admissions/andalucia/` y extracto separado en `data/processed/admissions/andalucia-2025-2026.json`.
+- Cobertura validada: 581 observaciones de nueve universidades públicas. Se carga únicamente la nota general (`Gral.`), con rama y centro conservados; 38 filas incompletas se registran como rechazadas.
+
 ## Catálogo nacional de trabajo
 
-- `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de cuatro comunidades: Madrid (458), Galicia (333), Aragón (73) y Cataluña (549).
-- `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial (418/1413) y la de campo RUCT también (340/1413), por lo que el catálogo no se presenta como ranking nacional único.
+- `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de cinco comunidades: Madrid (458), Galicia (333), Aragón (73), Cataluña (549) y Andalucía (581).
+- `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial (1002/1994) y la de campo RUCT también (351/1994), por lo que el catálogo no se presenta como ranking nacional único.
 
 ## SIIU / estadísticas universitarias
 

@@ -1,12 +1,14 @@
 {
-  "records": 1413,
+  "records": 1994,
   "communities": [
+    "Andalucía",
     "Aragón",
     "Cataluña",
     "Comunidad de Madrid",
     "Galicia"
   ],
   "by_community": {
+    "Andalucía": 581,
     "Aragón": 73,
     "Cataluña": 549,
     "Comunidad de Madrid": 458,
@@ -17,7 +19,7 @@
     "same_academic_year": true,
     "same_scale_0_14": true,
     "round_and_group_present": true,
-    "branch_coverage": 418,
-    "field_coverage": 340
+    "branch_coverage": 1002,
+    "field_coverage": 351
   }
 }

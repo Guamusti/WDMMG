@@ -1,0 +1,256 @@
+{
+  "source_url": "https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/sguit/index.php?d=g_not_cor_anteriores_top.php&q=grados",
+  "academic_year": "2025-2026",
+  "records": 581,
+  "rejected_rows": 38,
+  "duplicates": 0,
+  "universities": [
+    "Universidad Pablo de Olavide",
+    "Universidad de Almería",
+    "Universidad de Cádiz",
+    "Universidad de Córdoba",
+    "Universidad de Granada",
+    "Universidad de Huelva",
+    "Universidad de Jaén",
+    "Universidad de Málaga",
+    "Universidad de Sevilla"
+  ],
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "no_replacement_glyph_in_names": true,
+    "ordinary_round_explicit": true,
+    "general_group_explicit": true,
+    "branch_explicit": true,
+    "no_duplicate_keys": true
+  },
+  "rejections": [
+    {
+      "row": 37,
+      "metadata": "2025 | ALMERÍA | SIN",
+      "degree": "MATEMÁTICAS + ECONOMÍA",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 101,
+      "metadata": "2025 | CÁDIZ | SIN",
+      "degree": "INGENIERÍA QUÍMICA + BIOTECNOLOGÍA",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 109,
+      "metadata": "2025 | CÁDIZ | SIN",
+      "degree": "MATEMÁTICAS + INGENIERÍA INFORMÁTICA",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 137,
+      "metadata": "2025 | CÓRDOBA | SIN",
+      "degree": "EDUCACIÓN PRIMARIA (ITINERARIO BILINGÜE) + ESTUDIOS INGLESES",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 153,
+      "metadata": "2025 | CÓRDOBA | SIN",
+      "degree": "INGENIERÍA CIVIL + ADMINISTRACIÓN Y DIRECCIÓN DE EMPRESAS",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 205,
+      "metadata": "2025 | GRANADA | SIN",
+      "degree": "EDIFICACIÓN + ADMINISTRACIÓN Y DIRECCIÓN DE EMPRESAS",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 215,
+      "metadata": "2025 | GRANADA | SIN",
+      "degree": "EDUCACIÓN PRIMARIA + ESTUDIOS FRANCESES",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 216,
+      "metadata": "2025 | GRANADA | SIN",
+      "degree": "EDUCACIÓN PRIMARIA + ESTUDIOS INGLESES",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 247,
+      "metadata": "2025 | GRANADA | SIN",
+      "degree": "INGENIERÍA CIVIL + ADMINISTRACIÓN Y DIRECCIÓN DE EMPRESAS",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 251,
+      "metadata": "2025 | GRANADA | SIN",
+      "degree": "INGENIERÍA INFORMÁTICA + ADMINISTRACIÓN Y DIRECCIÓN DE EMPRESAS",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 252,
+      "metadata": "2025 | GRANADA | SIN",
+      "degree": "INGENIERÍA INFORMÁTICA + MATEMÁTICAS",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 264,
+      "metadata": "2025 | GRANADA | SIN",
+      "degree": "NUTRICIÓN HUMANA Y DIETÉTICA + CIENCIA Y TECNOLOGÍA DE LOS ALIMENTOS",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 276,
+      "metadata": "2025 | GRANADA | SIN",
+      "degree": "TRADUCCIÓN E INTERPRETACIÓN: ALEMÁN + TURISMO",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 279,
+      "metadata": "2025 | GRANADA | SIN",
+      "degree": "TRADUCCIÓN E INTERPRETACIÓN: FRANCÉS + TURISMO",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 281,
+      "metadata": "2025 | GRANADA | SIN",
+      "degree": "TRADUCCIÓN E INTERPRETACIÓN: INGLÉS + TURISMO",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 288,
+      "metadata": "2025 | HUELVA | SIN",
+      "degree": "CIENCIAS AMBIENTALES + INGENIERÍA FORESTAL Y DEL MEDIO NATURAL",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 390,
+      "metadata": "2025 | MÁLAGA | SIN",
+      "degree": "CRIMINOLOGÍA + PSICOLOGIA",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 399,
+      "metadata": "2025 | MÁLAGA | SIN",
+      "degree": "EDUCACIÓN PRIMARIA + ESTUDIOS INGLESES",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 413,
+      "metadata": "2025 | MÁLAGA | SIN",
+      "degree": "GEOGRAFÍA Y GESTIÓN DEL TERRITORIO + HISTORIA",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 422,
+      "metadata": "2025 | MÁLAGA | SIN",
+      "degree": "INGENIERÍA DE TECNOLOGÍAS DE TELECOMUNICACIÓN + MATEMÁTICAS",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 434,
+      "metadata": "2025 | MÁLAGA | SIN",
+      "degree": "INGENIERÍA INFORMÁTICA + MATEMÁTICAS",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 454,
+      "metadata": "2025 | MÁLAGA | SIN",
+      "degree": "TRADUCCIÓN E INTERPRETACIÓN: FRANCÉS + TURISMO",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 456,
+      "metadata": "2025 | MÁLAGA | SIN",
+      "degree": "TRADUCCIÓN E INTERPRETACIÓN: INGLÉS + TURISMO",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 479,
+      "metadata": "2025 | SEVILLA | SIN",
+      "degree": "DERECHO + FILOSOFÍA",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 490,
+      "metadata": "2025 | SEVILLA | SIN",
+      "degree": "EDUCACIÓN PRIMARIA + ESTUDIOS FRANCESES",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 495,
+      "metadata": "2025 | SEVILLA | SIN",
+      "degree": "ESTADÍSTICA + FINANZAS Y CONTABILIDAD",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 512,
+      "metadata": "2025 | SEVILLA | SIN",
+      "degree": "FÍSICA + INGENIERÍA DE MATERIALES",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 516,
+      "metadata": "2025 | SEVILLA | SIN",
+      "degree": "FISIOTERAPIA + CIENCIAS DE LA ACTIVIDAD FÍSICA Y DEL DEPORTE",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 517,
+      "metadata": "2025 | SEVILLA | SIN",
+      "degree": "FISIOTERAPIA + CIENCIAS DE LA ACTIVIDAD FÍSICA Y DEL DEPORTE",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 520,
+      "metadata": "2025 | SEVILLA | SIN",
+      "degree": "GEOGRAFÍA Y GESTIÓN DEL TERRITORIO + HISTORIA",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 526,
+      "metadata": "2025 | SEVILLA | SIN",
+      "degree": "INGENIERÍA AGRÍCOLA + CIENCIAS AMBIENTALES (UPO)",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 544,
+      "metadata": "2025 | SEVILLA | SIN",
+      "degree": "INGENIERÍA INFORMÁTICA. TECNOLOGÍA INFORMÁTICA + MATEMÁTICAS",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 551,
+      "metadata": "2025 | SEVILLA | SIN",
+      "degree": "LENGUAS MODERNAS, LITERATURAS Y CULTURAS + EDUCACIÓN PRIMARIA",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 568,
+      "metadata": "2025 | SEVILLA | SIN",
+      "degree": "QUÍMICA + INGENIERÍA DE MATERIALES",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 582,
+      "metadata": "2025 | P. OLAVIDE | SIN",
+      "degree": "CIENCIAS AMBIENTALES + GEOGRAFÍA E HISTORIA",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 612,
+      "metadata": "2025 | P. OLAVIDE | SIN",
+      "degree": "RELACIONES INTERNACIONALES + GEOGRAFÍA E HISTORIA",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 619,
+      "metadata": "2025 | P. OLAVIDE | SIN",
+      "degree": "TRADUCCIÓN E INTERPRETACIÓN: ALEMÁN + RELACIONES INTERNACIONALES",
+      "reason": "INCOMPLETE"
+    },
+    {
+      "row": 621,
+      "metadata": "2025 | P. OLAVIDE | SIN",
+      "degree": "TRADUCCIÓN E INTERPRETACIÓN: FRANCES + RELACIONES INTERNACIONALES",
+      "reason": "INCOMPLETE"
+    }
+  ]
+}

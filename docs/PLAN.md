@@ -77,13 +77,14 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [x] Normalización de cursos como `YYYY-YYYY`.
 - [x] Primer ingestor regional adicional reproducible (Galicia), conservando ronda y grupo; ampliar a tres comunidades y completar la cobertura nacional.
 - [x] Segundo ingestor regional reproducible (Aragón), con provincia, convocatoria y cupo general conservados; faltan el modelo común de cupos y la integración nacional.
-- [x] Catálogo nacional de trabajo reproducible con los extractos de Madrid, Galicia y Aragón, informe de comparabilidad y procedencia regional.
+- [x] Catálogo nacional de trabajo reproducible con los extractos de Madrid, Galicia, Aragón, Cataluña y Andalucía, informe de comparabilidad y procedencia regional.
 - [x] Tercer ingestor regional adicional (Cataluña), con primera asignación, código de estudio, centro/población y cupo PAU/CFGS conservados.
+- [x] Cuarto ingestor regional adicional (Andalucía), con consulta oficial 2025-2026, nota general, rama, centro y nueve universidades públicas conservados.
 - [x] Separación de grupo, convocatoria, ronda inicial y nota final en el modelo nacional; cada fuente conserva solo las dimensiones que publica y las ausencias quedan explícitas.
 - [x] Exponer convocatoria y cupo como filtros aplicables en `/espana`, manteniendo sus valores originales por fila.
 - [x] Percentiles nacionales, regionales, por rama y por campo RUCT cuando existe una clasificación oficial; el catálogo mantiene cobertura parcial y no infiere campos ausentes.
 - [x] Percentiles nacional, por comunidad, rama y campo RUCT sobre las observaciones cargadas en `/espana`, con el ámbito de comparación indicado en cada fila.
-- [x] Explorador nacional inicial de notas, mapa orientativo y “qué puedo estudiar con mi nota” para las cuatro comunidades procesadas; percentiles comparables visibles según cobertura.
+- [x] Explorador nacional inicial de notas, mapa orientativo y “qué puedo estudiar con mi nota” para las cinco comunidades procesadas; percentiles comparables visibles según cobertura.
 - [x] Explorador nacional inicial `/espana` con búsqueda, comunidad, nota/tolerancia, orden, procedencia, estado de cobertura y carga completa del catálogo; el mapa sigue siendo orientativo.
 
 Criterio de terminado: el filtro España permite comparar solo ofertas metodológicamente compatibles y muestra cobertura por comunidad.

@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 const frontendPort = (await readFile('.atlas-frontend-port', 'utf8')).trim();
 const { port: apiPort } = JSON.parse((await readFile('public/api-port.json', 'utf8')).replace(/^\uFEFF/, ''));
 const expectedMadrid = JSON.parse(await readFile('data/processed/admissions/madrid-2025-2026.json', 'utf8')).length;
+const expectedAndalucia = JSON.parse(await readFile('data/processed/admissions/andalucia-2025-2026.json', 'utf8')).length;
 const frontend = `http://127.0.0.1:${frontendPort}`;
 const api = `http://127.0.0.1:${apiPort}`;
 
@@ -30,6 +31,8 @@ if (madrid.total !== expectedMadrid || !madrid.data[0]?.sourceUrl) throw new Err
 const nationalResponse = await expectOk(`${api}/api/national-offers?limit=1&admissionRound=ordinary&admissionGroup=group_1`, 'national offers');
 const national = await nationalResponse.json();
 if (!national.total || !national.data[0]?.admissionRound || !national.data[0]?.admissionGroup) throw new Error('National offers: admission dimensions missing');
+const andalucia = await (await expectOk(`${api}/api/national-offers?community=Andaluc%C3%ADa&limit=1`, 'Andalucía offers')).json();
+if (andalucia.total !== expectedAndalucia || !andalucia.data[0]?.branch || !andalucia.data[0]?.center) throw new Error('Andalucía offers: branch/center contract missing');
 
 const etag = nationalResponse.headers.get('etag');
 if (!etag || !nationalResponse.headers.get('cache-control')) throw new Error('National offers: HTTP cache headers missing');

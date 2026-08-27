@@ -10,6 +10,7 @@ MADRID = ROOT / "data/processed/admissions/madrid-2025-2026.json"
 GALICIA = ROOT / "data/processed/admissions/galicia-2025-2026.json"
 ARAGON = ROOT / "data/processed/admissions/aragon-2025-2026.json"
 CATALUNA = ROOT / "data/processed/admissions/cataluna-2025-2026.json"
+ANDALUCIA = ROOT / "data/processed/admissions/andalucia-2025-2026.json"
 RUCT_MATCHES = ROOT / "data/processed/ruct/madrid-degree-matches.json"
 OUTPUT = ROOT / "data/processed/admissions/national-2025-2026.json"
 REPORT = ROOT / "data/processed/admissions/national-2025-2026-quality.json"
@@ -44,7 +45,7 @@ def build() -> tuple[list[dict], dict]:
             "source_file": source["source_file"],
             "source_url": "https://www.comunidad.madrid/docs/assets/2026/02/25/notas_de_corte_2025-26_publicacion_para_web.pdf?VersionId=TQubbLf9LLERJuuTNTnhd4CGSZZjgmUx",
         })
-    for path in (GALICIA, ARAGON, CATALUNA):
+    for path in (GALICIA, ARAGON, CATALUNA, ANDALUCIA):
         for source in load(path):
             rows.append({
                 "id": f"{source['community'].lower()}:{len(rows) + 1}",
@@ -52,8 +53,9 @@ def build() -> tuple[list[dict], dict]:
                 "university": source["university"],
                 "university_ruct_code": None,
                 "campus": source.get("campus"),
+                "center": source.get("center"),
                 "degree": source["degree"],
-                "branch": None,
+                "branch": source.get("branch"),
                 "field": None,
                 "ruct_degree_code": None,
                 "ruct_centers": [],
