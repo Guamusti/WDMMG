@@ -32,6 +32,8 @@ Recorrido administración → programa/partida → contrato o ayuda → empresa/
 
 La vista de empresas ya ofrece el primer salto contrato → adjudicatario mediante los identificadores publicados en PLACSP.
 
+La API ya dispone de una ficha individual con los contratos vinculados; queda pendiente incorporarla a la interacción visible de la vista.
+
 ### 5. Historias y alertas descriptivas
 
 Historias breves sobre cambios, concentración, contratos menores, ejecución y diferencias territoriales. Son indicadores descriptivos, no acusaciones: cada una muestra denominador, fecha, regla y enlace al dataset.

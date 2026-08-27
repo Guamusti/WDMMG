@@ -254,6 +254,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Primera entrega de crecimiento: panel “Cuatro respuestas rápidas” con datos IGAE, CCAA y PLACSP enlazados a sus vistas | `en curso` |
 | 27/08/2026 | Ranking visual de las 17 CCAA por gasto no financiero reconocido, con denominador, fecha y advertencia interpretativa | `en curso` |
 | 27/08/2026 | Vista `/api/companies` y navegación “Empresas”: adjudicatarios agregados por contratos e importe publicado, separados de pagos | `en curso` |
+| 27/08/2026 | Endpoint de ficha `/api/companies/:id` con resumen e inventario de contratos vinculados; 15 tests verdes | `en curso` |
 | 27/08/2026 | La portada arranca con Pensiones seleccionada (32,1%) y el detalle es accesible con `aria-live` | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |

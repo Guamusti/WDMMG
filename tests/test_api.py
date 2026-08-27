@@ -47,6 +47,15 @@ def test_coverage_exposes_partial_and_blocked_sources():
     assert sources["local-budgets-2026"]["data_status"] == "blocked_reader"
 
 
+def test_company_detail_exposes_linked_contracts():
+    status, companies = get_json("/api/companies?limit=1")
+    assert status == 200 and companies["data"]
+    status, payload = get_json(f"/api/companies/{companies['data'][0]['id']}")
+    assert status == 200
+    assert payload["data"]["contract_count"] >= 1
+    assert isinstance(payload["data"]["contracts"], list)
+
+
 def test_unknown_route_is_not_found():
     with pytest.raises(HTTPError) as error:
         urlopen(f"{BASE_URL}/api/does-not-exist", timeout=2)

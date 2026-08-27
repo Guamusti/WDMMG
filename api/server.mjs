@@ -69,6 +69,45 @@ async function databaseCompanies(query, limit) {
   return result.rows;
 }
 
+async function databaseCompanyById(id) {
+  const summary = await pool.query(`
+    SELECT re.id, re.name, re.tax_id,
+      COUNT(DISTINCT ca.contract_id)::int AS contract_count,
+      COALESCE(SUM(ca.award_amount), 0) AS award_amount
+    FROM recipient_entities re
+    JOIN contract_awards ca ON ca.winner_entity_id = re.id
+    WHERE re.id::text = $1 OR COALESCE(re.tax_id, '') = $1
+    GROUP BY re.id, re.name, re.tax_id
+    LIMIT 1`, [id]);
+  if (!summary.rows[0]) return null;
+  const contracts = await pool.query(`
+    SELECT c.procurement_id, c.title, c.source_url, c.publication_date,
+      ca.award_amount, ca.award_amount_with_tax, ca.number_of_tenders,
+      pe.name AS contracting_authority
+    FROM recipient_entities re
+    JOIN contract_awards ca ON ca.winner_entity_id = re.id
+    JOIN contracts c ON c.id = ca.contract_id
+    LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id
+    WHERE re.id::text = $1 OR COALESCE(re.tax_id, '') = $1
+    ORDER BY ca.award_amount DESC NULLS LAST, c.publication_date DESC NULLS LAST`, [id]);
+  return { ...summary.rows[0], contracts: contracts.rows };
+}
+
+function companyFromJsonl(id) {
+  const contracts = [];
+  let company = null;
+  for (const contract of getContracts()) {
+    for (const award of contract.awards || []) {
+      const key = String(award.winner_id || award.winner_name || '').trim();
+      if (key !== id) continue;
+      company ||= { id: key, name: award.winner_name || key, tax_id: award.winner_id || null, contract_count: 0, award_amount: 0, contracts };
+      if (!contracts.some(item => item.procurement_id === contract.procurement_id)) { company.contract_count += 1; contracts.push({ procurement_id: contract.procurement_id, title: contract.title, source_url: contract.source_url, contracting_authority: contract.contracting_authority, award_amount: award.award_amount, award_amount_with_tax: award.award_amount_with_tax, number_of_tenders: award.number_of_tenders }); }
+      company.award_amount += Number(award.award_amount || 0);
+    }
+  }
+  return company;
+}
+
 async function databaseContracts(query, page, pageSize) {
   const offset = (page - 1) * pageSize;
   const search = `%${query}%`;
@@ -236,6 +275,16 @@ const server = createServer(async (req, res) => {
     } catch (error) {
       const data = companiesFromJsonl(query, limit);
       return json(res, 200, { data, meta: { total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message } });
+    }
+  }
+  if (url.pathname.startsWith('/api/companies/')) {
+    const id = decodeURIComponent(url.pathname.slice('/api/companies/'.length));
+    try {
+      const data = await databaseCompanyById(id);
+      return data ? json(res, 200, { data, meta: { backend: 'postgresql', dataStatus: 'imported' } }) : json(res, 404, { error: 'company_not_found' });
+    } catch (error) {
+      const data = companyFromJsonl(id);
+      return data ? json(res, 200, { data, meta: { backend: 'jsonl-fallback', dataStatus: 'imported', warning: error.message } }) : json(res, 404, { error: 'company_not_found' });
     }
   }
   if (url.pathname.startsWith('/api/contracts/')) {
