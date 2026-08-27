@@ -75,6 +75,7 @@
 - Matriculados en grado presencial: conjunto de datos abiertos de la Comunidad de Madrid, curso 2023–2024 (el CSV etiqueta el curso por su año final). El extracto procesado está en `data/processed/outcomes/madrid-university-enrolment-2023-2024.json` y se reconstruye con `etl/outcomes/ingest_madrid_enrolment.py`. Es un total de universidad, no de titulación, y excluye grados no presenciales.
 - Egresados en grado presencial: conjunto de datos abiertos de la Comunidad de Madrid, curso 2023–2024 (el CSV etiqueta el curso por su año final). El extracto procesado está en `data/processed/outcomes/madrid-university-graduates-2023-2024.json` y se reconstruye con `etl/outcomes/ingest_madrid_graduates.py`. Es un recuento institucional, no una tasa de graduación ni un resultado de una titulación.
 - Internacionalización: `data/processed/outcomes/madrid-international-2022-2023.json` conserva los estudiantes internacionales entrantes de las seis universidades públicas madrileñas en 2022–2023. Incluye grado, máster y doctorado, por lo que se muestra solo como contexto institucional; no equivale a movilidad saliente, Erasmus ni a una oportunidad de una carrera concreta. Fuente: `Entrada_Univ.px` del SIIU.
+- Movilidad saliente: `data/processed/outcomes/madrid-mobility-outgoing-2021-2022.json` conserva el total de estudiantes de las seis universidades que salen mediante programas de movilidad en 2021–2022. Es un recuento institucional de movilidad, no una tasa de participación, una plaza Erasmus disponible ni un resultado de una carrera.
 
 ## Geografía
 

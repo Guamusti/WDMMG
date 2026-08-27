@@ -1,0 +1,17 @@
+{
+  "dataset": "madrid-university-mobility-outgoing-2021-2022",
+  "academic_year": "2021-2022",
+  "metric": "mobility_outgoing_students",
+  "definition": "Estudiantes que salen del Sistema Universitario Español a través de programas de movilidad hacia una universidad extranjera.",
+  "scope": "Universidad · total de destinos · nivel académico total · ambos sexos",
+  "source": "Ministerio de Universidades · SIIU",
+  "source_url": "https://estadisticas.universidades.gob.es/jaxiPx/Datos.htm?file=Salida_Univ.px&path=%2FUniversitaria%2FInternacionalizacion%2F2022%2FEstudiantes_Internacionales%2Fl0%2F",
+  "values": {
+    "UAH": 572,
+    "UAM": 1286,
+    "UC3M": 1865,
+    "UCM": 1641,
+    "UPM": 1009,
+    "URJC": 1307
+  }
+}

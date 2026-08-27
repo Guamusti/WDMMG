@@ -4,6 +4,7 @@ import madridUniversityContext from '../../data/processed/outcomes/madrid-univer
 import madridUniversityEnrolment from '../../data/processed/outcomes/madrid-university-enrolment-2023-2024.json';
 import madridUniversityGraduates from '../../data/processed/outcomes/madrid-university-graduates-2023-2024.json';
 import madridInternational from '../../data/processed/outcomes/madrid-international-2022-2023.json';
+import madridMobilityOutgoing from '../../data/processed/outcomes/madrid-mobility-outgoing-2021-2022.json';
 import fieldEmployment from '../../data/processed/outcomes/field-employment-2018-2019-four-years.json';
 import nationalEmploymentSeries from '../../data/processed/outcomes/employment-national-series-2018-2019.json';
 
@@ -27,6 +28,8 @@ export const universityGraduateMetrics = madridUniversityGraduates.universities;
 export const graduatesSource = madridUniversityGraduates.source_url;
 export const universityInternationalEntrants = madridInternational.values;
 export const internationalSource = madridInternational.source_url;
+export const universityMobilityOutgoing = madridMobilityOutgoing.values;
+export const mobilityOutgoingSource = madridMobilityOutgoing.source_url;
 export const internationalMetadata = madridInternational;
 export const employmentSeries = nationalEmploymentSeries;
 
