@@ -228,6 +228,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Revisión de lenguaje: “de cada 1 € previsto, 0,29 € ya se han pagado” y capítulos con nombres comprensibles | `en curso` |
 | 27/08/2026 | Segunda pasada de UX: portada, fuentes, reparto y desglose reescritos para lenguaje ciudadano | `en curso` |
 | 27/08/2026 | Portada prioriza políticas de gasto IGAE 2024: pensiones, infraestructuras, sanidad, educación y drill-down de pensiones | `en curso` |
+| 27/08/2026 | Drill-down ciudadano ampliado: Pensiones, Deuda pública y Transferencias con subpartidas publicadas por IGAE | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |
 | 27/08/2026 | Parser y cargador PLACSP conservan lotes; 399 lotes vinculados a 81 expedientes | `en curso` |

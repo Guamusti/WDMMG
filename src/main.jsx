@@ -20,8 +20,8 @@ const functionalPolicies = [
   { id: 'education', label: 'Educación', amount: 4065.96558990, color: '#466b8a' },
   { id: 'unemployment', label: 'Desempleo', amount: 17097.35425723, color: '#dcae42' },
   { id: 'benefits', label: 'Otras prestaciones', amount: 28883.24154409, color: '#b06b86' },
-  { id: 'debt', label: 'Deuda pública', amount: 145748.32908582, color: '#6d7a9d' },
-  { id: 'transfers', label: 'Transferencias a otras administraciones', amount: 70971.03025089, color: '#9b715c' }
+  { id: 'debt', label: 'Deuda pública', amount: 145748.32908582, color: '#6d7a9d', children: [{ label: 'Amortización de deuda', amount: 105859.0257655 }, { label: 'Amortización de préstamos', amount: 4823.11243088 }, { label: 'Intereses y gastos financieros', amount: 35066.19088944 }] },
+  { id: 'transfers', label: 'Transferencias a otras administraciones', amount: 70971.03025089, color: '#9b715c', children: [{ label: 'Comunidades autónomas', amount: 29802.41159084 }, { label: 'Entidades locales', amount: 26731.63219957 }, { label: 'Unión Europea', amount: 14425.98690987 }, { label: 'Otros', amount: 10.99955061 }] }
 ];
 const functionalTotal = 644186.15102535;
 
