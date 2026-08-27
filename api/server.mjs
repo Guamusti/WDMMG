@@ -464,10 +464,18 @@ const server = createServer(async (req, res) => {
     catch (error) { return json(res, 503, { error: 'geography_unavailable', detail: error.message, meta: { dataStatus: 'unavailable', source: 'IGN' } }); }
   }
   if (url.pathname === '/api/budgets') {
+    const query = (url.searchParams.get('q') || '').trim();
+    const level = (url.searchParams.get('level') || '').trim();
+    const page = Math.max(1, Number(url.searchParams.get('page') || 1));
+    const pageSize = Math.min(100, Math.max(1, Number(url.searchParams.get('pageSize') || 100)));
     try {
-      const result = await pool.query(`SELECT br.*, be.committed_amount, be.recognized_amount, be.paid_amount, be.raw_payload FROM budget_records br LEFT JOIN budget_execution be ON be.budget_record_id = br.id ORDER BY br.fiscal_year DESC, br.period DESC, br.id`);
-      return json(res, 200, { data: result.rows, meta: { total: result.rowCount, dataStatus: 'imported', backend: 'postgresql' } });
-    } catch (error) { return json(res, 200, { data: getExecution(), meta: { total: getExecution().length, dataStatus: getExecution().length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message } }); }
+      const result = await pool.query(`SELECT br.*, be.committed_amount, be.recognized_amount, be.paid_amount, be.raw_payload FROM budget_records br LEFT JOIN budget_execution be ON be.budget_record_id = br.id WHERE ($1 = '' OR br.economic_code ILIKE $2) AND ($3 = '' OR br.economic_level = $3) ORDER BY br.fiscal_year DESC, br.period DESC, br.id LIMIT $4 OFFSET $5`, [query, `%${query}%`, level, pageSize, (page - 1) * pageSize]);
+      return json(res, 200, { data: result.rows, meta: { page, pageSize, returned: result.rowCount, dataStatus: 'imported', backend: 'postgresql', filters: { q: query || null, level: level || null } } });
+    } catch (error) {
+      const all = getExecution().filter(row => (!level || (row.classification_level || '') === level) && (!query || String(row.classification_label || '').toLocaleLowerCase('es').includes(query.toLocaleLowerCase('es'))));
+      const data = all.slice((page - 1) * pageSize, page * pageSize);
+      return json(res, 200, { data, meta: { page, pageSize, returned: data.length, total: all.length, dataStatus: all.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'jsonl-fallback', warning: error.message, filters: { q: query || null, level: level || null } } });
+    }
   }
   if (url.pathname === '/api/contracts') {
     const query = (url.searchParams.get('q') || '').toLocaleLowerCase('es');

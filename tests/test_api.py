@@ -102,6 +102,13 @@ def test_public_dataset_endpoints_return_json(path):
     assert "data" in payload or "execution" in payload or "dataStatus" in payload
 
 
+def test_budget_endpoint_supports_level_and_text_filters():
+    status, payload = get_json("/api/budgets?level=chapter&q=personal&pageSize=2")
+    assert status == 200
+    assert payload["meta"]["filters"] == {"q": "personal", "level": "chapter"}
+    assert len(payload["data"]) <= 2
+
+
 def test_history_returns_compatible_igae_cuts():
     status, payload = get_json("/api/history")
     assert status == 200

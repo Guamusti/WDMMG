@@ -340,3 +340,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Flags de calidad por registro en PLACSP para IDs, fechas, importes y ejercicios; anomalías conservadas junto al raw y cubiertas por tests | `en curso` |
 | 27/08/2026 | Explorador INE ampliado a comunidades autónomas con suma oficial de población y número de municipios; mantiene separado el gasto 2026 por incompatibilidad temporal | `en curso` |
 | 27/08/2026 | API y UI de población verificadas contra el endpoint oficial del INE para municipio, provincia y comunidad; se evita calcular €/habitante con periodos incompatibles | `en curso` |
+| 27/08/2026 | `/api/budgets` añade filtros de nivel/texto y paginación, conservando el fallback JSONL y metadatos de filtros | `en curso` |
