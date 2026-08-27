@@ -17,3 +17,26 @@ export const universityOutcomeMetrics = {
   UPM: { performance: 67.23, dropout: 16.19, graduation: null },
   URJC: { performance: 80.08, dropout: 13.40, graduation: null }
 };
+
+// Referencia laboral por ámbito de estudio. No se atribuye como dato propio
+// de una titulación: QEDU/SIIU puede ofrecer el ámbito cuando falta el cruce
+// específico. La base de cotización no equivale a salario neto, medio o mediano.
+export const employmentByField = {
+  informatica: {
+    label: 'Informática',
+    affiliation4: 89.77,
+    indefinite4: 92.50,
+    universityGroup4: 69.40,
+    contributionBase4: 36772,
+    cohort: '2017–2018 · cuatro años después',
+    granularity: 'Ámbito de estudio · España',
+    source: 'Fundación CYD · datos SIIU',
+    sourceUrl: 'https://www.fundacioncyd.org/el-ranking-cyd-orienta-sobre-la-insercion-laboral-de-los-estudios-universitarios-y-el-precio-medio-del-credito-de-las-titulaciones/'
+  }
+};
+
+export function employmentForOffer(offer) {
+  const degree = String(offer?.degree || '').toLocaleLowerCase();
+  if (/informática|software|computadores|ciencia de datos|inteligencia artificial/.test(degree)) return employmentByField.informatica;
+  return null;
+}
