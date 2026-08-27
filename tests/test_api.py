@@ -96,7 +96,7 @@ def test_contract_rows_expose_adjudicatario_when_available():
 def test_community_geography_returns_simplified_official_boundaries():
     status, payload = get_json("/api/geography/communities")
     assert status == 200
-    assert payload["meta"]["dataStatus"] == "official_live_simplified"
+    assert payload["meta"]["dataStatus"] in {"official_live_simplified", "official_snapshot_simplified"}
     assert payload["meta"]["source"].startswith("IGN")
     assert payload["data"]
     assert {"id", "names", "coordinates"}.issubset(payload["data"][0])

@@ -324,6 +324,11 @@ function simplifyLine(points, tolerance = 0.04) {
 
 async function officialCommunityMap() {
   if (communityMapCache) return communityMapCache;
+  const snapshot = readJson(join(root, 'data', 'processed', 'geo', 'community-boundaries.json'));
+  if (snapshot?.data?.length) {
+    communityMapCache = { data: snapshot.data, meta: { dataStatus: 'official_snapshot_simplified', sourceUrl: snapshot.sourceUrl, source: `${snapshot.source} · snapshot versionado`, retrievedAt: snapshot.retrievedAt, geometry: 'límites entre comunidades autónomas simplificados en servidor', featureCount: snapshot.data.length } };
+    return communityMapCache;
+  }
   const sourceUrl = 'https://api-features.ign.es/collections/administrativeboundary/items?f=json&limit=50&filter-lang=cql-text&filter=nationallevelname%20%3D%20%27Comunidad%20aut%C3%B3noma%27';
   const response = await fetch(sourceUrl, { headers: { Accept: 'application/geo+json' }, signal: AbortSignal.timeout(20000) });
   if (!response.ok) throw new Error(`IGN respondió ${response.status}`);

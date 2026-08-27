@@ -293,3 +293,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Simulador ciudadano “Pon tu cifra”: convierte cualquier cantidad en euros por partida y enlaza cada fila con su desglose interactivo | `en curso` |
 | 27/08/2026 | Caché en memoria invalidable por `mtime` para JSONL/JSON de la API; reduce lecturas repetidas y conserva actualización automática de ficheros | `en curso` |
 | 27/08/2026 | Mapa territorial diferido: endpoint `/api/geography/communities` sirve límites CCAA oficiales IGN simplificados; 18,7 KB entregados al cliente y test de contrato añadido | `en curso` |
+| 27/08/2026 | Snapshot versionado de la geometría IGN: el mapa arranca desde `data/processed/geo/community-boundaries.json` y conserva fallback live si falta el recurso | `en curso` |
