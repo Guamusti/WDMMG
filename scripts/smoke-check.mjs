@@ -16,6 +16,8 @@ const page = await expectOk(`${frontend}/`, 'frontend');
 if (!(await page.text()).includes('/src/main.jsx')) throw new Error('frontend: Vite entrypoint missing');
 const proxiedMadrid = await (await expectOk(`${frontend}/api/offers?limit=1`, 'Vite API proxy')).json();
 if (proxiedMadrid.total !== expectedMadrid || !proxiedMadrid.data[0]?.sourceUrl) throw new Error('Vite API proxy: catalog contract missing');
+const enrichedOffer = await (await expectOk(`${frontend}/api/offers?q=antropología&limit=1`, 'RUCT enrichment')).json();
+if (!enrichedOffer.data[0]?.ructDegreeCode || !enrichedOffer.data[0]?.ructSourceUrl || !enrichedOffer.data[0]?.ructCenters?.length) throw new Error('RUCT enrichment: detail fields missing');
 await expectOk(`${api}/api/health`, 'health');
 
 const madrid = await (await expectOk(`${api}/api/offers?limit=1`, 'Madrid offers')).json();

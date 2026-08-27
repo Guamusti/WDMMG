@@ -5,6 +5,7 @@ import { dirname, resolve } from 'node:path';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dataPath = resolve(root, 'data/processed/admissions/madrid-2025-2026.json');
+const ructMatchesPath = resolve(root, 'data/processed/ruct/madrid-degree-matches.json');
 const nationalDataPath = resolve(root, 'data/processed/admissions/national-2025-2026.json');
 const nationalQualityPath = resolve(root, 'data/processed/admissions/national-2025-2026-quality.json');
 const sourceUrl = 'https://www.comunidad.madrid/docs/assets/2026/02/25/notas_de_corte_2025-26_publicacion_para_web.pdf?VersionId=TQubbLf9LLERJuuTNTnhd4CGSZZjgmUx';
@@ -28,10 +29,10 @@ function notModified(request, response, modified) {
   return false;
 }
 const cities = ['Alcalá de Henares','Aranjuez','Alcorcón','Boadilla del Monte','Colmenarejo','Fuenlabrada','Getafe','Guadalajara','Leganés','Madrid','Móstoles'];
-function normalize(row, index) {
+function normalize(row, index, ructMatch) {
   const degree = String(row.degree_name_source || '').replaceAll('�', '').replace(/\s+/g, ' ').trim();
   const city = cities.find(name => degree.endsWith(`(${name})`)) || 'Madrid';
-  return { id: `madrid-${row.university_ruct_code || 'unknown'}-${index + 1}`, university: universityByCode[row.university_ruct_code] || String(row.university_name_source || '').trim(), short: shortByCode[row.university_ruct_code], universityRuctCode: row.university_ruct_code, degree, campus: city, city, double: /\s-\s/.test(degree), branch: String(row.branch_name_source || '').replaceAll('�', '').trim() || 'Rama pendiente de RUCT', cutoff: row.cutoff_score, scaleMax: row.score_scale_max, ects: row.ects_source, durationYears: row.duration_years_source, academicYear: row.academic_year, sourcePage: row.source_page, source: 'Comunidad de Madrid · notas 2025–2026', sourceUrl };
+  return { id: `madrid-${row.university_ruct_code || 'unknown'}-${index + 1}`, university: universityByCode[row.university_ruct_code] || String(row.university_name_source || '').trim(), short: shortByCode[row.university_ruct_code], universityRuctCode: row.university_ruct_code, degree, campus: city, city, double: /\s-\s/.test(degree), branch: String(row.branch_name_source || '').replaceAll('�', '').trim() || 'Rama pendiente de RUCT', cutoff: row.cutoff_score, scaleMax: row.score_scale_max, ects: row.ects_source, durationYears: row.duration_years_source, academicYear: row.academic_year, admissionRound: row.admission_round, admissionGroup: row.admission_group, ructDegreeCode: ructMatch?.ruct_degree_code || null, ructDegreeName: ructMatch?.ruct_degree_name || null, ructSourceUrl: ructMatch?.ruct_source_url || null, ructField: ructMatch?.ruct_field || null, ructCenters: ructMatch?.ruct_centers || [], sourcePage: row.source_page, source: 'Comunidad de Madrid · notas 2025–2026', sourceUrl };
 }
 function normalizeNational(row) {
   return { id: row.id, community: row.community, university: row.university, universityRuctCode: row.university_ruct_code, degree: row.degree, branch: row.branch, field: row.field, ructDegreeCode: row.ruct_degree_code, centers: row.ruct_centers || [], campus: row.campus, city: row.campus, cutoff: row.cutoff_score, scaleMax: 14, academicYear: row.academic_year, admissionRound: row.admission_round, admissionGroup: row.admission_group, sourcePage: row.source_page, source: `Fuente oficial · ${row.community} · notas ${row.academic_year}`, sourceUrl: row.source_url };
@@ -50,9 +51,12 @@ const server = createServer(async (request, response) => {
     const url = new URL(request.url, 'http://localhost');
     const national = url.pathname === '/api/national-offers';
     const dataFile = national ? nationalDataPath : dataPath;
-    const modified = (await stat(dataFile)).mtimeMs;
+    const modifiedFiles = await Promise.all([stat(dataFile), ...(national ? [] : [stat(ructMatchesPath)])]);
+    const modified = Math.max(...modifiedFiles.map(file => file.mtimeMs));
     if (notModified(request, response, modified)) return;
-    const rows = (await readJsonCached(dataFile)).map(national ? normalizeNational : normalize);
+    const ructMatches = national ? [] : await readJsonCached(ructMatchesPath);
+    const ructByAdmissionId = new Map(ructMatches.map(match => [match.admission_id, match]));
+    const rows = (await readJsonCached(dataFile)).map((row, index) => national ? normalizeNational(row) : normalize(row, index, ructByAdmissionId.get(`madrid:${index + 1}`)));
     const q = (url.searchParams.get('q') || '').toLocaleLowerCase();
     const university = url.searchParams.get('university');
     const branch = url.searchParams.get('branch');

@@ -60,6 +60,7 @@ Las rutas actuales del MVP son `/oferta/<id>`, `/universidad/<sigla>` y `/grado/
 - [x] Proxy Vite mismo-origen para `/api/*`, con el puerto de API heredado por el único proceso frontend del launcher.
 - [x] Endpoint nacional separado (`/api/national-offers`) y cobertura agregada (`/api/coverage`) con filtro por comunidad y procedencia preservada.
 - [x] Explorador conectado a la API con fallback local para preservar el arranque si el servicio no está disponible.
+- [x] La API conserva el enriquecimiento RUCT de cada oferta (título, campo, centros y ficha oficial) al servir el catálogo del frontend.
 - [x] Caché de JSON de la API invalidada por `mtime`, manteniendo disponibles las actualizaciones del catálogo sin lecturas repetidas.
 - [x] Validación HTTP con ETag/304 y `Cache-Control` para no retransmitir catálogos sin cambios.
 
