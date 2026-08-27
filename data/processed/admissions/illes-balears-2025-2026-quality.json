@@ -1,0 +1,27 @@
+{
+  "source_url": "https://estudis.uib.es/es/estudis-de-grau/com-hi-pots-accedir/admissio/notes-de-tall",
+  "academic_year": "2025-2026",
+  "records": 296,
+  "rejected_pages": 2,
+  "duplicates": 0,
+  "scope": "PAU y Ciclos Formativos · processes marked JUN/EXT",
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "round_explicit": true,
+    "general_group_explicit": true,
+    "no_replacement_glyph_in_names": true,
+    "no_duplicate_keys": true
+  },
+  "rejections": [
+    {
+      "url": "https://estudis.uib.es/es/estudis-de-grau/grau/mar/GMAR-P/notesTallPla.html",
+      "reason": "NO_2025_26_GENERAL_SECTION",
+      "degree": "Grado en Ciencias de la Mar"
+    },
+    {
+      "url": "https://estudis.uib.es/es/estudis-de-grau/grau/matematiques-fisica/GMIF-P/notesTallPla.html",
+      "reason": "NO_2025_26_GENERAL_SECTION",
+      "degree": "Doble titulación: grado en Matemáticas i grado en Física"
+    }
+  ]
+}

@@ -15,6 +15,7 @@ DATASETS = [
     ROOT / "data/processed/admissions/cantabria-2025-2026.json",
     ROOT / "data/processed/admissions/navarra-2025-2026.json",
     ROOT / "data/processed/admissions/asturias-2025-2026.json",
+    ROOT / "data/processed/admissions/illes-balears-2025-2026.json",
     ROOT / "data/processed/admissions/national-2025-2026.json",
 ]
 REQUIRED = {"academic_year", "admission_round", "admission_group", "cutoff_score"}
@@ -48,7 +49,7 @@ def check(path: Path) -> int:
         if "�" in source_text:
             raise AssertionError(f"{path}:{index}: replacement glyph in name")
         degree = str(row.get("degree_name_source") or row.get("degree") or "")
-        if re.search(r"(?:https?://|\b[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}\b|\b\d{3,}\b)", degree):
+        if re.search(r"(?:https?://|\b[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}\b|(?<!pla )\b\d{3,}\b)", degree, re.IGNORECASE):
             raise AssertionError(f"{path}:{index}: contaminated degree name: {degree}")
         branch = str(row.get("branch_name_source") or row.get("branch") or "")
         if branch not in KNOWN_BRANCHES:

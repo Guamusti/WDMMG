@@ -68,11 +68,19 @@ etl/admissions/asturias/parse_asturias.py` genera el extracto de 2025-2026.
 Se cargan 68 ofertas de la primera fase de julio, con cupo general y plazas;
 la tabla no publica rama ni centro normalizados.
 
+## Illes Balears
+
+`python etl/admissions/illes-balears/download_uib.py` conserva el índice y las
+páginas oficiales por titulación de la UIB y `python
+etl/admissions/illes-balears/parse_uib.py` genera el extracto de 2025-2026.
+Se carga exclusivamente la vía PAU/CFGS y se conservan los procesos JUN/EXT,
+grupo, lista de espera y fecha de publicación.
+
 ## Catálogo nacional de trabajo
 
 `python etl/admissions/build_national_catalog.py` reúne los extractos
 procesados de Madrid, Galicia, Aragón, Cataluña, Andalucía, Castilla y León,
-Cantabria, Navarra y Asturias en
+Cantabria, Navarra, Asturias e Illes Balears en
 `data/processed/admissions/`.
 Conserva la procedencia regional y genera un informe de comparabilidad; no
 rellena ramas, RUCT ni métricas que una fuente no publique.

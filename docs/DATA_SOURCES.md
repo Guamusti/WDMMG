@@ -68,7 +68,7 @@
 
 ## Catálogo nacional de trabajo
 
-- `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de nueve comunidades: Madrid (458), Galicia (333), Aragón (73), Cataluña (549), Andalucía (581), Castilla y León (122), Cantabria (37), Navarra (41) y Asturias (68).
+- `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de diez comunidades: Madrid (458), Galicia (333), Aragón (73), Cataluña (549), Andalucía (581), Castilla y León (122), Cantabria (37), Navarra (41), Asturias (68) e Illes Balears (296).
 - `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial y la de campo RUCT también, por lo que el catálogo no se presenta como ranking nacional único.
 
 ## Notas de corte — Navarra
@@ -84,6 +84,13 @@
 - Fuente primaria alojada en el dominio institucional: [notas de acceso de julio de 2025](https://torres.epv.uniovi.es/centon/notas-acceso-oviedo-25.html).
 - Extracto: primera fase de julio del curso 2025–2026, 68 ofertas, cupo general y plazas publicadas.
 - La tabla no ofrece rama ni centro normalizados; esos campos quedan ausentes y el campus se conserva como Oviedo salvo la sede indicada en el nombre.
+
+## Notas de corte — Illes Balears
+
+- Organismo: Universitat de les Illes Balears.
+- Fuente primaria: [UIB, notas de corte](https://estudis.uib.es/estudis-de-grau/com-hi-pots-accedir/admissio/notes-de-tall).
+- Extracto: páginas oficiales por titulación, vía PAU y Ciclos Formativos, con procesos `JUN` y `EXT` del curso 2025–2026.
+- Se conservan 296 observaciones, grupo publicado, posición de lista de espera, proceso y fecha. La fuente no publica rama RUCT ni centro normalizados en esta tabla.
 
 ## SIIU / estadísticas universitarias
 
