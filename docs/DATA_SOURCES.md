@@ -78,6 +78,11 @@
 - Publicación de referencia: “Notas de admisión para el curso 2025-2026”.
 - Estado: el PDF original se conserva en `data/raw/admissions/pais-vasco/2025-2026/ehu-notas-2025-2026.pdf`, pero es un escaneado sin capa de texto; los extractores estructurados no devuelven filas y no se incorpora al catálogo hasta disponer de OCR revisado o una fuente tabular equivalente.
 
+## Inserción laboral — límite de granularidad
+
+- La tabla oficial de base media de cotización del SIIU está publicada por tipo/modalidad de universidad, campo de estudio, sexo, años desde el egreso e indicador; no ofrece en este corte un código de titulación individual para cruzarlo de forma segura con cada oferta: https://estadisticas.universidades.gob.es/jaxiPx/Tabla.htm?L=0&file=Base_cotizacion_Sexo_Campo_Grado_Total.px&path=%2FUniversitaria%2FInsercion_laboral%2F2024%2FGRADO%2FCAP6_BMC%2F%2Fl0%2F&type=pcaxis
+- Por eso la interfaz muestra afiliación y base de cotización como referencia del campo cuando existe, y mantiene salario medio/mediano y resultados específicos de carrera como `No disponible` hasta disponer de una dimensión compatible.
+
 ## Notas de corte — Navarra
 
 - Organismo: Universidad Pública de Navarra.
