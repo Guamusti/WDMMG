@@ -232,6 +232,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Drill-down ciudadano ampliado: Pensiones, Deuda pública y Transferencias con subpartidas publicadas por IGAE | `en curso` |
 | 27/08/2026 | Rueda interactiva como visual principal del reparto funcional | `en curso` |
 | 27/08/2026 | Porcentajes de partidas ampliados como lectura visual principal, también en el drill-down | `en curso` |
+| 27/08/2026 | La portada arranca con Pensiones seleccionada (32,1%) y el detalle es accesible con `aria-live` | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |
 | 27/08/2026 | Parser y cargador PLACSP conservan lotes; 399 lotes vinculados a 81 expedientes | `en curso` |
