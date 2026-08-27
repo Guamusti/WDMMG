@@ -121,6 +121,8 @@ def test_population_endpoint_returns_official_municipal_result():
 def test_contract_rows_expose_adjudicatario_when_available():
     status, payload = get_json("/api/contracts?pageSize=2")
     assert status == 200
+    ids = [row["procurement_id"] for row in payload["data"]]
+    assert len(ids) == len(set(ids))
     assert isinstance(payload["data"], list)
     for row in payload["data"]:
         assert "winner_name" in row

@@ -158,7 +158,7 @@ async function databaseContracts(query, page, pageSize) {
       ca.award_amount, ca.award_amount_with_tax
     FROM contracts c
     LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id
-    LEFT JOIN contract_awards ca ON ca.contract_id = c.id
+    LEFT JOIN LATERAL (SELECT ca.* FROM contract_awards ca WHERE ca.contract_id = c.id ORDER BY ca.award_amount DESC NULLS LAST, ca.id LIMIT 1) ca ON TRUE
     LEFT JOIN recipient_entities re ON re.id = ca.winner_entity_id
     WHERE ($1 = '' OR c.title ILIKE $2 OR c.procurement_id ILIKE $2 OR pe.name ILIKE $2 OR re.name ILIKE $2)
     ORDER BY c.publication_date DESC NULLS LAST, c.id DESC LIMIT $3 OFFSET $4`, [query, search, pageSize, offset]);
