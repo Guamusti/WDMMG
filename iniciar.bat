@@ -25,8 +25,9 @@ echo API local en http://127.0.0.1:%APIPORT% %API_REUSED%
 if not defined API_REUSED powershell -NoProfile -Command "$apiArgs = '/c set ATLAS_API_PORT=%APIPORT%&& npm run api'; Start-Process -FilePath 'cmd.exe' -ArgumentList $apiArgs -WorkingDirectory '%~dp0' -WindowStyle Hidden -RedirectStandardOutput '%~dp0api.log' -RedirectStandardError '%~dp0api-error.log'"
 
 set "FRONTEND_REUSED="
-for /f %%P in ('powershell -NoProfile -Command "$root=(Get-Location).Path; Get-CimInstance Win32_Process | Where-Object { $_.Name -eq 'node.exe' -and $_.CommandLine -like ('*' + $root + '*vite*') } | ForEach-Object { if ($_.CommandLine -match '--port[= ](\d+)') { $matches[1] } } | Select-Object -First 1"') do set "PORT=%%P"
-if not defined PORT for /f %%P in ('powershell -NoProfile -Command "$f='.atlas-frontend-port'; if (Test-Path $f) { try { $p=(Get-Content -Raw $f).Trim(); $r=Invoke-WebRequest -UseBasicParsing -Uri ('http://127.0.0.1:'+ $p +'/') -TimeoutSec 1; if ($r.StatusCode -eq 200) { $p } } catch {} }"') do set "PORT=%%P"
+rem Primero reutilizamos el puerto persistido por este proyecto. La inspeccion
+rem de procesos de Windows no es fiable con npm/node y podia lanzar otro Vite.
+for /f %%P in ('powershell -NoProfile -Command "$f='.atlas-frontend-port'; if (Test-Path $f) { try { $p=[int](Get-Content -Raw $f).Trim(); $r=Invoke-WebRequest -UseBasicParsing -Uri ('http://127.0.0.1:'+ $p +'/') -TimeoutSec 1; if ($r.StatusCode -eq 200 -and $r.Content -match 'Atlas Universitario') { $p } } catch {} }"') do set "PORT=%%P"
 if defined PORT set "FRONTEND_REUSED=1"
 if not defined PORT for /f %%P in ('powershell -NoProfile -Command "$p=5173; while (Get-NetTCPConnection -LocalPort $p -State Listen -ErrorAction SilentlyContinue) { $p++ }; $p"') do set "PORT=%%P"
 >".atlas-frontend-port" echo %PORT%
