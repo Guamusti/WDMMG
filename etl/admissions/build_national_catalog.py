@@ -10,6 +10,7 @@ MADRID = ROOT / "data/processed/admissions/madrid-2025-2026.json"
 GALICIA = ROOT / "data/processed/admissions/galicia-2025-2026.json"
 ARAGON = ROOT / "data/processed/admissions/aragon-2025-2026.json"
 CATALUNA = ROOT / "data/processed/admissions/cataluna-2025-2026.json"
+RUCT_MATCHES = ROOT / "data/processed/ruct/madrid-degree-matches.json"
 OUTPUT = ROOT / "data/processed/admissions/national-2025-2026.json"
 REPORT = ROOT / "data/processed/admissions/national-2025-2026-quality.json"
 
@@ -20,7 +21,10 @@ def load(path: Path) -> list[dict]:
 
 def build() -> tuple[list[dict], dict]:
     rows: list[dict] = []
+    ruct_matches = {row["admission_id"]: row for row in load(RUCT_MATCHES)} if RUCT_MATCHES.exists() else {}
     for index, source in enumerate(load(MADRID), 1):
+        ruct = ruct_matches.get(f"madrid:{index}", {})
+        centers = ruct.get("ruct_centers") or []
         rows.append({
             "id": f"madrid:{index}",
             "community": "Comunidad de Madrid",
@@ -28,7 +32,10 @@ def build() -> tuple[list[dict], dict]:
             "university_ruct_code": source["university_ruct_code"],
             "campus": None,
             "degree": source["degree_name_source"],
-            "branch": source.get("branch_name_source") or None,
+            "branch": source.get("branch_name_source") or ruct.get("ruct_branch") or None,
+            "field": ruct.get("ruct_field") or None,
+            "ruct_degree_code": ruct.get("ruct_degree_code") or None,
+            "ruct_centers": centers,
             "academic_year": source["academic_year"],
             "admission_round": source["admission_round"],
             "admission_group": source["admission_group"],
@@ -47,6 +54,9 @@ def build() -> tuple[list[dict], dict]:
                 "campus": source.get("campus"),
                 "degree": source["degree"],
                 "branch": None,
+                "field": None,
+                "ruct_degree_code": None,
+                "ruct_centers": [],
                 "academic_year": source["academic_year"],
                 "admission_round": source["admission_round"],
                 "admission_group": source["admission_group"],
@@ -66,6 +76,7 @@ def build() -> tuple[list[dict], dict]:
             "same_scale_0_14": all(0 <= r["cutoff_score"] <= 14 for r in rows),
             "round_and_group_present": all(r["admission_round"] and r["admission_group"] for r in rows),
             "branch_coverage": sum(bool(r["branch"]) for r in rows),
+            "field_coverage": sum(bool(r["field"]) for r in rows),
         },
     }
     return rows, report

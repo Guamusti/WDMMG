@@ -17,6 +17,7 @@
     "same_academic_year": true,
     "same_scale_0_14": true,
     "round_and_group_present": true,
-    "branch_coverage": 398
+    "branch_coverage": 417,
+    "field_coverage": 322
   }
 }

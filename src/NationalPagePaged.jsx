@@ -3,24 +3,88 @@ import { ArrowUpDown, ExternalLink } from 'lucide-react';
 import { CircleMarker, MapContainer, TileLayer, Tooltip } from 'react-leaflet';
 
 const ALL = 'Todas las comunidades';
-const coordinates = { 'Campus de Ourense': [42.336, -7.864], 'Campus de Pontevedra': [42.431, -8.644], 'Campus de Vigo': [42.240, -8.720], 'Campus de Santiago': [42.878, -8.544], 'Campus de Lugo': [43.012, -7.556], 'Campus da Coruña': [43.362, -8.411], 'Campus de Ferrol': [43.489, -8.219], Zaragoza: [41.649, -0.889], Huesca: [42.136, -0.408], Teruel: [40.345, -1.106], 'La Almunia': [41.476, -1.375] };
+const ALL_FIELDS = 'Todos los campos RUCT';
+const coordinates = {
+  'Campus de Ourense': [42.336, -7.864], 'Campus de Pontevedra': [42.431, -8.644],
+  'Campus de Vigo': [42.240, -8.720], 'Campus de Santiago': [42.878, -8.544],
+  'Campus de Lugo': [43.012, -7.556], 'Campus da Coruña': [43.362, -8.411],
+  'Campus de Ferrol': [43.489, -8.219], Zaragoza: [41.649, -0.889],
+  Huesca: [42.136, -0.408], Teruel: [40.345, -1.106], 'La Almunia': [41.476, -1.375],
+};
 const number = value => Number(String(value).replace(',', '.'));
 const format = value => Number(value).toFixed(3).replace('.', ',');
-const percentile = (value, rows) => { const valid = rows.filter(row => Number.isFinite(row.cutoff)); return valid.length ? Math.round(((valid.filter(row => row.cutoff <= value).length - .5) / valid.length) * 100) : null; };
+const percentile = (value, rows) => {
+  const valid = rows.filter(row => Number.isFinite(row.cutoff));
+  return valid.length ? Math.round(((valid.filter(row => row.cutoff <= value).length - 0.5) / valid.length) * 100) : null;
+};
 const scopedPercentiles = (row, rows) => ({
   national: percentile(row.cutoff, rows),
   community: percentile(row.cutoff, rows.filter(candidate => candidate.community === row.community)),
   branch: row.branch ? percentile(row.cutoff, rows.filter(candidate => candidate.branch === row.branch)) : null,
+  field: row.field ? percentile(row.cutoff, rows.filter(candidate => candidate.field === row.field)) : null,
 });
 
 export default function NationalPagePaged({ onBack }) {
-  const [rows, setRows] = useState([]); const [query, setQuery] = useState(''); const [community, setCommunity] = useState(ALL); const [draftScore, setDraftScore] = useState(''); const [draftTolerance, setDraftTolerance] = useState('0'); const [applied, setApplied] = useState({ query: '', community: ALL, score: '', tolerance: '0' }); const [sort, setSort] = useState('cutoff'); const [page, setPage] = useState(1); const [error, setError] = useState('');
-  useEffect(() => { fetch('/api-port.json?ts=' + Date.now()).then(response => response.ok ? response.json() : { port: 8787 }).catch(() => ({ port: 8787 })).then(config => fetch(`http://127.0.0.1:${config.port || 8787}/api/national-offers?limit=5000`)).then(response => response.ok ? response.json() : Promise.reject(new Error('No se pudo cargar el catálogo nacional'))).then(payload => setRows(payload.data || [])).catch(reason => setError(reason.message)); }, []);
+  const [rows, setRows] = useState([]);
+  const [query, setQuery] = useState('');
+  const [community, setCommunity] = useState(ALL);
+  const [field, setField] = useState(ALL_FIELDS);
+  const [draftScore, setDraftScore] = useState('');
+  const [draftTolerance, setDraftTolerance] = useState('0');
+  const [applied, setApplied] = useState({ query: '', community: ALL, field: ALL_FIELDS, score: '', tolerance: '0' });
+  const [sort, setSort] = useState('cutoff');
+  const [page, setPage] = useState(1);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetch('/api-port.json?ts=' + Date.now())
+      .then(response => response.ok ? response.json() : { port: 8787 })
+      .catch(() => ({ port: 8787 }))
+      .then(config => fetch(`http://127.0.0.1:${config.port || 8787}/api/national-offers?limit=5000`))
+      .then(response => response.ok ? response.json() : Promise.reject(new Error('No se pudo cargar el catálogo nacional')))
+      .then(payload => setRows(payload.data || []))
+      .catch(reason => setError(reason.message));
+  }, []);
+
   const communities = [ALL, ...new Set(rows.map(row => row.community).filter(Boolean))];
-  const filters = [applied.query, applied.community !== ALL, applied.score].filter(Boolean).length;
-  const filtered = useMemo(() => { const value = number(applied.score); return rows.filter(row => (!applied.query || `${row.degree} ${row.university} ${row.campus || ''}`.toLocaleLowerCase().includes(applied.query.toLocaleLowerCase())) && (applied.community === ALL || row.community === applied.community) && (!applied.score || (Number.isFinite(value) && row.cutoff <= value + Number(applied.tolerance)))).sort((a, b) => sort === 'name' ? a.degree.localeCompare(b.degree) : b.cutoff - a.cutoff); }, [rows, applied, sort]);
-  const pageCount = Math.max(1, Math.ceil(filtered.length / 50)); const visible = filtered.slice((page - 1) * 50, page * 50);
-  const apply = () => { setApplied({ query, community, score: draftScore, tolerance: draftTolerance }); setPage(1); };
-  const points = [...new Set(rows.map(row => row.campus).filter(campus => coordinates[campus]))].map(campus => ({ campus, position: coordinates[campus], count: rows.filter(row => row.campus === campus).length }));
-  return <div className="app national-page"><header className="topbar"><button className="route-back" onClick={onBack}>← Volver al Atlas</button><div className="brand"><span className="brand-mark">A</span><span>ATLAS <i>UNIVERSITARIO</i></span></div><div className="year">ESPAÑA · 2025—26</div></header><main><div className="route-kicker">EXPLORADOR NACIONAL · DATOS PROCESADOS</div><h1 className="route-title">¿Qué puedes estudiar en España?</h1><p className="route-subtitle">{rows.length || '…'} observaciones oficiales en {communities.length > 1 ? communities.length - 1 : '…'} comunidades, con fuente y convocatoria conservadas.</p><div className="national-map-card"><div className="national-map-heading"><div><div className="eyebrow">MAPA NACIONAL</div><strong>Campus con notas procesadas</strong></div><small>Ubicación orientativa · no es el centro RUCT exacto</small></div><MapContainer center={[41.8, -2.5]} zoom={6} scrollWheelZoom={false} className="national-map"><TileLayer attribution='&copy; OpenStreetMap' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />{points.map(point => <CircleMarker key={point.campus} center={point.position} radius={7} pathOptions={{ color: '#9b4e3e', fillColor: '#d16c52', fillOpacity: .9 }}><Tooltip><strong>{point.campus}</strong><br />{point.count} ofertas</Tooltip></CircleMarker>)}</MapContainer></div><div className="national-controls"><label>Buscar carrera o universidad<input value={query} onChange={event => setQuery(event.target.value)} placeholder="Informática, Zaragoza…" /></label><label>Comunidad<select value={community} onChange={event => setCommunity(event.target.value)}>{communities.map(option => <option key={option}>{option}</option>)}</select></label><label>Tu nota<input inputMode="decimal" value={draftScore} onChange={event => setDraftScore(event.target.value)} placeholder="12,40" /></label><label>Tolerancia<select value={draftTolerance} onChange={event => setDraftTolerance(event.target.value)}><option value="0">Sin tolerancia</option><option value="0.1">+0,1</option><option value="0.2">+0,2</option><option value="0.3">+0,3</option><option value="0.5">+0,5</option></select></label><button className="apply-filters" onClick={apply}>Aplicar {filters} filtros</button><button className="sort" onClick={() => setSort(sort === 'cutoff' ? 'name' : 'cutoff')}><ArrowUpDown size={15} /> {sort === 'cutoff' ? 'Ordenar por nota' : 'Ordenar por nombre'}</button></div>{error ? <div className="national-empty"><strong>{error}</strong><p>Comprueba que has iniciado el proyecto con <code>iniciar.bat</code>.</p></div> : <><div className="national-summary"><strong>{filtered.length}</strong> resultados · página {page} de {pageCount}{applied.score && ` · hasta ${format(number(applied.score) + Number(applied.tolerance))}`}</div><div className="national-table-wrap"><table><thead><tr><th>CARRERA</th><th>UNIVERSIDAD · CAMPUS</th><th>COMUNIDAD</th><th>NOTA</th><th>PERCENTILES</th><th>FUENTE</th></tr></thead><tbody>{visible.map(row => { const scores = scopedPercentiles(row, rows); return <tr key={row.id}><td><strong>{row.degree}</strong></td><td>{row.university}<small>{row.campus || 'Campus no publicado'}</small></td><td>{row.community}</td><td><b>{format(row.cutoff)}</b><small>/ 14 · {row.admissionRound === 'ordinary' ? 'ordinaria' : 'extraordinaria'}</small></td><td className="national-percentiles"><b>{scores.national === null ? '—' : `${scores.national}º`}</b><small>Nacional · {scores.community === null ? '—' : `${scores.community}º`} comunidad</small><small>{row.branch ? `Rama · ${scores.branch}º` : 'Rama no publicada'}</small></td><td><a href={row.sourceUrl} target="_blank" rel="noreferrer">Publicación oficial <ExternalLink size={13} /></a></td></tr>; })}</tbody></table></div><div className="national-pagination"><button className="sort" disabled={page === 1} onClick={() => setPage(current => current - 1)}>Anterior</button><span>Página {page} de {pageCount}</span><button className="sort" disabled={page >= pageCount} onClick={() => setPage(current => current + 1)}>Siguiente</button></div></>}</main></div>;
+  const fields = [ALL_FIELDS, ...new Set(rows.map(row => row.field).filter(Boolean))];
+  const filters = [applied.query, applied.community !== ALL, applied.field !== ALL_FIELDS, applied.score].filter(Boolean).length;
+  const filtered = useMemo(() => {
+    const value = number(applied.score);
+    return rows
+      .filter(row => (!applied.query || `${row.degree} ${row.university} ${row.campus || ''}`.toLocaleLowerCase().includes(applied.query.toLocaleLowerCase()))
+        && (applied.community === ALL || row.community === applied.community)
+        && (applied.field === ALL_FIELDS || row.field === applied.field)
+        && (!applied.score || (Number.isFinite(value) && row.cutoff <= value + Number(applied.tolerance))))
+      .sort((a, b) => sort === 'name' ? a.degree.localeCompare(b.degree) : b.cutoff - a.cutoff);
+  }, [rows, applied, sort]);
+  const pageCount = Math.max(1, Math.ceil(filtered.length / 50));
+  const visible = filtered.slice((page - 1) * 50, page * 50);
+  const apply = () => { setApplied({ query, community, field, score: draftScore, tolerance: draftTolerance }); setPage(1); };
+  const points = [...new Set(rows.map(row => row.campus).filter(campus => coordinates[campus]))]
+    .map(campus => ({ campus, position: coordinates[campus], count: rows.filter(row => row.campus === campus).length }));
+
+  return <div className="app national-page">
+    <header className="topbar"><button className="route-back" onClick={onBack}>← Volver al Atlas</button><div className="brand"><span className="brand-mark">A</span><span>ATLAS <i>UNIVERSITARIO</i></span></div><div className="year">ESPAÑA · 2025—26</div></header>
+    <main>
+      <div className="route-kicker">EXPLORADOR NACIONAL · DATOS PROCESADOS</div>
+      <h1 className="route-title">¿Qué puedes estudiar en España?</h1>
+      <p className="route-subtitle">{rows.length || '…'} observaciones oficiales en {communities.length > 1 ? communities.length - 1 : '…'} comunidades, con fuente y convocatoria conservadas.</p>
+      <div className="national-map-card"><div className="national-map-heading"><div><div className="eyebrow">MAPA NACIONAL</div><strong>Campus con notas procesadas</strong></div><small>Ubicación orientativa · no es el centro RUCT exacto</small></div><MapContainer center={[41.8, -2.5]} zoom={6} scrollWheelZoom={false} className="national-map"><TileLayer attribution="&copy; OpenStreetMap" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />{points.map(point => <CircleMarker key={point.campus} center={point.position} radius={7} pathOptions={{ color: '#9b4e3e', fillColor: '#d16c52', fillOpacity: .9 }}><Tooltip><strong>{point.campus}</strong><br />{point.count} ofertas</Tooltip></CircleMarker>)}</MapContainer></div>
+      <div className="national-controls">
+        <label>Buscar carrera o universidad<input value={query} onChange={event => setQuery(event.target.value)} placeholder="Informática, Zaragoza…" /></label>
+        <label>Comunidad<select value={community} onChange={event => setCommunity(event.target.value)}>{communities.map(option => <option key={option}>{option}</option>)}</select></label>
+        <label>Campo RUCT<select value={field} onChange={event => setField(event.target.value)}>{fields.map(option => <option key={option}>{option}</option>)}</select></label>
+        <label>Tu nota<input inputMode="decimal" value={draftScore} onChange={event => setDraftScore(event.target.value)} placeholder="12,40" /></label>
+        <label>Tolerancia<select value={draftTolerance} onChange={event => setDraftTolerance(event.target.value)}><option value="0">Sin tolerancia</option><option value="0.1">+0,1</option><option value="0.2">+0,2</option><option value="0.3">+0,3</option><option value="0.5">+0,5</option></select></label>
+        <button className="apply-filters" onClick={apply}>Aplicar {filters} filtros</button>
+        <button className="sort" onClick={() => setSort(sort === 'cutoff' ? 'name' : 'cutoff')}><ArrowUpDown size={15} /> {sort === 'cutoff' ? 'Ordenar por nota' : 'Ordenar por nombre'}</button>
+      </div>
+      {error ? <div className="national-empty"><strong>{error}</strong><p>Comprueba que has iniciado el proyecto con <code>iniciar.bat</code>.</p></div> : <>
+        <div className="national-summary"><strong>{filtered.length}</strong> resultados · página {page} de {pageCount}{applied.score && ` · hasta ${format(number(applied.score) + Number(applied.tolerance))}`}</div>
+        <div className="national-table-wrap"><table><thead><tr><th>CARRERA</th><th>UNIVERSIDAD · CAMPUS</th><th>COMUNIDAD</th><th>NOTA</th><th>PERCENTILES</th><th>FUENTE</th></tr></thead><tbody>{visible.map(row => { const scores = scopedPercentiles(row, rows); return <tr key={row.id}><td><strong>{row.degree}</strong></td><td>{row.university}<small>{row.campus || 'Campus no publicado'}</small></td><td>{row.community}</td><td><b>{format(row.cutoff)}</b><small>/ 14 · {row.admissionRound === 'ordinary' ? 'ordinaria' : 'extraordinaria'}</small></td><td><b>{scores.national === null ? '—' : `${scores.national}º`}</b><small>Nacional · {scores.community === null ? '—' : `${scores.community}º`} comunidad</small><small>{row.branch ? `Rama · ${scores.branch}º` : 'Rama no publicada'}</small><small>{row.field ? `Campo · ${scores.field}º` : 'Campo no publicado'}</small></td><td><a href={row.sourceUrl} target="_blank" rel="noreferrer">Publicación oficial <ExternalLink size={13} /></a></td></tr>; })}</tbody></table></div>
+        <div className="national-pagination"><button className="sort" disabled={page === 1} onClick={() => setPage(current => current - 1)}>Anterior</button><span>Página {page} de {pageCount}</span><button className="sort" disabled={page >= pageCount} onClick={() => setPage(current => current + 1)}>Siguiente</button></div>
+      </>}
+    </main>
+  </div>;
 }
