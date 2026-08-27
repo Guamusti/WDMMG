@@ -60,6 +60,8 @@ La ficha de empresa incluye además el listado de organismos contratantes detect
 
 La tabla de contratación también muestra ahora el adjudicatario publicado y la vista de empresas permite descargar el resultado filtrado en CSV.
 
+La portada incorpora tres historias breves: peso de pensiones, peso de deuda y mayor gasto reconocido en la muestra autonómica. Cada una enlaza con su contexto y declara periodo y limitaciones.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.

@@ -270,3 +270,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Buscador global ampliado a empresas: resultados directos a fichas de adjudicatarios mediante URL compartible | `en curso` |
 | 27/08/2026 | Ficha de empresa ampliada con el listado de organismos públicos vinculados a sus contratos publicados | `en curso` |
 | 27/08/2026 | Contratos muestran adjudicatario y NIF cuando están disponibles; empresas incorporan exportación CSV filtrable | `en curso` |
+| 27/08/2026 | Portada incorpora tres historias descriptivas con cifras grandes, periodo, denominador y enlaces al desglose territorial o funcional | `en curso` |
