@@ -146,7 +146,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 Referencia MD: secciones 9, 11, 12, 24, 25, 32, 35, 50 y 51.
 
 - [~] Incorporar presupuestos y ejecución de CCAA; muestra mensual de 17 comunidades normalizada, falta carga completa.
-- [ ] Incorporar presupuestos, ejecución y liquidación local.
+- [~] Incorporar presupuestos, ejecución y liquidación local; fuente Access 2026 localizada y descargada, parser pendiente.
 - [ ] Incorporar inventario de entidades públicas y jerarquías.
 - [ ] Incorporar geografía, códigos territoriales y población INE.
 - [ ] Añadir CCAA, provincias y municipios a filtros y páginas.
@@ -243,6 +243,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Matriz de cobertura efectiva: AGE, gasto funcional, PLACSP, BDNS, CCAA, local, entidades e INE | `en curso` |
 | 27/08/2026 | Primera vista territorial conectada: 17 CCAA + total, gasto no financiero acumulado mayo 2026 y estado avance | `en curso` |
 | 27/08/2026 | Filtro territorial accesible para consultar todas las CCAA o una comunidad sin mezclarla con AGE | `en curso` |
+| 27/08/2026 | Fuente local CONPREL validada: ZIP Access 2026 descargable, hash registrado y parser pendiente | `en curso` |
 | 27/08/2026 | La portada arranca con Pensiones seleccionada (32,1%) y el detalle es accesible con `aria-live` | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |

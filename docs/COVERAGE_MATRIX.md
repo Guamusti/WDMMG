@@ -9,7 +9,7 @@ Fecha de revisión: 27/08/2026. “Disponible” significa que existe una public
 | Contratos del sector público | PLACSP, sindicaciones abiertas | Continua / incremental | **Cargado**: 382 contratos canónicos | Expediente, órgano, lotes, importes y fuente |
 | Convocatorias de ayudas | BDNS / SNPSAP | Continua | **Cargado**: 1 convocatoria de muestra | Convocatoria independiente del presupuesto |
 | Comunidades autónomas | Central de Información de Hacienda | Variable | **Disponible, no cargado** | Sin cifras hasta disponer de descarga normalizada |
-| Entidades locales | Portal de Hacienda | Trimestral / anual según conjunto | **Disponible, no cargado** | Sin cifras hasta validar periodo y liquidación |
+| Entidades locales | Portal de Hacienda / CONPREL | Trimestral / anual según conjunto | **Descarga validada, no cargado** | Sin cifras hasta identificar tablas Access, periodo y claves |
 | Entidades públicas y jerarquía | Inventario de entes públicos | Según publicación | **Localizado, no cargado** | Pendiente de IDs estables y relaciones |
 | Población y geografía | INE | Anual | **Localizado, no cargado** | Pendiente de códigos territoriales compatibles |
 
