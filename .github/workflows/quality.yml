@@ -13,6 +13,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: python etl/quality_check.py
       - run: npm ci
+      - run: python etl/shared/quality_report.py
+      - run: python etl/quality_check.py
       - run: npm run build
