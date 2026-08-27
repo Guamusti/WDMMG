@@ -13,6 +13,8 @@ DATASETS = [
 ]
 REQUIRED = {"academic_year", "admission_round", "admission_group", "cutoff_score"}
 RUCT_MATCHES = ROOT / "data/processed/ruct/madrid-degree-matches.json"
+OUTCOME_ENROLMENT = ROOT / "data/processed/outcomes/madrid-university-enrolment-2023-2024.json"
+MADRID_UNIVERSITIES = {"UAH", "UAM", "UC3M", "UCM", "UPM", "URJC"}
 
 
 def check(path: Path) -> int:
@@ -44,4 +46,11 @@ for row in matches:
     for center in row.get("ruct_centers", []):
         if not re.fullmatch(r"\d{8}", str(center.get("code", ""))) or not center.get("name"):
             raise AssertionError(f"Invalid RUCT center in match: {row['admission_id']}")
+enrolment = json.loads(OUTCOME_ENROLMENT.read_text(encoding="utf-8"))
+if enrolment.get("academic_year") != "2023-2024" or enrolment.get("granularity") != "Universidad · grados presenciales":
+    raise AssertionError("Enrolment context: unexpected year or granularity")
+if set(enrolment.get("universities", {})) != MADRID_UNIVERSITIES:
+    raise AssertionError("Enrolment context: expected six Madrid public universities")
+if any(not isinstance(value, int) or value <= 0 for value in enrolment["universities"].values()):
+    raise AssertionError("Enrolment context: values must be positive integers")
 print(f"Quality gate passed: {len(DATASETS)} datasets, {total} rows, {len(matches)} RUCT matches")

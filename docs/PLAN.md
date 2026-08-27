@@ -86,6 +86,7 @@ Criterio de terminado: el filtro España permite comparar solo ofertas metodoló
 - [x] Externalizar el primer extracto procesado de contexto académico de las seis universidades públicas de Madrid, con fuente y limitación.
 - [x] Añadir nota media de admisión del nuevo ingreso por universidad (curso 2022–2023), diferenciada explícitamente de la nota media del expediente y de la oferta.
 - [x] Añadir número de estudiantes de nuevo ingreso por universidad (2022–2023), con fuente y granularidad agregada visibles.
+- [x] Añadir primer extracto reproducible de matriculados en grados presenciales por universidad (curso 2023–2024), separado de nuevo ingreso y de la oferta.
 - [ ] Cargar los valores por ámbito/titulación y comparar oferta, universidad, rama y España sin mezclar granularidades.
 
 Criterio de terminado: cada métrica académica tiene tooltip de definición, curso y cobertura.

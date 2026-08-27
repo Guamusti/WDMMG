@@ -1,0 +1,16 @@
+{
+  "academic_year": "2023-2024",
+  "granularity": "Universidad · grados presenciales",
+  "source_url": "https://datos.comunidad.madrid/dataset/a36fddce-c572-4312-ad02-3656cfcd470b/resource/e5a161fd-b5f3-4116-9318-42a974c15703/download/estudiantes-matriculados-en-estudios-de-grado-presenciales-por-universidad.csv",
+  "retrieved_at": "2026-08-27",
+  "definition": "Estudiantes matriculados en estudios de Grado presenciales en cada universidad; el año 2024 representa el curso 2023-2024.",
+  "limitations": "Es un total institucional de grados presenciales, no el número de matriculados de una oferta o titulación concreta. No incluye grados no presenciales.",
+  "universities": {
+    "UAH": 16336,
+    "UAM": 23073,
+    "UC3M": 16067,
+    "UCM": 50960,
+    "UPM": 27660,
+    "URJC": 39407
+  }
+}
