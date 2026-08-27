@@ -139,6 +139,8 @@ def parse_execution_workbook(path: Path, source_url: str, run_id: str) -> list[d
                     "classification_label": label.strip(),
                     "classification_code": classification_code.strip() if classification_code else None,
                     "classification_name": classification_name.strip() if classification_name else label.strip(),
+                    "initial_credit": None,
+                    "budget_modifications": None,
                     "final_credit": numeric(values.get(f"B{row.attrib.get('r')}")),
                     "committed_amount": numeric(values.get(f"C{row.attrib.get('r')}")),
                     "recognized_amount": numeric(values.get(f"D{row.attrib.get('r')}")),

@@ -380,6 +380,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Contratación: filtros por tipo y procedimiento CODICE (obras, servicios, menores, negociados, etc.) con URL compartible y respuesta PostgreSQL/fallback consistente | `en curso` |
 | 27/08/2026 | Runner ETL: `etl.run_available` incorpora la carga IGAE junto a PLACSP y BDNS, informa estado/tiempos y omite entradas sin raw de forma explícita | `en curso` |
 | 27/08/2026 | BDNS concesiones: ingestor admite varios códigos o `--codes-file`, conserva raw por convocatoria/página y genera un JSONL conjunto auditable | `en curso` |
+| 27/08/2026 | IGAE: parser y loader conservan crédito inicial y modificaciones como campos explícitos (`null` si la fuente no los publica), sin convertir ausencias en cero | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |
