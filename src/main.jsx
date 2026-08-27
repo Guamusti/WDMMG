@@ -74,6 +74,7 @@ function App() {
   const [contractsLoading, setContractsLoading] = useState(true);
   const [budgetRows, setBudgetRows] = useState([]);
   const [budgetLoading, setBudgetLoading] = useState(true);
+  const [budgetSearch, setBudgetSearch] = useState('');
   const [selectedChapter, setSelectedChapter] = useState(null);
   const [selectedPolicy, setSelectedPolicy] = useState(() => fallbackPolicyWheelItems.find(item => item.id === new URLSearchParams(window.location.search).get('partida')) || functionalPolicies[0]);
   const [searchResults, setSearchResults] = useState([]);
@@ -99,8 +100,10 @@ function App() {
   useEffect(() => { setEntitiesLoading(true); fetch(`http://localhost:8787/api/entities?limit=50${query ? `&q=${encodeURIComponent(query)}` : ''}`).then(response => response.ok ? response.json() : { data: [] }).then(payload => setEntities(payload.data || [])).catch(() => setEntities([])).finally(() => setEntitiesLoading(false)); }, [query]);
   const imported = overview?.dataStatus === 'imported';
   const execution = overview?.execution;
-  const chapters = budgetRows.filter(row => row.economic_level === 'chapter' && /^[1-9]\.\s/.test(row.economic_code || '') && Number(row.final_amount) > 0);
-  const budgetTotal = chapters.reduce((sum, row) => sum + Number(row.final_amount || 0), 0);
+  const allChapters = budgetRows.filter(row => row.economic_level === 'chapter' && /^[1-9]\.\s/.test(row.economic_code || '') && Number(row.final_amount) > 0);
+  const normalizedBudgetSearch = budgetSearch.trim().toLocaleLowerCase('es');
+  const chapters = allChapters.filter(row => !normalizedBudgetSearch || `${row.economic_code || ''} ${row.classification_name || ''} ${row.classification_label || ''}`.toLocaleLowerCase('es').includes(normalizedBudgetSearch));
+  const budgetTotal = allChapters.reduce((sum, row) => sum + Number(row.final_amount || 0), 0);
   // GTOS 002 is a separate administrative view, not a child hierarchy of chapters.
   // Until a parent key is modeled, do not present those rows as nested chapter data.
   const selectedSubrows = [];
@@ -139,10 +142,10 @@ function App() {
         </section>
         <section className="notice"><ShieldCheck size={17}/><span><strong>Datos oficiales.</strong> La información llega hasta {imported ? periodLabel(overview.period).toLowerCase() : 'el último mes disponible'}. Presupuesto, contratos y ayudas aparecen por separado.</span><a href={overview?.sourceUrl || sources.hacienda} target="_blank">Comprobar fuente <ExternalLink size={13}/></a></section>
         <div id="territories"><Territories rows={territories} loading={territoriesLoading} /><TerritoryRanking rows={territories} /><TerritoryContext rows={territories} /><TerritoryDataLinks /><TerritoryContractLinks rows={territories} /><TerritoryExplorer /><CommunityMap rows={territories} /></div>
-        <section className="section-head"><div><span className="eyebrow">02 · CÓMO SE REGISTRA</span><h2>¿Cómo aparece en las cuentas?</h2><p className="section-subtitle">Esta segunda vista usa capítulos contables oficiales: sirve para comprobar de dónde sale cada cifra.</p></div><button className="filter"><SlidersHorizontal size={16}/> Filtrar</button></section>
+        <section className="section-head"><div><span className="eyebrow">02 · CÓMO SE REGISTRA</span><h2>¿Cómo aparece en las cuentas?</h2><p className="section-subtitle">Esta segunda vista usa capítulos contables oficiales: sirve para comprobar de dónde sale cada cifra.</p></div><div className="budget-filter"><label htmlFor="budget-search"><SlidersHorizontal size={15}/> Buscar partida</label><input id="budget-search" value={budgetSearch} onChange={event => setBudgetSearch(event.target.value)} placeholder="Ej. deuda, personal…" /></div></section>
         <section className="explorer-grid">
           <div className="treemap" aria-label="Clasificación funcional del gasto">
-            {budgetLoading ? <div className="drilldown-empty">Cargando reparto…</div> : chapters.length ? chapters.map((row, i) => <button key={row.id || row.economic_code} className={`tile tile-${i} ${selectedChapter?.economic_code === row.economic_code ? 'selected' : ''}`} style={{ background: tileColors[i % tileColors.length] }} onClick={() => { setActiveCategory(row.economic_code); setSelectedChapter(row); }}><span>{friendlyChapter(row.economic_code)}<small>{row.economic_code}</small></span><b>{selectedChapter?.economic_code === row.economic_code ? 'Ver detalle →' : `${percent(row.final_amount, budgetTotal)}%`}</b></button>) : <div className="drilldown-empty">No hay capítulos importados.</div>}
+            {budgetLoading ? <div className="drilldown-empty">Cargando reparto…</div> : chapters.length ? chapters.map((row, i) => <button key={row.id || row.economic_code} className={`tile tile-${i} ${selectedChapter?.economic_code === row.economic_code ? 'selected' : ''}`} style={{ background: tileColors[i % tileColors.length] }} onClick={() => { setActiveCategory(row.economic_code); setSelectedChapter(row); }}><span>{friendlyChapter(row.economic_code)}<small>{row.economic_code}</small></span><b>{selectedChapter?.economic_code === row.economic_code ? 'Ver detalle →' : `${percent(row.final_amount, budgetTotal)}%`}</b></button>) : <div className="drilldown-empty">No hay capítulos que coincidan con “{budgetSearch}”.</div>}
           </div>
           <aside className="side-card"><div className="eyebrow">DÓNDE ESTAMOS MIRANDO</div><h3>El Estado</h3><p>Empezamos por la Administración General del Estado. Aquí puedes pasar del reparto general a contratos y ayudas concretas.</p><button className="text-link" onClick={() => setView('contracts')}>Ver contratos <ArrowUpRight size={15}/></button><div className="source-line"><Database size={15}/> Datos oficiales conectados</div></aside>
         </section>

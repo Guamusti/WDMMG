@@ -354,6 +354,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Selector visible de corte IGAE en la cabecera: abril/mayo 2026, URL compartible y cifras principales sincronizadas con el periodo | `en curso` |
 | 27/08/2026 | Resumen de ejecución propaga el periodo también dentro de sus magnitudes; evita titulares ambiguos al cambiar de corte | `en curso` |
 | 27/08/2026 | `/api/metrics?period=YYYY-MM` y la franja superior sincronizan presupuesto y ejecución con el corte histórico; contratos y ayudas permanecen separados | `en curso` |
+| 27/08/2026 | Explorador contable incorpora búsqueda visible de capítulos sin alterar el denominador: filtrar no convierte los porcentajes en un falso 100% | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |
