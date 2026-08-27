@@ -1,0 +1,50 @@
+# Plan de producto: una web a la que apetezca volver
+
+Este plan amplía el MVP hacia una experiencia de exploración pública, inspirada en productos de datos ciudadanos como Wikibarrio. La prioridad es ofrecer preguntas concretas, datos comparables y descubrimientos compartibles sin convertir la portada en un catálogo técnico.
+
+## Principios
+
+- Cada pantalla debe responder a una pregunta comprensible: “¿en qué se gasta?”, “¿qué pesa más?”, “¿cómo se compara?” o “¿de dónde sale esta cifra?”.
+- Las cifras impactantes aparecen primero; la metodología queda a un clic, pero nunca se oculta.
+- AGE, CCAA, entidades locales, contratos y subvenciones son magnitudes separadas. No se suman sin una consolidación oficial.
+- Una cifra sin periodo, unidad y fuente no entra en la interfaz.
+- El producto debe ser útil aunque el visitante solo permanezca un minuto, y profundo si decide seguir explorando.
+
+## Entregas previstas
+
+### 1. Descubre en 60 segundos
+
+Panel de tarjetas con preguntas y cifras reales: “¿qué partida pesa más?”, “¿cuánto se ha pagado?”, “¿qué comunidad registra más gasto?” y “¿cuántos contratos están disponibles?”. Cada tarjeta enlaza a la vista que explica el dato.
+
+### 2. Comparador que se entiende
+
+Comparar dos CCAA, ejercicios o partidas con unidad y periodo visibles. Añadir evolución cuando haya al menos dos observaciones compatibles; nunca interpolar ni rellenar ausencias con cero.
+
+### 3. Fichas de territorio y municipio
+
+Ficha estable para CCAA, provincia y municipio con presupuesto, ejecución, población, gasto por habitante y enlaces a la fuente. El gasto por habitante solo se calcula con territorio, ejercicio y población compatibles.
+
+### 4. Sigue el dinero
+
+Recorrido administración → programa/partida → contrato o ayuda → empresa/receptor. Solo se dibuja una relación cuando existe una clave o relación publicada; si no, se ofrece como “datos relacionados”, no como causalidad.
+
+### 5. Historias y alertas descriptivas
+
+Historias breves sobre cambios, concentración, contratos menores, ejecución y diferencias territoriales. Son indicadores descriptivos, no acusaciones: cada una muestra denominador, fecha, regla y enlace al dataset.
+
+### 6. Base de datos navegable
+
+Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.
+
+## Orden de trabajo
+
+1. Descubre en 60 segundos.
+2. Comparador e históricos compatibles.
+3. Fichas territoriales y geografía INE.
+4. Explorador jerárquico y exportaciones ampliadas.
+5. Relaciones verificadas de “Sigue el dinero”.
+6. Historias, alertas y operación.
+
+## Métrica de éxito
+
+Un visitante debe poder obtener una respuesta útil en menos de un minuto, abrir el desglose de una cifra y compartir exactamente esa lectura mediante una URL. La profundidad se medirá por exploraciones reproducibles, no por cantidad de titulares.
