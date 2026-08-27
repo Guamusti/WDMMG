@@ -15,6 +15,7 @@ missing_university = [row for row in rows if not row.get('university_name_source
 malformed_degree = [row for row in rows if re.search(r'\d', row.get('degree_name_source', '')) or re.search(r'^(?:www\.|info@|tel\.?\s*:|c/\s|avda\.?\s|paseo\s|centro\s|ces\s|eu\s|de la\s|«)', row.get('degree_name_source', ''), re.IGNORECASE)]
 concatenated_branch = [row for row in rows if re.search(r'Rama de conocimiento', row.get('branch_name_source', ''), re.IGNORECASE)]
 missing_ruct_code = [row for row in rows if not row.get('university_ruct_code')]
+unknown_ruct_code = [row for row in rows if row.get('university_ruct_code') not in {'010', '023', '025', '029', '036', '056'}]
 duplicate_keys = len(keys) - len(set(keys))
 report = {
     'dataset': 'madrid-2025-2026-admission-cutoffs',
@@ -27,12 +28,13 @@ report = {
         'malformed_degree_name': len(malformed_degree),
         'concatenated_branch_name': len(concatenated_branch),
         'missing_university_ruct_code': len(missing_ruct_code),
+        'unknown_university_ruct_code': len(unknown_ruct_code),
         'unexpected_academic_year': sum(row.get('academic_year') != '2025-2026' for row in rows),
     },
     'warnings': [
-        {'code': 'RUCT_MAPPING_PENDING', 'count': len(rows), 'message': 'El extracto aún no está enlazado a códigos RUCT.'},
+        {'code': 'RUCT_TITLE_CENTER_MATCH_PENDING', 'count': len(rows), 'message': 'Los códigos de universidad están enlazados; faltan códigos RUCT individuales de títulos y centros.'},
     ],
-    'status': 'pass' if not invalid_cutoff and not duplicate_keys and not missing_degree and not malformed_degree and not concatenated_branch and not missing_ruct_code else 'review',
+    'status': 'pass' if not invalid_cutoff and not duplicate_keys and not missing_degree and not malformed_degree and not concatenated_branch and not missing_ruct_code and not unknown_ruct_code else 'review',
 }
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 OUTPUT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

@@ -9,13 +9,14 @@
     "malformed_degree_name": 0,
     "concatenated_branch_name": 0,
     "missing_university_ruct_code": 0,
+    "unknown_university_ruct_code": 0,
     "unexpected_academic_year": 0
   },
   "warnings": [
     {
-      "code": "RUCT_MAPPING_PENDING",
+      "code": "RUCT_TITLE_CENTER_MATCH_PENDING",
       "count": 459,
-      "message": "El extracto aún no está enlazado a códigos RUCT."
+      "message": "Los códigos de universidad están enlazados; faltan códigos RUCT individuales de títulos y centros."
     }
   ],
   "status": "pass"

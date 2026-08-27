@@ -8,11 +8,12 @@ const dataPath = resolve(root, 'data/processed/admissions/madrid-2025-2026.json'
 const sourceUrl = 'https://www.comunidad.madrid/docs/assets/2026/02/25/notas_de_corte_2025-26_publicacion_para_web.pdf?VersionId=TQubbLf9LLERJuuTNTnhd4CGSZZjgmUx';
 
 const shortByCode = { '010':'UCM', '023':'UAM', '025':'UPM', '029':'UAH', '036':'UC3M', '056':'URJC' };
+const universityByCode = { '010':'Universidad Complutense de Madrid', '023':'Universidad Autónoma de Madrid', '025':'Universidad Politécnica de Madrid', '029':'Universidad de Alcalá', '036':'Universidad Carlos III de Madrid', '056':'Universidad Rey Juan Carlos' };
 const cities = ['Alcalá de Henares','Aranjuez','Alcorcón','Boadilla del Monte','Colmenarejo','Fuenlabrada','Getafe','Guadalajara','Leganés','Madrid','Móstoles'];
 function normalize(row, index) {
   const degree = String(row.degree_name_source || '').replaceAll('�', '').replace(/\s+/g, ' ').trim();
   const city = cities.find(name => degree.endsWith(`(${name})`)) || 'Madrid';
-  return { id: `madrid-${row.university_ruct_code || 'unknown'}-${index + 1}`, university: row.university_name_source, short: shortByCode[row.university_ruct_code], universityRuctCode: row.university_ruct_code, degree, campus: city, city, double: /\s-\s/.test(degree), branch: String(row.branch_name_source || '').replaceAll('�', '').trim() || 'Rama pendiente de RUCT', cutoff: row.cutoff_score, scaleMax: row.score_scale_max, ects: row.ects_source, durationYears: row.duration_years_source, academicYear: row.academic_year, sourcePage: row.source_page, source: 'Comunidad de Madrid · notas 2025–2026', sourceUrl };
+  return { id: `madrid-${row.university_ruct_code || 'unknown'}-${index + 1}`, university: universityByCode[row.university_ruct_code] || String(row.university_name_source || '').trim(), short: shortByCode[row.university_ruct_code], universityRuctCode: row.university_ruct_code, degree, campus: city, city, double: /\s-\s/.test(degree), branch: String(row.branch_name_source || '').replaceAll('�', '').trim() || 'Rama pendiente de RUCT', cutoff: row.cutoff_score, scaleMax: row.score_scale_max, ects: row.ects_source, durationYears: row.duration_years_source, academicYear: row.academic_year, sourcePage: row.source_page, source: 'Comunidad de Madrid · notas 2025–2026', sourceUrl };
 }
 
 const server = createServer(async (request, response) => {
