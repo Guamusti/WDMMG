@@ -173,8 +173,8 @@ Referencia MD: secciones 8, 10, 27, 34, 39, 48, 50, 51, 52, 53, 58 y 59.
 - [ ] Modelar transferencias internas/externas y consolidación oficial.
 - [ ] Evitar doble conteo entre Estado, CCAA y entidades receptoras.
 - [ ] Implementar aliases, candidatos de merge y revisión humana.
-- [ ] Implementar red administración ↔ empresa con agregación/progressive loading.
-- [ ] Implementar “Sigue el dinero” solo con relaciones verificables.
+- [~] Implementar red administración ↔ empresa con agregación/progressive loading; recorrido verificado visible en fichas de contrato.
+- [~] Implementar “Sigue el dinero” solo con relaciones verificables; órgano → expediente → adjudicatario activo en PLACSP.
 - [ ] Añadir índices, particionado, vistas materializadas y jobs incrementales.
 - [ ] Preparar object storage para raw y reprocesado.
 - [ ] Expandir de AGE a 17 CCAA y después a 8.000+ municipios.
@@ -197,7 +197,7 @@ Referencia MD: secciones 34, 35, 36, 37, 38, 39, 41, 42, 44, 45, 54, 55, 56, 60,
 
 ## Estado global actual
 
-**Fase 9/11 — Históricos, comparador y exploración avanzada, en curso.**
+**Fase 11/11 — QA, transparencia y operación, en curso.**
 
 La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la interfaz inicial existen. La UI ya consume IGAE, PLACSP y la muestra BDNS cargada; el siguiente trabajo es ampliar niveles contables, relaciones y cobertura sin mezclar magnitudes.
 
