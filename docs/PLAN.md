@@ -54,6 +54,7 @@ Las rutas actuales del MVP son `/oferta/<id>`, `/universidad/<sigla>` y `/grado/
 - [x] Matching por código RUCT para las seis universidades públicas de Madrid; alias solo como apoyo auditado.
 - [ ] Matching de códigos RUCT de títulos y centros.
 - [x] Matching conservador de títulos RUCT para las ofertas madrileñas con coincidencia exacta única; las ambiguas/no encontradas quedan pendientes y auditadas.
+- [x] Clasificar la oferta RUCT entre grado simple, doble grado, programa especial, internacional o de alianza; conservar componentes solo cuando el separador es estructural.
 - [x] Centros RUCT, rama, campo y créditos recuperados desde las fichas de los 359 títulos emparejados; el censo completo de centros y ofertas sigue pendiente.
 - [x] Preparar vistas materializadas para percentiles y cobertura (`db/migrations/002_views.sql`).
 - [x] API interna con filtros básicos, paginación, fuente y URLs compartibles (`api/server.mjs`); el launcher selecciona puerto libre.

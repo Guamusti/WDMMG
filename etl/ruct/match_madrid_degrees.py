@@ -56,6 +56,26 @@ def normalized(value):
     return re.sub(r'[^a-z0-9]+', ' ', value).strip()
 
 
+def classify_offer(value):
+    """Classify the admission programme without assigning a RUCT code."""
+    name = clean_text(value)
+    lowered = name.lower()
+    if 'pars' in lowered:
+        return 'special_program', []
+    if 'mención' in lowered or 'mencion' in lowered:
+        return 'special_program', []
+    if 'título internacional' in lowered or 'titulo internacional' in lowered:
+        return 'international_program', []
+    if 'alianza europea' in lowered or 'yufe' in lowered:
+        return 'alliance_program', []
+    # Los guiones de idioma/campus dentro de paréntesis no separan títulos.
+    structural_name = re.sub(r'\([^)]*\)', ' ', name)
+    parts = [part.strip() for part in re.split(r'\s*[-–]\s+|\s+\+\s+|\s+/\s+', structural_name) if part.strip()]
+    if len(parts) > 1:
+        return 'double_degree', parts
+    return 'degree', []
+
+
 def request_data(session, university_code):
     url = urljoin('https://www.educacion.gob.es/ruct/', 'consultaestudios.action?actual=estudios')
     payload = {'consulta': '1', 'codigoUniversidad': university_code, 'descripcionEstudio': '',
@@ -118,6 +138,7 @@ def main():
         time.sleep(0.05)
     counts = {'matched_unique': 0, 'pending_no_match': 0, 'pending_ambiguous': 0}
     for index, offer in enumerate(offers, start=1):
+        program_type, component_names = classify_offer(offer.get('degree_name_source', ''))
         candidates = by_university.get(str(offer.get('university_ruct_code')), {}).get(normalized(offer.get('degree_name_source', '')), [])
         if len(candidates) == 1:
             candidate, status, method = candidates[0], 'matched', 'normalized_exact_unique'; counts['matched_unique'] += 1
@@ -127,7 +148,8 @@ def main():
             candidate, status, method = None, 'pending', 'no_normalized_exact_match'; counts['pending_no_match'] += 1
         detail = detail_by_code.get(candidate['ruct_degree_code']) if candidate else None
         matches.append({'admission_id': offer.get('id') or f'madrid:{index}', 'admission_degree': offer.get('degree_name_source'),
-                        'university_ruct_code': str(offer.get('university_ruct_code')), 'status': status,
+                        'university_ruct_code': str(offer.get('university_ruct_code')), 'program_type': program_type,
+                        'component_names': component_names, 'status': status,
                         'match_method': method, 'ruct_degree_code': candidate['ruct_degree_code'] if candidate else None,
                         'ruct_degree_name': candidate['ruct_degree_name'] if candidate else None,
                         'ruct_source_url': candidate['source_url'] if candidate else None,

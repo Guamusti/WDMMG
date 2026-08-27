@@ -23,6 +23,7 @@ OUTCOME_EMPLOYMENT_SERIES = ROOT / "data/processed/outcomes/employment-national-
 OUTCOME_EMPLOYMENT_COVERAGE = ROOT / "data/processed/outcomes/employment-coverage.json"
 MADRID_UNIVERSITIES = {"UAH", "UAM", "UC3M", "UCM", "UPM", "URJC"}
 KNOWN_BRANCHES = {"", "Artes y Humanidades", "Ciencias", "Ciencias de la Salud", "Ciencias Sociales y Jurídicas", "Ingeniería y Arquitectura", "Rama pendiente de separación"}
+KNOWN_PROGRAM_TYPES = {"degree", "double_degree", "special_program", "international_program", "alliance_program"}
 
 
 def check(path: Path) -> int:
@@ -55,6 +56,13 @@ madrid_count = json.loads(DATASETS[0].read_text(encoding="utf-8"))
 if len(matches) != len(madrid_count) or len({row["admission_id"] for row in matches}) != len(matches):
     raise AssertionError("RUCT matches: expected one unique row per Madrid admission offer")
 for row in matches:
+    if row.get("program_type") not in KNOWN_PROGRAM_TYPES:
+        raise AssertionError(f"RUCT match without a known programme type: {row['admission_id']}")
+    components = row.get("component_names", [])
+    if row["program_type"] == "double_degree" and len(components) < 2:
+        raise AssertionError(f"Double degree without components: {row['admission_id']}")
+    if row["program_type"] != "double_degree" and components:
+        raise AssertionError(f"Non-double offer with components: {row['admission_id']}")
     if row["status"] == "matched" and not re.fullmatch(r"\d{7}", str(row["ruct_degree_code"])):
         raise AssertionError(f"RUCT match without a seven-digit title code: {row['admission_id']}")
     if row["status"] == "matched" and not row.get("ruct_centers"):

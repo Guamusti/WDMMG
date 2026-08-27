@@ -16,3 +16,12 @@ ofertas sin coincidencia o con coincidencia ambigua se mantienen como
 `pending`; no se asignan códigos por similitud. Para las coincidencias
 aceptadas también se conservan la ficha de detalle, los centros RUCT, la rama,
 el campo de estudio y los créditos publicados.
+
+Cada oferta también conserva `program_type` (`degree`, `double_degree`,
+`special_program`, `international_program` o `alliance_program`) y, solo para
+dobles grados estructurales, `component_names`. Los guiones de idioma dentro de
+paréntesis se excluyen de la separación. En la extracción actual hay 374 grados
+simples, 60 dobles, 21 programas especiales, 2 internacionales y 1 de alianza.
+Esta clasificación describe la oferta de admisión; no inventa un código RUCT
+para el programa conjunto cuando el registro oficial no lo publica de forma
+unívoca.

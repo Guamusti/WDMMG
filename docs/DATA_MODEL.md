@@ -14,3 +14,11 @@ provenance(record_id, source_id, source_record_id, source_url, retrieved_at, ing
 ```
 
 Una oferta concreta es la unidad de comparación. Un grado conceptual puede tener muchas ofertas. Las dobles titulaciones se conservan como grados/ofertas propias y podrán enlazarse con `degree_components`.
+
+En la capa de provenance RUCT, `program_type` clasifica la oferta de admisión y
+`component_names` conserva los componentes textuales únicamente cuando el
+separador es estructural. Esto permite distinguir un doble grado de una
+aclaración de idioma, una mención, un PARS o un programa internacional sin
+fusionarlos con un grado simple. El código RUCT solo se asigna cuando existe
+una coincidencia exacta normalizada y única; la clasificación no sustituye ese
+matching.
