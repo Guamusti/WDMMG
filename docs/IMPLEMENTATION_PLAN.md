@@ -79,7 +79,7 @@ Referencia MD: secciones 6, 7, 10, 13, 18, 26, 27, 28, 29, 33, 46, 47, 57, 58 y 
 - [~] Configurar el servicio BDNS oficial de concesiones; consulta live activa con paginación y caché de 5 minutos, ingestor JSONL y loader PostgreSQL repetible disponibles, falta ingesta masiva de convocatorias con concesiones.
 - [~] Importar muestras reales con URLs de origen; PLACSP y 1 convocatoria BDNS importadas.
 - [x] Verificar que ningún contrato/subvención se presenta como pago presupuestario; test de integridad semántica añadido sobre las respuestas API.
-- [ ] Publicar estado y fecha de actualización de cada dataset.
+- [x] Publicar estado y fecha de actualización de cada dataset; cobertura visible con fechas de IGAE, PLACSP y CCAA, y ausencia explícita cuando no existe.
 
 ## Fase 5 — Presupuesto y ejecución AGE piloto
 
@@ -113,7 +113,7 @@ Referencia MD: secciones 17, 18, 19, 22, 23, 24, 26, 27, 28, 29, 30, 32, 33, 34,
 - [x] Implementar filtros server-side y paginación.
 - [x] Implementar filtros server-side y paginación básica para contratos.
 - [x] Implementar buscador global multi-entidad para contratos, convocatorias BDNS y partidas IGAE.
-- [ ] Implementar agregaciones separadas por magnitud.
+- [x] Implementar agregaciones separadas por magnitud mediante `/api/metrics`, con unidades, periodos y fuentes diferenciados.
 - [x] Implementar exportación CSV de la consulta exacta para contratos, convocatorias y presupuesto.
 - [x] Persistir búsqueda y vista activa en query params para compartir exploraciones.
 - [ ] Añadir cache/preagregaciones sin enviar datasets completos al navegador.
@@ -329,5 +329,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Cada comunidad ofrece una búsqueda etiquetada en contratos PLACSP, diferenciando coincidencia textual de atribución territorial | `en curso` |
 | 27/08/2026 | Resumen territorial ampliado con gasto e ingresos no financieros reconocidos y peso de cada CCAA sobre el total publicado | `en curso` |
 | 27/08/2026 | Ficha de empresa muestra en pantalla total, media y mayor adjudicación al abrir una URL de empresa | `en curso` |
+| 27/08/2026 | Auditoría del plan: se cierran como completados el estado/fecha pública de datasets y las agregaciones separadas por magnitud | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |
