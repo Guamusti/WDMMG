@@ -637,6 +637,7 @@ const server = createServer(async (req, res) => {
       if (entity === 'contracts') return csv(res, 'contratos-placsp.csv', await databaseContracts(query, 1, 10000));
       if (entity === 'grants') return csv(res, 'convocatorias-bdns.csv', await databaseGrants(query, 1, 10000));
       if (entity === 'companies') return csv(res, 'empresas-adjudicatarias-placsp.csv', await databaseCompanies(query, 10000));
+      if (entity === 'entities') return csv(res, 'organismos-contratantes-placsp.csv', await databaseEntities(query, 10000));
       if (entity === 'budgets') {
         const search = `%${query}%`;
         const result = await pool.query(`SELECT br.fiscal_year, br.period, br.economic_code, br.economic_level, br.final_amount, be.committed_amount, be.recognized_amount, be.paid_amount, ds.source_url FROM budget_records br LEFT JOIN budget_execution be ON be.budget_record_id = br.id JOIN data_sources ds ON ds.id = br.source_id WHERE ($1 = '' OR br.economic_code ILIKE $2) ORDER BY br.fiscal_year DESC, br.period DESC, br.id`, [query, search]);
