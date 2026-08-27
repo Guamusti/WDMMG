@@ -99,6 +99,7 @@ Referencia MD: secciones 4, 5, 11, 16, 17, 20, 23, 30, 31, 32, 33, 36, 42, 56, 5
 Referencia MD: secciones 17, 18, 19, 22, 23, 24, 26, 27, 28, 29, 30, 32, 33, 34, 39, 46 y 47.
 
 - [x] Crear scaffold local de `/api/health`, `/api/overview`, `/api/contracts` y `/api/search`.
+- [x] Conectar `/api/overview` y `/api/budgets` al aterrizaje IGAE real disponible.
 - [ ] Conectar API a PostgreSQL.
 - [ ] Implementar endpoints de presupuestos, entidades, programas, empresas, contratos, subvenciones y geografía.
 - [ ] Implementar filtros server-side y paginación.

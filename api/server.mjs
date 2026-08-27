@@ -19,11 +19,31 @@ function getContracts() {
   return readJsonl(join(root, 'data', 'processed', 'placsp', 'contracts.jsonl'));
 }
 
+function getExecution() {
+  return readJsonl(join(root, 'data', 'processed', 'igae', 'execution-2026-05.jsonl'));
+}
+
+function overview() {
+  const rows = getExecution().filter(row => row.classification_level === 'chapter');
+  if (!rows.length) return { dataStatus: 'awaiting_validated_ingestion', budget: null, execution: null, contracts: null, grants: null };
+  const sum = key => rows.reduce((total, row) => total + (Number(row[key]) || 0), 0);
+  return {
+    dataStatus: 'imported',
+    fiscalYear: rows[0].fiscal_year,
+    period: rows[0].period,
+    unit: rows[0].unit,
+    execution: { finalCredit: sum('final_credit'), committed: sum('committed_amount'), recognized: sum('recognized_amount'), paid: sum('paid_amount') },
+    contracts: { records: getContracts().length },
+    sourceUrl: rows[0].source_url,
+  };
+}
+
 const server = createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   if (req.method !== 'GET') return json(res, 405, { error: 'method_not_allowed' });
   if (url.pathname === '/api/health') return json(res, 200, { ok: true, service: 'dinero-publico-api', data: { contracts: getContracts().length } });
-  if (url.pathname === '/api/overview') return json(res, 200, { dataStatus: 'awaiting_validated_ingestion', budget: null, execution: null, contracts: null, grants: null });
+  if (url.pathname === '/api/overview') return json(res, 200, overview());
+  if (url.pathname === '/api/budgets') return json(res, 200, { data: getExecution(), meta: { total: getExecution().length, dataStatus: getExecution().length ? 'imported' : 'awaiting_validated_ingestion' } });
   if (url.pathname === '/api/contracts') {
     const query = (url.searchParams.get('q') || '').toLocaleLowerCase('es');
     const page = Math.max(1, Number(url.searchParams.get('page') || 1));
