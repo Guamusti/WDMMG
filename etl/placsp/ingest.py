@@ -50,6 +50,27 @@ def parse_lots(entry: ET.Element) -> list[dict]:
     return lots
 
 
+def parse_awards(entry: ET.Element) -> list[dict]:
+    awards = []
+    for result in entry.iter():
+        if local_name(result.tag) != 'tenderresult':
+            continue
+        winner = next((child for child in result if local_name(child.tag) == 'winningparty'), None)
+        awarded_project = next((child for child in result if local_name(child.tag) == 'awardedtenderedproject'), None)
+        monetary_total = next((child for child in awarded_project if local_name(child.tag) == 'legalmonetarytotal'), None) if awarded_project is not None else None
+        awards.append({
+            'result_code': text_of(result, 'resultCode'),
+            'award_date': text_of(result, 'awardDate'),
+            'number_of_tenders': text_of(result, 'receivedTenderQuantity'),
+            'sme_awarded': text_of(result, 'smeAwardedIndicator'),
+            'winner_id': text_of(winner, 'id') if winner is not None else None,
+            'winner_name': text_of(winner, 'name') if winner is not None else None,
+            'award_amount': text_of(monetary_total, 'taxExclusiveAmount') if monetary_total is not None else None,
+            'award_amount_with_tax': text_of(monetary_total, 'payableAmount') if monetary_total is not None else None,
+        })
+    return awards
+
+
 def parse_atom(path: Path, source_url: str, run_id: str) -> list[dict]:
     root = ET.parse(path).getroot()
     records = []
@@ -80,6 +101,7 @@ def parse_atom(path: Path, source_url: str, run_id: str) -> list[dict]:
             "ingestion_run_id": run_id,
             "raw_payload_sha256": hashlib.sha256(ET.tostring(entry)).hexdigest(),
             "lots": parse_lots(entry),
+            "awards": parse_awards(entry),
         })
     return records
 

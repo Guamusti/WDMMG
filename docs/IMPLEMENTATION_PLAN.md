@@ -54,7 +54,7 @@ Referencia MD: secciones 6, 7, 10, 13, 34, 40, 41, 43, 44 y 55.
 - [x] Implementar registro `ingestion_run_id` en salidas normalizadas.
 - [x] Implementar parser inicial de entradas ATOM/XML PLACSP.
 - [x] Conservar XML BDNS sin fingir un mapeo cuando falta el servicio/XSD concreto.
-- [ ] Añadir parser completo CODICE para licitaciones, lotes, adjudicaciones y eventos.
+- [~] Añadir parser completo CODICE para licitaciones, lotes, adjudicaciones y eventos; licitaciones, lotes y `TenderResult` ya se extraen, quedan eventos/versionado.
 - [ ] Añadir cliente BDNS20 por servicio, paginación, throttling y cache.
 - [ ] Implementar normalización NIF/CIF, nombres, fechas, euros y códigos.
 - [ ] Implementar flags de calidad: duplicados, fechas, IDs, importes y ejercicios.
@@ -302,5 +302,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Metadatos dinámicos en cliente: título y descripción cambian según vista, búsqueda o partida seleccionada al abrir una URL compartida | `en curso` |
 | 27/08/2026 | Descubribilidad y acceso directo: `robots.txt` y manifest web en español añadidos, sin asumir dominio de producción | `en curso` |
 | 27/08/2026 | Compartición contextual: Open Graph y Twitter Card se actualizan en cliente según vista, búsqueda y partida seleccionada | `en curso` |
+| 27/08/2026 | Parser CODICE ampliado: `TenderResult` normaliza código, fecha, ofertas, ganador, NIF e importes sin mezclarlo con pagos; feed real auditado: 234 adjudicaciones y 216 ganadores | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |

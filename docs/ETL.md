@@ -8,7 +8,7 @@ Los ingestors iniciales están en `etl/placsp` y `etl/bdns`. No contienen URLs i
 python -m etl.placsp.ingest --feed-url "URL_ATOM_OFICIAL"
 ```
 
-El proceso guarda el payload raw, calcula SHA-256, extrae una fila por `entry` ATOM y conserva `source_record_id`, URL, fecha de recuperación y `ingestion_run_id`. La extensión CODICE tiene estructuras anidadas y requerirá ampliar los mapeos contra los XSD antes de importar adjudicaciones a producción.
+El proceso guarda el payload raw, calcula SHA-256, extrae una fila por `entry` ATOM y conserva `source_record_id`, URL, fecha de recuperación y `ingestion_run_id`. El parser CODICE conserva lotes y normaliza `TenderResult` (ganador, NIF, fecha, ofertas e importes) por separado; los eventos/versiones siguen pendientes de ampliar contra los XSD.
 
 ## BDNS
 
