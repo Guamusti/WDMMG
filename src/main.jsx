@@ -142,9 +142,14 @@ function App(){
     let canonical=document.querySelector('link[rel="canonical"]');
     if(!canonical){canonical=document.createElement('link');canonical.rel='canonical';document.head.appendChild(canonical)}
     canonical.href=`${window.location.origin}${window.location.pathname}`;
+    let jsonLd=document.querySelector('#atlas-jsonld');
+    if(!jsonLd){jsonLd=document.createElement('script');jsonLd.id='atlas-jsonld';jsonLd.type='application/ld+json';document.head.appendChild(jsonLd)}
+    const listedOffers=list.slice(0,50).map((item,index)=>({'@type':'ListItem',position:index+1,name:item.degree,url:`${window.location.origin}/oferta/${item.id}`}));
+    const structuredData=offer?{'@context':'https://schema.org','@type':'Course','name':offer.degree,'description':description,'url':`${window.location.origin}/oferta/${offer.id}`,'provider':{'@type':'CollegeOrUniversity','name':offer.university,'address':{'@type':'PostalAddress','addressLocality':offer.city,'addressRegion':'Comunidad de Madrid','addressCountry':'ES'}}}:university?{'@context':'https://schema.org','@type':'CollegeOrUniversity','name':university.name,'url':`${window.location.origin}/universidad/${university.short.toLowerCase()}`,'address':{'@type':'PostalAddress','addressLocality':university.city,'addressRegion':'Comunidad de Madrid','addressCountry':'ES'},'hasOfferCatalog':{'@type':'OfferCatalog','name':`Grados de ${university.name}`,'itemListElement':listedOffers}}:(degree||city)?{'@context':'https://schema.org','@type':'ItemList','name':title,'description':description,'url':`${window.location.origin}${window.location.pathname}`,'numberOfItems':list.length,'itemListElement':listedOffers}:{'@context':'https://schema.org','@type':'WebSite','name':'Atlas Universitario','url':window.location.origin,'inLanguage':'es'};
+    jsonLd.textContent=JSON.stringify(structuredData);
     if(route.type==='national'){document.title='Explorador nacional de notas · Atlas Universitario';meta.content='Explora notas de corte oficiales de Madrid, Galicia y Aragón, con filtros por comunidad y tu nota de acceso.'}
     if(route.type==='universityCompare'){document.title='Comparador de universidades · Atlas Universitario';meta.content='Compara hasta cuatro universidades públicas de Madrid por oferta, notas y contexto académico SIIU.'}
-  },[route]);
+  },[route,offers]);
   if(route.type==='national') return <Suspense fallback={<RouteLoading label="Cargando explorador nacional…" />}><NationalPagePaged onBack={()=>navigate('/')}/></Suspense>;
   if(route.type==='universityCompare') return <Suspense fallback={<RouteLoading label="Cargando comparador…" />}><UniversityCompare universities={universities} offers={offers} onBack={()=>navigate('/')}/></Suspense>;
   if(route.type!=='home') return <StandalonePage route={route} offers={offers} onBack={()=>navigate('/')} onNavigate={navigate}/>;

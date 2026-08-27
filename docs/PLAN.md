@@ -72,6 +72,7 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [x] Catálogo nacional de trabajo reproducible con los extractos de Madrid, Galicia y Aragón, informe de comparabilidad y procedencia regional.
 - [x] Tercer ingestor regional adicional (Cataluña), con primera asignación, código de estudio, centro/población y cupo PAU/CFGS conservados.
 - [ ] Separación de grupo, convocatoria, ronda inicial y nota final.
+- [x] Exponer convocatoria y cupo como filtros aplicables en `/espana`, manteniendo sus valores originales por fila.
 - [x] Percentiles nacionales, regionales, por rama y por campo RUCT cuando existe una clasificación oficial; el catálogo mantiene cobertura parcial y no infiere campos ausentes.
 - [x] Percentiles nacional, por comunidad, rama y campo RUCT sobre las observaciones cargadas en `/espana`, con el ámbito de comparación indicado en cada fila.
 - [x] Explorador nacional inicial de notas, mapa orientativo y “qué puedo estudiar con mi nota” para las cuatro comunidades procesadas; percentiles comparables visibles según cobertura.
@@ -122,6 +123,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Cobertura de datos visible.
 - [x] Quality gate reproducible para datos procesados y build (`etl/quality_check.py` + GitHub Actions).
 - [ ] SEO de páginas con datos reales, sin contenido repetitivo.
+- [x] Añadir datos estructurados JSON-LD específicos para ofertas, universidades, titulaciones y ciudades con catálogo real.
 - [x] Metadatos específicos para el explorador nacional `/espana`, con cobertura y limitaciones reales.
 - [ ] Accesibilidad, rendimiento, caché, paginación y responsive.
 - [x] Paginación del explorador nacional a 50 resultados por página, con reinicio al aplicar filtros; quedan caché, rendimiento y auditoría completa.
