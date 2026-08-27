@@ -56,6 +56,7 @@
 - Definiciones aplicadas: rendimiento = créditos superados / matriculados; abandono y graduación se interpretan por cohorte y duración publicadas por SIIU.
 - Limitación: una base media de cotización es un indicador administrativo de afiliación, no un salario medio ni mediano. Se requiere cargar el cruce por ámbito de estudio antes de atribuirlo a una carrera concreta.
 - Estado: la interfaz muestra contexto universitario con etiqueta de cobertura y deja como no disponible lo que aún no está cargado a nivel de titulación. La primera referencia de ámbito para Informática (cohorte 2017–2018, cuatro años después) se conserva en `src/data/outcomes.js` y se usa para filtrar/ordenar sin presentarla como salario de una oferta. La tarjeta enlaza la referencia publicada por Fundación CYD y el registro SIIU.
+- El contexto académico de Madrid se conserva además como extracto procesado en `data/processed/outcomes/madrid-university-context-2022-2023.json`, incluyendo curso, granularidad, fuente y limitación.
 
 ## Geografía
 

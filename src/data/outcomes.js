@@ -1,5 +1,6 @@
 const SIIU = 'https://estadisticas.universidades.gob.es/jaxiPx/Datos.htm';
 import informaticaEmployment from '../../data/processed/outcomes/informatica-2017-2018.json';
+import madridUniversityContext from '../../data/processed/outcomes/madrid-university-context-2022-2023.json';
 
 export const outcomeSources = {
   performance: `${SIIU}?file=Rendimiento_Exito_Eval_Grado_Univ.px&path=%2FUniversitaria%2FIndicadores%2F2024%2F1_Grado%2Fl0%2F`,
@@ -10,14 +11,7 @@ export const outcomeSources = {
 };
 
 // Contexto universitario publicado por SIIU. No se presenta como dato específico de carrera.
-export const universityOutcomeMetrics = {
-  UAH: { performance: 82.75, dropout: 11.47, graduation: 56.65 },
-  UAM: { performance: 88.94, dropout: 10.78, graduation: 68.59 },
-  UC3M: { performance: 89.10, dropout: 11.26, graduation: 64.51 },
-  UCM: { performance: 83.57, dropout: 13.64, graduation: 57.03 },
-  UPM: { performance: 67.23, dropout: 16.19, graduation: null },
-  URJC: { performance: 80.08, dropout: 13.40, graduation: null }
-};
+export const universityOutcomeMetrics = madridUniversityContext.universities;
 
 // Referencia laboral por ámbito de estudio. No se atribuye como dato propio
 // de una titulación: QEDU/SIIU puede ofrecer el ámbito cuando falta el cruce

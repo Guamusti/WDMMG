@@ -79,6 +79,7 @@ Criterio de terminado: el filtro España permite comparar solo ofertas metodoló
 
 - [ ] Integrar SIIU para matriculados, nuevo ingreso, egresados y series históricas.
 - [x] Definir el contrato de métricas y mostrar rendimiento, abandono y graduación con definición, curso y granularidad visible.
+- [x] Externalizar el primer extracto procesado de contexto académico de las seis universidades públicas de Madrid, con fuente y limitación.
 - [ ] Cargar los valores por ámbito/titulación y comparar oferta, universidad, rama y España sin mezclar granularidades.
 
 Criterio de terminado: cada métrica académica tiene tooltip de definición, curso y cobertura.
