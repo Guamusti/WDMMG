@@ -144,7 +144,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Quality gate reproducible para datos procesados y build (`etl/quality_check.py` + GitHub Actions).
 - [x] Smoke test reproducible de frontend, API, contrato nacional y caché HTTP (`npm run smoke`).
 - [x] Verificación visual de home, catálogo completo, navegación a oferta y `/espana` sin errores de consola.
-- [ ] SEO de páginas con datos reales, sin contenido repetitivo.
+- [x] SEO de páginas con datos reales, sin contenido repetitivo: metadatos dinámicos y JSON-LD específico para oferta, universidad, titulación, ciudad, explorador nacional y comparador.
 - [x] Añadir datos estructurados JSON-LD específicos para ofertas, universidades, titulaciones y ciudades con catálogo real.
 - [x] Metadatos específicos para el explorador nacional `/espana`, con cobertura y limitaciones reales.
 - [ ] Accesibilidad, rendimiento, caché, paginación y responsive.
