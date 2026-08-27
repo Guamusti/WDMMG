@@ -13,6 +13,8 @@ En Windows también puedes hacer doble clic en [`iniciar.bat`](./iniciar.bat). E
 
 El mapa utiliza Leaflet y teselas de OpenStreetMap con atribución visible.
 
+El plan de ejecución se mantiene en [`docs/PLAN.md`](./docs/PLAN.md) y se actualiza junto con cada fase del producto.
+
 ## Alcance actual
 
 - Buscador sobre carrera, universidad y ciudad.
