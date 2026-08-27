@@ -39,7 +39,7 @@ Objetivo: cubrir las seis universidades públicas de Madrid y sus titulaciones o
 - [x] Añadir páginas navegables y compartibles de oferta, universidad y grado.
 - [x] Añadir metadatos SEO básicos dinámicos por ruta (título, descripción y canonical).
 - [x] Integrar filtros por universidad, rama, ciudad y tipo de grado con modo unión/intersección y subir “Tu nota” al inicio.
-- [ ] Añadir páginas completas indexables de detalle de universidad y grado con metadatos SEO.
+- [x] Añadir páginas completas indexables de detalle de universidad, grado y ciudad con metadatos SEO.
 
 Criterio de terminado: buscar una carrera madrileña, localizar todas sus ofertas públicas cargadas, abrir fuente y ver nota, curso, campus, universidad y percentil sin ambigüedad.
 
@@ -83,7 +83,7 @@ Criterio de terminado: cada métrica académica tiene tooltip de definición, cu
 - [x] Añadir una referencia laboral de ámbito para Informática, con cohorte, definición y fuente visibles; no se atribuye automáticamente a una titulación.
 - [x] Mantener separado el concepto de salario frente a afiliación y base media de cotización; la ficha ya indica “no disponible” mientras falte el cruce por ámbito.
 - [ ] Mostrar 1, 2, 3 y 4 años después cuando existan datos comparables.
-- [ ] Evitar llamar “salario” a una base de cotización.
+- [x] Evitar llamar “salario” a una base de cotización.
 
 Criterio de terminado: una oferta puede compararse por resultados laborales sin convertir una cifra administrativa en una promesa de empleo.
 

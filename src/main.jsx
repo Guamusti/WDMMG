@@ -113,11 +113,12 @@ function App(){
   useEffect(()=>{const onPop=()=>setRoute(parseRoute());window.addEventListener('popstate',onPop);return()=>window.removeEventListener('popstate',onPop)},[]);
   const navigate=path=>{window.history.pushState({},'',path);setRoute(parseRoute())};
   useEffect(()=>{
-    const offer=route.type==='offer'?offers.find(o=>o.id===route.value):null;
+    const offer=route.type==='offer'?findOfferByRoute(offers,route.value):null;
     const university=route.type==='university'?universities.find(u=>u.short.toLowerCase()===route.value||slugify(u.name)===route.value):null;
     const degree=route.type==='degree'?offers.find(o=>slugify(o.degree)===route.value)?.degree:null;
-    const title=offer?`${offer.degree} · ${offer.short} | Atlas Universitario`:university?`${university.name} | Atlas Universitario`:degree?`${degree} en Madrid | Atlas Universitario`:'Atlas Universitario · Madrid';
-    const description=offer?`Nota de corte ${fmt(offer.cutoff)} para ${offer.degree} en ${offer.university}, curso 2025–2026.`:university?`${university.name}: ofertas, campus y notas de corte del curso 2025–2026.`:degree?`Compara ${degree} en las universidades públicas de Madrid.`:'Explora carreras, universidades y notas de corte de Madrid.';
+    const city=route.type==='city'?offers.find(o=>slugify(o.city)===route.value)?.city:null;
+    const title=offer?`${offer.degree} · ${offer.short} | Atlas Universitario`:university?`${university.name} | Atlas Universitario`:degree?`${degree} en Madrid | Atlas Universitario`:city?`${city} · ofertas universitarias | Atlas Universitario`:'Atlas Universitario · Madrid';
+    const description=offer?`Nota de corte ${fmt(offer.cutoff)} para ${offer.degree} en ${offer.university}, curso 2025–2026.`:university?`${university.name}: ofertas, campus y notas de corte del curso 2025–2026.`:degree?`Compara ${degree} en las universidades públicas de Madrid.`:city?`Consulta las ofertas universitarias y notas de corte de ${city} en Madrid.`:'Explora carreras, universidades y notas de corte de Madrid.';
     document.title=title;
     let meta=document.querySelector('meta[name="description"]');
     if(!meta){meta=document.createElement('meta');meta.name='description';document.head.appendChild(meta)}
