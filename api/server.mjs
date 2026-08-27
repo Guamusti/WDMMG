@@ -408,18 +408,22 @@ async function overview() {
   return overviewFromJsonl() || { dataStatus: 'awaiting_validated_ingestion', budget: null, execution: null, contracts: null, grants: null };
 }
 
+let metricsCache = null;
 async function databaseMetrics() {
+  if (metricsCache && metricsCache.expiresAt > Date.now()) return metricsCache.data;
   const [execution, contracts, grants] = await Promise.all([
     pool.query(`SELECT SUM(br.final_amount) AS final_credit, SUM(be.recognized_amount) AS recognized, SUM(be.paid_amount) AS paid, MAX(br.period) AS period FROM budget_records br JOIN budget_execution be ON be.budget_record_id = br.id WHERE br.economic_level = 'chapter' AND br.economic_code ~ '^[1-9]\\. '`),
     pool.query(`SELECT COUNT(DISTINCT c.id)::int AS contracts, COUNT(ca.id)::int AS awards, COALESCE(SUM(ca.award_amount), 0) AS awarded_amount FROM contracts c LEFT JOIN contract_awards ca ON ca.contract_id = c.id`),
     pool.query(`SELECT COUNT(*)::int AS awards, COALESCE(SUM(amount), 0) AS awarded_amount, COUNT(DISTINCT grant_call_id)::int AS calls FROM grant_awards`)
   ]);
-  return {
+  const data = {
     budget: { final_credit: execution.rows[0].final_credit, period: execution.rows[0].period, unit: 'miles de euros', source: 'IGAE' },
     execution: { recognized: execution.rows[0].recognized, paid: execution.rows[0].paid, period: execution.rows[0].period, unit: 'miles de euros', source: 'IGAE' },
     contracts: { records: contracts.rows[0].contracts, awards: contracts.rows[0].awards, awarded_amount: contracts.rows[0].awarded_amount, unit: 'EUR', source: 'PLACSP' },
     grants: { records: grants.rows[0].awards, calls: grants.rows[0].calls, awarded_amount: grants.rows[0].awarded_amount, unit: 'EUR', source: 'BDNS' }
   };
+  metricsCache = { data, expiresAt: Date.now() + 30000 };
+  return data;
 }
 
 const server = createServer(async (req, res) => {
@@ -428,7 +432,7 @@ const server = createServer(async (req, res) => {
   if (url.pathname === '/api/health') return json(res, 200, { ok: true, service: 'dinero-publico-api', data: { contracts: getContracts().length } });
   if (url.pathname === '/api/overview') return json(res, 200, await overview());
   if (url.pathname === '/api/metrics') {
-    try { return json(res, 200, { data: await databaseMetrics(), meta: { backend: 'postgresql', dataStatus: 'imported', definition: 'Magnitudes separadas: presupuesto/ejecución, contratos adjudicados y subvenciones concedidas.' } }); }
+    try { return json(res, 200, { data: await databaseMetrics(), meta: { backend: 'postgresql', dataStatus: 'imported', cacheSeconds: 30, definition: 'Magnitudes separadas: presupuesto/ejecución, contratos adjudicados y subvenciones concedidas.' } }); }
     catch (error) { return json(res, 503, { error: 'metrics_unavailable', detail: error.message, meta: { dataStatus: 'unavailable' } }); }
   }
   if (url.pathname === '/api/history') {

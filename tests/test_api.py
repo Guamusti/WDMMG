@@ -32,6 +32,7 @@ def test_metrics_keep_budget_contracts_and_grants_separate():
     assert payload["data"]["budget"]["unit"] == "miles de euros"
     assert payload["data"]["contracts"]["unit"] == "EUR"
     assert payload["data"]["grants"]["unit"] == "EUR"
+    assert payload["meta"]["cacheSeconds"] == 30
 
 
 def test_index_exposes_share_metadata_in_spanish():
