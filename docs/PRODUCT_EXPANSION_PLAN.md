@@ -64,6 +64,8 @@ La portada incorpora tres historias breves: peso de pensiones, peso de deuda y m
 
 La evolución AGE ya tiene dos cortes oficiales compatibles (abril y mayo de 2026) y se muestra como pagos acumulados por cada euro previsto, sin presentarla como gasto mensual.
 
+Al seleccionar un capítulo, la aplicación muestra sus cuatro estados contables con importes grandes y explica que no son contratos ni subvenciones.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.

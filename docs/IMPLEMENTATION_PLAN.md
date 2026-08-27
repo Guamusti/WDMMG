@@ -132,7 +132,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [ ] Construir vista de empresa con contratos y subvenciones.
 - [~] Construir vista de contrato con lotes, eventos y fuente oficial; detalle base y enlace a ficha PLACSP activos, lotes/eventos pendientes.
 - [~] Construir vista de subvención con convocatoria/concesiones; vista de convocatorias activa, concesiones pendientes.
-- [ ] Añadir presupuesto → ejecución con definiciones y estados.
+- [x] Añadir presupuesto → ejecución con definiciones y estados en el detalle de cada capítulo.
 - [~] Priorizar políticas de gasto reconocibles (pensiones, infraestructuras, sanidad, educación) sobre el detalle de contratación.
 - [ ] Añadir tooltips de conceptos técnicos.
 - [x] Priorizar ratios comprensibles en portada sin atribuir causalidad no demostrada.
@@ -273,3 +273,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Portada incorpora tres historias descriptivas con cifras grandes, periodo, denominador y enlaces al desglose territorial o funcional | `en curso` |
 | 27/08/2026 | Descarga y parseo oficial IGAE abril 2026 validado contra mayo: 91 filas compatibles y endpoint `/api/history` | `en curso` |
 | 27/08/2026 | Evolución visual abril→mayo: pagos acumulados por euro de crédito definitivo, con advertencia de unidad y no doble conteo | `en curso` |
+| 27/08/2026 | Detalle de capítulo económico con cadena previsto → comprometido → reconocido → pagado y definiciones ciudadanas | `en curso` |
