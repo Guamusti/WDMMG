@@ -16,6 +16,7 @@ import './routes.css';
 import './outcomes.css';
 import './filters.css';
 import './national.css';
+import './accessibility.css';
 
 const SOURCE = 'https://www.comunidad.madrid/docs/assets/2026/02/25/notas_de_corte_2025-26_publicacion_para_web.pdf?VersionId=TQubbLf9LLERJuuTNTnhd4CGSZZjgmUx';
 const fmtEuro = value => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(value);

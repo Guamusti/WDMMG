@@ -111,6 +111,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Cobertura de datos visible.
 - [ ] SEO de páginas con datos reales, sin contenido repetitivo.
 - [ ] Accesibilidad, rendimiento, caché, paginación y responsive.
+- [x] Foco visible de teclado y respeto de `prefers-reduced-motion` en la interfaz; quedan auditoría WCAG, rendimiento, caché y paginación.
 
 ## Bucle de trabajo de cada cambio
 
