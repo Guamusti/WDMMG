@@ -1,0 +1,21 @@
+[
+  {"community":"Andalucía","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Aragón","status":"verified","url":"https://academico.unizar.es/acceso-admision-grado/corte","format":"PDF","rounds":["ordinary","last_call","definitive"],"coverage":"Universidad de Zaragoza"},
+  {"community":"Asturias","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Illes Balears","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Canarias","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Cantabria","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Castilla-La Mancha","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Castilla y León","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Cataluña","status":"verified","url":"https://universitats.gencat.cat/ca/preinscripcions/notes-tall","format":"HTML/PDF","rounds":["assignment_1","assignment_final"],"coverage":"Preinscripción universitaria de Cataluña"},
+  {"community":"Comunitat Valenciana","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Extremadura","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Galicia","status":"verified","url":"https://ciug.gal/PDF/2025/ACCESO/notas_de_corte_2025.pdf","format":"HTML/PDF","rounds":["ordinary","extraordinary"],"coverage":"CIUG · grados de las universidades gallegas"},
+  {"community":"Comunidad de Madrid","status":"verified","url":"https://www.comunidad.madrid/docs/assets/2026/02/25/notas_de_corte_2025-26_publicacion_para_web.pdf?VersionId=TQubbLf9LLERJuuTNTnhd4CGSZZjgmUx","format":"PDF","rounds":["ordinary"],"coverage":"Seis universidades públicas · curso 2025-2026"},
+  {"community":"Región de Murcia","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Navarra","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"País Vasco","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"La Rioja","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Ceuta","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"Melilla","status":"pending","url":null,"format":null,"rounds":null}
+]

@@ -60,9 +60,9 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 
 ## Fase 3 — Toda España: admisión
 
-- [ ] Inventario por comunidad autónoma de organismo, URL, formato, rondas y cobertura.
+- [x] Inventario por comunidad autónoma de organismo, URL, formato, rondas y cobertura (verificadas o pendientes explícitas).
 - [ ] Ingestores priorizando API, CSV, XLS/XLSX, JSON y PDF estructurado.
-- [ ] Normalización de cursos como `YYYY-YYYY`.
+- [x] Normalización de cursos como `YYYY-YYYY`.
 - [ ] Separación de grupo, convocatoria, ronda inicial y nota final.
 - [ ] Percentiles nacionales, regionales, por rama y por ámbito.
 - [ ] Explorador nacional de notas, mapa y “qué puedo estudiar con mi nota”.
