@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ArrowUpRight, ChevronRight, Database, ExternalLink, Search, ShieldCheck, SlidersHorizontal } from 'lucide-react';
 import './styles.css';
@@ -20,12 +20,6 @@ const budget = [
   { name: 'Defensa y seguridad', value: 7, color: '#b06b86' }
 ];
 
-const contracts = [
-  { title: 'Servicios de apoyo a la gestión y mantenimiento', authority: 'Administración General del Estado', winner: 'Indra Sistemas, S.A.', amount: '—', status: 'Adjudicación' },
-  { title: 'Suministro de equipamiento tecnológico', authority: 'Ministerio de Transformación Digital', winner: 'Telefónica Soluciones', amount: '—', status: 'Formalizado' },
-  { title: 'Servicios de consultoría y asistencia técnica', authority: 'Ministerio de Hacienda', winner: 'Accenture, S.L.', amount: '—', status: 'Licitación' }
-];
-
 function Money({ children }) { return <span className="money">{children}</span>; }
 
 function App() {
@@ -33,8 +27,10 @@ function App() {
   const [view, setView] = useState('overview');
   const [activeCategory, setActiveCategory] = useState(null);
   const [overview, setOverview] = useState(null);
-  const filteredContracts = useMemo(() => contracts.filter(c => `${c.title} ${c.authority} ${c.winner}`.toLowerCase().includes(query.toLowerCase())), [query]);
+  const [contracts, setContracts] = useState([]);
+  const [contractsLoading, setContractsLoading] = useState(true);
   useEffect(() => { fetch('http://localhost:8787/api/overview').then(response => response.ok ? response.json() : null).then(setOverview).catch(() => setOverview(null)); }, []);
+  useEffect(() => { setContractsLoading(true); fetch(`http://localhost:8787/api/contracts?pageSize=20${query ? `&q=${encodeURIComponent(query)}` : ''}`).then(response => response.ok ? response.json() : { data: [] }).then(payload => setContracts(payload.data || [])).catch(() => setContracts([])).finally(() => setContractsLoading(false)); }, [query]);
   const imported = overview?.dataStatus === 'imported';
   const execution = overview?.execution;
 
@@ -53,7 +49,7 @@ function App() {
         <div className="searchbox"><Search size={20}/><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Buscar organismo, empresa, contrato…"/><kbd>⌘ K</kbd></div>
       </section>
 
-      {view === 'methodology' ? <Methodology /> : view === 'contracts' ? <Contracts rows={filteredContracts} /> : <>
+      {view === 'methodology' ? <Methodology /> : view === 'contracts' ? <Contracts rows={contracts} loading={contractsLoading} /> : <>
         <section className="stats">
           <Stat label="Crédito definitivo AGE" value={imported ? `${millions(execution.finalCredit)} M€` : 'Cargando…'} note={imported ? `${overview.period} · ${overview.unit}` : 'Conector IGAE'} />
           <Stat label="Obligaciones reconocidas" value={imported ? `${millions(execution.recognized)} M€` : 'Cargando…'} note={imported ? `${percent(execution.recognized, execution.finalCredit)}% del crédito` : 'Separado del pago'} />
@@ -70,7 +66,7 @@ function App() {
         </section>
         <p className="footnote">* Distribución visual de referencia para validar la interacción. No es una cifra publicada y no se agrega al resto de magnitudes.</p>
         <section className="section-head compact"><div><span className="eyebrow">02 · ÚLTIMOS REGISTROS</span><h2>Contratación pública</h2></div><button className="text-link" onClick={() => setView('contracts')}>Ver todo <ChevronRight size={15}/></button></section>
-        <Contracts rows={filteredContracts} compact />
+        <Contracts rows={contracts} loading={contractsLoading} compact />
       </>}
     </main>
     <footer><span>DINERO PÚBLICO · MVP</span><span>Datos oficiales, conceptos separados, fuentes visibles.</span></footer>
@@ -80,7 +76,7 @@ function App() {
 function millions(value) { return new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 }).format(Number(value) / 1000); }
 function percent(value, total) { return total ? new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 }).format((Number(value) / Number(total)) * 100) : '—'; }
 function Stat({ label, value, note }) { return <div className="stat"><span className="eyebrow">{label}</span><strong>{value}</strong><small>{note}</small></div> }
-function Contracts({ rows, compact }) { return <section className={`contracts ${compact ? 'compact-table' : ''}`}><div className="table-head"><span>Expediente / objeto</span><span>Órgano contratante</span><span>Adjudicatario</span><span>Importe</span><span>Estado</span></div>{rows.map((row, i) => <div className="contract-row" key={i}><div><b>{row.title}</b><small>Registro de integración · PLACSP</small></div><span>{row.authority}</span><span>{row.winner}</span><Money>{row.amount}</Money><span className="pill">{row.status}</span></div>)}</section> }
+function Contracts({ rows, loading, compact }) { return <section className={`contracts ${compact ? 'compact-table' : ''}`}><div className="table-head"><span>Expediente / objeto</span><span>Órgano contratante</span><span>Adjudicatario</span><span>Importe</span><span>Estado</span></div>{loading ? <div className="empty-row">Consultando PLACSP…</div> : rows.length ? rows.map((row, i) => <div className="contract-row" key={i}><div><b>{row.title || 'Sin título'}</b><small>{row.source_record_id || 'Registro PLACSP'}</small></div><span>{row.contracting_authority || '—'}</span><span>{row.winner_name || '—'}</span><Money>{row.award_amount || '—'}</Money><span className="pill">{row.status || 'Publicado'}</span></div>) : <div className="empty-row">Todavía no hay contratos PLACSP importados. El conector está preparado; no mostramos registros ficticios.</div>}</section> }
 function Methodology() { return <section className="methodology"><span className="eyebrow">METODOLOGÍA</span><h2>Una cifra, una definición, una fuente.</h2><p>El producto separa presupuesto, ejecución, contratos y subvenciones. No suma magnitudes que puedan solaparse y no infiere relaciones entre una partida y una adjudicación sin evidencia.</p><div className="source-list">{[['Hacienda / IGAE','Ejecución AGE mensual y presupuestos',sources.igae],['PLACSP','Feeds abiertos ATOM/XML de licitaciones',sources.placsp],['BDNS','Servicios web y especificaciones BDNS20',sources.bdns],['INE','API JSON y población municipal oficial',sources.ine]].map(([n,d,u]) => <a href={u} target="_blank" className="source-item" key={n}><span><b>{n}</b><small>{d}</small></span><ExternalLink size={16}/></a>)}</div></section> }
 
 createRoot(document.getElementById('root')).render(<App />);
