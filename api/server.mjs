@@ -47,6 +47,16 @@ async function databaseGrants(query, page, pageSize) {
   return result.rows;
 }
 
+async function databaseSearch(query) {
+  const search = `%${query}%`;
+  const [contracts, grants, budgets] = await Promise.all([
+    pool.query(`SELECT 'contract' AS type, c.procurement_id AS id, c.title, pe.name AS subtitle, c.source_url AS "sourceUrl" FROM contracts c LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id WHERE c.title ILIKE $1 OR c.procurement_id ILIKE $1 OR pe.name ILIKE $1 ORDER BY c.id DESC LIMIT 8`, [search]),
+    pool.query(`SELECT 'grant' AS type, gc.bdns_code AS id, gc.title, gc.purpose AS subtitle, gc.source_url AS "sourceUrl" FROM grant_calls gc WHERE gc.title ILIKE $1 OR gc.bdns_code ILIKE $1 OR gc.purpose ILIKE $1 ORDER BY gc.id DESC LIMIT 8`, [search]),
+    pool.query(`SELECT 'budget' AS type, br.economic_code AS id, br.economic_code AS title, br.economic_level AS subtitle, ds.source_url AS "sourceUrl" FROM budget_records br JOIN data_sources ds ON ds.id = br.source_id WHERE br.economic_code ILIKE $1 ORDER BY br.id DESC LIMIT 8`, [search])
+  ]);
+  return [...contracts.rows, ...grants.rows, ...budgets.rows].slice(0, 20);
+}
+
 function getExecution() {
   return readJsonl(join(root, 'data', 'processed', 'igae', 'execution-2026-05.jsonl'));
 }
@@ -128,8 +138,8 @@ const server = createServer(async (req, res) => {
   if (url.pathname === '/api/search') {
     const query = (url.searchParams.get('q') || '').trim().toLocaleLowerCase('es');
     if (!query) return json(res, 200, { data: [] });
-    const contracts = getContracts().filter(row => JSON.stringify(row).toLocaleLowerCase('es').includes(query)).slice(0, 20);
-    return json(res, 200, { data: contracts.map(row => ({ type: 'contract', id: row.source_record_id, title: row.title, sourceUrl: row.source_url })) });
+    try { return json(res, 200, { data: await databaseSearch(query), meta: { backend: 'postgresql' } }); }
+    catch (error) { const contracts = getContracts().filter(row => JSON.stringify(row).toLocaleLowerCase('es').includes(query)).slice(0, 20); return json(res, 200, { data: contracts.map(row => ({ type: 'contract', id: row.source_record_id, title: row.title, sourceUrl: row.source_url })), meta: { backend: 'jsonl-fallback', warning: error.message } }); }
   }
   return json(res, 404, { error: 'not_found' });
 });

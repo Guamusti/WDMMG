@@ -112,7 +112,7 @@ Referencia MD: secciones 17, 18, 19, 22, 23, 24, 26, 27, 28, 29, 30, 32, 33, 34,
 - [~] Implementar endpoints de presupuestos, entidades, programas, empresas, contratos, subvenciones y geografía; presupuestos, contratos y convocatorias BDNS activos.
 - [x] Implementar filtros server-side y paginación.
 - [x] Implementar filtros server-side y paginación básica para contratos.
-- [ ] Implementar buscador global multi-entidad.
+- [x] Implementar buscador global multi-entidad para contratos, convocatorias BDNS y partidas IGAE.
 - [ ] Implementar agregaciones separadas por magnitud.
 - [ ] Implementar exportación CSV de la consulta exacta.
 - [ ] Persistir filtros importantes en query params.
@@ -219,3 +219,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | BDNS real: convocatoria 925963 normalizada y carga repetida sin duplicados | `0def8b7` |
 | 27/08/2026 | Portada con ratios IGAE verificables y treemap por capítulos reales; drill-down del nivel inferior disponible | `en curso` |
 | 27/08/2026 | Endpoint y vista inicial BDNS; convocatoria real 925963 visible desde la navegación | `en curso` |
+| 27/08/2026 | Buscador global PostgreSQL con resultados etiquetados por PLACSP, BDNS e IGAE | `en curso` |
