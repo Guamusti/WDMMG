@@ -57,7 +57,7 @@ Las rutas actuales del MVP son `/oferta/<id>`, `/universidad/<sigla>` y `/grado/
 - [x] Matching conservador de títulos RUCT para las ofertas madrileñas con coincidencia exacta única; las ambiguas/no encontradas quedan pendientes y auditadas.
 - [x] Motivo explícito por oferta pendiente (`pending_reason`) y desglose reproducible en los informes; no se inventan códigos RUCT para programas conjuntos o ambiguos.
 - [x] Clasificar la oferta RUCT entre grado simple, doble grado, programa especial, internacional o de alianza; conservar componentes solo cuando el separador es estructural.
-- [x] Centros RUCT, rama, campo y créditos recuperados desde las fichas de los 359 títulos emparejados; el censo completo de centros y ofertas sigue pendiente.
+- [x] Centros RUCT, rama, campo y créditos recuperados desde las fichas de los 361 títulos emparejados; dos ambigüedades por campus se resolvieron con el centro oficial y el censo completo de centros y ofertas sigue pendiente.
 - [x] Preparar vistas materializadas para percentiles y cobertura (`db/migrations/002_views.sql`).
 - [x] API interna con filtros básicos, paginación, fuente y URLs compartibles (`api/server.mjs`); el launcher selecciona puerto libre.
 - [x] Proxy Vite mismo-origen para `/api/*`, con el puerto de API heredado por el único proceso frontend del launcher.

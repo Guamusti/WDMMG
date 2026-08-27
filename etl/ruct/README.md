@@ -30,3 +30,8 @@ Cada pendiente conserva `pending_reason` y el informe de calidad las agrupa por
 motivo: doble grado sin título único, programa especial/internacional/alianza
 sin código unívoco, título ambiguo o ausencia de coincidencia exacta tras
 normalización.
+
+Cuando una ambigüedad publica campus en la admisión, el matching puede
+desempatarla contra el nombre del centro RUCT (`normalized_exact_campus_unique`).
+La aplicación offline de los dos casos auditados se reproduce con
+`python etl/ruct/apply_cached_disambiguations.py`.

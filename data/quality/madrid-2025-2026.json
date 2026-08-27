@@ -15,10 +15,10 @@
   "warnings": [
     {
       "code": "RUCT_TITLE_CENTER_MATCH_PENDING",
-      "count": 99,
+      "count": 97,
       "by_reason": {
         "alliance_program_without_unique_ruct_title": 1,
-        "ambiguous_ruct_title": 4,
+        "ambiguous_ruct_title": 2,
         "combined_offer_without_unique_ruct_title": 59,
         "international_program_without_unique_ruct_title": 2,
         "ruct_title_not_found_after_normalization": 12,

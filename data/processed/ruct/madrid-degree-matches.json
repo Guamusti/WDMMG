@@ -7759,16 +7759,25 @@
     "university_ruct_code": "056",
     "program_type": "degree",
     "component_names": [],
-    "status": "pending",
-    "match_method": "ambiguous_normalized_exact",
-    "ruct_degree_code": null,
+    "status": "matched",
+    "match_method": "normalized_exact_campus_unique",
+    "ruct_degree_code": "2503228",
     "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2503228&actual=estudios",
+    "ruct_branch": "Artes y Humanidades",
     "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": [],
-    "pending_reason": "ambiguous_ruct_title"
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28055663",
+        "name": "Facultad de Artes y Humanidades. Campus de Aranjuez"
+      },
+      {
+        "code": "28055687",
+        "name": "Facultad de Artes y Humanidades. Campus de Móstoles"
+      }
+    ],
+    "pending_reason": null
   },
   {
     "admission_id": "madrid:349",
@@ -7814,16 +7823,25 @@
     "university_ruct_code": "056",
     "program_type": "degree",
     "component_names": [],
-    "status": "pending",
-    "match_method": "ambiguous_normalized_exact",
-    "ruct_degree_code": null,
+    "status": "matched",
+    "match_method": "normalized_exact_campus_unique",
+    "ruct_degree_code": "1500491",
     "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": [],
-    "pending_reason": "ambiguous_ruct_title"
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=1500491&actual=estudios",
+    "ruct_branch": "Artes y Humanidades",
+    "ruct_field": "Filología, estudios clásicos, traducción y lingüística",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28055663",
+        "name": "Facultad de Artes y Humanidades. Campus de Aranjuez"
+      },
+      {
+        "code": "28055675",
+        "name": "Facultad de Artes y Humanidades. Campus de Fuenlabrada"
+      }
+    ],
+    "pending_reason": null
   },
   {
     "admission_id": "madrid:351",

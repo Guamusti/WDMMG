@@ -91,6 +91,21 @@ def pending_reason(program_type, match_method):
     return 'ruct_title_not_found_after_normalization'
 
 
+def campus_hint(value):
+    """Return a parenthesized campus hint when the admission title publishes one."""
+    match = re.search(r'\(([^()]+)\)', clean_text(value))
+    return match.group(1).lower() if match else ''
+
+
+def disambiguate_by_campus(candidates, offer, detail_by_code):
+    """Keep a candidate only when its official center names contain the campus hint."""
+    hint = campus_hint(offer.get('degree_name_source', ''))
+    if not hint:
+        return []
+    return [candidate for candidate in candidates
+            if any(hint in str(center.get('name', '')).lower() for center in detail_by_code.get(candidate['ruct_degree_code'], {}).get('centers', []))]
+
+
 def request_data(session, university_code):
     url = urljoin('https://www.educacion.gob.es/ruct/', 'consultaestudios.action?actual=estudios')
     payload = {'consulta': '1', 'codigoUniversidad': university_code, 'descripcionEstudio': '',
@@ -147,9 +162,11 @@ def main():
     offers = json.loads(MADRID.read_text(encoding='utf-8')); matches = []
     detail_by_code = {}
     matched_codes = {candidates[0]['ruct_degree_code'] for university in by_university.values() for candidates in university.values() if len(candidates) == 1}
-    for number, code in enumerate(sorted(matched_codes), start=1):
+    ambiguous_codes = {candidate['ruct_degree_code'] for university in by_university.values() for candidates in university.values() if len(candidates) > 1 for candidate in candidates}
+    detail_codes = matched_codes | ambiguous_codes
+    for number, code in enumerate(sorted(detail_codes), start=1):
         detail_by_code[code] = request_detail(session, code)
-        if number % 25 == 0: print(f'Fetched RUCT details: {number}/{len(matched_codes)}')
+        if number % 25 == 0: print(f'Fetched RUCT details: {number}/{len(detail_codes)}')
         time.sleep(0.05)
     counts = {'matched_unique': 0, 'pending_no_match': 0, 'pending_ambiguous': 0}
     for index, offer in enumerate(offers, start=1):
@@ -158,7 +175,11 @@ def main():
         if len(candidates) == 1:
             candidate, status, method = candidates[0], 'matched', 'normalized_exact_unique'; counts['matched_unique'] += 1
         elif len(candidates) > 1:
-            candidate, status, method = None, 'pending', 'ambiguous_normalized_exact'; counts['pending_ambiguous'] += 1
+            campus_candidates = disambiguate_by_campus(candidates, offer, detail_by_code)
+            if len(campus_candidates) == 1:
+                candidate, status, method = campus_candidates[0], 'matched', 'normalized_exact_campus_unique'; counts['matched_campus_unique'] = counts.get('matched_campus_unique', 0) + 1
+            else:
+                candidate, status, method = None, 'pending', 'ambiguous_normalized_exact'; counts['pending_ambiguous'] += 1
         else:
             candidate, status, method = None, 'pending', 'no_normalized_exact_match'; counts['pending_no_match'] += 1
         detail = detail_by_code.get(candidate['ruct_degree_code']) if candidate else None
