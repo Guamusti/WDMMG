@@ -35,6 +35,7 @@ def test_index_exposes_share_metadata_in_spanish():
     with open("src/main.jsx", encoding="utf-8") as handle:
         app = handle.read()
     assert "function PageMetadata" in app
+    assert "function ShareMetadata" in app
     assert "document.title = title" in app
 
 
