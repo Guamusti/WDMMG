@@ -241,7 +241,7 @@ async function databaseContracts(query, page, pageSize, singleBidder = false) {
     LEFT JOIN recipient_entities re ON re.id = ca.winner_entity_id
     WHERE ($1 = '' OR c.title ILIKE $2 OR c.procurement_id ILIKE $2 OR pe.name ILIKE $2 OR re.name ILIKE $2)
       AND ($5 = FALSE OR ca.number_of_tenders = 1)
-    ORDER BY c.publication_date DESC NULLS LAST, c.id DESC LIMIT $3 OFFSET $4`, [query, search, pageSize, offset]);
+    ORDER BY c.publication_date DESC NULLS LAST, c.id DESC LIMIT $3 OFFSET $4`, [query, search, pageSize, offset, singleBidder]);
   return result.rows;
 }
 
@@ -670,6 +670,7 @@ const server = createServer(async (req, res) => {
   if (url.pathname === '/api/export.csv') {
     const entity = url.searchParams.get('entity') || 'contracts';
     const query = (url.searchParams.get('q') || '').trim();
+    const singleBidder = url.searchParams.get('singleBidder') === '1';
     try {
       if (entity === 'policies') {
         const source = readJson(join(root, 'data', 'processed', 'igae', 'functional-policies-2024.json'));
@@ -686,7 +687,10 @@ const server = createServer(async (req, res) => {
         const rows = getTerritorialExecution().map(row => ({ territorio: row.territory, nivel: row.territory_level, periodo: row.period, estado: row.data_status, unidad: row.unit, gasto_no_financiero_reconocido: row.recognized_expense_non_financial, fuente: row.source_url }));
         return csv(res, 'ejecucion-ccaa-2026-05.csv', rows);
       }
-      if (entity === 'contracts') return csv(res, 'contratos-placsp.csv', await databaseContracts(query, 1, 10000));
+      if (entity === 'contracts') {
+        try { return csv(res, 'contratos-placsp.csv', await databaseContracts(query, 1, 10000, singleBidder)); }
+        catch (error) { const rows = getContracts().map(contractListRow).filter(row => (!query || JSON.stringify(row).toLocaleLowerCase('es').includes(query.toLocaleLowerCase('es'))) && (!singleBidder || Number(row.number_of_tenders) === 1)); return csv(res, 'contratos-placsp.csv', rows); }
+      }
       if (entity === 'grants') return csv(res, 'convocatorias-bdns.csv', await databaseGrants(query, 1, 10000));
       if (entity === 'companies') return csv(res, 'empresas-adjudicatarias-placsp.csv', await databaseCompanies(query, 10000));
       if (entity === 'entities') return csv(res, 'organismos-contratantes-placsp.csv', await databaseEntities(query, 10000));
