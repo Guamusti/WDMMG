@@ -277,3 +277,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Indicador de concentración PLACSP: porcentaje del importe acumulado de las cinco empresas principales, con denominador y advertencia interpretativa | `en curso` |
 | 27/08/2026 | Ficha interactiva de contrato desde la tabla: presupuesto, procedimiento, fechas, lotes y fuente oficial PLACSP | `en curso` |
 | 27/08/2026 | Buscador y fichas de contrato comparten URL mediante `contrato`; una búsqueda abre el segundo nivel dentro de la aplicación | `en curso` |
+| 27/08/2026 | Relación verificable PLACSP en ficha: órgano contratante → expediente → adjudicatario, con importe y fuente | `en curso` |

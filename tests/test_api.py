@@ -109,6 +109,15 @@ def test_company_detail_exposes_linked_contracts():
     assert isinstance(payload["data"]["authorities"], list)
 
 
+def test_contract_detail_exposes_verified_money_trail_fields():
+    status, contracts = get_json("/api/contracts?pageSize=1")
+    assert status == 200 and contracts["data"]
+    status, payload = get_json(f"/api/contracts/{contracts['data'][0]['procurement_id']}")
+    assert status == 200
+    assert "contracting_authority" in payload["data"]
+    assert "winner_name" in payload["data"]
+
+
 def test_grant_detail_exposes_official_call():
     status, grants = get_json("/api/grants?pageSize=1")
     assert status == 200 and grants["data"]

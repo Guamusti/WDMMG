@@ -72,6 +72,8 @@ La tabla de contratos permite abrir una ficha interna con valor estimado, presup
 
 Las fichas de contrato son compartibles: el parámetro `contrato` conserva la selección y el buscador global enlaza directamente a ella.
 
+La ficha también representa el recorrido verificable publicado por PLACSP: órgano contratante → expediente → adjudicatario. No enlaza el contrato con una partida presupuestaria sin una clave oficial común.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.
