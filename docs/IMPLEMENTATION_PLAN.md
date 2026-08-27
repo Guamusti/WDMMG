@@ -248,6 +248,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Cobertura API ampliada: 18 registros CCAA visibles como parcial y fuente local visible como bloqueada por lector | `en curso` |
 | 27/08/2026 | La metodología muestra estados de fuente visibles: cargado, parcial, localizado y pendiente de lector | `en curso` |
 | 27/08/2026 | El filtro de CCAA se conserva en la URL mediante `ccaa`, permitiendo compartir una comunidad concreta | `en curso` |
+| 27/08/2026 | La selección de la rueda se conserva en la URL mediante `partida`, incluyendo el desglose de “Resto de políticas” | `en curso` |
 | 27/08/2026 | La portada arranca con Pensiones seleccionada (32,1%) y el detalle es accesible con `aria-live` | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |

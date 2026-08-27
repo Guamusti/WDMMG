@@ -69,7 +69,7 @@ function App() {
   const [budgetRows, setBudgetRows] = useState([]);
   const [budgetLoading, setBudgetLoading] = useState(true);
   const [selectedChapter, setSelectedChapter] = useState(null);
-  const [selectedPolicy, setSelectedPolicy] = useState(functionalPolicies[0]);
+  const [selectedPolicy, setSelectedPolicy] = useState(() => fallbackPolicyWheelItems.find(item => item.id === new URLSearchParams(window.location.search).get('partida')) || functionalPolicies[0]);
   const [searchResults, setSearchResults] = useState([]);
   const [policyWheelItems, setPolicyWheelItems] = useState(fallbackPolicyWheelItems);
   const [policyTotal, setPolicyTotal] = useState(functionalTotal);
@@ -77,7 +77,8 @@ function App() {
   const [territoriesLoading, setTerritoriesLoading] = useState(true);
   useEffect(() => { const url = new URL(window.location.href); if (query.trim()) url.searchParams.set('q', query.trim()); else url.searchParams.delete('q'); if (view === 'overview') url.searchParams.delete('vista'); else url.searchParams.set('vista', view); window.history.replaceState(null, '', `${url.pathname}${url.search}`); }, [query, view]);
   useEffect(() => { fetch('http://localhost:8787/api/overview').then(response => response.ok ? response.json() : null).then(setOverview).catch(() => setOverview(null)); }, []);
-  useEffect(() => { fetch('http://localhost:8787/api/policies').then(response => response.ok ? response.json() : null).then(payload => { if (payload?.data?.length) { setPolicyWheelItems(buildPolicyWheelItems(payload.data)); setPolicyTotal(Number(payload.meta.total) / 1000000); } }).catch(() => {}); }, []);
+  useEffect(() => { fetch('http://localhost:8787/api/policies').then(response => response.ok ? response.json() : null).then(payload => { if (payload?.data?.length) { const items = buildPolicyWheelItems(payload.data); setPolicyWheelItems(items); setPolicyTotal(Number(payload.meta.total) / 1000000); const requested = new URLSearchParams(window.location.search).get('partida'); if (requested) setSelectedPolicy(items.find(item => item.id === requested) || items[0]); } }).catch(() => {}); }, []);
+  useEffect(() => { const url = new URL(window.location.href); if (selectedPolicy?.id) url.searchParams.set('partida', selectedPolicy.id); else url.searchParams.delete('partida'); window.history.replaceState(null, '', `${url.pathname}${url.search}`); }, [selectedPolicy]);
   useEffect(() => { fetch('http://localhost:8787/api/territories').then(response => response.ok ? response.json() : { data: [] }).then(payload => setTerritories(payload.data || [])).catch(() => setTerritories([])).finally(() => setTerritoriesLoading(false)); }, []);
   useEffect(() => { fetch('http://localhost:8787/api/budgets').then(response => response.ok ? response.json() : { data: [] }).then(payload => setBudgetRows(payload.data || [])).catch(() => setBudgetRows([])).finally(() => setBudgetLoading(false)); }, []);
   useEffect(() => { if (!query.trim()) { setSearchResults([]); return; } const timer = setTimeout(() => fetch(`http://localhost:8787/api/search?q=${encodeURIComponent(query)}`).then(response => response.ok ? response.json() : { data: [] }).then(payload => setSearchResults(payload.data || [])).catch(() => setSearchResults([])), 220); return () => clearTimeout(timer); }, [query]);
