@@ -38,6 +38,8 @@ La ficha ya se abre al seleccionar una empresa y permite seguir cada contrato ha
 
 También resume cuántos organismos contratantes aparecen en sus contratos, con una advertencia explícita de que la relación procede de registros publicados.
 
+La ficha de convocatoria BDNS ya está disponible en la API con el presupuesto oficial conservado desde el registro auditado. Las concesiones siguen sin mostrarse hasta disponer de un resultado filtrado y verificable.
+
 ### 5. Historias y alertas descriptivas
 
 Historias breves sobre cambios, concentración, contratos menores, ejecución y diferencias territoriales. Son indicadores descriptivos, no acusaciones: cada una muestra denominador, fecha, regla y enlace al dataset.

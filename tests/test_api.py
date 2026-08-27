@@ -56,6 +56,16 @@ def test_company_detail_exposes_linked_contracts():
     assert isinstance(payload["data"]["contracts"], list)
 
 
+def test_grant_detail_exposes_official_call():
+    status, grants = get_json("/api/grants?pageSize=1")
+    assert status == 200 and grants["data"]
+    code = grants["data"][0]["bdns_code"]
+    status, payload = get_json(f"/api/grants/{code}")
+    assert status == 200
+    assert payload["data"]["bdns_code"] == code
+    assert payload["data"]["source_url"]
+
+
 def test_unknown_route_is_not_found():
     with pytest.raises(HTTPError) as error:
         urlopen(f"{BASE_URL}/api/does-not-exist", timeout=2)

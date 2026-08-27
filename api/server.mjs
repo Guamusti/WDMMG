@@ -37,6 +37,10 @@ function getContracts() {
   return readJsonl(join(root, 'data', 'processed', 'placsp', 'contracts.jsonl'));
 }
 
+function getGrants() {
+  return readJsonl(join(root, 'data', 'processed', 'bdns', 'records.jsonl'));
+}
+
 function companiesFromJsonl(query = '', limit = 100) {
   const needle = query.toLocaleLowerCase('es');
   const groups = new Map();
@@ -150,6 +154,21 @@ async function databaseGrants(query, page, pageSize) {
     WHERE ($1 = '' OR gc.title ILIKE $2 OR gc.bdns_code ILIKE $2 OR gc.purpose ILIKE $2 OR pe.name ILIKE $2)
     ORDER BY gc.registration_date DESC NULLS LAST, gc.id DESC LIMIT $3 OFFSET $4`, [query, search, pageSize, offset]);
   return result.rows;
+}
+
+async function databaseGrantByCode(code) {
+  const result = await pool.query(`
+    SELECT gc.bdns_code, gc.title, gc.registration_date, gc.publication_date, gc.budget,
+      gc.purpose, gc.source_url, gc.source_record_id, pe.name AS granting_entity
+    FROM grant_calls gc LEFT JOIN public_entities pe ON pe.id = gc.granting_entity_id
+    WHERE gc.bdns_code = $1 LIMIT 1`, [code]);
+  return result.rows[0] || null;
+}
+
+function grantFromJsonl(code) {
+  const row = getGrants().find(grant => String(grant.bdns_code || grant.source_record_id) === code);
+  if (!row) return null;
+  return { bdns_code: row.bdns_code, title: row.title, registration_date: row.registration_date, publication_date: row.publication_date, budget: row.raw_record?.convocatoria?.financiacion?.[0]?.importe || null, purpose: row.purpose, source_url: row.source_url, source_record_id: row.source_record_id, granting_entity: row.granting_body };
 }
 
 async function databaseSearch(query) {
@@ -310,6 +329,18 @@ const server = createServer(async (req, res) => {
       return json(res, 200, { data, meta: { page, pageSize, total: data.length, dataStatus: data.length ? 'imported' : 'awaiting_validated_ingestion', backend: 'postgresql' } });
     } catch (error) {
       return json(res, 200, { data: [], meta: { page, pageSize, total: 0, dataStatus: 'awaiting_validated_ingestion', backend: 'unavailable', warning: error.message } });
+    }
+  }
+  if (url.pathname.startsWith('/api/grants/')) {
+    const code = decodeURIComponent(url.pathname.slice('/api/grants/'.length));
+    try {
+      const data = await databaseGrantByCode(code);
+      const fallback = grantFromJsonl(code);
+      const enriched = data && fallback ? { ...fallback, ...data, budget: data.budget || fallback.budget } : data || fallback;
+      return enriched ? json(res, 200, { data: enriched, meta: { backend: data ? 'postgresql' : 'jsonl-fallback', dataStatus: 'imported' } }) : json(res, 404, { error: 'grant_not_found' });
+    } catch (error) {
+      const data = grantFromJsonl(code);
+      return data ? json(res, 200, { data, meta: { backend: 'jsonl-fallback', dataStatus: 'imported', warning: error.message } }) : json(res, 404, { error: 'grant_not_found' });
     }
   }
   if (url.pathname === '/api/export.csv') {
