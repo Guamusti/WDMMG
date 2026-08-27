@@ -242,6 +242,14 @@ def test_latest_grant_calls_comes_from_official_live_bdns():
     assert {"bdns_code", "title", "administration", "granting_entity", "source_url"}.issubset(payload["data"][0])
 
 
+def test_live_grant_call_detail_falls_back_to_official_bdns():
+    status, payload = get_json("/api/grants/926814")
+    assert status == 200
+    assert payload["meta"]["backend"] == "bdns-live"
+    assert payload["data"]["bdns_code"] == "926814"
+    assert payload["data"]["budget"] > 0
+
+
 def test_companies_csv_export_is_available():
     try:
         with urlopen(f"{BASE_URL}/api/export.csv?entity=companies", timeout=4) as response:

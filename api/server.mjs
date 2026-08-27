@@ -12,6 +12,7 @@ const root = process.cwd();
 const fileCache = new Map();
 const grantConcessionsCache = new Map();
 let latestGrantCallsCache = null;
+const liveGrantCallCache = new Map();
 
 function readJsonl(path) {
   if (!existsSync(path)) return [];
@@ -299,6 +300,20 @@ function grantFromJsonl(code) {
   const row = getGrants().find(grant => String(grant.bdns_code || grant.source_record_id) === code);
   if (!row) return null;
   return { bdns_code: row.bdns_code, title: row.title, registration_date: row.registration_date, publication_date: row.publication_date, budget: row.raw_record?.convocatoria?.financiacion?.[0]?.importe || null, purpose: row.purpose, source_url: row.source_url, source_record_id: row.source_record_id, granting_entity: row.granting_body };
+}
+
+async function officialGrantCall(code) {
+  const cached = liveGrantCallCache.get(code);
+  if (cached && Date.now() - cached.at < 300000) return cached.data;
+  const sourceUrl = `https://www.infosubvenciones.es/bdnstrans/GE/es/api/v2.1/convocatoria/${encodeURIComponent(code)}`;
+  const response = await fetch(sourceUrl, { headers: { Accept: 'application/json', 'User-Agent': 'dinero-publico/0.1 (open-data research)' } });
+  if (!response.ok) return null;
+  const payload = await response.json();
+  const call = payload.convocatoria || payload[0]?.convocatoria || (payload.codigoBDNS || payload['codigo-BDNS'] ? payload : null);
+  if (!call) return null;
+  const data = { bdns_code: String(call['codigo-BDNS'] || code), title: call.titulo || null, registration_date: call['fecha-registro'] || null, publication_date: call['fecha-registro'] || null, budget: (call.financiacion || []).reduce((sum, item) => sum + Number(item.importe || 0), 0) || null, purpose: call.finalidad?.descripcion || null, granting_entity: call['desc-organo'] || null, source_url: call['permalink-convocatoria'] || `https://www.infosubvenciones.es/bdnstrans/GE/es/convocatoria/${code}`, raw_record: call };
+  liveGrantCallCache.set(code, { at: Date.now(), data });
+  return data;
 }
 
 async function officialGrantConcessions(code, page = 0, pageSize = 100) {
@@ -676,13 +691,15 @@ const server = createServer(async (req, res) => {
   if (url.pathname.startsWith('/api/grants/')) {
     const code = decodeURIComponent(url.pathname.slice('/api/grants/'.length));
     try {
+      const live = await officialGrantCall(code);
       const data = await databaseGrantByCode(code);
       const fallback = grantFromJsonl(code);
-      const enriched = data && fallback ? { ...fallback, ...data, budget: data.budget || fallback.budget } : data || fallback;
-      return enriched ? json(res, 200, { data: enriched, meta: { backend: data ? 'postgresql' : 'jsonl-fallback', dataStatus: 'imported' } }) : json(res, 404, { error: 'grant_not_found' });
+      const enriched = data && fallback ? { ...fallback, ...data, budget: data.budget || fallback.budget } : data || fallback || live;
+      return enriched ? json(res, 200, { data: enriched, meta: { backend: data ? 'postgresql' : live ? 'bdns-live' : 'jsonl-fallback', dataStatus: 'imported' } }) : json(res, 404, { error: 'grant_not_found' });
     } catch (error) {
       const data = grantFromJsonl(code);
-      return data ? json(res, 200, { data, meta: { backend: 'jsonl-fallback', dataStatus: 'imported', warning: error.message } }) : json(res, 404, { error: 'grant_not_found' });
+      try { const live = data || await officialGrantCall(code); return live ? json(res, 200, { data: live, meta: { backend: data ? 'jsonl-fallback' : 'bdns-live', dataStatus: 'imported', warning: error.message } }) : json(res, 404, { error: 'grant_not_found' }); }
+      catch (liveError) { return json(res, 404, { error: 'grant_not_found', detail: liveError.message }); }
     }
   }
   if (url.pathname === '/api/export.csv') {
