@@ -6,3 +6,4 @@ __pycache__/
 *.pyc
 public/api-port.json
 .atlas-frontend-port
+.atlas-frontend-api-port

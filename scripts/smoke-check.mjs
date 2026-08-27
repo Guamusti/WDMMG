@@ -18,6 +18,8 @@ const proxiedMadrid = await (await expectOk(`${frontend}/api/offers?limit=1`, 'V
 if (proxiedMadrid.total !== expectedMadrid || !proxiedMadrid.data[0]?.sourceUrl) throw new Error('Vite API proxy: catalog contract missing');
 const enrichedOffer = await (await expectOk(`${frontend}/api/offers?q=antropología&limit=1`, 'RUCT enrichment')).json();
 if (!enrichedOffer.data[0]?.ructDegreeCode || !enrichedOffer.data[0]?.ructSourceUrl || !enrichedOffer.data[0]?.ructCenters?.length) throw new Error('RUCT enrichment: detail fields missing');
+const pendingOffer = await (await expectOk(`${frontend}/api/offers?q=administraci%C3%B3n&university=010&limit=1000`, 'RUCT pending status')).json();
+if (!pendingOffer.data.some(row => row.ructMatchStatus === 'pending')) throw new Error('RUCT pending status: missing explicit status');
 await expectOk(`${api}/api/health`, 'health');
 
 const madrid = await (await expectOk(`${api}/api/offers?limit=1`, 'Madrid offers')).json();

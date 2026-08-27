@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-En Windows también puedes hacer doble clic en [`iniciar.bat`](./iniciar.bat). El lanzador entra en la carpeta del proyecto, actualiza dependencias con `npm install`, busca un puerto libre empezando por el 5173, inicia Vite y abre el navegador en esa instancia.
+En Windows también puedes hacer doble clic en [`iniciar.bat`](./iniciar.bat). El lanzador entra en la carpeta del proyecto, actualiza dependencias con `npm install`, reutiliza una pareja saludable de API y Vite si ya existe, inicia solo lo que falte y abre el navegador en esa instancia.
 
 El mapa utiliza Leaflet y teselas de OpenStreetMap con atribución visible.
 

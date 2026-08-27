@@ -58,6 +58,7 @@ Las rutas actuales del MVP son `/oferta/<id>`, `/universidad/<sigla>` y `/grado/
 - [x] Preparar vistas materializadas para percentiles y cobertura (`db/migrations/002_views.sql`).
 - [x] API interna con filtros básicos, paginación, fuente y URLs compartibles (`api/server.mjs`); el launcher selecciona puerto libre.
 - [x] Proxy Vite mismo-origen para `/api/*`, con el puerto de API heredado por el único proceso frontend del launcher.
+- [x] Launcher idempotente: reutiliza una pareja saludable frontend/API, valida el contrato de Atlas y evita procesos duplicados o proxies desincronizados.
 - [x] Endpoint nacional separado (`/api/national-offers`) y cobertura agregada (`/api/coverage`) con filtro por comunidad y procedencia preservada.
 - [x] Explorador conectado a la API con fallback local para preservar el arranque si el servicio no está disponible.
 - [x] La API conserva el enriquecimiento RUCT de cada oferta (título, campo, centros y ficha oficial) al servir el catálogo del frontend.
