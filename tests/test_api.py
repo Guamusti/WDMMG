@@ -300,6 +300,7 @@ def test_contract_detail_exposes_verified_money_trail_fields():
     assert status == 200
     assert "contracting_authority" in payload["data"]
     assert "winner_name" in payload["data"]
+    assert "number_of_tenders" in payload["data"]
     assert isinstance(payload["data"].get("events", []), list)
 
 

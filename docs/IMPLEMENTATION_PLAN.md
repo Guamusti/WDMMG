@@ -358,6 +358,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Explorador contable permite alternar capítulos de gasto y secciones administrativas, con búsqueda y porcentaje recalculado solo dentro del nivel elegido | `en curso` |
 | 27/08/2026 | Señal visible de adjudicaciones con un único licitador: solo usa el campo publicado por PLACSP y explicita cuántos registros sí lo informan | `en curso` |
 | 27/08/2026 | Agregación completa de contratación: `/api/contracts/insights` cuenta licitadores conocidos, adjudicaciones con uno y contratos con modificaciones publicadas | `en curso` |
+| 27/08/2026 | Ficha de empresa añade top 5 de organismos adjudicadores por importe y número de contratos, calculado solo desde adjudicaciones PLACSP publicadas | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |
