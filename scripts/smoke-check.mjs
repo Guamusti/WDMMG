@@ -10,6 +10,7 @@ const expectedCantabria = JSON.parse(await readFile('data/processed/admissions/c
 const expectedNavarra = JSON.parse(await readFile('data/processed/admissions/navarra-2025-2026.json', 'utf8')).length;
 const expectedAsturias = JSON.parse(await readFile('data/processed/admissions/asturias-2025-2026.json', 'utf8')).length;
 const expectedIllesBalears = JSON.parse(await readFile('data/processed/admissions/illes-balears-2025-2026.json', 'utf8')).length;
+const expectedCanarias = JSON.parse(await readFile('data/processed/admissions/canarias-ulpgc-2025-2026.json', 'utf8')).length;
 const frontend = `http://127.0.0.1:${frontendPort}`;
 const api = `http://127.0.0.1:${apiPort}`;
 
@@ -55,6 +56,8 @@ const asturias = await (await expectOk(`${api}/api/national-offers?community=Ast
 if (asturias.total !== expectedAsturias || asturias.data[0]?.admissionRound !== 'first_call' || !asturias.data[0]?.places) throw new Error('Asturias offers: round/places contract missing');
 const illesBalears = await (await expectOk(`${api}/api/national-offers?community=Illes%20Balears&limit=1`, 'Illes Balears offers')).json();
 if (illesBalears.total !== expectedIllesBalears || !['ordinary', 'extraordinary'].includes(illesBalears.data[0]?.admissionRound) || !illesBalears.data[0]?.sourceUrl || !illesBalears.data[0]?.sourceProcess || !illesBalears.data[0]?.sourceDate) throw new Error('Illes Balears offers: round/source contract missing');
+const canarias = await (await expectOk(`${api}/api/national-offers?community=Canarias&limit=1`, 'Canarias offers')).json();
+if (canarias.total !== expectedCanarias || canarias.data[0]?.admissionRound !== 'first_call' || canarias.data[0]?.admissionGroup !== 'group_1' || !canarias.data[0]?.sourceUrl) throw new Error('Canarias offers: round/source contract missing');
 
 const etag = nationalResponse.headers.get('etag');
 if (!etag || !nationalResponse.headers.get('cache-control')) throw new Error('National offers: HTTP cache headers missing');

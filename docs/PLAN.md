@@ -91,7 +91,7 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [x] Exponer convocatoria y cupo como filtros aplicables en `/espana`, manteniendo sus valores originales por fila.
 - [x] Percentiles nacionales, regionales, por rama y por campo RUCT cuando existe una clasificación oficial; el catálogo mantiene cobertura parcial y no infiere campos ausentes.
 - [x] Percentiles nacional, por comunidad, rama y campo RUCT sobre las observaciones cargadas en `/espana`, con el ámbito de comparación indicado en cada fila.
-- [x] Explorador nacional inicial de notas, mapa orientativo y “qué puedo estudiar con mi nota” para las diez comunidades procesadas; percentiles comparables visibles según cobertura.
+- [x] Explorador nacional inicial de notas, mapa orientativo y “qué puedo estudiar con mi nota” para las once comunidades procesadas; percentiles comparables visibles según cobertura.
 - [x] Explorador nacional inicial `/espana` con búsqueda, comunidad, nota/tolerancia, orden, procedencia, estado de cobertura y carga completa del catálogo; el mapa sigue siendo orientativo.
 
 Criterio de terminado: el filtro España permite comparar solo ofertas metodológicamente compatibles y muestra cobertura por comunidad.

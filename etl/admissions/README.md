@@ -76,11 +76,21 @@ etl/admissions/illes-balears/parse_uib.py` genera el extracto de 2025-2026.
 Se carga exclusivamente la vía PAU/CFGS y se conservan los procesos JUN/EXT,
 grupo, lista de espera y fecha de publicación.
 
+## Canarias · ULPGC
+
+`data/raw/admissions/canarias/2025-2026/ulpgc-notas-corte-2025-2026.html`
+conserva la página oficial de notas de corte de la Universidad de Las Palmas
+de Gran Canaria y `python etl/admissions/canarias/parse_ulpgc.py` genera el
+extracto `data/processed/admissions/canarias-ulpgc-2025-2026.json`. Se carga
+la primera asignación del cupo general, se conservan las cinco ramas publicadas
+y se excluyen solo las filas sin nota general (`--`), manteniendo el alcance
+parcial: la Universidad de La Laguna aún no está integrada.
+
 ## Catálogo nacional de trabajo
 
 `python etl/admissions/build_national_catalog.py` reúne los extractos
 procesados de Madrid, Galicia, Aragón, Cataluña, Andalucía, Castilla y León,
-Cantabria, Navarra, Asturias e Illes Balears en
+Cantabria, Navarra, Asturias, Illes Balears y Canarias (ULPGC) en
 `data/processed/admissions/`.
 Conserva la procedencia regional y genera un informe de comparabilidad; no
 rellena ramas, RUCT ni métricas que una fuente no publique.

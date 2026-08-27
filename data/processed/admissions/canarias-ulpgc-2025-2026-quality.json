@@ -1,0 +1,54 @@
+{
+  "source_url": "https://sie.ulpgc.es/notascorte",
+  "academic_year": "2025-2026",
+  "records": 51,
+  "rejected_rows": 6,
+  "duplicates": 0,
+  "round": "first assignment · general quota",
+  "coverage": "ULPGC · 57 published rows; rows without a general-quota score are excluded",
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "no_replacement_glyph_in_names": true,
+    "admission_round_explicit": true,
+    "general_group_explicit": true,
+    "no_duplicate_keys": true
+  },
+  "rejections": [
+    {
+      "table": 1,
+      "row": 1,
+      "degree": "Titulación",
+      "reason": "INVALID_GENERAL_CUTOFF"
+    },
+    {
+      "table": 2,
+      "row": 1,
+      "degree": "Titulación",
+      "reason": "INVALID_GENERAL_CUTOFF"
+    },
+    {
+      "table": 2,
+      "row": 8,
+      "degree": "Grado en Psicología (no presencial)",
+      "reason": "MISSING_GENERAL_CUTOFF"
+    },
+    {
+      "table": 3,
+      "row": 1,
+      "degree": "Titulación",
+      "reason": "INVALID_GENERAL_CUTOFF"
+    },
+    {
+      "table": 4,
+      "row": 1,
+      "degree": "Titulación",
+      "reason": "INVALID_GENERAL_CUTOFF"
+    },
+    {
+      "table": 5,
+      "row": 1,
+      "degree": "Titulación",
+      "reason": "INVALID_GENERAL_CUTOFF"
+    }
+  ]
+}

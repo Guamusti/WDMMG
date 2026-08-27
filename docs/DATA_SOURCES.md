@@ -68,8 +68,15 @@
 
 ## Catálogo nacional de trabajo
 
-- `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de diez comunidades: Madrid (458), Galicia (333), Aragón (73), Cataluña (549), Andalucía (581), Castilla y León (122), Cantabria (37), Navarra (41), Asturias (68) e Illes Balears (296).
+- `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de once comunidades: Madrid (458), Galicia (333), Aragón (73), Cataluña (549), Andalucía (581), Castilla y León (122), Cantabria (37), Navarra (41), Asturias (68), Illes Balears (296) y Canarias (51 de la ULPGC).
 - `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial y la de campo RUCT también, por lo que el catálogo no se presenta como ranking nacional único.
+
+## Notas de corte — Canarias
+
+- Organismo: Universidad de Las Palmas de Gran Canaria (ULPGC).
+- Fuente primaria: [notas de corte de acceso ULPGC](https://sie.ulpgc.es/notascorte).
+- Extracto: primera asignación, cupo general, curso 2025–2026; 51 filas con nota publicada de 57 filas mostradas.
+- Se mantienen las ramas publicadas por cada bloque de la tabla y el campus/isla cuando figura en el título. La Universidad de La Laguna permanece pendiente para no presentar una cobertura parcial como si fuera el distrito completo de Canarias.
 
 ## Notas de corte — País Vasco
 

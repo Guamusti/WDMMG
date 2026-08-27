@@ -1,9 +1,10 @@
 {
-  "records": 2558,
+  "records": 2609,
   "communities": [
     "Andalucía",
     "Aragón",
     "Asturias",
+    "Canarias",
     "Cantabria",
     "Castilla y León",
     "Cataluña",
@@ -16,6 +17,7 @@
     "Andalucía": 581,
     "Aragón": 73,
     "Asturias": 68,
+    "Canarias": 51,
     "Cantabria": 37,
     "Castilla y León": 122,
     "Cataluña": 549,
@@ -29,7 +31,7 @@
     "same_academic_year": true,
     "same_scale_0_14": true,
     "round_and_group_present": true,
-    "branch_coverage": 1002,
-    "field_coverage": 351
+    "branch_coverage": 1053,
+    "field_coverage": 352
   }
 }
