@@ -17,6 +17,7 @@ OUTCOME_ENROLMENT = ROOT / "data/processed/outcomes/madrid-university-enrolment-
 OUTCOME_GRADUATES = ROOT / "data/processed/outcomes/madrid-university-graduates-2023-2024.json"
 OUTCOME_INTERNATIONAL = ROOT / "data/processed/outcomes/madrid-international-2022-2023.json"
 OUTCOME_MOBILITY_OUTGOING = ROOT / "data/processed/outcomes/madrid-mobility-outgoing-2021-2022.json"
+OUTCOME_MOBILITY_RATIO = ROOT / "data/processed/outcomes/madrid-mobility-ratio-2021-2022.json"
 OUTCOME_EMPLOYMENT = ROOT / "data/processed/outcomes/field-employment-2018-2019-four-years.json"
 OUTCOME_EMPLOYMENT_SERIES = ROOT / "data/processed/outcomes/employment-national-series-2018-2019.json"
 MADRID_UNIVERSITIES = {"UAH", "UAM", "UC3M", "UCM", "UPM", "URJC"}
@@ -91,6 +92,15 @@ if not outgoing.get("definition") or not outgoing.get("source_url"):
     raise AssertionError("Mobility context: definition and source are required")
 if any(not isinstance(value, int) or value <= 0 for value in outgoing["values"].values()):
     raise AssertionError("Mobility context: values must be positive integers")
+ratio = json.loads(OUTCOME_MOBILITY_RATIO.read_text(encoding="utf-8"))
+if ratio.get("academic_year") != "2021-2022" or ratio.get("metric") != "mobility_incoming_outgoing_ratio":
+    raise AssertionError("Mobility ratio: unexpected year or metric")
+if set(ratio.get("values", {})) != MADRID_UNIVERSITIES:
+    raise AssertionError("Mobility ratio: expected six Madrid public universities")
+if not ratio.get("definition") or not ratio.get("source_url"):
+    raise AssertionError("Mobility ratio: definition and source are required")
+if any(not isinstance(value, (int, float)) or value < 0 for value in ratio["values"].values()):
+    raise AssertionError("Mobility ratio: values must be non-negative numbers")
 employment = json.loads(OUTCOME_EMPLOYMENT.read_text(encoding="utf-8"))
 required_fields = {"informatica", "ade", "economia", "derecho", "medicina", "enfermeria", "sociologia", "periodismo"}
 if employment.get("cohort") != "2018–2019 · cuatro años después · 2023" or employment.get("granularity") != "Campo de estudio · España":

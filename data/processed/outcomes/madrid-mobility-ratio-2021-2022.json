@@ -1,0 +1,17 @@
+{
+  "dataset": "madrid-university-mobility-ratio-2021-2022",
+  "academic_year": "2021-2022",
+  "metric": "mobility_incoming_outgoing_ratio",
+  "definition": "Cociente entre estudiantes que acceden al SUE desde otro país mediante un programa de movilidad y estudiantes que salen del SUE hacia una universidad extranjera mediante un programa de movilidad.",
+  "scope": "Universidad · todas las universidades presenciales · ambos sexos",
+  "source": "Ministerio de Universidades · SIIU",
+  "source_url": "https://estadisticas.universidades.gob.es/jaxiPx/Datos.htm?file=Ratio_Univ.px&path=%2FUniversitaria%2FInternacionalizacion%2F2022%2FEstudiantes_Internacionales%2Fl0%2F",
+  "values": {
+    "UAH": 0.77,
+    "UAM": 1.15,
+    "UC3M": 1.28,
+    "UCM": 1.24,
+    "UPM": 1.36,
+    "URJC": 0.70
+  }
+}
