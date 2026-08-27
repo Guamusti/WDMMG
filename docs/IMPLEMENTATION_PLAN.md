@@ -188,7 +188,7 @@ Referencia MD: secciones 34, 35, 36, 37, 38, 39, 41, 42, 44, 45, 54, 55, 56, 60,
 - [ ] Tests de API y permisos de descarga.
 - [ ] Tests end-to-end frontend → API → datos → fuente.
 - [x] Página pública de cobertura y actualización.
-- [ ] Página de metodología completa y glosario.
+- [x] Página de metodología completa y glosario.
 - [ ] Monitorización de fallos, cambios de esquema y retrasos de fuentes.
 - [ ] Jobs según frecuencia real comprobada, no asumida.
 - [ ] Revisión de accesibilidad, seguridad, privacidad y licencias.
@@ -239,6 +239,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Revisión de gráfico externo: se descarta como fuente no reproducible y se incorpora el desglose oficial de “Resto de políticas” | `en curso` |
 | 27/08/2026 | Dataset funcional IGAE 2024 reproducible y endpoint `/api/policies`; 28 políticas y total oficial servidos | `en curso` |
 | 27/08/2026 | La rueda consume `/api/policies` con fallback validado; agrupación de partidas principales y “Resto” conservada | `en curso` |
+| 27/08/2026 | Metodología ampliada: glosario, separación de datasets, no doble conteo y estados de cobertura | `en curso` |
 | 27/08/2026 | La portada arranca con Pensiones seleccionada (32,1%) y el detalle es accesible con `aria-live` | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |
