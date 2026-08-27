@@ -20,6 +20,7 @@ DATASETS = [
 ]
 REQUIRED = {"academic_year", "admission_round", "admission_group", "cutoff_score"}
 RUCT_MATCHES = ROOT / "data/processed/ruct/madrid-degree-matches.json"
+MADRID_QUALITY_REPORT = ROOT / "data/quality/madrid-2025-2026.json"
 OUTCOME_ENROLMENT = ROOT / "data/processed/outcomes/madrid-university-enrolment-2023-2024.json"
 OUTCOME_GRADUATES = ROOT / "data/processed/outcomes/madrid-university-graduates-2023-2024.json"
 OUTCOME_INTERNATIONAL = ROOT / "data/processed/outcomes/madrid-international-2022-2023.json"
@@ -77,6 +78,12 @@ for row in matches:
     for center in row.get("ruct_centers", []):
         if not re.fullmatch(r"\d{8}", str(center.get("code", ""))) or not center.get("name"):
             raise AssertionError(f"Invalid RUCT center in match: {row['admission_id']}")
+if MADRID_QUALITY_REPORT.exists():
+    madrid_report = json.loads(MADRID_QUALITY_REPORT.read_text(encoding="utf-8"))
+    pending_count = sum(row.get("status") != "matched" for row in matches)
+    warnings = [warning for warning in madrid_report.get("warnings", []) if warning.get("code") == "RUCT_TITLE_CENTER_MATCH_PENDING"]
+    if madrid_report.get("records") != len(madrid_count) or not warnings or warnings[0].get("count") != pending_count:
+        raise AssertionError("Madrid quality report: stale record or RUCT pending count")
 enrolment = json.loads(OUTCOME_ENROLMENT.read_text(encoding="utf-8"))
 if enrolment.get("academic_year") != "2023-2024" or enrolment.get("granularity") != "Universidad · grados presenciales":
     raise AssertionError("Enrolment context: unexpected year or granularity")
