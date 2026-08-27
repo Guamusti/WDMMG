@@ -115,7 +115,7 @@ Criterio de terminado: cada métrica académica tiene tooltip de definición, cu
 - [x] Añadir una referencia laboral de ámbito para Informática, con cohorte, definición y fuente visibles; no se atribuye automáticamente a una titulación.
 - [x] Añadir referencias laborales agregadas para Informática, ADE, Economía, Derecho, Medicina, Enfermería, Sociología y Periodismo, con cobertura explícita de campo y cohorte.
 - [x] Mantener separado el concepto de salario frente a afiliación y base media de cotización; la ficha ya indica “no disponible” mientras falte el cruce por ámbito.
-- [ ] Mostrar 1, 2, 3 y 4 años después cuando existan datos comparables.
+- [x] Mostrar 1, 2, 3 y 4 años después cuando existan datos comparables; la ficha expone la serie nacional y la separa del campo de estudio.
 - [x] Mostrar la evolución nacional disponible a 1, 2, 3 y 4 años, separada de la referencia del campo y sin extrapolarla a una carrera.
 - [x] Evitar llamar “salario” a una base de cotización.
 - [x] Registrar la cohorte oficial más reciente y separar su fecha de publicación del extracto local reproducible en `data/processed/outcomes/employment-coverage.json`.
@@ -125,7 +125,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 ## Fase 6 — Coste e internacionalización
 
 - [x] Precios públicos por ECTS, matrícula y experimentalidad en Madrid, asignados solo cuando el nivel está documentado.
-- [ ] Internacionalización y movilidad con cobertura explícita.
+- [x] Internacionalización y movilidad con cobertura explícita.
 - [x] Integrar estudiantes internacionales entrantes por universidad (2022–2023), con definición, granularidad y fuente visibles; la movilidad saliente y por titulación siguen pendientes.
 - [x] Integrar recuento de movilidad internacional saliente por universidad (2021–2022), con fuente y definición separadas de los entrantes; la movilidad por titulación sigue pendiente.
 - [x] Añadir el ratio institucional entrantes/salientes de movilidad (2021–2022), manteniendo la fórmula y las limitaciones visibles.
