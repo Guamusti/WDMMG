@@ -67,10 +67,12 @@ Entregables: `etl/`, `requirements.txt`, `docs/ETL.md`.
 
 Referencia MD: secciones 6, 7, 10, 13, 18, 26, 27, 28, 29, 33, 46, 47, 57, 58 y 62.G.
 
-- [~] Localizar el portal oficial y la documentación del feed; falta configurar una sindicacion concreta.
-- [ ] Importar una muestra real y auditar el conteo raw/parseado/normalizado.
-- [ ] Resolver contratos ordinarios, menores y actualizaciones sin duplicar.
-- [ ] Importar lotes y adjudicaciones con adjudicatarios canónicos.
+- [x] Localizar el portal oficial y la documentación del feed; falta ampliar a otras sindicaciones.
+- [x] Configurar sindicacion 643 oficial y descargar feed ATOM real.
+- [x] Importar 387 licitaciones PLACSP reales en JSONL y PostgreSQL.
+- [x] Importar una muestra real y auditar el conteo raw/parseado/normalizado: 387 entradas, 382 contratos canónicos.
+- [~] Resolver contratos ordinarios, menores y actualizaciones sin duplicar; sindicacion 643 importada y 5 IDs repetidos/actualizados.
+- [~] Importar lotes y adjudicaciones con adjudicatarios canónicos; expediente base importado, adjudicaciones/lotes pendientes.
 - [ ] Configurar el servicio BDNS oficial de convocatorias.
 - [ ] Configurar el servicio BDNS oficial de concesiones.
 - [ ] Importar muestras reales con URLs de origen.
@@ -84,12 +86,12 @@ Referencia MD: secciones 4, 5, 11, 16, 17, 20, 23, 30, 31, 32, 33, 36, 42, 56, 5
 - [x] Seleccionar XLS estructurado de presupuesto y ejecución AGE.
 - [x] Descargar muestra mensual y documentar estructura real.
 - [~] Extraer filas del XLSX a JSONL auditable; falta normalización contable completa.
-- [~] Normalizar hojas GTOS 001/002/004 a campos de ejecución separados; falta cargar en PostgreSQL y validar totales.
+- [~] Normalizar hojas GTOS 001/002/004 a campos de ejecución separados; cargadas en PostgreSQL, falta validar totales completos.
 - [x] Detectar periodo desde cabeceras y marcar anomalías contables sin eliminar registros.
 - [x] Añadir cargador transaccional PostgreSQL para el JSONL IGAE y entorno Docker local.
 - [x] Verificar carga repetida sin duplicados: 91 `budget_records` y 91 `budget_execution`.
 - [ ] Parsear clasificación orgánica, económica y funcional/programas.
-- [ ] Importar crédito inicial, modificaciones, definitivo, comprometido, obligaciones y pagos.
+- [~] Importar crédito inicial, modificaciones, definitivo, comprometido, obligaciones y pagos; ejecución AGE cargada, crédito inicial/modificaciones detallados pendientes.
 - [ ] Conservar periodo, estado provisional/avance/definitivo y versión.
 - [ ] Modelar presupuestos prorrogados y `budget_origin_year`.
 - [ ] Modelar cambios de nombre/jerarquía administrativa con IDs estables.
@@ -106,7 +108,8 @@ Referencia MD: secciones 17, 18, 19, 22, 23, 24, 26, 27, 28, 29, 30, 32, 33, 34,
 - [x] Evitar doble conteo en el resumen IGAE excluyendo filas TOTAL de la suma de capítulos.
 - [x] Conectar API a PostgreSQL, manteniendo JSONL como fallback explícito.
 - [ ] Implementar endpoints de presupuestos, entidades, programas, empresas, contratos, subvenciones y geografía.
-- [ ] Implementar filtros server-side y paginación.
+- [x] Implementar filtros server-side y paginación.
+- [x] Implementar filtros server-side y paginación básica para contratos.
 - [ ] Implementar buscador global multi-entidad.
 - [ ] Implementar agregaciones separadas por magnitud.
 - [ ] Implementar exportación CSV de la consulta exacta.
@@ -208,3 +211,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Contratos frontend conectados a API; eliminadas filas estáticas ficticias | `19e9ece` |
 | 27/08/2026 | Validación de periodo IGAE y flags contables; 91 filas procesadas, 10 marcadas | `61fea32` |
 | 27/08/2026 | Cargador PostgreSQL IGAE y entorno Docker local; carga repetida sin duplicados | `en curso` |
+| 27/08/2026 | Feed PLACSP real cargado en PostgreSQL: 387 entradas, 382 contratos canónicos | `76d5ba7` |
