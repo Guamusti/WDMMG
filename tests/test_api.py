@@ -279,6 +279,14 @@ def test_grant_concessions_expose_pagination_metadata():
         pytest.skip(f"BDNS no disponible: {error}")
 
 
+def test_territory_csv_export_is_available():
+    with urlopen(f"{BASE_URL}/api/export.csv?entity=territories", timeout=5) as response:
+        body = response.read().decode("utf-8-sig")
+        assert response.status == 200
+        assert "territorio" in body and "gasto_no_financiero_reconocido" in body
+        assert "Andaluc\u00eda" in body
+
+
 def test_unknown_route_is_not_found():
     with pytest.raises(HTTPError) as error:
         urlopen(f"{BASE_URL}/api/does-not-exist", timeout=2)

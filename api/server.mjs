@@ -551,6 +551,10 @@ const server = createServer(async (req, res) => {
         const rows = parentRows.flatMap(policy => [{ partida: policy.label, nivel: 'partida', importe_eur: policy.amount, porcentaje_total: source.total ? (policy.amount / source.total) * 100 : null, padre: '' }, ...(policy.code === 'rest' ? rest : (policy.children || [])).map(child => ({ partida: child.label, nivel: 'subpartida', importe_eur: child.amount, porcentaje_total: source.total ? (child.amount / source.total) * 100 : null, padre: policy.label }))]);
         return csv(res, 'partidas-funcionales-2024.csv', rows);
       }
+      if (entity === 'territories') {
+        const rows = getTerritorialExecution().map(row => ({ territorio: row.territory, nivel: row.territory_level, periodo: row.period, estado: row.data_status, unidad: row.unit, gasto_no_financiero_reconocido: row.recognized_expense_non_financial, fuente: row.source_url }));
+        return csv(res, 'ejecucion-ccaa-2026-05.csv', rows);
+      }
       if (entity === 'contracts') return csv(res, 'contratos-placsp.csv', await databaseContracts(query, 1, 10000));
       if (entity === 'grants') return csv(res, 'convocatorias-bdns.csv', await databaseGrants(query, 1, 10000));
       if (entity === 'companies') return csv(res, 'empresas-adjudicatarias-placsp.csv', await databaseCompanies(query, 10000));
