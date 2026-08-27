@@ -61,8 +61,12 @@ const fullOffers = fullMadridAdmissions.map((row, index) => {
   return { id:`madrid-${shortByUniversity[row.university_name_source] || 'oferta'}-${index + 1}`, university:universityName, short:shortByUniversity[row.university_name_source], ructCode:row.university_ruct_code, degree:rawDegree, campus, city, cutoff:row.cutoff_score, branch:cleanPdf(row.branch_name_source) || 'Rama pendiente de RUCT', places:null, double:/\s-\s/.test(rawDegree), durationYears:row.duration_years_source, ects:row.ects_source, source:'Comunidad de Madrid · notas 2025–2026', sourcePage:row.source_page };
 });
 
+const canonicalName = value => cleanPdf(value).toLowerCase().replace(/\([^)]*\)/g, '').replace(/\s+/g, ' ').replace(/\s[-+]\s/g, '+').trim();
+const offerKey = offer => [offer.short, canonicalName(offer.degree), cleanPdf(offer.city).toLowerCase(), Number(offer.cutoff).toFixed(3)].join('|');
+const mergedOffers = new Map();
 // La selección inicial conserva sus URLs públicas; el extracto oficial aporta el resto.
-export const madridOffers = [...madridSeedOffers, ...fullOffers];
+[...madridSeedOffers, ...fullOffers].forEach(offer => { if (!mergedOffers.has(offerKey(offer))) mergedOffers.set(offerKey(offer), offer); });
+export const madridOffers = [...mergedOffers.values()];
 const ructByShort = Object.fromEntries(ructUniversities.map(item => [item.short, item.ruct_code]));
 
 export const madridUniversities = [
