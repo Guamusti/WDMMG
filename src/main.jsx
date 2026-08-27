@@ -24,7 +24,29 @@ const functionalPolicies = [
   { id: 'transfers', label: 'Transferencias a otras administraciones', amount: 70971.03025089, color: '#9b715c', children: [{ label: 'Comunidades autónomas', amount: 29802.41159084 }, { label: 'Entidades locales', amount: 26731.63219957 }, { label: 'Unión Europea', amount: 14425.98690987 }, { label: 'Otros', amount: 10.99955061 }] }
 ];
 const functionalTotal = 644186.15102535;
-const policyWheelItems = [...functionalPolicies, { id: 'rest', label: 'Resto de políticas', amount: functionalTotal - functionalPolicies.reduce((sum, policy) => sum + policy.amount, 0), color: '#c7d0c6' }];
+const restPolicyChildren = [
+  { label: 'Servicios de carácter general', amount: 25676.62896321 },
+  { label: 'Otras actuaciones económicas', amount: 16217.05997228 },
+  { label: 'Defensa', amount: 13791.09310361 },
+  { label: 'Agricultura, pesca y alimentación', amount: 10556.03825011 },
+  { label: 'Seguridad ciudadana e instituciones penitenciarias', amount: 10377.39475686 },
+  { label: 'Investigación, innovación y digitalización', amount: 9703.88812889 },
+  { label: 'Gestión de Inclusión, Seguridad Social y Migración', amount: 8671.04822822 },
+  { label: 'Industria y energía', amount: 7890.69270877 },
+  { label: 'Fomento del empleo', amount: 7342.65385462 },
+  { label: 'Servicios sociales y promoción social', amount: 7338.64505322 },
+  { label: 'Subvenciones al transporte', amount: 6524.32488645 },
+  { label: 'Administración financiera y tributaria', amount: 3522.58458468 },
+  { label: 'Comercio, turismo y pymes', amount: 2623.83799657 },
+  { label: 'Justicia', amount: 2161.56464281 },
+  { label: 'Política exterior y cooperación', amount: 1752.07319967 },
+  { label: 'Cultura', amount: 1440.06741439 },
+  { label: 'Vivienda y fomento de la edificación', amount: 1179.96967811 },
+  { label: 'Transferencias internas', amount: 655.21839758 },
+  { label: 'Órganos constitucionales, Gobierno y otros', amount: 486.63559691 },
+  { label: 'Gestión y administración de Trabajo y Economía Social', amount: 102.96231829 }
+];
+const policyWheelItems = [...functionalPolicies, { id: 'rest', label: 'Resto de políticas', amount: functionalTotal - functionalPolicies.reduce((sum, policy) => sum + policy.amount, 0), color: '#c7d0c6', children: restPolicyChildren }];
 
 function Money({ children }) { return <span className="money">{children}</span>; }
 
