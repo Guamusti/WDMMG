@@ -48,6 +48,8 @@ La API ya consulta concesiones en vivo por código BDNS y conserva el resultado 
 
 Las fichas de empresa y convocatoria son ahora enlaces reproducibles: al abrir su URL se recupera automáticamente el segundo nivel de detalle.
 
+La ficha BDNS incorpora el bloque de concesiones consultado en vivo; los beneficiarios solo aparecen si la API oficial los devuelve para esa convocatoria.
+
 ### 5. Historias y alertas descriptivas
 
 Historias breves sobre cambios, concentración, contratos menores, ejecución y diferencias territoriales. Son indicadores descriptivos, no acusaciones: cada una muestra denominador, fecha, regla y enlace al dataset.
