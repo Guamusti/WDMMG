@@ -762,6 +762,8 @@ const server = createServer(async (req, res) => {
     const entity = url.searchParams.get('entity') || 'contracts';
     const query = (url.searchParams.get('q') || '').trim();
     const singleBidder = url.searchParams.get('singleBidder') === '1';
+    const procedureType = url.searchParams.get('procedureType') || '';
+    const contractType = url.searchParams.get('contractType') || '';
     try {
       if (entity === 'policies') {
         const source = readJson(join(root, 'data', 'processed', 'igae', 'functional-policies-2024.json'));
@@ -779,8 +781,8 @@ const server = createServer(async (req, res) => {
         return csv(res, 'ejecucion-ccaa-2026-05.csv', rows);
       }
       if (entity === 'contracts') {
-        try { return csv(res, 'contratos-placsp.csv', await databaseContracts(query, 1, 10000, singleBidder)); }
-        catch (error) { const rows = getContracts().map(contractListRow).filter(row => (!query || JSON.stringify(row).toLocaleLowerCase('es').includes(query.toLocaleLowerCase('es'))) && (!singleBidder || Number(row.number_of_tenders) === 1)); return csv(res, 'contratos-placsp.csv', rows); }
+        try { return csv(res, 'contratos-placsp.csv', await databaseContracts(query, 1, 10000, singleBidder, procedureType, contractType)); }
+        catch (error) { const rows = getContracts().map(contractListRow).filter(row => (!query || JSON.stringify(row).toLocaleLowerCase('es').includes(query.toLocaleLowerCase('es'))) && (!singleBidder || Number(row.number_of_tenders) === 1) && (!procedureType || String(row.procedure_type || '') === procedureType) && (!contractType || String(row.contract_type || '') === contractType)); return csv(res, 'contratos-placsp.csv', rows); }
       }
       if (entity === 'grants') return csv(res, 'convocatorias-bdns.csv', await databaseGrants(query, 1, 10000));
       if (entity === 'companies') return csv(res, 'empresas-adjudicatarias-placsp.csv', await databaseCompanies(query, 10000));
