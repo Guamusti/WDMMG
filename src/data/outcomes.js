@@ -2,6 +2,7 @@ const SIIU = 'https://estadisticas.universidades.gob.es/jaxiPx/Datos.htm';
 import informaticaEmployment from '../../data/processed/outcomes/informatica-2017-2018.json';
 import madridUniversityContext from '../../data/processed/outcomes/madrid-university-context-2022-2023.json';
 import madridUniversityEnrolment from '../../data/processed/outcomes/madrid-university-enrolment-2023-2024.json';
+import madridUniversityGraduates from '../../data/processed/outcomes/madrid-university-graduates-2023-2024.json';
 
 export const outcomeSources = {
   performance: `${SIIU}?file=Rendimiento_Exito_Eval_Grado_Univ.px&path=%2FUniversitaria%2FIndicadores%2F2024%2F1_Grado%2Fl0%2F`,
@@ -18,6 +19,8 @@ export const universityOutcomeMetrics = madridUniversityContext.universities;
 export const newAdmissionSource = madridUniversityContext.new_admission_source_url;
 export const universityEnrolmentMetrics = madridUniversityEnrolment.universities;
 export const enrolmentSource = madridUniversityEnrolment.source_url;
+export const universityGraduateMetrics = madridUniversityGraduates.universities;
+export const graduatesSource = madridUniversityGraduates.source_url;
 
 // Referencia laboral por ámbito de estudio. No se atribuye como dato propio
 // de una titulación: QEDU/SIIU puede ofrecer el ámbito cuando falta el cruce

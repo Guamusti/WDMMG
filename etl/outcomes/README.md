@@ -15,3 +15,10 @@ se atribuyen a una carrera concreta: sirven para comparar el ámbito de estudio.
 reconstruye `data/processed/outcomes/madrid-university-enrolment-2023-2024.json`.
 El dato representa el total de estudiantes matriculados en grados presenciales
 por universidad; el año 2024 de la fuente corresponde al curso 2023-2024.
+
+## Egresados en Madrid
+
+`ingest_madrid_graduates.py` descarga el CSV oficial de egresados y reconstruye
+`data/processed/outcomes/madrid-university-graduates-2023-2024.json`.
+Es un recuento institucional de grados presenciales: no debe leerse como tasa
+de graduación ni como resultado de una titulación concreta.

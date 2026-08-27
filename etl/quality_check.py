@@ -14,6 +14,7 @@ DATASETS = [
 REQUIRED = {"academic_year", "admission_round", "admission_group", "cutoff_score"}
 RUCT_MATCHES = ROOT / "data/processed/ruct/madrid-degree-matches.json"
 OUTCOME_ENROLMENT = ROOT / "data/processed/outcomes/madrid-university-enrolment-2023-2024.json"
+OUTCOME_GRADUATES = ROOT / "data/processed/outcomes/madrid-university-graduates-2023-2024.json"
 MADRID_UNIVERSITIES = {"UAH", "UAM", "UC3M", "UCM", "UPM", "URJC"}
 KNOWN_BRANCHES = {"", "Artes y Humanidades", "Ciencias", "Ciencias de la Salud", "Ciencias Sociales y Jurídicas", "Ingeniería y Arquitectura", "Rama pendiente de separación"}
 
@@ -61,4 +62,11 @@ if set(enrolment.get("universities", {})) != MADRID_UNIVERSITIES:
     raise AssertionError("Enrolment context: expected six Madrid public universities")
 if any(not isinstance(value, int) or value <= 0 for value in enrolment["universities"].values()):
     raise AssertionError("Enrolment context: values must be positive integers")
+graduates = json.loads(OUTCOME_GRADUATES.read_text(encoding="utf-8"))
+if graduates.get("academic_year") != "2023-2024" or graduates.get("granularity") != "Universidad · grados presenciales":
+    raise AssertionError("Graduate context: unexpected year or granularity")
+if set(graduates.get("universities", {})) != MADRID_UNIVERSITIES:
+    raise AssertionError("Graduate context: expected six Madrid public universities")
+if any(not isinstance(value, int) or value <= 0 for value in graduates["universities"].values()):
+    raise AssertionError("Graduate context: values must be positive integers")
 print(f"Quality gate passed: {len(DATASETS)} datasets, {total} rows, {len(matches)} RUCT matches")
