@@ -133,6 +133,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [ ] Añadir presupuesto → ejecución con definiciones y estados.
 - [ ] Añadir tooltips de conceptos técnicos.
 - [x] Priorizar ratios comprensibles en portada sin atribuir causalidad no demostrada.
+- [x] Traducir titulares contables a lenguaje ciudadano y reservar la precisión técnica para el contexto.
 - [~] Añadir patrón de drill-down visual; el nivel inferior queda bloqueado hasta disponer de una relación padre-hijo oficial.
 - [x] Añadir estados loading/error/empty para la tabla de contratos.
 - [ ] Revisar responsive, accesibilidad y rendimiento.
@@ -222,3 +223,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Buscador global PostgreSQL con resultados etiquetados por PLACSP, BDNS e IGAE | `en curso` |
 | 27/08/2026 | Endpoint y página de cobertura con conteos efectivos: 91 IGAE, 382 PLACSP y 1 BDNS | `en curso` |
 | 27/08/2026 | Exportación CSV con filtros para contratos PLACSP, convocatorias BDNS y presupuesto IGAE | `en curso` |
+| 27/08/2026 | Revisión de lenguaje: “de cada 1 € previsto, 0,29 € ya se han pagado” y capítulos con nombres comprensibles | `en curso` |
