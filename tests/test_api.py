@@ -122,6 +122,7 @@ def test_overview_accepts_a_same_exercise_period_filter():
     status, payload = get_json("/api/overview?period=2026-04")
     assert status == 200
     assert payload["period"] == "2026-04"
+    assert payload["execution"]["period"] == "2026-04"
     assert payload["execution"]["finalCredit"] > 0
 
 

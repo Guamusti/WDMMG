@@ -477,7 +477,7 @@ function overviewFromJsonl(period = '') {
     fiscalYear: rows[0].fiscal_year,
     period: rows[0].period,
     unit: rows[0].unit,
-    execution: { finalCredit: sum('final_credit'), committed: sum('committed_amount'), recognized: sum('recognized_amount'), paid: sum('paid_amount') },
+    execution: { period: rows[0].period, finalCredit: sum('final_credit'), committed: sum('committed_amount'), recognized: sum('recognized_amount'), paid: sum('paid_amount') },
     contracts: { records: getContracts().length },
     sourceUrl: rows[0].source_url,
   };
@@ -486,7 +486,7 @@ function overviewFromJsonl(period = '') {
 async function overview(period = '') {
   try {
     const row = await databaseOverview(period);
-    if (row) return { dataStatus: 'imported', fiscalYear: row.fiscal_year, period: row.period, unit: 'miles de euros', execution: { finalCredit: Number(row.final_credit), committed: Number(row.committed), recognized: Number(row.recognized), paid: Number(row.paid) }, contracts: { records: getContracts().length }, sourceUrl: row.source_url };
+    if (row) return { dataStatus: 'imported', fiscalYear: row.fiscal_year, period: row.period, unit: 'miles de euros', execution: { period: row.period, finalCredit: Number(row.final_credit), committed: Number(row.committed), recognized: Number(row.recognized), paid: Number(row.paid) }, contracts: { records: getContracts().length }, sourceUrl: row.source_url };
   } catch (error) { console.warn(`PostgreSQL no disponible; fallback JSONL: ${error.message}`); }
   return overviewFromJsonl(period) || { dataStatus: 'awaiting_validated_ingestion', budget: null, execution: null, contracts: null, grants: null };
 }

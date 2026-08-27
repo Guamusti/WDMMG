@@ -352,6 +352,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Extractor IGAE deja de fijar el mes, lee cabeceras reales y separa código/nombre de clasificación; tests con XLSX real | `en curso` |
 | 27/08/2026 | `/api/overview?period=YYYY-MM` permite consultar un corte IGAE histórico del mismo ejercicio; verificado con abril de 2026 | `en curso` |
 | 27/08/2026 | Selector visible de corte IGAE en la cabecera: abril/mayo 2026, URL compartible y cifras principales sincronizadas con el periodo | `en curso` |
+| 27/08/2026 | Resumen de ejecución propaga el periodo también dentro de sus magnitudes; evita titulares ambiguos al cambiar de corte | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |
