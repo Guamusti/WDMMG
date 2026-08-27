@@ -153,6 +153,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Paginación del explorador nacional a 50 resultados por página, con reinicio al aplicar filtros; quedan caché, rendimiento y auditoría completa.
 - [x] Foco visible de teclado y respeto de `prefers-reduced-motion` en la interfaz; quedan auditoría WCAG, rendimiento, caché y paginación.
 - [x] Tablas principales con nombre accesible (`caption`), encabezados por columna (`scope`) y ocultación visual no semántica reutilizable.
+- [x] Separar datos y dependencias del mapa en chunks cacheables para reducir el bundle inicial y evitar redescargas completas.
 
 ## Bucle de trabajo de cada cambio
 
