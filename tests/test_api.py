@@ -246,6 +246,7 @@ def test_company_detail_exposes_linked_contracts():
     assert status == 200
     assert payload["data"]["contract_count"] >= 1
     assert "average_award" in payload["data"] and "largest_award" in payload["data"]
+    assert float(payload["data"]["average_award"]) == pytest.approx(float(payload["data"]["award_amount"]) / payload["data"]["contract_count"])
     assert isinstance(payload["data"]["contracts"], list)
     assert isinstance(payload["data"]["authorities"], list)
 
