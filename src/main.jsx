@@ -146,6 +146,7 @@ function App(){
     if(!canonical){canonical=document.createElement('link');canonical.rel='canonical';document.head.appendChild(canonical)}
     canonical.href=`${window.location.origin}${window.location.pathname}`;
     if(route.type==='national'){document.title='Explorador nacional de notas · Atlas Universitario';meta.content='Explora notas de corte oficiales de Madrid, Galicia y Aragón, con filtros por comunidad y tu nota de acceso.'}
+    if(route.type==='universityCompare'){document.title='Comparador de universidades · Atlas Universitario';meta.content='Compara hasta cuatro universidades públicas de Madrid por oferta, notas y contexto académico SIIU.'}
   },[route]);
   if(route.type==='national') return <NationalPagePaged onBack={()=>navigate('/')}/>;
   if(route.type==='universityCompare') return <UniversityCompare universities={universities} offers={offers} onBack={()=>navigate('/')}/>;
