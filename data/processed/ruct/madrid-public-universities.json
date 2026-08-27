@@ -1,0 +1,38 @@
+[
+  {
+    "ruct_code": "010",
+    "name": "Universidad Complutense de Madrid",
+    "short": "UCM",
+    "source_url": "https://datos.canarias.es/api/estadisticas/structural-resources/v1.0/codelists/ISTAC/CL_RUCT_UNIVERSIDADES/01.000/codes.csv?fields=+description"
+  },
+  {
+    "ruct_code": "023",
+    "name": "Universidad Autónoma de Madrid",
+    "short": "UAM",
+    "source_url": "https://datos.canarias.es/api/estadisticas/structural-resources/v1.0/codelists/ISTAC/CL_RUCT_UNIVERSIDADES/01.000/codes.csv?fields=+description"
+  },
+  {
+    "ruct_code": "025",
+    "name": "Universidad Politécnica de Madrid",
+    "short": "UPM",
+    "source_url": "https://datos.canarias.es/api/estadisticas/structural-resources/v1.0/codelists/ISTAC/CL_RUCT_UNIVERSIDADES/01.000/codes.csv?fields=+description"
+  },
+  {
+    "ruct_code": "029",
+    "name": "Universidad de Alcalá",
+    "short": "UAH",
+    "source_url": "https://datos.canarias.es/api/estadisticas/structural-resources/v1.0/codelists/ISTAC/CL_RUCT_UNIVERSIDADES/01.000/codes.csv?fields=+description"
+  },
+  {
+    "ruct_code": "036",
+    "name": "Universidad Carlos III de Madrid",
+    "short": "UC3M",
+    "source_url": "https://datos.canarias.es/api/estadisticas/structural-resources/v1.0/codelists/ISTAC/CL_RUCT_UNIVERSIDADES/01.000/codes.csv?fields=+description"
+  },
+  {
+    "ruct_code": "056",
+    "name": "Universidad Rey Juan Carlos",
+    "short": "URJC",
+    "source_url": "https://datos.canarias.es/api/estadisticas/structural-resources/v1.0/codelists/ISTAC/CL_RUCT_UNIVERSIDADES/01.000/codes.csv?fields=+description"
+  }
+]

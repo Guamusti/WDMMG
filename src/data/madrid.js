@@ -1,4 +1,5 @@
 import fullMadridAdmissions from '../../data/processed/admissions/madrid-2025-2026.json';
+import ructUniversities from '../../data/processed/ruct/madrid-public-universities.json';
 
 const madridSeedOffers = [
   { id:'ucm-informatica', university:'Universidad Complutense de Madrid', short:'UCM', degree:'Ingeniería Informática', campus:'Campus Moncloa', city:'Madrid', cutoff:10.175, branch:'Ingeniería y Arquitectura', places:null, source:'Comunidad de Madrid · notas 2025–2026' },
@@ -57,17 +58,18 @@ const fullOffers = fullMadridAdmissions.map((row, index) => {
   const rawDegree = cleanPdf(row.degree_name_source);
   const city = cityNames.find(name => rawDegree.endsWith(`(${name})`)) || (universityName === 'Universidad Carlos III de Madrid' ? 'Leganés' : universityName === 'Universidad Rey Juan Carlos' ? 'Móstoles' : universityName === 'Universidad de Alcalá' ? 'Alcalá de Henares' : 'Madrid');
   const campus = rawDegree.match(/\(([^()]+)\)$/)?.[1] || city;
-  return { id:`madrid-${shortByUniversity[row.university_name_source] || 'oferta'}-${index + 1}`, university:universityName, short:shortByUniversity[row.university_name_source], degree:rawDegree, campus, city, cutoff:row.cutoff_score, branch:cleanPdf(row.branch_name_source) || 'Rama pendiente de RUCT', places:null, double:/\s-\s/.test(rawDegree), durationYears:row.duration_years_source, ects:row.ects_source, source:'Comunidad de Madrid · notas 2025–2026', sourcePage:row.source_page };
+  return { id:`madrid-${shortByUniversity[row.university_name_source] || 'oferta'}-${index + 1}`, university:universityName, short:shortByUniversity[row.university_name_source], ructCode:row.university_ruct_code, degree:rawDegree, campus, city, cutoff:row.cutoff_score, branch:cleanPdf(row.branch_name_source) || 'Rama pendiente de RUCT', places:null, double:/\s-\s/.test(rawDegree), durationYears:row.duration_years_source, ects:row.ects_source, source:'Comunidad de Madrid · notas 2025–2026', sourcePage:row.source_page };
 });
 
 // La selección inicial conserva sus URLs públicas; el extracto oficial aporta el resto.
 export const madridOffers = [...madridSeedOffers, ...fullOffers];
+const ructByShort = Object.fromEntries(ructUniversities.map(item => [item.short, item.ruct_code]));
 
 export const madridUniversities = [
-  { short:'UCM', name:'Universidad Complutense de Madrid', city:'Madrid', position:[40.448, -3.726], color:'#e35d48' },
-  { short:'UPM', name:'Universidad Politécnica de Madrid', city:'Madrid', position:[40.389, -3.628], color:'#ef9b44' },
-  { short:'UC3M', name:'Universidad Carlos III de Madrid', city:'Leganés', position:[40.334, -3.764], color:'#e35d48' },
-  { short:'URJC', name:'Universidad Rey Juan Carlos', city:'Móstoles', position:[40.334, -3.881], color:'#ef9b44' },
-  { short:'UAH', name:'Universidad de Alcalá', city:'Alcalá de Henares', position:[40.482, -3.364], color:'#8a9c68' },
-  { short:'UAM', name:'Universidad Autónoma de Madrid', city:'Cantoblanco', position:[40.545, -3.696], color:'#8a9c68' }
+  { short:'UCM', ructCode:ructByShort.UCM, name:'Universidad Complutense de Madrid', city:'Madrid', position:[40.448, -3.726], color:'#e35d48' },
+  { short:'UPM', ructCode:ructByShort.UPM, name:'Universidad Politécnica de Madrid', city:'Madrid', position:[40.389, -3.628], color:'#ef9b44' },
+  { short:'UC3M', ructCode:ructByShort.UC3M, name:'Universidad Carlos III de Madrid', city:'Leganés', position:[40.334, -3.764], color:'#e35d48' },
+  { short:'URJC', ructCode:ructByShort.URJC, name:'Universidad Rey Juan Carlos', city:'Móstoles', position:[40.334, -3.881], color:'#ef9b44' },
+  { short:'UAH', ructCode:ructByShort.UAH, name:'Universidad de Alcalá', city:'Alcalá de Henares', position:[40.482, -3.364], color:'#8a9c68' },
+  { short:'UAM', ructCode:ructByShort.UAM, name:'Universidad Autónoma de Madrid', city:'Cantoblanco', position:[40.545, -3.696], color:'#8a9c68' }
 ];

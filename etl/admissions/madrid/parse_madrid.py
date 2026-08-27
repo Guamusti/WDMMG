@@ -24,6 +24,7 @@ UNIVERSITY_BY_PAGE = {
     6: 'Universidad Complutense de Madrid', 7: 'Universidad Complutense de Madrid',
     8: 'Universidad Rey Juan Carlos', 9: 'Universidad Rey Juan Carlos',
 }
+RUCT_CODE_BY_UNIVERSITY = {'Universidad de Alcalá': '029', 'Universidad Autónoma de Madrid': '023', 'Universidad Carlos III de Madrid': '036', 'Universidad Complutense de Madrid': '010', 'Universidad Politécnica de Madrid': '025', 'Universidad Rey Juan Carlos': '056'}
 
 
 def clean(value):
@@ -78,7 +79,8 @@ def parse():
                         "academic_year": "2025-2026",
                         "admission_round": "ordinary",
                         "admission_group": "group_1",
-                        "university_name_source": UNIVERSITY_BY_PAGE.get(page_number),
+                    "university_name_source": UNIVERSITY_BY_PAGE.get(page_number),
+                    "university_ruct_code": RUCT_CODE_BY_UNIVERSITY.get(UNIVERSITY_BY_PAGE.get(page_number)),
                         "branch_name_source": branch,
                         "degree_name_source": degree_name,
                         "cutoff_score": float(cutoff_value.replace(",", ".")),

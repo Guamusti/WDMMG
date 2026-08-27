@@ -8,6 +8,8 @@
 - Granularidad: universidad, centro y título.
 - Limitación: la consulta pública no sustituye a un export histórico; el ingestor debe conservar la evidencia de cada consulta.
 - Estado: arquitectura preparada; ingestor pendiente.
+- Distribución estructurada auxiliar de códigos de universidad: https://datos.canarias.es/api/estadisticas/structural-resources/v1.0/codelists/ISTAC/CL_RUCT_UNIVERSIDADES/01.000/codes.csv?fields=+description
+- Estado actual: códigos de las seis universidades públicas madrileñas enlazados y conservados en `data/processed/ruct/`; el CSV bruto y la URL se mantienen como evidencia. Los códigos de títulos/centros requieren consulta RUCT individual y no se infieren por nombre.
 
 ## Notas de corte — Comunidad de Madrid
 

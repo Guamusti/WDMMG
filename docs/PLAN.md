@@ -33,7 +33,7 @@ Objetivo: cubrir las seis universidades públicas de Madrid y sus titulaciones o
 - [x] Crear parser reproducible para la publicación regional (`etl/admissions/madrid/`).
 - [x] Extraer 497 filas públicas con universidad, página y fila fuente; validar con informe de calidad.
 - [ ] Completar el catálogo de grados y dobles grados de las seis universidades.
-- [ ] Incorporar códigos oficiales, créditos, cursos y centros desde la fuente.
+- [x] Incorporar códigos oficiales de universidad y créditos/cursos presentes en la fuente regional; títulos y centros RUCT siguen pendientes de matching individual.
 - [x] Añadir una ficha de detalle trazable para una oferta.
 - [x] Añadir una vista exploratoria de universidad con sus ofertas cargadas.
 - [x] Añadir páginas navegables y compartibles de oferta, universidad y grado.
@@ -50,7 +50,8 @@ Las rutas actuales del MVP son `/oferta/<id>`, `/universidad/<sigla>` y `/grado/
 - [x] Preparar migración PostgreSQL con `universities`, `campuses`, `centers`, `degrees`, `degree_offerings`, `academic_years` y `admission_cutoffs` (`db/migrations/001_initial.sql`).
 - [x] Incluir en la migración `data_sources`, `ingestion_runs`, `provenance` y `data_quality_flags`.
 - [x] Añadir reporte reproducible de calidad del extracto madrileño (`etl/shared/quality_report.py`).
-- [ ] Matching por código RUCT; alias solo como apoyo auditado.
+- [x] Matching por código RUCT para las seis universidades públicas de Madrid; alias solo como apoyo auditado.
+- [ ] Matching de códigos RUCT de títulos y centros.
 - [ ] Vistas materializadas para métricas y percentiles.
 - [ ] API interna con filtros, paginación y URLs compartibles.
 
