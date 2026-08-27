@@ -20,6 +20,13 @@ async function readJsonCached(path) {
   jsonCache.set(path, { modified, value });
   return value;
 }
+function notModified(request, response, modified) {
+  const etag = `W/"${Math.trunc(modified)}"`;
+  response.setHeader('ETag', etag);
+  response.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+  if (request.headers['if-none-match'] === etag) { response.statusCode = 304; response.end(); return true; }
+  return false;
+}
 const cities = ['Alcalá de Henares','Aranjuez','Alcorcón','Boadilla del Monte','Colmenarejo','Fuenlabrada','Getafe','Guadalajara','Leganés','Madrid','Móstoles'];
 function normalize(row, index) {
   const degree = String(row.degree_name_source || '').replaceAll('�', '').replace(/\s+/g, ' ').trim();
@@ -35,14 +42,17 @@ const server = createServer(async (request, response) => {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');
   if (request.url === '/api/health') { response.end(JSON.stringify({ status: 'ok', service: 'atlas-api' })); return; }
   if (request.url === '/api/coverage') {
-    try { response.end(JSON.stringify(await readJsonCached(nationalQualityPath))); } catch (error) { response.statusCode = 500; response.end(JSON.stringify({ error: 'coverage_unavailable', detail: error.message })); }
+    try { const modified = (await stat(nationalQualityPath)).mtimeMs; if (!notModified(request, response, modified)) response.end(JSON.stringify(await readJsonCached(nationalQualityPath))); } catch (error) { response.statusCode = 500; response.end(JSON.stringify({ error: 'coverage_unavailable', detail: error.message })); }
     return;
   }
   if (!request.url?.startsWith('/api/offers') && !request.url?.startsWith('/api/national-offers')) { response.statusCode = 404; response.end(JSON.stringify({ error: 'not_found' })); return; }
   try {
     const url = new URL(request.url, 'http://localhost');
     const national = url.pathname === '/api/national-offers';
-    const rows = (await readJsonCached(national ? nationalDataPath : dataPath)).map(national ? normalizeNational : normalize);
+    const dataFile = national ? nationalDataPath : dataPath;
+    const modified = (await stat(dataFile)).mtimeMs;
+    if (notModified(request, response, modified)) return;
+    const rows = (await readJsonCached(dataFile)).map(national ? normalizeNational : normalize);
     const q = (url.searchParams.get('q') || '').toLocaleLowerCase();
     const university = url.searchParams.get('university');
     const branch = url.searchParams.get('branch');

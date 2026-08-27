@@ -59,6 +59,7 @@ Las rutas actuales del MVP son `/oferta/<id>`, `/universidad/<sigla>` y `/grado/
 - [x] Endpoint nacional separado (`/api/national-offers`) y cobertura agregada (`/api/coverage`) con filtro por comunidad y procedencia preservada.
 - [x] Explorador conectado a la API con fallback local para preservar el arranque si el servicio no está disponible.
 - [x] Caché de JSON de la API invalidada por `mtime`, manteniendo disponibles las actualizaciones del catálogo sin lecturas repetidas.
+- [x] Validación HTTP con ETag/304 y `Cache-Control` para no retransmitir catálogos sin cambios.
 
 Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cada registro permite responder “¿de dónde sale este dato?”.
 
@@ -130,6 +131,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Metadatos específicos para el explorador nacional `/espana`, con cobertura y limitaciones reales.
 - [ ] Accesibilidad, rendimiento, caché, paginación y responsive.
 - [x] Carga diferida del mapa Leaflet para reducir el bundle inicial; el resto de la auditoría de rendimiento sigue pendiente.
+- [x] Caché HTTP del API de catálogos mediante ETag/304; quedan pendientes auditoría completa y caché de assets.
 - [x] Paginación del explorador nacional a 50 resultados por página, con reinicio al aplicar filtros; quedan caché, rendimiento y auditoría completa.
 - [x] Foco visible de teclado y respeto de `prefers-reduced-motion` en la interfaz; quedan auditoría WCAG, rendimiento, caché y paginación.
 
