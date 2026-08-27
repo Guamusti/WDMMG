@@ -234,6 +234,13 @@ def test_policy_export_contains_parent_and_child_rows():
         assert '"partida"' in body
 
 
+def test_budget_export_contains_derived_execution_readings():
+    with urlopen(f"{BASE_URL}/api/export.csv?entity=budgets", timeout=5) as response:
+        body = response.read(1000).decode("utf-8-sig")
+        assert response.status == 200
+        assert "remaining_credit" in body and "execution_percentage" in body and "payment_percentage" in body
+
+
 def test_latest_grant_calls_comes_from_official_live_bdns():
     status, payload = get_json("/api/grants/latest?pageSize=3")
     assert status == 200

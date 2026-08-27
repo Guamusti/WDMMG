@@ -739,8 +739,8 @@ const server = createServer(async (req, res) => {
       if (entity === 'entities') return csv(res, 'organismos-contratantes-placsp.csv', await databaseEntities(query, 10000));
       if (entity === 'budgets') {
         const search = `%${query}%`;
-        const result = await pool.query(`SELECT br.fiscal_year, br.period, br.economic_code, br.economic_level, br.final_amount, be.committed_amount, be.recognized_amount, be.paid_amount, ds.source_url FROM budget_records br LEFT JOIN budget_execution be ON be.budget_record_id = br.id JOIN data_sources ds ON ds.id = br.source_id WHERE ($1 = '' OR br.economic_code ILIKE $2) ORDER BY br.fiscal_year DESC, br.period DESC, br.id`, [query, search]);
-        return csv(res, 'presupuesto-igae.csv', result.rows);
+        const result = await pool.query(`SELECT br.fiscal_year, br.period, br.economic_code, br.economic_level, br.final_amount, be.committed_amount, be.recognized_amount, be.paid_amount, br.final_amount - COALESCE(be.recognized_amount, 0) AS remaining_credit, CASE WHEN br.final_amount > 0 THEN (be.recognized_amount / br.final_amount) * 100 ELSE NULL END AS execution_percentage, CASE WHEN br.final_amount > 0 THEN (be.paid_amount / br.final_amount) * 100 ELSE NULL END AS payment_percentage, ds.source_url FROM budget_records br LEFT JOIN budget_execution be ON be.budget_record_id = br.id JOIN data_sources ds ON ds.id = br.source_id WHERE ($1 = '' OR br.economic_code ILIKE $2) ORDER BY br.fiscal_year DESC, br.period DESC, br.id`, [query, search]);
+        return csv(res, 'presupuesto-igae.csv', result.rows.map(budgetExecutionFields));
       }
       return json(res, 400, { error: 'unsupported_export_entity' });
     } catch (error) { return json(res, 503, { error: 'export_unavailable', detail: error.message }); }
