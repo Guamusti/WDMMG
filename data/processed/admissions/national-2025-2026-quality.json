@@ -1,5 +1,5 @@
 {
-  "records": 2664,
+  "records": 2736,
   "communities": [
     "Andalucía",
     "Aragón",
@@ -28,7 +28,7 @@
     "Illes Balears": 296,
     "La Rioja": 12,
     "Navarra": 41,
-    "País Vasco": 25
+    "País Vasco": 97
   },
   "duplicates": 0,
   "comparability": {

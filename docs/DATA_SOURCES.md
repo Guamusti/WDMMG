@@ -68,7 +68,7 @@
 
 ## Catálogo nacional de trabajo
 
-- `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de trece comunidades: Madrid (458), Galicia (333), Aragón (73), Cataluña (549), Andalucía (581), Castilla y León (122), Cantabria (37), Navarra (41), Asturias (68), Illes Balears (296), Canarias (69: 51 de la ULPGC y 18 de la ULL), La Rioja (12) y País Vasco (25 de EHU Álava).
+- `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de trece comunidades: Madrid (458), Galicia (333), Aragón (73), Cataluña (549), Andalucía (581), Castilla y León (122), Cantabria (37), Navarra (41), Asturias (68), Illes Balears (296), Canarias (69: 51 de la ULPGC y 18 de la ULL), La Rioja (12) y País Vasco (97 de EHU: 25 Álava, 25 Gipuzkoa y 47 Bizkaia).
 - `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial y la de campo RUCT también, por lo que el catálogo no se presenta como ranking nacional único.
 
 ## Notas de corte — Canarias
@@ -88,7 +88,7 @@
 - Organismo: Euskal Herriko Unibertsitatea / Universidad del País Vasco (EHU/UPV).
 - Fuente oficial: https://www.ehu.eus/es/web/graduak/preinscripcion-y-admision/notas-de-corte
 - Publicación de referencia: “Notas de admisión para el curso 2025-2026”.
-- Estado: el PDF original se conserva en `data/raw/admissions/pais-vasco/2025-2026/ehu-notas-2025-2026.pdf`. La tabla de Álava se revisó visualmente y su transcripción auditada produce 25 ofertas del cupo general en `data/processed/admissions/pais-vasco-2025-2026.json`; Gipuzkoa y Bizkaia permanecen pendientes porque el PDF no tiene capa estructurada.
+- Estado: el PDF original se conserva en `data/raw/admissions/pais-vasco/2025-2026/ehu-notas-2025-2026.pdf`. Sus tres tablas se revisaron visualmente y la transcripción auditada produce 97 ofertas del cupo general (25 Álava, 25 Gipuzkoa y 47 Bizkaia) en `data/processed/admissions/pais-vasco-2025-2026.json`; no se cargan las filas sin nota general.
 
 ## Inserción laboral — límite de granularidad
 

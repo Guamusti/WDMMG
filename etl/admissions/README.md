@@ -99,9 +99,8 @@ mantienen rama y campus, y se rechazan las titulaciones marcadas como `SNC`
 
 `python etl/admissions/pais-vasco/parse_ehu.py` genera el extracto de 2025-2026
 desde la transcripción JSON revisada visualmente del PDF oficial. La cobertura
-actual es parcial y explícita: Campus de Álava, cupo general, 25 ofertas; las
-filas sin nota general se conservan como rechazos y Gipuzkoa/Bizkaia siguen
-pendientes de una extracción estructurada revisada.
+actual es explícita: Campus de Álava, Gipuzkoa y Bizkaia, cupo general, 97
+ofertas; las filas sin nota general se conservan como rechazos.
 
 ## Catálogo nacional de trabajo
 

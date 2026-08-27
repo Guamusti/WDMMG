@@ -89,7 +89,7 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [x] Décimo ingestor regional adicional (Illes Balears), con páginas oficiales de la UIB, procesos JUN/EXT y 296 observaciones de PAU/CFGS conservadas.
 - [x] Undécima cobertura regional adicional (Canarias), con las dos universidades públicas: 51 observaciones ULPGC desde HTML y 18 observaciones ULL desde PDF oficial transcrito y auditado.
 - [x] Duodécima cobertura regional adicional (La Rioja), con 12 notas iniciales de la convocatoria ordinaria de la Universidad de La Rioja desde XLSX oficial y 8 filas `SNC` rechazadas.
-- [x] Decimotercera cobertura regional adicional (País Vasco), con 25 ofertas de EHU del Campus de Álava transcritas y auditadas desde PDF oficial; Gipuzkoa y Bizkaia quedan como cobertura pendiente explícita.
+- [x] Decimotercera cobertura regional adicional (País Vasco), con 97 ofertas de EHU (Álava 25, Gipuzkoa 25 y Bizkaia 47) transcritas y auditadas desde PDF oficial.
 - [x] Separación de grupo, convocatoria, ronda inicial y nota final en el modelo nacional; cada fuente conserva solo las dimensiones que publica y las ausencias quedan explícitas.
 - [x] Exponer convocatoria y cupo como filtros aplicables en `/espana`, manteniendo sus valores originales por fila.
 - [x] Percentiles nacionales, regionales, por rama y por campo RUCT cuando existe una clasificación oficial; el catálogo mantiene cobertura parcial y no infiere campos ausentes.
