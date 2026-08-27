@@ -44,6 +44,8 @@ La ficha ya se abre dentro de la interfaz al seleccionar una convocatoria y enla
 
 La pantalla conserva una separación explícita entre convocatoria y concesión: no muestra beneficiarios mientras el dataset de concesiones no esté cargado.
 
+La API ya consulta concesiones en vivo por código BDNS y conserva el resultado vacío como un estado verificable, no como una ausencia ambigua.
+
 ### 5. Historias y alertas descriptivas
 
 Historias breves sobre cambios, concentración, contratos menores, ejecución y diferencias territoriales. Son indicadores descriptivos, no acusaciones: cada una muestra denominador, fecha, regla y enlace al dataset.
