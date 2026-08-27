@@ -25,6 +25,16 @@ def test_health_reports_service_and_contract_count():
     assert isinstance(payload["data"]["contracts"], int)
 
 
+def test_api_sets_basic_security_headers():
+    try:
+        with urlopen(f"{BASE_URL}/api/health", timeout=2) as response:
+            assert response.headers["X-Content-Type-Options"] == "nosniff"
+            assert response.headers["Referrer-Policy"] == "no-referrer"
+            assert response.headers["Cache-Control"] == "no-store"
+    except (URLError, TimeoutError) as error:
+        pytest.skip(f"API local no disponible: {error}")
+
+
 @pytest.mark.parametrize("path", ["/api/overview", "/api/history", "/api/quality", "/api/budgets", "/api/contracts?pageSize=2", "/api/companies?limit=2", "/api/grants?pageSize=2", "/api/coverage", "/api/policies"])
 def test_public_dataset_endpoints_return_json(path):
     status, payload = get_json(path)

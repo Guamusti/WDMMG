@@ -76,6 +76,8 @@ La ficha también representa el recorrido verificable publicado por PLACSP: órg
 
 La metodología incluye un control de calidad navegable por dataset: registros, duplicados, identificadores ausentes y alertas detectadas, sin ocultar ni convertir anomalías en ceros.
 
+El MVP incorpora además cabeceras de seguridad básicas y metadatos descriptivos para compartir y descubrir la página correctamente.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.

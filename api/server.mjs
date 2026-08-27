@@ -21,7 +21,7 @@ function readJson(path) {
 }
 
 function json(res, status, body) {
-  res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'access-control-allow-origin': '*' });
+  res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'access-control-allow-origin': 'http://localhost:5173', 'x-content-type-options': 'nosniff', 'referrer-policy': 'no-referrer', 'cache-control': 'no-store' });
   res.end(JSON.stringify(body));
 }
 
@@ -29,7 +29,7 @@ function csv(res, filename, rows) {
   const columns = rows.length ? Object.keys(rows[0]) : [];
   const quote = value => `"${String(value ?? '').replaceAll('"', '""')}"`;
   const body = [columns.map(quote).join(','), ...rows.map(row => columns.map(column => quote(row[column])).join(','))].join('\r\n');
-  res.writeHead(200, { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename="${filename}"`, 'access-control-allow-origin': '*' });
+  res.writeHead(200, { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename="${filename}"`, 'access-control-allow-origin': 'http://localhost:5173', 'x-content-type-options': 'nosniff' });
   res.end(`\uFEFF${body}`);
 }
 
