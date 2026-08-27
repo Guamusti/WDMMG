@@ -388,6 +388,21 @@ async function databaseCoverage() {
   ];
 }
 
+function coverageFromJsonl() {
+  const execution = getExecution();
+  const contracts = getContracts();
+  const grants = getGrants();
+  const ccaaRows = getTerritorialExecution();
+  const stamp = execution[0]?.retrieved_at || null;
+  return [
+    { id: 'igae-execution-jsonl', name: 'Ejecución AGE', institution: 'IGAE', source_url: 'https://www.igae.pap.hacienda.gob.es/sitios/igae/es-ES/Contabilidad/ContabilidadPublica/CPE/EjecucionPresupuestaria/Paginas/imextractoejecucion.aspx', format: 'XLS → JSONL', coverage_description: 'Muestra IGAE de ejecución mensual importada localmente.', last_checked_at: stamp, last_imported_at: stamp, budget_records: execution.length, contract_records: 0, grant_records: 0, data_status: execution.length ? 'partial' : 'awaiting_validated_ingestion' },
+    { id: 'placsp-jsonl', name: 'OpenPLACSP', institution: 'Dirección General del Patrimonio del Estado', source_url: 'https://contrataciondelestado.es/datosabiertos/DGPE_PLACSP_OpenPLACSP_v.2.2.pdf', format: 'ATOM/XML → JSONL', coverage_description: 'Muestra de licitaciones y adjudicaciones publicada por PLACSP.', last_checked_at: null, last_imported_at: null, budget_records: 0, contract_records: contracts.length, grant_records: 0, data_status: contracts.length ? 'partial' : 'awaiting_validated_ingestion' },
+    { id: 'bdns-jsonl', name: 'BDNS20', institution: 'IGAE', source_url: 'https://www.oficinavirtual.pap.hacienda.gob.es/sitios/oficinavirtual/en-GB/CatalogoSistemasInformacion/TESEOnet/Paginas/Documentaci%C3%B3n.aspx', format: 'API/XML → JSONL', coverage_description: 'Muestra de convocatorias BDNS importada localmente.', last_checked_at: null, last_imported_at: null, budget_records: 0, contract_records: 0, grant_records: grants.length, data_status: grants.length ? 'partial' : 'awaiting_validated_ingestion' },
+    { id: 'ccaa-jsonl', name: 'Ejecución presupuestaria de CCAA', institution: 'Ministerio de Hacienda / CIMCANET', source_url: 'https://serviciostelematicosext.hacienda.gob.es/SGCIEF/Cimcanet/aspx/consulta/consulta.aspx', format: 'XLSX → JSONL', coverage_description: '17 comunidades y total CCAA; avance no financiero acumulado. No se suma a la AGE.', last_checked_at: ccaaRows[0]?.retrieved_at || null, last_imported_at: ccaaRows[0]?.retrieved_at || null, budget_records: ccaaRows.length, contract_records: 0, grant_records: 0, data_status: ccaaRows.length ? 'partial' : 'awaiting_validated_ingestion' },
+    { id: 'local-budgets-2026', name: 'Presupuestos de entidades locales', institution: 'Ministerio de Hacienda / CONPREL', source_url: 'https://serviciostelematicosext.hacienda.gob.es/SGFAL/CONPREL?acc=null&cd_camp=null', format: 'Access dentro de ZIP', coverage_description: 'Fuente oficial localizada; pendiente de extraer tablas con un lector Access compatible.', last_checked_at: null, last_imported_at: null, budget_records: 0, contract_records: 0, grant_records: 0, data_status: 'blocked_reader' }
+  ];
+}
+
 function getExecution(period = '') {
   const filename = period && /^\d{4}-\d{2}$/.test(period) ? `execution-${period}.jsonl` : 'execution-2026-05.jsonl';
   return readJsonl(join(root, 'data', 'processed', 'igae', filename));
@@ -797,7 +812,7 @@ const server = createServer(async (req, res) => {
   if (url.pathname === '/api/coverage') {
     const checkedAt = new Date().toISOString();
     try { return json(res, 200, { data: await databaseCoverage(), meta: { backend: 'postgresql', checkedAt } }); }
-    catch (error) { return json(res, 200, { data: [], meta: { backend: 'unavailable', checkedAt, warning: error.message } }); }
+    catch (error) { return json(res, 200, { data: coverageFromJsonl(), meta: { backend: 'jsonl-fallback', checkedAt, warning: error.message } }); }
   }
   if (url.pathname === '/api/policies') {
     const policies = readJson(join(root, 'data', 'processed', 'igae', 'functional-policies-2024.json'));
