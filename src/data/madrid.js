@@ -57,7 +57,7 @@ const fullOffers = fullMadridAdmissions.map((row, index) => {
   const rawDegree = cleanPdf(row.degree_name_source);
   const city = cityNames.find(name => rawDegree.endsWith(`(${name})`)) || (universityName === 'Universidad Carlos III de Madrid' ? 'Leganés' : universityName === 'Universidad Rey Juan Carlos' ? 'Móstoles' : universityName === 'Universidad de Alcalá' ? 'Alcalá de Henares' : 'Madrid');
   const campus = rawDegree.match(/\(([^()]+)\)$/)?.[1] || city;
-  return { id:`madrid-${shortByUniversity[row.university_name_source] || 'oferta'}-${index + 1}`, university:universityName, short:shortByUniversity[row.university_name_source], degree:rawDegree, campus, city, cutoff:row.cutoff_score, branch:cleanPdf(row.branch_name_source) || 'Rama pendiente de RUCT', places:null, durationYears:row.duration_years_source, ects:row.ects_source, source:'Comunidad de Madrid · notas 2025–2026', sourcePage:row.source_page };
+  return { id:`madrid-${shortByUniversity[row.university_name_source] || 'oferta'}-${index + 1}`, university:universityName, short:shortByUniversity[row.university_name_source], degree:rawDegree, campus, city, cutoff:row.cutoff_score, branch:cleanPdf(row.branch_name_source) || 'Rama pendiente de RUCT', places:null, double:/\s-\s/.test(rawDegree), durationYears:row.duration_years_source, ects:row.ects_source, source:'Comunidad de Madrid · notas 2025–2026', sourcePage:row.source_page };
 });
 
 // La selección inicial conserva sus URLs públicas; el extracto oficial aporta el resto.

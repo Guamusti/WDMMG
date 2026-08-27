@@ -3,5 +3,6 @@
 .table-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .top-actions{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
 .top-actions .score-section{flex:1;margin:0}
+.top-tools{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}.top-tools label{font-size:11px;color:#6e706d;display:grid;gap:4px}.top-tools select{padding:10px;border:1px solid #d9d6cc;background:#fff}
 .table-section~.score-section{display:none}
 @media(max-width:760px){.controls select{max-width:none;flex:1}.controls .filter{display:none}.score-section{margin-top:18px}}
