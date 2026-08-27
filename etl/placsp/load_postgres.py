@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import psycopg
+from psycopg.types.json import Json
 
 
 SOURCE_URL = "https://contrataciondelsectorpublico.gob.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"
@@ -48,6 +49,9 @@ def load(path: Path, database_url: str) -> int:
                 cursor.execute("DELETE FROM contract_lots WHERE contract_id = %s", (contract_id,))
                 for lot in row.get("lots", []):
                     cursor.execute("INSERT INTO contract_lots (contract_id, lot_number, title, budget, estimated_value) VALUES (%s,%s,%s,%s,%s)", (contract_id, lot.get("lot_number"), lot.get("title"), lot.get("budget"), lot.get("estimated_value")))
+                cursor.execute("DELETE FROM contract_events WHERE contract_id = %s", (contract_id,))
+                for event in row.get("events", []):
+                    cursor.execute("INSERT INTO contract_events (contract_id, event_type, event_date, source_record_id, payload) VALUES (%s,%s,%s,%s,%s)", (contract_id, event.get("event_type", "unknown"), event.get("event_date") or None, event.get("event_id") or None, Json(event)))
     return len(rows)
 
 

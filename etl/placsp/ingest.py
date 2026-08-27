@@ -80,6 +80,7 @@ def parse_events(entry: ET.Element) -> list[dict]:
             'event_type': 'contract_modification',
             'event_id': text_of(modification, 'id'),
             'contract_id': text_of(modification, 'contractId'),
+            'event_date': text_of(modification, 'issueDate', 'modificationDate'),
             'note': text_of(modification, 'note'),
             'duration_change': text_of(modification, 'contractModificationDurationMeasure'),
             'final_duration': text_of(modification, 'finalDurationMeasure'),

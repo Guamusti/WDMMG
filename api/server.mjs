@@ -170,7 +170,8 @@ async function databaseContractById(id) {
       c.estimated_value, c.base_tender_budget, c.publication_date, c.award_date,
       c.source_url, c.source_record_id, pe.name AS contracting_authority,
       re.name AS winner_name, re.tax_id AS winner_tax_id, ca.award_amount, ca.award_amount_with_tax,
-      COALESCE(json_agg(json_build_object('lot_number', cl.lot_number, 'title', cl.title, 'budget', cl.budget)) FILTER (WHERE cl.id IS NOT NULL), '[]') AS lots
+      COALESCE(json_agg(json_build_object('lot_number', cl.lot_number, 'title', cl.title, 'budget', cl.budget)) FILTER (WHERE cl.id IS NOT NULL), '[]') AS lots,
+      (SELECT COALESCE(json_agg(json_build_object('event_type', ce.event_type, 'event_date', ce.event_date, 'source_record_id', ce.source_record_id, 'payload', ce.payload) ORDER BY ce.event_date NULLS LAST, ce.id), '[]') FROM contract_events ce WHERE ce.contract_id = c.id) AS events
     FROM contracts c LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id LEFT JOIN contract_awards ca ON ca.contract_id = c.id LEFT JOIN recipient_entities re ON re.id = ca.winner_entity_id LEFT JOIN contract_lots cl ON cl.contract_id = c.id
     WHERE c.procurement_id = $1 OR c.source_record_id = $1
     GROUP BY c.id, pe.name, re.name, re.tax_id, ca.award_amount, ca.award_amount_with_tax LIMIT 1`, [id]);
