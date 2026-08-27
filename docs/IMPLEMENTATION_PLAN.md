@@ -40,8 +40,8 @@ Referencia MD: secciones 4, 5, 6, 8, 9, 10, 12, 13, 15, 16, 40, 41 y 43.
 - [x] Añadir provenance y `raw_payload`/hash cuando proceda.
 - [x] Crear migración inicial PostgreSQL.
 - [x] Crear seed de fuentes oficiales.
-- [ ] Añadir constraints/validaciones específicas por fuente.
-- [ ] Añadir índices y vistas materializadas para agregaciones.
+- [x] Añadir constraints/validaciones específicas por fuente (URLs, códigos oficiales y provenance).
+- [~] Añadir índices y vistas materializadas para agregaciones; índices base ya creados.
 
 Entregables: `db/001_initial_schema.sql`, `db/002_seed_sources.sql`, `docs/DATA_MODEL.md`.
 
@@ -202,5 +202,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Corrección de prioridad del identificador de expediente PLACSP; tests verdes | `5de8f23` |
 | 27/08/2026 | Extractor real IGAE: 9 hojas, 392 filas y 91 registros de ejecución | `49b52a6` |
 | 27/08/2026 | API y frontend conectados al resumen IGAE real; agregado sin filas TOTAL | `e6c2f61` |
+| 27/08/2026 | Cargador PostgreSQL verificado en Docker: 91 filas y segunda carga sin duplicados | `fcf047d` |
+| 27/08/2026 | Dependencia psycopg declarada para el cargador | `73c97ea` |
 | 27/08/2026 | Validación de periodo IGAE y flags contables; 91 filas procesadas, 10 marcadas | `61fea32` |
 | 27/08/2026 | Cargador PostgreSQL IGAE y entorno Docker local; carga repetida sin duplicados | `en curso` |
