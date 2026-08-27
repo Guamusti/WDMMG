@@ -204,7 +204,7 @@ async function officialGrantConcessions(code) {
 async function databaseSearch(query) {
   const search = `%${query}%`;
   const [contracts, grants, budgets, companies] = await Promise.all([
-    pool.query(`SELECT 'contract' AS type, c.procurement_id AS id, c.title, pe.name AS subtitle, c.source_url AS "sourceUrl" FROM contracts c LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id WHERE c.title ILIKE $1 OR c.procurement_id ILIKE $1 OR pe.name ILIKE $1 ORDER BY c.id DESC LIMIT 8`, [search]),
+    pool.query(`SELECT 'contract' AS type, c.procurement_id AS id, c.title, pe.name AS subtitle, CONCAT('/?vista=contracts&contrato=', c.procurement_id) AS "sourceUrl" FROM contracts c LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id WHERE c.title ILIKE $1 OR c.procurement_id ILIKE $1 OR pe.name ILIKE $1 ORDER BY c.id DESC LIMIT 8`, [search]),
     pool.query(`SELECT 'grant' AS type, gc.bdns_code AS id, gc.title, gc.purpose AS subtitle, gc.source_url AS "sourceUrl" FROM grant_calls gc WHERE gc.title ILIKE $1 OR gc.bdns_code ILIKE $1 OR gc.purpose ILIKE $1 ORDER BY gc.id DESC LIMIT 8`, [search]),
     pool.query(`SELECT 'budget' AS type, br.economic_code AS id, br.economic_code AS title, br.economic_level AS subtitle, ds.source_url AS "sourceUrl" FROM budget_records br JOIN data_sources ds ON ds.id = br.source_id WHERE br.economic_code ILIKE $1 ORDER BY br.id DESC LIMIT 8`, [search]),
     pool.query(`SELECT 'company' AS type, re.id::text AS id, re.name AS title, CONCAT(COUNT(DISTINCT ca.contract_id)::int, ' contratos · ', COALESCE(re.tax_id, 'identificador no publicado')) AS subtitle, CONCAT('/?vista=companies&empresa=', re.id::text) AS "sourceUrl" FROM recipient_entities re JOIN contract_awards ca ON ca.winner_entity_id = re.id WHERE re.name ILIKE $1 OR COALESCE(re.tax_id, '') ILIKE $1 GROUP BY re.id, re.name, re.tax_id ORDER BY COUNT(DISTINCT ca.contract_id) DESC, re.name LIMIT 8`, [search])
@@ -425,7 +425,7 @@ const server = createServer(async (req, res) => {
     catch (error) {
       const contracts = getContracts().filter(row => JSON.stringify(row).toLocaleLowerCase('es').includes(query)).slice(0, 12);
       const companies = companiesFromJsonl(query, 8).map(row => ({ type: 'company', id: row.id, title: row.name, subtitle: `${row.contract_count} contratos · ${row.tax_id || 'identificador no publicado'}`, sourceUrl: `/?vista=companies&empresa=${encodeURIComponent(row.id)}` }));
-      return json(res, 200, { data: [...companies, ...contracts.map(row => ({ type: 'contract', id: row.source_record_id, title: row.title, sourceUrl: row.source_url }))].slice(0, 20), meta: { backend: 'jsonl-fallback', warning: error.message } });
+      return json(res, 200, { data: [...companies, ...contracts.map(row => ({ type: 'contract', id: row.source_record_id, title: row.title, sourceUrl: `/?vista=contracts&contrato=${encodeURIComponent(row.source_record_id)}` }))].slice(0, 20), meta: { backend: 'jsonl-fallback', warning: error.message } });
     }
   }
   if (url.pathname === '/api/coverage') {

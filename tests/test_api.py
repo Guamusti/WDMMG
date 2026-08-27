@@ -83,6 +83,14 @@ def test_search_can_return_company_profiles():
         assert "vista=companies" in company_rows[0]["sourceUrl"]
 
 
+def test_search_contract_results_link_to_internal_profiles():
+    status, payload = get_json("/api/search?q=ayuntamiento")
+    assert status == 200
+    contract_rows = [row for row in payload["data"] if row["type"] == "contract"]
+    if contract_rows:
+        assert "vista=contracts" in contract_rows[0]["sourceUrl"]
+
+
 def test_coverage_exposes_partial_and_blocked_sources():
     status, payload = get_json("/api/coverage")
     assert status == 200

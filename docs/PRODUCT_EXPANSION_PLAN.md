@@ -70,6 +70,8 @@ La vista de empresas incluye una señal descriptiva de concentración: qué porc
 
 La tabla de contratos permite abrir una ficha interna con valor estimado, presupuesto base, procedimiento, fechas y lotes publicados, manteniendo el enlace a PLACSP.
 
+Las fichas de contrato son compartibles: el parámetro `contrato` conserva la selección y el buscador global enlaza directamente a ella.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.
