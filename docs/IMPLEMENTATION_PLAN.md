@@ -149,7 +149,7 @@ Referencia MD: secciones 9, 11, 12, 24, 25, 32, 35, 50 y 51.
 - [~] Incorporar presupuestos, ejecución y liquidación local; fuente Access 2026 localizada y descargada, parser bloqueado por ausencia de lector Access compatible en el entorno.
 - [ ] Incorporar inventario de entidades públicas y jerarquías.
 - [~] Incorporar geografía, códigos territoriales y población INE; búsqueda municipal y agregación provincial oficial activas.
-- [~] Añadir CCAA, provincias y municipios a filtros y páginas; CCAA y municipio/provincia ya explorables, falta integrarlo en filtros de gasto.
+- [~] Añadir CCAA, provincias y municipios a filtros y páginas; CCAA, municipio y provincia ya explorables, falta integrarlo en filtros de gasto.
 - [~] Añadir mapa España → CCAA → provincia → municipio; mapa de límites CCAA del IGN activo con carga diferida, simplificación y cache en proceso, faltan provincias/municipios.
 - [ ] Calcular gasto por habitante solo con población y periodo compatibles.
 - [x] Medir cobertura real: completa, parcial, no disponible, en procesamiento.
@@ -338,3 +338,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Cliente BDNS20 común con caché raw por URL, throttling configurable, tratamiento explícito de HTTP 429 y paginación de concesiones | `en curso` |
 | 27/08/2026 | Normalización compartida para nombres, NIF/CIF, códigos y euros españoles aplicada a loaders PLACSP/BDNS, conservando siempre el raw | `en curso` |
 | 27/08/2026 | Flags de calidad por registro en PLACSP para IDs, fechas, importes y ejercicios; anomalías conservadas junto al raw y cubiertas por tests | `en curso` |
+| 27/08/2026 | Explorador INE ampliado a comunidades autónomas con suma oficial de población y número de municipios; mantiene separado el gasto 2026 por incompatibilidad temporal | `en curso` |

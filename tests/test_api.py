@@ -143,6 +143,16 @@ def test_population_endpoint_supports_official_province_aggregate():
         pytest.skip(f"INE no disponible: {error}")
 
 
+def test_population_endpoint_supports_official_community_aggregate():
+    try:
+        status, payload = get_json("/api/population?q=Andaluc%C3%ADa&level=community")
+    except (URLError, TimeoutError):
+        pytest.skip("INE no disponible")
+    assert status == 200
+    assert payload["data"] and {"community", "population", "municipality_count"}.issubset(payload["data"][0])
+    assert payload["meta"]["dataStatus"] == "official_live_aggregate"
+
+
 def test_contract_rows_expose_adjudicatario_when_available():
     status, payload = get_json("/api/contracts?pageSize=2")
     assert status == 200

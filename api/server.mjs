@@ -322,6 +322,15 @@ function qualityReport() {
 async function officialPopulation(query, limit = 12, level = 'municipality') {
   const safeQuery = query.replaceAll("'", "''").trim();
   const base = 'https://ine.es/servergis/rest/services/Hosted/Censo_2024___N%C3%BAmero_de_personas/FeatureServer/1/query';
+  if (level === 'community') {
+    const params = new URLSearchParams({ where: safeQuery ? `NCA LIKE '%${safeQuery}%'` : '1=1', outStatistics: JSON.stringify([{ statisticType: 'sum', onStatisticField: 'n_personas', outStatisticFieldName: 'population' }, { statisticType: 'count', onStatisticField: 'cumun', outStatisticFieldName: 'municipality_count' }]), groupByFieldsForStatistics: 'nca', orderByFields: 'population DESC', returnGeometry: 'false', f: 'json' });
+    const endpoint = `${base}?${params}`;
+    const response = await fetch(endpoint, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(8000) });
+    if (!response.ok) throw new Error(`INE respondió ${response.status}`);
+    const payload = await response.json();
+    if (payload.error) throw new Error(payload.error.message || 'INE rechazó la consulta');
+    return { data: (payload.features || []).map(feature => ({ community: feature.attributes.nca, population: Number(feature.attributes.population) || 0, municipality_count: Number(feature.attributes.municipality_count) || 0 })), meta: { dataStatus: 'official_live_aggregate', sourceUrl: endpoint, referenceDate: '2024-01-01', source: 'INE Censo Anual de Población 2024', searchField: 'community', aggregation: 'suma oficial por comunidad autónoma' } };
+  }
   const field = level === 'province' ? 'NPRO' : 'NMUN';
   const params = new URLSearchParams({ where: `${field} LIKE '%${safeQuery}%'`, outFields: 'cumun,nmun,npro,nca,n_personas', returnGeometry: 'false', resultRecordCount: String(level === 'province' ? 2000 : limit), f: 'json' });
   const endpoint = `${base}?${params}`;
@@ -446,7 +455,7 @@ const server = createServer(async (req, res) => {
     const query = (url.searchParams.get('q') || '').trim();
     const limit = Math.min(50, Math.max(1, Number(url.searchParams.get('limit') || 12)));
     if (!query) return json(res, 200, { data: [], meta: { dataStatus: 'awaiting_query', source: 'INE' } });
-    const level = url.searchParams.get('level') === 'province' ? 'province' : 'municipality';
+    const level = ['community', 'province'].includes(url.searchParams.get('level')) ? url.searchParams.get('level') : 'municipality';
     try { return json(res, 200, await officialPopulation(query, limit, level)); }
     catch (error) { return json(res, 503, { error: 'population_unavailable', detail: error.message, meta: { dataStatus: 'unavailable', source: 'INE' } }); }
   }
