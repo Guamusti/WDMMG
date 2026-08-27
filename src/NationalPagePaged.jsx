@@ -56,7 +56,7 @@ export default function NationalPagePaged({ onBack }) {
   const fields = [ALL_FIELDS, ...new Set(rows.map(row => row.field).filter(Boolean))];
   const rounds = [ALL_ROUNDS, ...new Set(rows.map(row => row.admissionRound).filter(Boolean))];
   const groups = [ALL_GROUPS, ...new Set(rows.map(row => row.admissionGroup).filter(Boolean))];
-  const filters = [applied.query, applied.community !== ALL, applied.field !== ALL_FIELDS, applied.round !== ALL_ROUNDS, applied.group !== ALL_GROUPS, applied.score].filter(Boolean).length;
+  const filters = [query, community !== ALL, field !== ALL_FIELDS, round !== ALL_ROUNDS, group !== ALL_GROUPS, draftScore.trim()].filter(Boolean).length;
   const filtered = useMemo(() => {
     const value = number(applied.score);
     return rows
@@ -93,7 +93,7 @@ export default function NationalPagePaged({ onBack }) {
         <button className="sort" onClick={() => setSort(sort === 'cutoff' ? 'name' : 'cutoff')}><ArrowUpDown size={15} /> {sort === 'cutoff' ? 'Ordenar por nota' : 'Ordenar por nombre'}</button>
       </div>
       {error ? <div className="national-empty"><strong>{error}</strong><p>Comprueba que has iniciado el proyecto con <code>iniciar.bat</code>.</p></div> : <>
-        <div className="national-summary"><strong>{filtered.length}</strong> resultados · página {page} de {pageCount}{applied.score && ` · hasta ${format(number(applied.score) + Number(applied.tolerance))}`}</div>
+        <div className="national-summary" role="status" aria-live="polite"><strong>{filtered.length}</strong> resultados · página {page} de {pageCount}{applied.score && ` · hasta ${format(number(applied.score) + Number(applied.tolerance))}`}</div>
         <div className="national-table-wrap"><table><thead><tr><th>CARRERA</th><th>UNIVERSIDAD · CAMPUS</th><th>COMUNIDAD</th><th>NOTA</th><th>CONVOCATORIA · CUPO</th><th>PERCENTILES</th><th>FUENTE</th></tr></thead><tbody>{visible.map(row => { const scores = scopedPercentiles(row, rows); return <tr key={row.id}><td><strong>{row.degree}</strong></td><td>{row.university}<small>{row.campus || 'Campus no publicado'}</small></td><td>{row.community}</td><td><b>{format(row.cutoff)}</b><small>/ 14</small></td><td><small>{roundLabel(row.admissionRound)}</small><small>{groupLabel(row.admissionGroup)}</small></td><td><b>{scores.national === null ? '—' : `${scores.national}º`}</b><small>Nacional · {scores.community === null ? '—' : `${scores.community}º`} comunidad</small><small>{row.branch ? `Rama · ${scores.branch}º` : 'Rama no publicada'}</small><small>{row.field ? `Campo · ${scores.field}º` : 'Campo no publicado'}</small></td><td><a href={row.sourceUrl} target="_blank" rel="noreferrer">Publicación oficial <ExternalLink size={13} /></a></td></tr>; })}</tbody></table></div>
         <div className="national-pagination"><button className="sort" disabled={page === 1} onClick={() => setPage(current => current - 1)}>Anterior</button><span>Página {page} de {pageCount}</span><button className="sort" disabled={page >= pageCount} onClick={() => setPage(current => current + 1)}>Siguiente</button></div>
       </>}
