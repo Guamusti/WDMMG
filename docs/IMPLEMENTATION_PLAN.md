@@ -392,6 +392,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Runner operativo: cada job declara la cadencia documentada por la fuente (mensual, actualización del feed o continua) y la devuelve en su resultado | `en curso` |
 | 27/08/2026 | Ficha de contrato: muestra el descuento comparable del expediente cuando existen presupuesto base e importe adjudicado válidos | `en curso` |
 | 27/08/2026 | Exportaciones resilientes: convocatorias, empresas y organismos usan sus aterrizajes JSONL como respaldo si PostgreSQL no responde | `en curso` |
+| 27/08/2026 | Auditoría actualizada: 64 pruebas pasan y 2 se omiten por dependencias externas; CONPREL permanece explícitamente bloqueado por falta de lector Access | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |
