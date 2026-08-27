@@ -20,6 +20,8 @@ Panel de tarjetas con preguntas y cifras reales: “¿qué partida pesa más?”
 
 Comparar dos CCAA, ejercicios o partidas con unidad y periodo visibles. Añadir evolución cuando haya al menos dos observaciones compatibles; nunca interpolar ni rellenar ausencias con cero.
 
+La primera entrega incluye comparación de dos CCAA y un ranking ordenado por gasto no financiero reconocido. El ranking advierte que no mide riqueza, población ni necesidad.
+
 ### 3. Fichas de territorio y municipio
 
 Ficha estable para CCAA, provincia y municipio con presupuesto, ejecución, población, gasto por habitante y enlaces a la fuente. El gasto por habitante solo se calcula con territorio, ejercicio y población compatibles.
