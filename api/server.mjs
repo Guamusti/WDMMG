@@ -24,7 +24,8 @@ function getExecution() {
 }
 
 function overview() {
-  const rows = getExecution().filter(row => row.classification_level === 'chapter');
+  // GTOS 004 contiene capítulos y filas TOTAL; no sumar ambas cosas.
+  const rows = getExecution().filter(row => row.classification_level === 'chapter' && /^[1-9]\.\s/.test(row.classification_label));
   if (!rows.length) return { dataStatus: 'awaiting_validated_ingestion', budget: null, execution: null, contracts: null, grants: null };
   const sum = key => rows.reduce((total, row) => total + (Number(row[key]) || 0), 0);
   return {
