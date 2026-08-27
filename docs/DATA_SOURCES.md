@@ -67,6 +67,7 @@
 - El contexto académico de Madrid se conserva además como extracto procesado en `data/processed/outcomes/madrid-university-context-2022-2023.json`, incluyendo curso, granularidad, fuente y limitación.
 - Ese extracto incorpora la nota media de admisión del alumnado de nuevo ingreso por universidad (2022–2023), procedente de la tabla SIIU de nota media por rama; se presenta solo como contexto universitario y no como nota del expediente o de una carrera.
 - También incorpora el número de estudiantes de nuevo ingreso por universidad (2022–2023), ambos sexos y todos los campos de estudio; es un contexto de tamaño institucional, no de una oferta individual.
+- La ficha enlaza ambas tablas SIIU desde la propia tarjeta: nota media de admisión (`3_6_NI_Nota_media_Sex_Rama_Univ.px`) y nuevo ingreso (`3_4_Mat_Sex_Nac_Amb_Univ.px`). Mantener ambos conceptos separados evita confundir una media institucional con una nota de corte o con el expediente del estudiante.
 
 ## Geografía
 
