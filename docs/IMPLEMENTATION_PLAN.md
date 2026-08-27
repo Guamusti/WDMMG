@@ -123,15 +123,17 @@ Referencia MD: secciones 17, 18, 19, 22, 23, 24, 26, 27, 28, 29, 30, 32, 33, 34,
 Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 
 - [x] Crear portada editorial, selector de año, búsqueda y navegación base.
-- [x] Crear treemap interactivo de validación visual.
+- [x] Crear treemap interactivo conectado a capítulos IGAE reales.
 - [x] Crear tabla de contratos y vista metodológica.
 - [x] Conectar overview a agregaciones IGAE reales, mostrando periodo, unidad y estado.
-- [~] Construir vista inicial AGE: overview conectado; detalle pendiente.
+- [~] Construir vista inicial AGE: overview, ratio de lectura rápida y detalle de capítulo conectados; faltan niveles contables completos.
 - [ ] Construir vista de empresa con contratos y subvenciones.
 - [ ] Construir vista de contrato con lotes, eventos y fuente oficial.
 - [ ] Construir vista de subvención con convocatoria/concesiones.
 - [ ] Añadir presupuesto → ejecución con definiciones y estados.
 - [ ] Añadir tooltips de conceptos técnicos.
+- [x] Priorizar ratios comprensibles en portada sin atribuir causalidad no demostrada.
+- [x] Añadir drill-down visual para el nivel inferior disponible en la muestra oficial.
 - [x] Añadir estados loading/error/empty para la tabla de contratos.
 - [ ] Revisar responsive, accesibilidad y rendimiento.
 
@@ -191,9 +193,9 @@ Referencia MD: secciones 34, 35, 36, 37, 38, 39, 41, 42, 44, 45, 54, 55, 56, 60,
 
 ## Estado global actual
 
-**Fase 3 — ETL reproducible y calidad de datos, en curso.**
+**Fase 4/7 — Importación real y UI MVP conectada, en curso.**
 
-La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la interfaz inicial existen. Se han confirmado el portal de Datos Abiertos PLACSP y la base API v2.1 del SNPSAP, pero todavía falta descargar muestras productivas reales y validar sus esquemas; hasta entonces la UI no debe presentar cifras económicas como si fueran datos del producto.
+La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la interfaz inicial existen. La UI ya consume IGAE, PLACSP y la muestra BDNS cargada; el siguiente trabajo es ampliar niveles contables, relaciones y cobertura sin mezclar magnitudes.
 
 ## Registro de avances
 
@@ -215,3 +217,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Cargador PostgreSQL IGAE y entorno Docker local; carga repetida sin duplicados | `en curso` |
 | 27/08/2026 | Feed PLACSP real cargado en PostgreSQL: 387 entradas, 382 contratos canónicos | `76d5ba7` |
 | 27/08/2026 | BDNS real: convocatoria 925963 normalizada y carga repetida sin duplicados | `0def8b7` |
+| 27/08/2026 | Portada con ratios IGAE verificables y treemap por capítulos reales; drill-down del nivel inferior disponible | `en curso` |
