@@ -56,6 +56,8 @@ Historias breves sobre cambios, concentración, contratos menores, ejecución y 
 
 Entrega incorporada: el buscador global también localiza adjudicatarios por nombre o identificador y abre su ficha interna, donde se ven contratos, organismos vinculados e importe adjudicado.
 
+La ficha de empresa incluye además el listado de organismos contratantes detectados en PLACSP, para seguir la relación empresa-organismo desde una evidencia publicada.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.
