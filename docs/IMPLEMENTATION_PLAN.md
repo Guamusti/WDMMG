@@ -99,7 +99,7 @@ Referencia MD: secciones 4, 5, 11, 16, 17, 20, 23, 30, 31, 32, 33, 36, 42, 56, 5
 - [ ] Modelar cambios de nombre/jerarquía administrativa con IDs estables.
 - [ ] Validar relaciones contables sin eliminar anomalías.
 - [ ] Calcular ejecución y pago únicamente con denominadores válidos.
-- [ ] Publicar cobertura efectiva AGE.
+- [x] Publicar cobertura efectiva AGE.
 
 ## Fase 6 — API, búsqueda y agregaciones
 
@@ -183,7 +183,7 @@ Referencia MD: secciones 34, 35, 36, 37, 38, 39, 41, 42, 44, 45, 54, 55, 56, 60,
 - [ ] Tests de normalización y validaciones contables.
 - [ ] Tests de API y permisos de descarga.
 - [ ] Tests end-to-end frontend → API → datos → fuente.
-- [ ] Página pública de cobertura y actualización.
+- [x] Página pública de cobertura y actualización.
 - [ ] Página de metodología completa y glosario.
 - [ ] Monitorización de fallos, cambios de esquema y retrasos de fuentes.
 - [ ] Jobs según frecuencia real comprobada, no asumida.
@@ -220,3 +220,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Portada con ratios IGAE verificables y treemap por capítulos reales; drill-down del nivel inferior disponible | `en curso` |
 | 27/08/2026 | Endpoint y vista inicial BDNS; convocatoria real 925963 visible desde la navegación | `en curso` |
 | 27/08/2026 | Buscador global PostgreSQL con resultados etiquetados por PLACSP, BDNS e IGAE | `en curso` |
+| 27/08/2026 | Endpoint y página de cobertura con conteos efectivos: 91 IGAE, 382 PLACSP y 1 BDNS | `en curso` |

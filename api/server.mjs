@@ -57,6 +57,17 @@ async function databaseSearch(query) {
   return [...contracts.rows, ...grants.rows, ...budgets.rows].slice(0, 20);
 }
 
+async function databaseCoverage() {
+  const result = await pool.query(`
+    SELECT ds.id, ds.name, ds.institution, ds.source_url, ds.format, ds.coverage_description,
+      ds.last_checked_at, ds.last_imported_at,
+      (SELECT COUNT(*) FROM budget_records br WHERE br.source_id = ds.id) AS budget_records,
+      (SELECT COUNT(*) FROM contracts c WHERE c.source_id = ds.id) AS contract_records,
+      (SELECT COUNT(*) FROM grant_calls gc WHERE gc.source_id = ds.id) AS grant_records
+    FROM data_sources ds WHERE ds.is_official = TRUE ORDER BY ds.id`);
+  return result.rows;
+}
+
 function getExecution() {
   return readJsonl(join(root, 'data', 'processed', 'igae', 'execution-2026-05.jsonl'));
 }
@@ -140,6 +151,10 @@ const server = createServer(async (req, res) => {
     if (!query) return json(res, 200, { data: [] });
     try { return json(res, 200, { data: await databaseSearch(query), meta: { backend: 'postgresql' } }); }
     catch (error) { const contracts = getContracts().filter(row => JSON.stringify(row).toLocaleLowerCase('es').includes(query)).slice(0, 20); return json(res, 200, { data: contracts.map(row => ({ type: 'contract', id: row.source_record_id, title: row.title, sourceUrl: row.source_url })), meta: { backend: 'jsonl-fallback', warning: error.message } }); }
+  }
+  if (url.pathname === '/api/coverage') {
+    try { return json(res, 200, { data: await databaseCoverage(), meta: { backend: 'postgresql' } }); }
+    catch (error) { return json(res, 200, { data: [], meta: { backend: 'unavailable', warning: error.message } }); }
   }
   return json(res, 404, { error: 'not_found' });
 });
