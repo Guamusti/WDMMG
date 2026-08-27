@@ -45,13 +45,15 @@ function companiesFromJsonl(query = '', limit = 100) {
       const name = String(award.winner_name || '').trim();
       if (!name || (needle && !name.toLocaleLowerCase('es').includes(needle))) continue;
       const key = String(award.winner_id || name).trim();
-      const current = groups.get(key) || { id: key, name, tax_id: award.winner_id || null, contract_count: 0, award_amount: 0, contract_ids: new Set() };
+      const current = groups.get(key) || { id: key, name, tax_id: award.winner_id || null, contract_count: 0, authority_count: 0, award_amount: 0, contract_ids: new Set(), authorities: new Set() };
       if (!current.contract_ids.has(contract.source_record_id)) { current.contract_ids.add(contract.source_record_id); current.contract_count += 1; }
+      if (contract.contracting_authority) current.authorities.add(contract.contracting_authority);
+      current.authority_count = current.authorities.size;
       current.award_amount += Number(award.award_amount || 0);
       groups.set(key, current);
     }
   }
-  return [...groups.values()].sort((a, b) => b.award_amount - a.award_amount).slice(0, limit).map(({ contract_ids, ...company }) => company);
+  return [...groups.values()].sort((a, b) => b.award_amount - a.award_amount).slice(0, limit).map(({ contract_ids, authorities, ...company }) => company);
 }
 
 async function databaseCompanies(query, limit) {
@@ -59,9 +61,11 @@ async function databaseCompanies(query, limit) {
   const result = await pool.query(`
     SELECT re.id, re.name, re.tax_id,
       COUNT(DISTINCT ca.contract_id)::int AS contract_count,
+      COUNT(DISTINCT c.contracting_authority_id)::int AS authority_count,
       COALESCE(SUM(ca.award_amount), 0) AS award_amount
     FROM recipient_entities re
     JOIN contract_awards ca ON ca.winner_entity_id = re.id
+    JOIN contracts c ON c.id = ca.contract_id
     WHERE ($1 = '' OR re.name ILIKE $2 OR re.tax_id ILIKE $2)
     GROUP BY re.id, re.name, re.tax_id
     ORDER BY award_amount DESC NULLS LAST, re.name
@@ -73,9 +77,11 @@ async function databaseCompanyById(id) {
   const summary = await pool.query(`
     SELECT re.id, re.name, re.tax_id,
       COUNT(DISTINCT ca.contract_id)::int AS contract_count,
+      COUNT(DISTINCT c.contracting_authority_id)::int AS authority_count,
       COALESCE(SUM(ca.award_amount), 0) AS award_amount
     FROM recipient_entities re
     JOIN contract_awards ca ON ca.winner_entity_id = re.id
+    JOIN contracts c ON c.id = ca.contract_id
     WHERE re.id::text = $1 OR COALESCE(re.tax_id, '') = $1
     GROUP BY re.id, re.name, re.tax_id
     LIMIT 1`, [id]);
@@ -100,11 +106,14 @@ function companyFromJsonl(id) {
     for (const award of contract.awards || []) {
       const key = String(award.winner_id || award.winner_name || '').trim();
       if (key !== id) continue;
-      company ||= { id: key, name: award.winner_name || key, tax_id: award.winner_id || null, contract_count: 0, award_amount: 0, contracts };
+      company ||= { id: key, name: award.winner_name || key, tax_id: award.winner_id || null, contract_count: 0, authority_count: 0, award_amount: 0, contracts, authorities: new Set() };
+      if (contract.contracting_authority) company.authorities.add(contract.contracting_authority);
+      company.authority_count = company.authorities.size;
       if (!contracts.some(item => item.procurement_id === contract.procurement_id)) { company.contract_count += 1; contracts.push({ procurement_id: contract.procurement_id, title: contract.title, source_url: contract.source_url, contracting_authority: contract.contracting_authority, award_amount: award.award_amount, award_amount_with_tax: award.award_amount_with_tax, number_of_tenders: award.number_of_tenders }); }
       company.award_amount += Number(award.award_amount || 0);
     }
   }
+  if (company) delete company.authorities;
   return company;
 }
 
