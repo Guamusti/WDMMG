@@ -17,8 +17,8 @@ const tileColors = ['#de6c4c', '#1c7770', '#dcae42', '#8f9f58', '#466b8a', '#b06
 function Money({ children }) { return <span className="money">{children}</span>; }
 
 function App() {
-  const [query, setQuery] = useState('');
-  const [view, setView] = useState('overview');
+  const [query, setQuery] = useState(() => new URLSearchParams(window.location.search).get('q') || '');
+  const [view, setView] = useState(() => { const value = new URLSearchParams(window.location.search).get('vista'); return ['overview', 'contracts', 'grants', 'methodology'].includes(value) ? value : 'overview'; });
   const [activeCategory, setActiveCategory] = useState(null);
   const [overview, setOverview] = useState(null);
   const [contracts, setContracts] = useState([]);
@@ -27,6 +27,7 @@ function App() {
   const [budgetLoading, setBudgetLoading] = useState(true);
   const [selectedChapter, setSelectedChapter] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
+  useEffect(() => { const url = new URL(window.location.href); if (query.trim()) url.searchParams.set('q', query.trim()); else url.searchParams.delete('q'); if (view === 'overview') url.searchParams.delete('vista'); else url.searchParams.set('vista', view); window.history.replaceState(null, '', `${url.pathname}${url.search}`); }, [query, view]);
   useEffect(() => { fetch('http://localhost:8787/api/overview').then(response => response.ok ? response.json() : null).then(setOverview).catch(() => setOverview(null)); }, []);
   useEffect(() => { fetch('http://localhost:8787/api/budgets').then(response => response.ok ? response.json() : { data: [] }).then(payload => setBudgetRows(payload.data || [])).catch(() => setBudgetRows([])).finally(() => setBudgetLoading(false)); }, []);
   useEffect(() => { if (!query.trim()) { setSearchResults([]); return; } const timer = setTimeout(() => fetch(`http://localhost:8787/api/search?q=${encodeURIComponent(query)}`).then(response => response.ok ? response.json() : { data: [] }).then(payload => setSearchResults(payload.data || [])).catch(() => setSearchResults([])), 220); return () => clearTimeout(timer); }, [query]);

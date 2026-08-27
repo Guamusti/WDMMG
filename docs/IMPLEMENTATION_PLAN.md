@@ -115,7 +115,7 @@ Referencia MD: secciones 17, 18, 19, 22, 23, 24, 26, 27, 28, 29, 30, 32, 33, 34,
 - [x] Implementar buscador global multi-entidad para contratos, convocatorias BDNS y partidas IGAE.
 - [ ] Implementar agregaciones separadas por magnitud.
 - [x] Implementar exportación CSV de la consulta exacta para contratos, convocatorias y presupuesto.
-- [ ] Persistir filtros importantes en query params.
+- [x] Persistir búsqueda y vista activa en query params para compartir exploraciones.
 - [ ] Añadir cache/preagregaciones sin enviar datasets completos al navegador.
 
 ## Fase 7 — UI MVP conectada a datos reales
@@ -225,3 +225,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Exportación CSV con filtros para contratos PLACSP, convocatorias BDNS y presupuesto IGAE | `en curso` |
 | 27/08/2026 | Revisión de lenguaje: “de cada 1 € previsto, 0,29 € ya se han pagado” y capítulos con nombres comprensibles | `en curso` |
 | 27/08/2026 | Segunda pasada de UX: portada, fuentes, reparto y desglose reescritos para lenguaje ciudadano | `en curso` |
+| 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
