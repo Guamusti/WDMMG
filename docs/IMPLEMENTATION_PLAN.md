@@ -41,7 +41,7 @@ Referencia MD: secciones 4, 5, 6, 8, 9, 10, 12, 13, 15, 16, 40, 41 y 43.
 - [x] Crear migración inicial PostgreSQL.
 - [x] Crear seed de fuentes oficiales.
 - [x] Añadir constraints/validaciones específicas por fuente (URLs, códigos oficiales y provenance).
-- [~] Añadir índices y vistas materializadas para agregaciones; índices base ya creados.
+- [~] Añadir índices y vistas materializadas para agregaciones; índices base e incrementales creados, vistas materializadas pendientes de una cobertura más amplia.
 
 Entregables: `db/001_initial_schema.sql`, `db/002_seed_sources.sql`, `docs/DATA_MODEL.md`.
 
@@ -344,4 +344,5 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Nueva vista Organismos y endpoint `/api/entities`: ranking de órganos contratantes, contratos, adjudicatarios e importe publicado con alcance explícito | `en curso` |
 | 27/08/2026 | Ficha API `/api/entities/:id` con contratos publicados y adjudicatarios vinculados por organismo; relación limitada a evidencia PLACSP | `en curso` |
 | 27/08/2026 | Inventario de organismos exportable a CSV, con filtros de búsqueda y las mismas métricas que la vista web | `en curso` |
+| 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |

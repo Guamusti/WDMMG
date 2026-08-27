@@ -22,4 +22,4 @@ Toda entidad importada debe poder volver a su registro de origen mediante `sourc
 
 ## Próximo paso técnico
 
-Crear migraciones PostgreSQL y fixtures ATOM/XML + BDNS con muestras reales descargadas, validar parsers y activar una API server-side antes de conectar la UI a cifras definitivas.
+Las consultas públicas principales tienen índices incrementales en `db/003_performance_indexes.sql`: organismos por nombre/jerarquía, relaciones organismo-contrato-empresa, convocatorias/concesiones y búsquedas presupuestarias. La migración es idempotente; no sustituye futuras vistas materializadas cuando aumente la cobertura.
