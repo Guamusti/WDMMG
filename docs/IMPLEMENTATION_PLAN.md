@@ -130,7 +130,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [x] Añadir en portada el desglose funcional comprensible de la Cuenta General del Estado 2024.
 - [x] Sustituir las tarjetas iniciales por una rueda interactiva con porcentajes grandes y leyenda accesible.
 - [x] Construir vista de empresa con contratos y subvenciones; contratos PLACSP activos y subvenciones separadas hasta disponer de concesiones persistidas.
-- [~] Construir vista de contrato con lotes, eventos y fuente oficial; ficha interactiva y lotes activas, eventos pendientes.
+- [x] Construir vista de contrato con lotes, eventos y fuente oficial; ficha interactiva, lotes y línea temporal CODICE activas.
 - [~] Construir vista de subvención con convocatoria/concesiones; vista de convocatorias activa, concesiones pendientes.
 - [x] Añadir presupuesto → ejecución con definiciones y estados en el detalle de cada capítulo.
 - [~] Priorizar políticas de gasto reconocibles (pensiones, infraestructuras, sanidad, educación) sobre el detalle de contratación.
@@ -164,7 +164,7 @@ Referencia MD: secciones 21, 22, 24, 25, 30, 31, 32, 33, 35, 46, 47 y 57.
 - [~] Añadir explorador jerárquico de partidas y descarga CSV; rueda/drill-down y exportación funcional activas, subpartidas solo cuando la fuente las publica.
 - [~] Añadir indicadores descriptivos: ejecución, ranking territorial, relatos y concentración de adjudicatarios activos; ofertas y menores pendientes.
 - [~] Permitir abrir el dataset subyacente desde cada indicador; fichas oficiales y exportación activas.
-- [~] Añadir URLs compartibles y SEO para exploraciones importantes; query params y metadatos sociales/base activos, metadatos dinámicos por ficha pendientes.
+- [x] Añadir URLs compartibles y SEO para exploraciones importantes; query params y metadatos sociales/base y dinámicos activos.
 
 ## Fase 10 — Consolidación, relaciones y escala
 
@@ -319,6 +319,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Auditoría de ficha de empresa: indicadores de adjudicación comprobados en PostgreSQL y API, con tests de detalle | `en curso` |
 | 27/08/2026 | Control de identificadores PLACSP corregido: 234 adjudicaciones con IDs compuestos estables, 0 duplicados y reprocesado PostgreSQL verificado | `en curso` |
 | 27/08/2026 | QA ampliado con validación de fechas e importes no negativos para contratos, adjudicaciones y partidas IGAE; las anomalías se conservan visibles | `en curso` |
+| 27/08/2026 | Auditoría de runtime cierra ficha de contrato y URLs compartibles: lotes/eventos, query params y metadatos dinámicos verificados | `en curso` |
 | 27/08/2026 | Endpoint `/api/metrics` con presupuesto, ejecución, adjudicaciones y concesiones separados por unidad, periodo y fuente | `en curso` |
 | 27/08/2026 | Portada consume `/api/metrics` en una franja visual de cuatro magnitudes, con periodo/fuente y aviso de separación semántica | `en curso` |
 | 27/08/2026 | Cobertura CCAA muestra fecha real de recuperación desde `retrieved_at` y conserva el estado parcial explícito | `en curso` |
