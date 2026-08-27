@@ -87,6 +87,7 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [x] Octavo ingestor regional adicional (Navarra), con PDF oficial de la UPNA, 41 ofertas, cupo general y marcas extraordinarias conservadas.
 - [x] Noveno ingestor regional adicional (Asturias), con tabla institucional de la Universidad de Oviedo, 68 ofertas, primera fase de julio y plazas conservadas.
 - [x] Décimo ingestor regional adicional (Illes Balears), con páginas oficiales de la UIB, procesos JUN/EXT y 296 observaciones de PAU/CFGS conservadas.
+- [x] Undécima cobertura regional adicional (Canarias), con las dos universidades públicas: 51 observaciones ULPGC desde HTML y 18 observaciones ULL desde PDF oficial transcrito y auditado.
 - [x] Separación de grupo, convocatoria, ronda inicial y nota final en el modelo nacional; cada fuente conserva solo las dimensiones que publica y las ausencias quedan explícitas.
 - [x] Exponer convocatoria y cupo como filtros aplicables en `/espana`, manteniendo sus valores originales por fila.
 - [x] Percentiles nacionales, regionales, por rama y por campo RUCT cuando existe una clasificación oficial; el catálogo mantiene cobertura parcial y no infiere campos ausentes.

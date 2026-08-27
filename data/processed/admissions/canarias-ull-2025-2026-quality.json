@@ -1,0 +1,18 @@
+{
+  "source_url": "https://www.ull.es/admision-becas/pau/notas-de-corte/",
+  "academic_year": "2025-2026",
+  "records": 18,
+  "rejected_rows": 0,
+  "duplicates": 0,
+  "round": "corte final orientativa · 30 septiembre 2025",
+  "coverage": "ULL · cupo general · 18 filas transcritas del PDF oficial; tabla sin capa estructurada",
+  "transcription_audited": true,
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "no_replacement_glyph_in_names": true,
+    "last_call_explicit": true,
+    "general_group_explicit": true,
+    "no_duplicate_keys": true,
+    "expected_row_count": true
+  }
+}

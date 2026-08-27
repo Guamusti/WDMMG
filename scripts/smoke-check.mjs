@@ -10,7 +10,7 @@ const expectedCantabria = JSON.parse(await readFile('data/processed/admissions/c
 const expectedNavarra = JSON.parse(await readFile('data/processed/admissions/navarra-2025-2026.json', 'utf8')).length;
 const expectedAsturias = JSON.parse(await readFile('data/processed/admissions/asturias-2025-2026.json', 'utf8')).length;
 const expectedIllesBalears = JSON.parse(await readFile('data/processed/admissions/illes-balears-2025-2026.json', 'utf8')).length;
-const expectedCanarias = JSON.parse(await readFile('data/processed/admissions/canarias-ulpgc-2025-2026.json', 'utf8')).length;
+const expectedCanarias = JSON.parse(await readFile('data/processed/admissions/canarias-ulpgc-2025-2026.json', 'utf8')).length + JSON.parse(await readFile('data/processed/admissions/canarias-ull-2025-2026.json', 'utf8')).length;
 const frontend = `http://127.0.0.1:${frontendPort}`;
 const api = `http://127.0.0.1:${apiPort}`;
 

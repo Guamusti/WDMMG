@@ -5,6 +5,9 @@ dist/
 __pycache__/
 *.pyc
 tmp/
+tmp-*.bin
+tmp-*.pdf
+tmp-*.png
 public/api-port.json
 .atlas-frontend-port
 .atlas-frontend-api-port

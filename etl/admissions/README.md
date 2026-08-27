@@ -90,7 +90,7 @@ parcial: la Universidad de La Laguna aún no está integrada.
 
 `python etl/admissions/build_national_catalog.py` reúne los extractos
 procesados de Madrid, Galicia, Aragón, Cataluña, Andalucía, Castilla y León,
-Cantabria, Navarra, Asturias, Illes Balears y Canarias (ULPGC) en
+Cantabria, Navarra, Asturias, Illes Balears y Canarias (ULPGC y ULL) en
 `data/processed/admissions/`.
 Conserva la procedencia regional y genera un informe de comparabilidad; no
 rellena ramas, RUCT ni métricas que una fuente no publique.

@@ -17,6 +17,7 @@ DATASETS = [
     ROOT / "data/processed/admissions/asturias-2025-2026.json",
     ROOT / "data/processed/admissions/illes-balears-2025-2026.json",
     ROOT / "data/processed/admissions/canarias-ulpgc-2025-2026.json",
+    ROOT / "data/processed/admissions/canarias-ull-2025-2026.json",
     ROOT / "data/processed/admissions/national-2025-2026.json",
 ]
 REQUIRED = {"academic_year", "admission_round", "admission_group", "cutoff_score"}

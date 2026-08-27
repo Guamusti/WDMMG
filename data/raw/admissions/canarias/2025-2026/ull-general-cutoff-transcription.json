@@ -1,0 +1,26 @@
+{
+  "source_url": "https://www.ull.es/admision-becas/pau/notas-de-corte/",
+  "pdf_file": "ull-notas-corte-2025-2026.pdf",
+  "updated_at": "2025-10-03",
+  "cutoff_date": "2025-09-30",
+  "rows": [
+    ["Ciencias de la Salud", "Enfermería", 11.840, null],
+    ["Ciencias de la Salud", "Enfermería (Centro adscrito Nª Sra. de Candelaria)", 11.826, null],
+    ["Ciencias de la Salud", "Enfermería (La Palma)", 11.060, "La Palma"],
+    ["Ciencias de la Salud", "Farmacia", 9.776, null],
+    ["Ciencias de la Salud", "Fisioterapia", 11.402, null],
+    ["Ciencias de la Salud", "Logopedia", 7.700, null],
+    ["Ciencias de la Salud", "Medicina", 12.573, null],
+    ["Ciencias de la Salud", "Nutrición Humana y Dietética", 9.203, null],
+    ["Ciencias de la Salud", "Psicología", 9.762, null],
+    ["Ingeniería y Arquitectura", "Arquitectura Técnica", 5.000, null],
+    ["Ingeniería y Arquitectura", "Ingeniería Agrícola y del Medio Rural", 5.000, null],
+    ["Ingeniería y Arquitectura", "Ingeniería Civil", 7.333, null],
+    ["Ingeniería y Arquitectura", "Ingeniería Electrónica Industrial y Automática", 7.570, null],
+    ["Ingeniería y Arquitectura", "Ingeniería Informática", 8.171, null],
+    ["Ingeniería y Arquitectura", "Ingeniería Mecánica", 8.998, null],
+    ["Ingeniería y Arquitectura", "Ingeniería Química Industrial", 5.431, null],
+    ["Ingeniería y Arquitectura", "Náutica y Transporte Marítimo", 5.000, null],
+    ["Ingeniería y Arquitectura", "Tecnologías Marinas", 5.000, null]
+  ]
+}
