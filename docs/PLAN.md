@@ -70,10 +70,10 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [x] Catálogo nacional de trabajo reproducible con los extractos de Madrid, Galicia y Aragón, informe de comparabilidad y procedencia regional.
 - [x] Tercer ingestor regional adicional (Cataluña), con primera asignación, código de estudio, centro/población y cupo PAU/CFGS conservados.
 - [ ] Separación de grupo, convocatoria, ronda inicial y nota final.
-- [ ] Percentiles nacionales, regionales, por rama y por ámbito.
-- [x] Percentil nacional global sobre las observaciones cargadas en `/espana`; faltan percentiles regionales, por rama y por ámbito.
-- [x] Explorador nacional inicial de notas, mapa orientativo y “qué puedo estudiar con mi nota” para las tres comunidades procesadas; percentiles comparables pendientes.
-- [x] Explorador nacional inicial `/espana` con búsqueda, comunidad, nota/tolerancia, orden, procedencia y estado de cobertura; mapa nacional pendiente.
+- [ ] Percentiles nacionales, regionales, por rama y por ámbito; el ámbito requiere incorporar una clasificación de estudios común.
+- [x] Percentiles nacional y por comunidad sobre las observaciones cargadas en `/espana`; percentil por rama cuando la fuente publica la rama, sin inferirla donde falta.
+- [x] Explorador nacional inicial de notas, mapa orientativo y “qué puedo estudiar con mi nota” para las cuatro comunidades procesadas; percentiles comparables visibles según cobertura.
+- [x] Explorador nacional inicial `/espana` con búsqueda, comunidad, nota/tolerancia, orden, procedencia, estado de cobertura y carga completa del catálogo; el mapa sigue siendo orientativo.
 
 Criterio de terminado: el filtro España permite comparar solo ofertas metodológicamente compatibles y muestra cobertura por comunidad.
 

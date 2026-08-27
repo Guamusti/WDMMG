@@ -48,7 +48,7 @@ const server = createServer(async (request, response) => {
     const branch = url.searchParams.get('branch');
     const community = url.searchParams.get('community');
     const page = Math.max(1, Number(url.searchParams.get('page') || 1));
-    const limit = Math.min(1000, Math.max(1, Number(url.searchParams.get('limit') || 25)));
+    const limit = Math.min(5000, Math.max(1, Number(url.searchParams.get('limit') || 25)));
     const filtered = rows.filter(row => (!q || `${row.degree} ${row.university}`.toLocaleLowerCase().includes(q)) && (!university || row.universityRuctCode === university) && (!branch || row.branch === branch) && (!community || row.community === community));
     const start = (page - 1) * limit;
     response.end(JSON.stringify({ data: filtered.slice(start, start + limit), page, limit, total: filtered.length, source: national ? 'data/processed/admissions/national-2025-2026.json' : sourceUrl }));
