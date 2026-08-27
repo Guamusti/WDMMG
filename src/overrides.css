@@ -61,3 +61,12 @@
 .territory-contract-links a { padding: 10px 12px; background: var(--paper); border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-size: .8rem; }
 .territory-contract-links a:hover { border-color: var(--teal); color: var(--teal); }
 .territory-contract-links a span { display: block; margin-top: 3px; color: var(--muted); font-size: .65rem; }
+.territory-context { margin: 10px 0 18px; padding: 22px; background: #e2e8df; }
+.territory-context h3 { margin: 6px 0; font-size: 1.35rem; }
+.territory-context p { max-width: 720px; color: var(--muted); font-size: .82rem; }
+.territory-context-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 18px; }
+.territory-context-grid article { display: flex; flex-direction: column; gap: 5px; padding: 14px; background: var(--paper); border-top: 3px solid var(--teal); }
+.territory-context-grid article strong { font: 500 1.35rem 'DM Mono', monospace; }
+.territory-context-grid article small, .territory-context-grid article span { color: var(--muted); font-size: .68rem; }
+@media (max-width: 760px) { .territory-context-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .territory-context-grid { grid-template-columns: 1fr; } }
