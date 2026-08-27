@@ -1,5 +1,6 @@
 import fullMadridAdmissions from '../../data/processed/admissions/madrid-2025-2026.json';
 import ructUniversities from '../../data/processed/ruct/madrid-public-universities.json';
+import ructDegreeMatches from '../../data/processed/ruct/madrid-degree-matches.json';
 
 const madridSeedOffers = [
   { id:'ucm-informatica', university:'Universidad Complutense de Madrid', short:'UCM', degree:'Ingeniería Informática', campus:'Campus Moncloa', city:'Madrid', cutoff:10.175, branch:'Ingeniería y Arquitectura', places:null, source:'Comunidad de Madrid · notas 2025–2026' },
@@ -54,12 +55,15 @@ const shortByUniversity = {
 const universityByRuctCode = Object.fromEntries(ructUniversities.map(item => [item.ruct_code, item.name]));
 const cleanPdf = value => String(value || '').replaceAll('�', '').replace(/\s+/g, ' ').trim();
 const cityNames = ['Alcalá de Henares', 'Aranjuez', 'Alcorcón', 'Boadilla del Monte', 'Colmenarejo', 'Fuenlabrada', 'Getafe', 'Guadalajara', 'Leganés', 'Madrid', 'Móstoles'];
+const matchKey = (universityCode, degree) => `${universityCode}|${cleanPdf(degree).toLowerCase().replace(/\([^)]*\)/g, '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim()}`;
+const ructMatchByKey = new Map(ructDegreeMatches.filter(match => match.status === 'matched').map(match => [matchKey(match.university_ruct_code, match.admission_degree), match]));
 const fullOffers = fullMadridAdmissions.map((row, index) => {
   const universityName = universityByRuctCode[row.university_ruct_code] || cleanPdf(row.university_name_source);
   const rawDegree = cleanPdf(row.degree_name_source);
   const city = cityNames.find(name => rawDegree.endsWith(`(${name})`)) || (universityName === 'Universidad Carlos III de Madrid' ? 'Leganés' : universityName === 'Universidad Rey Juan Carlos' ? 'Móstoles' : universityName === 'Universidad de Alcalá' ? 'Alcalá de Henares' : 'Madrid');
   const campus = rawDegree.match(/\(([^()]+)\)$/)?.[1] || city;
-  return { id:`madrid-${shortByUniversity[universityName] || 'oferta'}-${index + 1}`, university:universityName, short:shortByUniversity[universityName], ructCode:row.university_ruct_code, degree:rawDegree, campus, city, cutoff:row.cutoff_score, branch:cleanPdf(row.branch_name_source) || 'Rama pendiente de RUCT', places:null, double:/\s-\s/.test(rawDegree), durationYears:row.duration_years_source, ects:row.ects_source, source:'Comunidad de Madrid · notas 2025–2026', sourcePage:row.source_page };
+  const ructMatch = ructMatchByKey.get(matchKey(row.university_ruct_code, rawDegree));
+  return { id:`madrid-${shortByUniversity[universityName] || 'oferta'}-${index + 1}`, university:universityName, short:shortByUniversity[universityName], ructCode:row.university_ruct_code, degree:rawDegree, campus, city, cutoff:row.cutoff_score, branch:cleanPdf(row.branch_name_source) || 'Rama pendiente de RUCT', places:null, double:/\s-\s/.test(rawDegree), durationYears:row.duration_years_source, ects:row.ects_source, ructDegreeCode:ructMatch?.ruct_degree_code || null, ructDegreeName:ructMatch?.ruct_degree_name || null, ructSourceUrl:ructMatch?.ruct_source_url || null, source:'Comunidad de Madrid · notas 2025–2026', sourcePage:row.source_page };
 });
 
 const canonicalName = value => cleanPdf(value).toLowerCase().replace(/\([^)]*\)/g, '').replace(/\s+/g, ' ').replace(/\s[-+]\s/g, '+').trim();
@@ -67,7 +71,11 @@ const offerKey = offer => [offer.short, canonicalName(offer.degree), cleanPdf(of
 const mergedOffers = new Map();
 // La selección inicial conserva sus URLs públicas; el extracto oficial aporta el resto.
 [...madridSeedOffers, ...fullOffers].forEach(offer => { if (!mergedOffers.has(offerKey(offer))) mergedOffers.set(offerKey(offer), offer); });
-export const madridOffers = [...mergedOffers.values()];
+export const madridOffers = [...mergedOffers.values()].map(offer => {
+  if (offer.ructDegreeCode) return offer;
+  const match = ructMatchByKey.get(matchKey(offer.ructCode, offer.degree));
+  return match ? { ...offer, ructDegreeCode:match.ruct_degree_code, ructDegreeName:match.ruct_degree_name, ructSourceUrl:match.ruct_source_url } : offer;
+});
 const ructByShort = Object.fromEntries(ructUniversities.map(item => [item.short, item.ruct_code]));
 
 export const madridUniversities = [

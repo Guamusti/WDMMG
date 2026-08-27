@@ -1,0 +1,992 @@
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+
+
+
+
+
+
+<html xml:lang="es" lang="es" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Registro de Universidades, Centros y Títulos (RUCT) - Ministerio de Educación, Cultura y Deporte</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Cache-Control" content="no-cache" />
+	<meta name="verify-v1" content="/vj8XSi7jRH1ilVIo0I+weWECxS77hjWustQMQtGqqY=" />	
+	<script type="text/javascript" src="/ruct/js/jstarget.js"></script>
+	<script type="text/javascript" src="/ruct/js/glibrary.js"></script>
+	<link rel="stylesheet" media="screen" type="text/css" href="/ruct/css/estilos-web-aplicaciones.css" />
+	<link rel="stylesheet" media="print" type="text/css" href="/ruct/css/estilos-web-imprimir-aplicaciones.css" />
+	<link rel="stylesheet" media="screen" type="text/css" href="/ruct/css/contenido-web-aplicaciones.css" />
+	<link rel="stylesheet" media="print" type="text/css" href="/ruct/css/contenido-web-imprimir-aplicaciones.css" />
+	
+
+
+
+
+<script type="text/javascript" src="/ruct/struts/js/base/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="/ruct/struts/js/base/jquery.ui.core.js?s2j=3.7.1"></script>
+<script type="text/javascript" src="/ruct/struts/js/plugins/jquery.subscribe.js?s2j=3.7.1"></script>
+
+<script type="text/javascript" src="/ruct/struts/js/struts2/jquery.struts2.js?s2j=3.7.1"></script>
+
+<script type="text/javascript">
+    $(function () {
+        jQuery.struts2_jquery.version = "3.7.1";
+        jQuery.scriptPath = "/ruct/struts/";
+        jQuery.struts2_jquery.minSuffix = "";
+        jQuery.struts2_jquery.local = "es";
+        jQuery.struts2_jquery.gridLocal = "es";
+        jQuery.struts2_jquery.timeLocal = "es";
+        jQuery.ajaxSettings.traditional = true;
+
+        jQuery.ajaxSetup({
+            cache: false
+        });
+
+        jQuery.struts2_jquery.require("js/struts2/jquery.ui.struts2.js?s2j=3.7.1");
+
+    });
+</script>
+
+    <link id="jquery_theme_link" rel="stylesheet"
+          href="/ruct/struts/themes/smoothness/jquery-ui.css?s2j=3.7.1" type="text/css"/>
+
+	
+</head>
+<body>
+<div id="cabecera-superior">
+	<div id="escudo"><a href="https://www.universidades.gob.es/"><img src="/ruct/img/logo_mciu_2.png" alt="Gobierno de España - Ministerio de Ciencia, Innovación y Universidades" /></a></div>
+	<div id="menu"></div>
+</div><!--fin cabecera-superior-->
+
+<div id="contenedor">
+
+<div id="seccion-educacion">
+
+<div class="migas">
+<strong>Est&aacute; usted en:&nbsp;</strong>
+	<ol> 
+    <li><a href="https://www.universidades.gob.es/">Portada</a></li> 
+    <li><a href="https://www.educacion.gob.es/educacion/universidades.html">Universidades</a></li>
+    </ol>
+</div>
+
+<h1>Registro de Universidades, Centros y Títulos (RUCT)</h1>
+</div>
+
+<div id="menu-contenido">
+	<ul>
+<li>
+<a href="/ruct/consultauniversidades?actual=universidades">Sección universidades</a>
+</li>
+<li>
+<a href="/ruct/consultacentros?actual=centros">Sección centros</a>
+</li>
+<li>
+<a href="/ruct/consultaestudios?actual=estudios"><strong>Sección títulos</strong></a>
+</li>
+</ul>
+</div>
+
+<div id="contenido">
+
+	<div class="enlaces">
+		<ul>
+			<li><a href="/ruct/contacto_ciencia.html">Contacte</a></li>
+			<li><a href="/ruct/home">Inicio</a></li>
+			<script>document.write("<li><a href='javascript:history.back()'>Volver</a></li>");</script>
+		</ul>
+	</div>	
+	
+	
+	
+	
+	
+	<div id="formulario">
+	
+
+
+	<form id="estudio" name="estudio" action="/ruct/estudio.action?actual=estudios" method="post">
+
+		<h2>Estudios</h2>
+
+		<div id="ver"><span class="pagebanner">49 registros encontrados, mostrando del 26 al 49.</span><span class="pagelinks">[<a href="listaestudios?codigoRama=&amp;actual=estudios&amp;d-1335801-p=1&amp;codigoEstado=P&amp;buscarHistorico=N&amp;descripcionEstudio=&amp;codigoTipo=G&amp;codigoSubTipo=&amp;situacion=A&amp;ambito=&amp;action:listaestudios=Consultar&amp;codigoUniversidad=025&amp;consulta=1">Primero</a>/<a href="listaestudios?codigoRama=&amp;actual=estudios&amp;d-1335801-p=1&amp;codigoEstado=P&amp;buscarHistorico=N&amp;descripcionEstudio=&amp;codigoTipo=G&amp;codigoSubTipo=&amp;situacion=A&amp;ambito=&amp;action:listaestudios=Consultar&amp;codigoUniversidad=025&amp;consulta=1">Anterior</a>] <a href="listaestudios?codigoRama=&amp;actual=estudios&amp;d-1335801-p=1&amp;codigoEstado=P&amp;buscarHistorico=N&amp;descripcionEstudio=&amp;codigoTipo=G&amp;codigoSubTipo=&amp;situacion=A&amp;ambito=&amp;action:listaestudios=Consultar&amp;codigoUniversidad=025&amp;consulta=1" title="Ir a la página 1">1</a>, <strong>2</strong> [Siguiente/Último]</span></div>
+<table summary="Tabla de maquetaci&oacute;n" id="estudio">
+<thead>
+<tr>
+<th>Código</th>
+<th>Título</th>
+<th>Universidad</th>
+<th>Nivel académico</th>
+<th>Estado</th>
+<th></th></tr></thead>
+<tbody>
+<tr class="odd">
+<td>2502145&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2502145&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a del Medio Natural por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                		
+                        	(TITULACIÓN RENOVADA)
+                        
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25021452025110701&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="even">
+<td>2503028&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2503028&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a del Software por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                    		(TITULACIÓN RENOVADA POR ACREDITACIÓN INSTITUCIONAL)
+                    	
+                		
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25030282025071501&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="odd">
+<td>2502402&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2502402&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a El&eacute;ctrica por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                		
+                        	(TITULACIÓN RENOVADA)
+                        
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25024022025011601&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="even">
+<td>2500735&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2500735&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a Electr&oacute;nica de Comunicaciones por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                    		(TITULACIÓN RENOVADA POR ACREDITACIÓN INSTITUCIONAL)
+                    	
+                		
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25007352025051601&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="odd">
+<td>2502403&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2502403&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a Electr&oacute;nica Industrial y Autom&aacute;tica por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                		
+                        	(TITULACIÓN RENOVADA)
+                        
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25024032025011601&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="even">
+<td>2502404&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2502404&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a en Dise&ntilde;o Industrial y Desarrollo de Producto por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 822/2021 (2)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                		
+                        	(TITULACIÓN RENOVADA)
+                        
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25024042025032401&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="odd">
+<td>2502146&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2502146&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a en Tecnolog&iacute;a Minera por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                		
+                        	(TITULACIÓN RENOVADA)
+                        
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25021462025112501&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="even">
+<td>2504628&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2504628&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a en Tecnolog&iacute;as Aeroespaciales por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                    		(TITULACIÓN RENOVADA POR ACREDITACIÓN INSTITUCIONAL)
+                    	
+                		
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25046282025121701&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="odd">
+<td>2503198&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2503198&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a en Tecnolog&iacute;as Ambientales por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                		
+                        	(TITULACIÓN RENOVADA)
+                        
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25031982025110701&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="even">
+<td>2501648&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2501648&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a en Tecnolog&iacute;as Industriales por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                    		(TITULACIÓN RENOVADA POR ACREDITACIÓN INSTITUCIONAL)
+                    	
+                		
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25016482025071601&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="odd">
+<td>2502147&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2502147&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a Forestal por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                		
+                        	(TITULACIÓN RENOVADA)
+                        
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25021472025110701&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="even">
+<td>2502148&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2502148&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a Geol&oacute;gica por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                		
+                        	(TITULACIÓN RENOVADA)
+                        
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25021482025110701&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="odd">
+<td>2503444&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2503444&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a Geom&aacute;tica por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                		
+                        	(TITULACIÓN RENOVADA)
+                        
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25034442025022601&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="even">
+<td>2500397&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2500397&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a Inform&aacute;tica por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                    		(TITULACIÓN RENOVADA POR ACREDITACIÓN INSTITUCIONAL)
+                    	
+                		
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25003972025030701&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="odd">
+<td>2501482&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2501482&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a Mar&iacute;tima por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                		
+                        	(TITULACIÓN RENOVADA)
+                        
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25014822025032601&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="even">
+<td>2502150&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2502150&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a Mec&aacute;nica por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                		
+                        	(TITULACIÓN RENOVADA)
+                        
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25021502025011301&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="odd">
+<td>1500143&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=1500143&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a Mineral&uacute;rgica y Metal&uacute;rgica de las Materias Primas por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 822/2021 (2)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=15001432024020101&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="even">
+<td>2501483&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2501483&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a Qu&iacute;mica por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                    		(TITULACIÓN RENOVADA POR ACREDITACIÓN INSTITUCIONAL)
+                    	
+                		
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25014832025072301&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="odd">
+<td>2500737&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2500737&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a Telem&aacute;tica por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                    		(TITULACIÓN RENOVADA POR ACREDITACIÓN INSTITUCIONAL)
+                    	
+                		
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25007372025042801&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="even">
+<td>2504075&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2504075&amp;actual=estudios">Graduado o Graduada en Ingenier&iacute;a y Sistemas de Datos por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                    		(TITULACIÓN RENOVADA POR ACREDITACIÓN INSTITUCIONAL)
+                    	
+                		
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25040752025052701&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="odd">
+<td>2502399&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2502399&amp;actual=estudios">Graduado o Graduada en Matem&aacute;ticas e Inform&aacute;tica por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 822/2021 (2)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                    		(TITULACIÓN RENOVADA POR ACREDITACIÓN INSTITUCIONAL)
+                    	
+                		
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25023992024071601&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="even">
+<td>2504164&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2504164&amp;actual=estudios">Graduado o Graduada en Matem&aacute;ticas por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25041642025110701&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="odd">
+<td>2503018&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2503018&amp;actual=estudios">Graduado o Graduada en Sistemas de Informaci&oacute;n por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                    		(TITULACIÓN RENOVADA POR ACREDITACIÓN INSTITUCIONAL)
+                    	
+                		
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25030182025071501&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr>
+<tr class="even">
+<td>2503422&nbsp;</td>
+<td>
+		    	   	
+		     			
+		     			
+		     			
+		     			
+		     		
+		     		<a href="/ruct/estudio.action?codigoCiclo=SC&amp;codigoTipo=G&amp;CodigoEstudio=2503422&amp;actual=estudios">Graduado o Graduada en Tecnolog&iacute;as para la Sociedad de la Informaci&oacute;n por la Universidad Polit&eacute;cnica de Madrid</a>
+			&nbsp;</td>
+<td>Universidad Politécnica de Madrid&nbsp;</td>
+<td>Grado - RD 1393/2007 (1)&nbsp;</td>
+<td>
+	    		Publicado en B.O.E.
+	    		
+                
+                    
+                    	
+                    		(TITULACIÓN RENOVADA POR ACREDITACIÓN INSTITUCIONAL)
+                    	
+                		
+                    
+                
+	    	&nbsp;</td>
+<td>
+		   		
+		   		
+		           	
+		            
+		           	
+		       	
+	    	   	<a href="/ruct/solicitud/detalles.action?cod=25034222025071501&amp;sit=A&amp;actual=menu.solicitud.basicos" class="ver" title="Ver en Detalle">&nbsp;</a>
+	        	
+		   	&nbsp;</td></tr></tbody></table><p>Opciones de exportación: 
+<a href="listaestudios?codigoRama=&amp;actual=estudios&amp;d-1335801-p=2&amp;d-1335801-e=2&amp;codigoEstado=P&amp;buscarHistorico=N&amp;descripcionEstudio=&amp;codigoTipo=G&amp;codigoSubTipo=&amp;situacion=A&amp;ambito=&amp;action:listaestudios=Consultar&amp;6578706f7274=1&amp;codigoUniversidad=025&amp;consulta=1"><span class="export excel">Excel </span></a></p>
+
+	<!-- IZERTIS-13/07/2022-MODIFICACIONES RUCT RD822 -->
+	
+	<div class="ayuda">
+		<h4>* Nivel académico</h4>
+		<ul>
+			
+			
+			
+			
+			<li><strong>(1)</strong> Grados regulados por el Real Decreto 1393/2007, de 29 de octubre, por el que se establece la ordenación de las enseñanzas universitarias oficiales, y por el Real Decreto 861/2010, de 2 de julio, por el que se modifica el Real Decreto 1393/2007, de 29 de octubre. *  Se entienden como Grados regulados por el Real Decreto 822/2021, de 28 de septiembre, por el que se establece la organización de las enseñanzas universitarias y del procedimiento de aseguramiento de su calidad, aquellos que se tramitaron a partir del 19 de octubre de 2021.</li>
+			<li><strong>(2)</strong> Grados regulados por el Real Decreto 822/2021, de 28 de septiembre, por el que se establece la organización de las enseñanzas universitarias y del procedimiento de aseguramiento de su calidad.</li>			
+			
+		</ul>
+	</div>
+	
+
+	</form>
+
+
+
+
+	</div>
+
+</div>
+
+<div id="pie">
+	<p>© Ministerio de Ciencia, Innovación y Universidades</p><ul>
+	<li class=""><a rel="external" href="https://www.ciencia.gob.es/InfoGeneralPortal/AvisoLegal.html">Aviso legal</a></li>
+	<li class="ultimo"><a rel="external" href="https://www.ciencia.gob.es/InfoGeneralPortal/Accesibilidad.html">Accesibilidad</a></li>
+</ul>
+	<p><a rel="external" href="http://www.w3.org/WAI/WCAG1AA-Conformance"><img title="Este sitio web cumple con el nivel de accesibilidad doble A según las pautas WCAG 1.0" alt="Logotipo W3C/WAI doble A (WCAG 1.0)" src="/ruct/img/logo-w3c.gif"/></a></p>
+
+</div>
+</div></body></html>

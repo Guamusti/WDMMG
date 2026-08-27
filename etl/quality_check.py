@@ -1,5 +1,6 @@
 """Dependency-free quality gate for committed processed admissions data."""
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -11,6 +12,7 @@ DATASETS = [
     ROOT / "data/processed/admissions/national-2025-2026.json",
 ]
 REQUIRED = {"academic_year", "admission_round", "admission_group", "cutoff_score"}
+RUCT_MATCHES = ROOT / "data/processed/ruct/madrid-degree-matches.json"
 
 
 def check(path: Path) -> int:
@@ -31,4 +33,10 @@ def check(path: Path) -> int:
 
 
 total = sum(check(path) for path in DATASETS)
-print(f"Quality gate passed: {len(DATASETS)} datasets, {total} rows")
+matches = json.loads(RUCT_MATCHES.read_text(encoding="utf-8"))
+if len(matches) != 459 or len({row["admission_id"] for row in matches}) != len(matches):
+    raise AssertionError("RUCT matches: expected 459 unique Madrid admission rows")
+for row in matches:
+    if row["status"] == "matched" and not re.fullmatch(r"\d{7}", str(row["ruct_degree_code"])):
+        raise AssertionError(f"RUCT match without a seven-digit title code: {row['admission_id']}")
+print(f"Quality gate passed: {len(DATASETS)} datasets, {total} rows, {len(matches)} RUCT matches")

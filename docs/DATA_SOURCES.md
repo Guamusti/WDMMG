@@ -7,9 +7,9 @@
 - Uso previsto: registro maestro de universidades, centros, títulos oficiales, códigos y estado.
 - Granularidad: universidad, centro y título.
 - Limitación: la consulta pública no sustituye a un export histórico; el ingestor debe conservar la evidencia de cada consulta.
-- Estado: arquitectura preparada; ingestor pendiente.
+- Estado: consulta reproducible de títulos de Grado activa para las seis universidades públicas madrileñas; el matching de centros y las coincidencias no exactas siguen pendientes.
 - Distribución estructurada auxiliar de códigos de universidad: https://datos.canarias.es/api/estadisticas/structural-resources/v1.0/codelists/ISTAC/CL_RUCT_UNIVERSIDADES/01.000/codes.csv?fields=+description
-- Estado actual: códigos de las seis universidades públicas madrileñas enlazados y conservados en `data/processed/ruct/`; el CSV bruto y la URL se mantienen como evidencia. Los códigos de títulos/centros requieren consulta RUCT individual y no se infieren por nombre.
+- Estado actual: códigos de universidad y 329 coincidencias únicas de títulos están conservados en `data/processed/ruct/`; las 130 ofertas restantes quedan pendientes por falta de coincidencia exacta o ambigüedad. El matching de centros requiere consulta individual y no se infiere por nombre.
 
 ## Notas de corte — Comunidad de Madrid
 
