@@ -241,6 +241,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | La rueda consume `/api/policies` con fallback validado; agrupación de partidas principales y “Resto” conservada | `en curso` |
 | 27/08/2026 | Metodología ampliada: glosario, separación de datasets, no doble conteo y estados de cobertura | `en curso` |
 | 27/08/2026 | Matriz de cobertura efectiva: AGE, gasto funcional, PLACSP, BDNS, CCAA, local, entidades e INE | `en curso` |
+| 27/08/2026 | Primera vista territorial conectada: 17 CCAA + total, gasto no financiero acumulado mayo 2026 y estado avance | `en curso` |
 | 27/08/2026 | La portada arranca con Pensiones seleccionada (32,1%) y el detalle es accesible con `aria-live` | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |

@@ -97,6 +97,10 @@ function getExecution() {
   return readJsonl(join(root, 'data', 'processed', 'igae', 'execution-2026-05.jsonl'));
 }
 
+function getTerritorialExecution() {
+  return readJsonl(join(root, 'data', 'processed', 'ccaa', 'execution-2026-05.jsonl'));
+}
+
 async function databaseOverview() {
   const result = await pool.query(`
     SELECT br.fiscal_year, br.period, br.data_status, ds.source_url,
@@ -203,6 +207,10 @@ const server = createServer(async (req, res) => {
   if (url.pathname === '/api/policies') {
     const policies = readJson(join(root, 'data', 'processed', 'igae', 'functional-policies-2024.json'));
     return policies ? json(res, 200, { data: policies.policies, meta: { fiscalYear: policies.fiscal_year, unit: policies.unit, total: policies.total, sourceUrl: policies.source_url, sourceSection: policies.source_section, dataStatus: policies.data_status, backend: 'file' } }) : json(res, 503, { error: 'policies_unavailable' });
+  }
+  if (url.pathname === '/api/territories') {
+    const data = getTerritorialExecution();
+    return json(res, 200, { data, meta: { fiscalYear: 2026, period: '2026-05', unit: 'thousands_eur', total: data.length, dataStatus: data.length ? 'advance' : 'awaiting_validated_ingestion', sourceUrl: 'https://serviciostelematicosext.hacienda.gob.es/SGCIEF/Cimcanet/aspx/consulta/consulta.aspx', backend: 'file' } });
   }
   return json(res, 404, { error: 'not_found' });
 });
