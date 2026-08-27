@@ -25,6 +25,15 @@ def test_health_reports_service_and_contract_count():
     assert isinstance(payload["data"]["contracts"], int)
 
 
+def test_metrics_keep_budget_contracts_and_grants_separate():
+    status, payload = get_json("/api/metrics")
+    assert status == 200
+    assert {"budget", "execution", "contracts", "grants"}.issubset(payload["data"])
+    assert payload["data"]["budget"]["unit"] == "miles de euros"
+    assert payload["data"]["contracts"]["unit"] == "EUR"
+    assert payload["data"]["grants"]["unit"] == "EUR"
+
+
 def test_index_exposes_share_metadata_in_spanish():
     with open("index.html", encoding="utf-8") as handle:
         body = handle.read()
