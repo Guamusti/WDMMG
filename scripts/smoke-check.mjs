@@ -58,6 +58,8 @@ const illesBalears = await (await expectOk(`${api}/api/national-offers?community
 if (illesBalears.total !== expectedIllesBalears || !['ordinary', 'extraordinary'].includes(illesBalears.data[0]?.admissionRound) || !illesBalears.data[0]?.sourceUrl || !illesBalears.data[0]?.sourceProcess || !illesBalears.data[0]?.sourceDate) throw new Error('Illes Balears offers: round/source contract missing');
 const canarias = await (await expectOk(`${api}/api/national-offers?community=Canarias&limit=1`, 'Canarias offers')).json();
 if (canarias.total !== expectedCanarias || canarias.data[0]?.admissionRound !== 'first_call' || canarias.data[0]?.admissionGroup !== 'group_1' || !canarias.data[0]?.sourceUrl) throw new Error('Canarias offers: round/source contract missing');
+const rioja = await (await expectOk(`${api}/api/national-offers?community=La%20Rioja&limit=1`, 'La Rioja offers')).json();
+if (rioja.total !== 12 || rioja.data[0]?.admissionRound !== 'ordinary' || rioja.data[0]?.admissionGroup !== 'group_1' || !rioja.data[0]?.sourceUrl) throw new Error('La Rioja offers: round/source contract missing');
 
 const etag = nationalResponse.headers.get('etag');
 if (!etag || !nationalResponse.headers.get('cache-control')) throw new Error('National offers: HTTP cache headers missing');

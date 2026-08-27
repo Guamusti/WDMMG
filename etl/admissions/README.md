@@ -86,11 +86,20 @@ la primera asignación del cupo general, se conservan las cinco ramas publicadas
 y se excluyen solo las filas sin nota general (`--`), manteniendo el alcance
 parcial: la Universidad de La Laguna aún no está integrada.
 
+## La Rioja
+
+`python etl/admissions/la-rioja/download_unirioja.py` conserva el libro XLSX
+oficial de transparencia de la Universidad de La Rioja y `python
+etl/admissions/la-rioja/parse_unirioja.py` genera el extracto de 2025-2026.
+Se carga la nota inicial de la convocatoria ordinaria del cupo general, se
+mantienen rama y campus, y se rechazan las titulaciones marcadas como `SNC`
+(sin nota de corte).
+
 ## Catálogo nacional de trabajo
 
-`python etl/admissions/build_national_catalog.py` reúne los extractos
-procesados de Madrid, Galicia, Aragón, Cataluña, Andalucía, Castilla y León,
-Cantabria, Navarra, Asturias, Illes Balears y Canarias (ULPGC y ULL) en
+`build_national_catalog.py` reúne los extractos procesados de Madrid, Galicia,
+Aragón, Cataluña, Andalucía, Castilla y León, Cantabria, Navarra, Asturias,
+Illes Balears, Canarias (ULPGC y ULL) y La Rioja en
 `data/processed/admissions/`.
 Conserva la procedencia regional y genera un informe de comparabilidad; no
 rellena ramas, RUCT ni métricas que una fuente no publique.

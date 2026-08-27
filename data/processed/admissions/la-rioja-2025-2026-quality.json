@@ -1,0 +1,176 @@
+{
+  "source_url": "https://www.unirioja.es/administracion-y-servicios/area-academica-y-de-coordinacion/transparencia-estudiantes/",
+  "academic_year": "2025-2026",
+  "records": 12,
+  "rejected_rows": 8,
+  "duplicates": 0,
+  "round": "ordinary initial cutoff before list decreases",
+  "checks": {
+    "cutoff_between_0_and_14": true,
+    "round_explicit": true,
+    "general_group_explicit": true,
+    "branch_explicit": true,
+    "no_duplicate_keys": true,
+    "snc_rows_rejected": true
+  },
+  "rejections": [
+    {
+      "row": 5,
+      "raw": [
+        "204 G Grado en Relaciones Laborales y Recursos Humanos",
+        5.724,
+        5.281,
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        5.987,
+        "SNC"
+      ],
+      "reason": "SNC_OR_NON_DEGREE"
+    },
+    {
+      "row": 8,
+      "raw": [
+        "207G Grado en Turismo",
+        7.19,
+        6.256,
+        6.159,
+        6.064,
+        5.381,
+        6.5,
+        "SNC",
+        5.085,
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC"
+      ],
+      "reason": "SNC_OR_NON_DEGREE"
+    },
+    {
+      "row": 10,
+      "raw": [
+        "601G Grado en Estudios Ingleses",
+        8.11,
+        6.882,
+        6.841,
+        7.207,
+        7.705,
+        7.576,
+        6.471,
+        6.056,
+        6.966,
+        6.21,
+        "SNC",
+        "SNC",
+        "SNC"
+      ],
+      "reason": "SNC_OR_NON_DEGREE"
+    },
+    {
+      "row": 11,
+      "raw": [
+        "602G Grado en Geografía e Historia",
+        5.743,
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        6.596,
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC"
+      ],
+      "reason": "SNC_OR_NON_DEGREE"
+    },
+    {
+      "row": 12,
+      "raw": [
+        "603G Grado en Lengua y Literatura Hispánica",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC"
+      ],
+      "reason": "SNC_OR_NON_DEGREE"
+    },
+    {
+      "row": 17,
+      "raw": [
+        "802G Grado en Ingeniería Agrícola",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC"
+      ],
+      "reason": "SNC_OR_NON_DEGREE"
+    },
+    {
+      "row": 19,
+      "raw": [
+        "804G Grado en Ingeniería Eléctrica",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC",
+        "SNC"
+      ],
+      "reason": "SNC_OR_NON_DEGREE"
+    },
+    {
+      "row": 22,
+      "raw": [
+        "SNC: Sin nota de corte",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "reason": "SNC_OR_NON_DEGREE"
+    }
+  ]
+}

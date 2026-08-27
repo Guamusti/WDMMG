@@ -15,7 +15,7 @@
   {"community":"Región de Murcia","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"Navarra","status":"verified","url":"https://www.unavarra.es/sites/estudios/acceso-y-admision/admision-en-estudios-de-grado/notas-de-corte-y-simulador.html","format":"PDF","rounds":["last_call","extraordinary"],"coverage":"UPNA · sexta lista de admitidos del 10 de septiembre de 2025 · 41 ofertas"},
   {"community":"País Vasco","status":"pending","url":"https://www.ehu.eus/es/web/graduak/preinscripcion-y-admision/notas-de-corte","format":"PDF escaneado","rounds":["ordinary"],"coverage":"EHU · notas de admisión 2025-2026 enlazadas desde la página oficial; el PDF conservado no tiene capa de texto ni tabla estructurada, pendiente de extracción OCR revisada"},
-  {"community":"La Rioja","status":"pending","url":null,"format":null,"rounds":null},
+  {"community":"La Rioja","status":"verified","url":"https://www.unirioja.es/administracion-y-servicios/area-academica-y-de-coordinacion/transparencia-estudiantes/","format":"XLSX","rounds":["ordinary"],"coverage":"Universidad de La Rioja · 12 grados con nota inicial del cupo general 2025-2026; 8 filas SNC rechazadas"},
   {"community":"Ceuta","status":"pending","url":null,"format":null,"rounds":null},
   {"community":"Melilla","status":"pending","url":null,"format":null,"rounds":null}
 ]

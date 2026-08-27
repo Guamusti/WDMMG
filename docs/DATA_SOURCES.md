@@ -68,7 +68,7 @@
 
 ## Catálogo nacional de trabajo
 
-- `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de once comunidades: Madrid (458), Galicia (333), Aragón (73), Cataluña (549), Andalucía (581), Castilla y León (122), Cantabria (37), Navarra (41), Asturias (68), Illes Balears (296) y Canarias (69: 51 de la ULPGC y 18 de la ULL).
+- `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de doce comunidades: Madrid (458), Galicia (333), Aragón (73), Cataluña (549), Andalucía (581), Castilla y León (122), Cantabria (37), Navarra (41), Asturias (68), Illes Balears (296), Canarias (69: 51 de la ULPGC y 18 de la ULL) y La Rioja (12).
 - `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial y la de campo RUCT también, por lo que el catálogo no se presenta como ranking nacional único.
 
 ## Notas de corte — Canarias

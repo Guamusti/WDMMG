@@ -88,11 +88,12 @@ Criterio de terminado: una ingestión limpia reconstruye la misma interfaz y cad
 - [x] Noveno ingestor regional adicional (Asturias), con tabla institucional de la Universidad de Oviedo, 68 ofertas, primera fase de julio y plazas conservadas.
 - [x] Décimo ingestor regional adicional (Illes Balears), con páginas oficiales de la UIB, procesos JUN/EXT y 296 observaciones de PAU/CFGS conservadas.
 - [x] Undécima cobertura regional adicional (Canarias), con las dos universidades públicas: 51 observaciones ULPGC desde HTML y 18 observaciones ULL desde PDF oficial transcrito y auditado.
+- [x] Duodécima cobertura regional adicional (La Rioja), con 12 notas iniciales de la convocatoria ordinaria de la Universidad de La Rioja desde XLSX oficial y 8 filas `SNC` rechazadas.
 - [x] Separación de grupo, convocatoria, ronda inicial y nota final en el modelo nacional; cada fuente conserva solo las dimensiones que publica y las ausencias quedan explícitas.
 - [x] Exponer convocatoria y cupo como filtros aplicables en `/espana`, manteniendo sus valores originales por fila.
 - [x] Percentiles nacionales, regionales, por rama y por campo RUCT cuando existe una clasificación oficial; el catálogo mantiene cobertura parcial y no infiere campos ausentes.
 - [x] Percentiles nacional, por comunidad, rama y campo RUCT sobre las observaciones cargadas en `/espana`, con el ámbito de comparación indicado en cada fila.
-- [x] Explorador nacional inicial de notas, mapa orientativo y “qué puedo estudiar con mi nota” para las once comunidades procesadas; percentiles comparables visibles según cobertura.
+- [x] Explorador nacional inicial de notas, mapa orientativo y “qué puedo estudiar con mi nota” para las doce comunidades procesadas; percentiles comparables visibles según cobertura.
 - [x] Explorador nacional inicial `/espana` con búsqueda, comunidad, nota/tolerancia, orden, procedencia, estado de cobertura y carga completa del catálogo; el mapa sigue siendo orientativo.
 
 Criterio de terminado: el filtro España permite comparar solo ofertas metodológicamente compatibles y muestra cobertura por comunidad.
