@@ -148,8 +148,8 @@ Referencia MD: secciones 9, 11, 12, 24, 25, 32, 35, 50 y 51.
 - [~] Incorporar presupuestos y ejecución de CCAA; muestra mensual de 17 comunidades normalizada, falta carga completa.
 - [~] Incorporar presupuestos, ejecución y liquidación local; fuente Access 2026 localizada y descargada, parser bloqueado por ausencia de lector Access compatible en el entorno.
 - [ ] Incorporar inventario de entidades públicas y jerarquías.
-- [ ] Incorporar geografía, códigos territoriales y población INE.
-- [ ] Añadir CCAA, provincias y municipios a filtros y páginas.
+- [~] Incorporar geografía, códigos territoriales y población INE; búsqueda municipal y agregación provincial oficial activas.
+- [~] Añadir CCAA, provincias y municipios a filtros y páginas; CCAA y municipio/provincia ya explorables, falta integrarlo en filtros de gasto.
 - [~] Añadir mapa España → CCAA → provincia → municipio; mapa de límites CCAA del IGN activo con carga diferida, simplificación y cache en proceso, faltan provincias/municipios.
 - [ ] Calcular gasto por habitante solo con población y periodo compatibles.
 - [x] Medir cobertura real: completa, parcial, no disponible, en procesamiento.
@@ -311,5 +311,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Ingestor BDNS de concesiones: paginación, raw por página, SHA-256, provenance y JSONL separado para concesiones | `en curso` |
 | 27/08/2026 | Loader PostgreSQL de concesiones BDNS: relaciona convocatoria/beneficiario, registra `grant_awards` y evita duplicados por `source_record_id` | `en curso` |
 | 27/08/2026 | Loader PLACSP persiste `TenderResult` en `contract_awards`, enlaza adjudicatarios por NIF/nombre y asocia lote cuando el feed lo publica | `en curso` |
+| 27/08/2026 | Explorador territorial INE ampliado: búsqueda por municipio o provincia, suma provincial explícita y URL compartible | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |
