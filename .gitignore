@@ -5,3 +5,4 @@ dist/
 __pycache__/
 *.pyc
 public/api-port.json
+.atlas-frontend-port

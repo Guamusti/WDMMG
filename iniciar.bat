@@ -16,14 +16,21 @@ if errorlevel 1 (
 )
 
 echo.
-for /f %%A in ('powershell -NoProfile -Command "$p=8787; while (Get-NetTCPConnection -LocalPort $p -State Listen -ErrorAction SilentlyContinue) { $p++ }; $p"') do set "APIPORT=%%A"
+set "API_REUSED="
+for /f %%A in ('powershell -NoProfile -Command "$f='public/api-port.json'; if (Test-Path $f) { try { $p=(Get-Content -Raw $f | ConvertFrom-Json).port; $r=Invoke-WebRequest -UseBasicParsing -Uri ('http://127.0.0.1:'+ $p +'/api/health') -TimeoutSec 1; if ($r.StatusCode -eq 200) { $p } } catch {} }"') do set "APIPORT=%%A"
+if defined APIPORT set "API_REUSED=1"
+if not defined APIPORT for /f %%A in ('powershell -NoProfile -Command "$p=8787; while (Get-NetTCPConnection -LocalPort $p -State Listen -ErrorAction SilentlyContinue) { $p++ }; $p"') do set "APIPORT=%%A"
 powershell -NoProfile -Command "$json = @{ port = %APIPORT% } | ConvertTo-Json; Set-Content -LiteralPath 'public/api-port.json' -Value $json -Encoding utf8"
-echo Iniciando API local en http://127.0.0.1:%APIPORT%
-powershell -NoProfile -Command "$apiArgs = '/c set ATLAS_API_PORT=%APIPORT%&& npm run api'; Start-Process -FilePath 'cmd.exe' -ArgumentList $apiArgs -WorkingDirectory '%~dp0' -WindowStyle Hidden"
+echo API local en http://127.0.0.1:%APIPORT% %API_REUSED%
+if not defined API_REUSED powershell -NoProfile -Command "$apiArgs = '/c set ATLAS_API_PORT=%APIPORT%&& npm run api'; Start-Process -FilePath 'cmd.exe' -ArgumentList $apiArgs -WorkingDirectory '%~dp0' -WindowStyle Hidden"
 
-for /f %%P in ('powershell -NoProfile -Command "$p=5173; while (Get-NetTCPConnection -LocalPort $p -State Listen -ErrorAction SilentlyContinue) { $p++ }; $p"') do set "PORT=%%P"
-echo Iniciando la ultima version en http://localhost:%PORT%
-powershell -NoProfile -Command "$viteArgs = '/c npm run dev -- --host=127.0.0.1 --port=%PORT%'; Start-Process -FilePath 'cmd.exe' -ArgumentList $viteArgs -WorkingDirectory '%~dp0' -WindowStyle Hidden"
+set "FRONTEND_REUSED="
+for /f %%P in ('powershell -NoProfile -Command "$f='.atlas-frontend-port'; if (Test-Path $f) { try { $p=(Get-Content -Raw $f).Trim(); $r=Invoke-WebRequest -UseBasicParsing -Uri ('http://127.0.0.1:'+ $p +'/') -TimeoutSec 1; if ($r.StatusCode -eq 200) { $p } } catch {} }"') do set "PORT=%%P"
+if defined PORT set "FRONTEND_REUSED=1"
+if not defined PORT for /f %%P in ('powershell -NoProfile -Command "$p=5173; while (Get-NetTCPConnection -LocalPort $p -State Listen -ErrorAction SilentlyContinue) { $p++ }; $p"') do set "PORT=%%P"
+>".atlas-frontend-port" echo %PORT%
+echo Frontend local en http://localhost:%PORT% %FRONTEND_REUSED%
+if not defined FRONTEND_REUSED powershell -NoProfile -Command "$viteArgs = '/c npm run dev -- --host=127.0.0.1 --port=%PORT%'; Start-Process -FilePath 'cmd.exe' -ArgumentList $viteArgs -WorkingDirectory '%~dp0' -WindowStyle Hidden"
 
 timeout /t 4 /nobreak >nul
 start "" "http://localhost:%PORT%"
