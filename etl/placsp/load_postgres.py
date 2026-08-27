@@ -13,6 +13,12 @@ from psycopg.types.json import Json
 SOURCE_URL = "https://contrataciondelsectorpublico.gob.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"
 
 
+def parse_date(value):
+    if not value:
+        return None
+    return str(value).split('T', 1)[0]
+
+
 def load(path: Path, database_url: str) -> int:
     rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
     with psycopg.connect(database_url) as connection:
@@ -49,6 +55,31 @@ def load(path: Path, database_url: str) -> int:
                 cursor.execute("DELETE FROM contract_lots WHERE contract_id = %s", (contract_id,))
                 for lot in row.get("lots", []):
                     cursor.execute("INSERT INTO contract_lots (contract_id, lot_number, title, budget, estimated_value) VALUES (%s,%s,%s,%s,%s)", (contract_id, lot.get("lot_number"), lot.get("title"), lot.get("budget"), lot.get("estimated_value")))
+                cursor.execute("DELETE FROM contract_awards WHERE contract_id = %s", (contract_id,))
+                for award in row.get("awards", []):
+                    winner_id = None
+                    winner_name = (award.get("winner_name") or "").strip()
+                    winner_tax_id = (award.get("winner_id") or "").strip() or None
+                    if winner_name or winner_tax_id:
+                        if winner_tax_id:
+                            cursor.execute("SELECT id FROM recipient_entities WHERE tax_id = %s LIMIT 1", (winner_tax_id,))
+                        else:
+                            normalized = " ".join(winner_name.lower().split())
+                            cursor.execute("SELECT id FROM recipient_entities WHERE normalized_name = %s LIMIT 1", (normalized,))
+                        found = cursor.fetchone()
+                        if found:
+                            winner_id = found[0]
+                        else:
+                            normalized = " ".join((winner_name or winner_tax_id).lower().split())
+                            cursor.execute("INSERT INTO recipient_entities (name, normalized_name, tax_id, entity_type, source_id, source_record_id) VALUES (%s,%s,%s,'contractor',%s,%s) RETURNING id", (winner_name or winner_tax_id, normalized, winner_tax_id, source_id, row.get("source_record_id")))
+                            winner_id = cursor.fetchone()[0]
+                    lot_id = None
+                    lot_number = award.get("lot_number")
+                    if lot_number:
+                        cursor.execute("SELECT id FROM contract_lots WHERE contract_id = %s AND lot_number = %s LIMIT 1", (contract_id, lot_number))
+                        found_lot = cursor.fetchone()
+                        lot_id = found_lot[0] if found_lot else None
+                    cursor.execute("INSERT INTO contract_awards (contract_id, lot_id, winner_entity_id, award_amount, award_amount_with_tax, number_of_tenders, award_date) VALUES (%s,%s,%s,%s,%s,%s,%s)", (contract_id, lot_id, winner_id, award.get("award_amount"), award.get("award_amount_with_tax"), award.get("number_of_tenders"), parse_date(award.get("award_date"))))
                 cursor.execute("DELETE FROM contract_events WHERE contract_id = %s", (contract_id,))
                 for event in row.get("events", []):
                     cursor.execute("INSERT INTO contract_events (contract_id, event_type, event_date, source_record_id, payload) VALUES (%s,%s,%s,%s,%s)", (contract_id, event.get("event_type", "unknown"), event.get("event_date") or None, event.get("event_id") or None, Json(event)))

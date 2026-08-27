@@ -60,6 +60,7 @@ def parse_awards(entry: ET.Element) -> list[dict]:
         monetary_total = next((child for child in awarded_project if local_name(child.tag) == 'legalmonetarytotal'), None) if awarded_project is not None else None
         awards.append({
             'result_code': text_of(result, 'resultCode'),
+            'lot_number': text_of(result, 'lotID', 'lotId', 'procurementProjectLotID'),
             'award_date': text_of(result, 'awardDate'),
             'number_of_tenders': text_of(result, 'receivedTenderQuantity'),
             'sme_awarded': text_of(result, 'smeAwardedIndicator'),

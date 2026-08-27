@@ -72,7 +72,7 @@ Referencia MD: secciones 6, 7, 10, 13, 18, 26, 27, 28, 29, 33, 46, 47, 57, 58 y 
 - [x] Importar 387 licitaciones PLACSP reales en JSONL y PostgreSQL.
 - [x] Importar una muestra real y auditar el conteo raw/parseado/normalizado: 387 entradas, 382 contratos canónicos.
 - [~] Resolver contratos ordinarios, menores y actualizaciones sin duplicar; sindicacion 643 importada y 5 IDs repetidos/actualizados.
-- [~] Importar lotes y adjudicaciones con adjudicatarios canónicos; lotes PLACSP cargados y visibles en detalle, adjudicaciones pendientes.
+- [~] Importar lotes y adjudicaciones con adjudicatarios canónicos; lotes y `contract_awards` ya tienen loader y parser, falta validar la carga completa contra otra muestra real.
 - [ ] Configurar el servicio BDNS oficial de convocatorias.
 - [x] Configurar endpoint oficial BDNS de convocatoria y descargar una respuesta JSON real (`925963`).
 - [~] Normalizar y cargar convocatorias BDNS; 1 convocatoria real cargada y repetible, endpoint y vista inicial activos, filtros y concesiones pendientes.
@@ -310,5 +310,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | BDNS concesiones: endpoint live admite `page`/`pageSize` y cachea respuestas 5 minutos para explorar más resultados sin repetir llamadas | `en curso` |
 | 27/08/2026 | Ingestor BDNS de concesiones: paginación, raw por página, SHA-256, provenance y JSONL separado para concesiones | `en curso` |
 | 27/08/2026 | Loader PostgreSQL de concesiones BDNS: relaciona convocatoria/beneficiario, registra `grant_awards` y evita duplicados por `source_record_id` | `en curso` |
+| 27/08/2026 | Loader PLACSP persiste `TenderResult` en `contract_awards`, enlaza adjudicatarios por NIF/nombre y asocia lote cuando el feed lo publica | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |

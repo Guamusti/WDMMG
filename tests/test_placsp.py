@@ -41,6 +41,7 @@ def test_parse_atom_keeps_provenance_and_core_fields(tmp_path: Path):
     assert rows[0]["lots"][0]["budget"] == "50.00"
     assert rows[0]["awards"][0]["winner_id"] == "B12345678"
     assert rows[0]["awards"][0]["winner_name"] == "Empresa adjudicataria"
+    assert rows[0]["awards"][0]["lot_number"] is None
     assert rows[0]["awards"][0]["award_amount"] == "80.00"
     assert rows[0]["events"][0]["event_type"] == "contract_modification"
     assert rows[0]["events"][0]["event_id"] == "MOD-1"
