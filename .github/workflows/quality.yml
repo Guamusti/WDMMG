@@ -18,3 +18,4 @@ jobs:
       - run: python etl/quality_check.py
       - run: npm run audit:accessibility
       - run: npm run build
+      - run: npm run audit:performance

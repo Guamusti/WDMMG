@@ -9,6 +9,7 @@
     "build": "vite build",
     "smoke": "node scripts/smoke-check.mjs",
     "audit:accessibility": "node scripts/accessibility-contract.mjs",
+    "audit:performance": "node scripts/performance-contract.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

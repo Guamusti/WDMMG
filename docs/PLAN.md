@@ -156,6 +156,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Tablas principales con nombre accesible (`caption`), encabezados por columna (`scope`) y ocultación visual no semántica reutilizable.
 - [x] Separar datos y dependencias del mapa en chunks cacheables para reducir el bundle inicial y evitar redescargas completas.
 - [x] Contrato automático de accesibilidad para tablas, foco, movimiento reducido, diálogos, estados anunciables y responsive (`npm run audit:accessibility`).
+- [x] Contrato automático de rendimiento y caché de assets: bundle inicial, nombres con hash y code-splitting de mapa/explorador (`npm run audit:performance`).
 
 ## Bucle de trabajo de cada cambio
 
