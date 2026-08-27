@@ -17,7 +17,8 @@
     "react": "latest",
     "react-dom": "latest",
     "lucide-react": "latest"
-    ,"concurrently": "latest"
+    ,"concurrently": "latest",
+    "pg": "latest"
   },
   "devDependencies": {}
 }
