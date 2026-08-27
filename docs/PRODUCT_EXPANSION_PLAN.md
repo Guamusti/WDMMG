@@ -42,6 +42,8 @@ La ficha de convocatoria BDNS ya está disponible en la API con el presupuesto o
 
 La ficha ya se abre dentro de la interfaz al seleccionar una convocatoria y enlaza a su fuente oficial.
 
+La pantalla conserva una separación explícita entre convocatoria y concesión: no muestra beneficiarios mientras el dataset de concesiones no esté cargado.
+
 ### 5. Historias y alertas descriptivas
 
 Historias breves sobre cambios, concentración, contratos menores, ejecución y diferencias territoriales. Son indicadores descriptivos, no acusaciones: cada una muestra denominador, fecha, regla y enlace al dataset.
