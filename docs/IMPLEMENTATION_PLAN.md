@@ -74,8 +74,10 @@ Referencia MD: secciones 6, 7, 10, 13, 18, 26, 27, 28, 29, 33, 46, 47, 57, 58 y 
 - [~] Resolver contratos ordinarios, menores y actualizaciones sin duplicar; sindicacion 643 importada y 5 IDs repetidos/actualizados.
 - [~] Importar lotes y adjudicaciones con adjudicatarios canónicos; expediente base importado, adjudicaciones/lotes pendientes.
 - [ ] Configurar el servicio BDNS oficial de convocatorias.
+- [x] Configurar endpoint oficial BDNS de convocatoria y descargar una respuesta JSON real (`925963`).
+- [~] Normalizar y cargar convocatorias BDNS; 1 convocatoria real cargada y repetible, filtros y concesiones pendientes.
 - [ ] Configurar el servicio BDNS oficial de concesiones.
-- [ ] Importar muestras reales con URLs de origen.
+- [~] Importar muestras reales con URLs de origen; PLACSP y 1 convocatoria BDNS importadas.
 - [ ] Verificar que ningún contrato/subvención se presenta como pago presupuestario.
 - [ ] Publicar estado y fecha de actualización de cada dataset.
 
@@ -212,3 +214,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Validación de periodo IGAE y flags contables; 91 filas procesadas, 10 marcadas | `61fea32` |
 | 27/08/2026 | Cargador PostgreSQL IGAE y entorno Docker local; carga repetida sin duplicados | `en curso` |
 | 27/08/2026 | Feed PLACSP real cargado en PostgreSQL: 387 entradas, 382 contratos canónicos | `76d5ba7` |
+| 27/08/2026 | BDNS real: convocatoria 925963 normalizada y carga repetida sin duplicados | `0def8b7` |
