@@ -112,6 +112,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [ ] SEO de páginas con datos reales, sin contenido repetitivo.
 - [x] Metadatos específicos para el explorador nacional `/espana`, con cobertura y limitaciones reales.
 - [ ] Accesibilidad, rendimiento, caché, paginación y responsive.
+- [x] Paginación del explorador nacional a 50 resultados por página, con reinicio al aplicar filtros; quedan caché, rendimiento y auditoría completa.
 - [x] Foco visible de teclado y respeto de `prefers-reduced-motion` en la interfaz; quedan auditoría WCAG, rendimiento, caché y paginación.
 
 ## Bucle de trabajo de cada cambio

@@ -9,6 +9,7 @@ import admissionsSources from '../data/sources/admissions-spain.json';
 import nationalQuality from '../data/processed/admissions/national-2025-2026-quality.json';
 import { tuitionForOffer } from './data/tuition';
 import NationalPageV2 from './NationalPageV2.jsx';
+import NationalPagePaged from './NationalPagePaged.jsx';
 import 'leaflet/dist/leaflet.css';
 import './styles.css';
 import './university.css';
@@ -17,6 +18,7 @@ import './outcomes.css';
 import './filters.css';
 import './national.css';
 import './accessibility.css';
+import './national-pagination.css';
 
 const SOURCE = 'https://www.comunidad.madrid/docs/assets/2026/02/25/notas_de_corte_2025-26_publicacion_para_web.pdf?VersionId=TQubbLf9LLERJuuTNTnhd4CGSZZjgmUx';
 const fmtEuro = value => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(value);
@@ -143,7 +145,7 @@ function App(){
     canonical.href=`${window.location.origin}${window.location.pathname}`;
     if(route.type==='national'){document.title='Explorador nacional de notas · Atlas Universitario';meta.content='Explora notas de corte oficiales de Madrid, Galicia y Aragón, con filtros por comunidad y tu nota de acceso.'}
   },[route]);
-  if(route.type==='national') return <NationalPageV2 onBack={()=>navigate('/')}/>;
+  if(route.type==='national') return <NationalPagePaged onBack={()=>navigate('/')}/>;
   if(route.type!=='home') return <StandalonePage route={route} offers={offers} onBack={()=>navigate('/')} onNavigate={navigate}/>;
   const baseFiltered=useMemo(()=>{const normalizedQuery=query.toLowerCase();const queryMatches=o=>!query||`${o.degree} ${o.university} ${o.city}`.toLowerCase().includes(normalizedQuery);const selectors=[appliedFilters.branch!=='Todas las ramas'?o=>o.branch===appliedFilters.branch:null,appliedFilters.university!=='Todas las universidades'?o=>o.short===appliedFilters.university:null,appliedFilters.city!=='Todas las ciudades'?o=>o.city===appliedFilters.city:null,appliedFilters.kind!=='Todos los tipos'?o=>(appliedFilters.kind==='Doble grado'?o.double:!o.double):null,appliedScore!==''?o=>o.cutoff<=Number(String(appliedScore).replace(',','.'))+Number(appliedTolerance):null,appliedEmploymentFilter==='with-data'?o=>Boolean(employmentForOffer(o)):null,appliedTuitionFilter!=='any'?o=>{const annual=tuitionForOffer(o)?.annual;return appliedTuitionFilter==='no-data'?!annual:annual&&((appliedTuitionFilter==='lt1000'&&annual<1000)||(appliedTuitionFilter==='1000to1300'&&annual>=1000&&annual<1300)||(appliedTuitionFilter==='gte1300'&&annual>=1300))}:null].filter(Boolean);return offers.filter(o=>queryMatches(o)&&(selectors.length===0||(appliedFilters.mode==='union'?selectors.some(c=>c(o)):selectors.every(c=>c(o))))).sort((a,b)=>sort==='cutoff'?b.cutoff-a.cutoff:sort==='employment'?(employmentForOffer(b)?.contributionBase4??-1)-(employmentForOffer(a)?.contributionBase4??-1):a.degree.localeCompare(b.degree))},[query,appliedFilters,sort,appliedScore,appliedTolerance,appliedEmploymentFilter,appliedTuitionFilter]);
   const filtered=baseFiltered;
