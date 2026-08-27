@@ -45,8 +45,9 @@ Las rutas actuales del MVP son `/oferta/<id>`, `/universidad/<sigla>` y `/grado/
 
 ## Fase 2 — Modelo y persistencia
 
-- [ ] Migración PostgreSQL con `universities`, `campuses`, `centers`, `degrees`, `degree_offerings`, `academic_years` y `admission_cutoffs`.
-- [ ] Tablas de `data_sources`, `ingestion_runs`, `provenance` y `data_quality_flags`.
+- [x] Preparar migración PostgreSQL con `universities`, `campuses`, `centers`, `degrees`, `degree_offerings`, `academic_years` y `admission_cutoffs` (`db/migrations/001_initial.sql`).
+- [x] Incluir en la migración `data_sources`, `ingestion_runs`, `provenance` y `data_quality_flags`.
+- [x] Añadir reporte reproducible de calidad del extracto madrileño (`etl/shared/quality_report.py`).
 - [ ] Matching por código RUCT; alias solo como apoyo auditado.
 - [ ] Vistas materializadas para métricas y percentiles.
 - [ ] API interna con filtros, paginación y URLs compartibles.
@@ -67,15 +68,15 @@ Criterio de terminado: el filtro España permite comparar solo ofertas metodoló
 ## Fase 4 — Estudiantes y resultados académicos
 
 - [ ] Integrar SIIU para matriculados, nuevo ingreso, egresados y series históricas.
-- [ ] Añadir rendimiento, éxito, evaluación, abandono y graduación solo con sus definiciones oficiales.
-- [ ] Comparar oferta, universidad, rama y España sin mezclar granularidades.
+- [x] Definir el contrato de métricas y mostrar rendimiento, abandono y graduación con definición, curso y granularidad visible.
+- [ ] Cargar los valores por ámbito/titulación y comparar oferta, universidad, rama y España sin mezclar granularidades.
 
 Criterio de terminado: cada métrica académica tiene tooltip de definición, curso y cobertura.
 
 ## Fase 5 — Inserción laboral
 
 - [ ] Integrar afiliación por cohorte y años desde graduación.
-- [ ] Mantener separados afiliación, tipo de contrato, jornada y base media de cotización.
+- [x] Mantener separado el concepto de salario frente a afiliación y base media de cotización; la ficha ya indica “no disponible” mientras falte el cruce por ámbito.
 - [ ] Mostrar 1, 2, 3 y 4 años después cuando existan datos comparables.
 - [ ] Evitar llamar “salario” a una base de cotización.
 

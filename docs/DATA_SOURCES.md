@@ -26,8 +26,13 @@
 ## SIIU / estadísticas universitarias
 
 - Organismo: Ministerio competente en universidades.
-- Uso previsto: matrícula, nuevo ingreso, egresados, rendimiento, abandono, movilidad e inserción laboral.
-- Estado: no se muestran cifras en el MVP hasta fijar dataset, definición, granularidad y cobertura temporal.
+- Rendimiento/éxito/evaluación: https://estadisticas.universidades.gob.es/jaxiPx/Datos.htm?file=Rendimiento_Exito_Eval_Grado_Univ.px&path=%2FUniversitaria%2FIndicadores%2F2024%2F1_Grado%2Fl0%2F
+- Abandono de estudios: https://estadisticas.universidades.gob.es/jaxiPx/Datos.htm?file=Abandono_Grado_Univ.px&path=%2FUniversitaria%2FIndicadores%2F2023%2F1_Grado%2Fl0%2F
+- Graduación: https://estadisticas.universidades.gob.es/jaxiPx/Datos.htm?file=Graduacion_Grado_Univ.px&path=%2FUniversitaria%2FIndicadores%2F2023%2F1_Grado%2Fl0%2F
+- Inserción laboral/base de cotización: https://estadisticas.universidades.gob.es/jaxiPx/Tabla.htm?L=0&file=Base_cotizacion_Sexo_Campo_Grado_Total.px&path=%2FUniversitaria%2FInsercion_laboral%2F2024%2FGRADO%2FCAP6_BMC%2F%2Fl0%2F&type=pcaxis
+- Definiciones aplicadas: rendimiento = créditos superados / matriculados; abandono y graduación se interpretan por cohorte y duración publicadas por SIIU.
+- Limitación: una base media de cotización es un indicador administrativo de afiliación, no un salario medio ni mediano. Se requiere cargar el cruce por ámbito de estudio antes de atribuirlo a una carrera concreta.
+- Estado: la interfaz muestra contexto universitario con etiqueta de cobertura y deja como no disponible lo que aún no está cargado a nivel de titulación.
 
 ## Geografía
 

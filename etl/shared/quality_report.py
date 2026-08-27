@@ -1,0 +1,31 @@
+"""Quality checks for the processed Madrid admission extract (stdlib only)."""
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+INPUT = ROOT / 'data' / 'processed' / 'admissions' / 'madrid-2025-2026.json'
+OUTPUT = ROOT / 'data' / 'quality' / 'madrid-2025-2026.json'
+
+rows = json.loads(INPUT.read_text(encoding='utf-8'))
+keys = [(row.get('source_page'), row.get('raw_row')) for row in rows]
+invalid_cutoff = [row for row in rows if row.get('cutoff_score') is None or not 0 <= row['cutoff_score'] <= row.get('score_scale_max', 14)]
+missing_degree = [row for row in rows if not row.get('degree_name_source')]
+duplicate_keys = len(keys) - len(set(keys))
+report = {
+    'dataset': 'madrid-2025-2026-admission-cutoffs',
+    'records': len(rows),
+    'checks': {
+        'invalid_cutoff_0_14': len(invalid_cutoff),
+        'duplicate_source_rows': duplicate_keys,
+        'missing_degree': len(missing_degree),
+        'unexpected_academic_year': sum(row.get('academic_year') != '2025-2026' for row in rows),
+    },
+    'warnings': [
+        {'code': 'RUCT_MAPPING_PENDING', 'count': len(rows), 'message': 'El extracto aún no está enlazado a códigos RUCT.'},
+        {'code': 'UNIVERSITY_MAPPING_PENDING', 'count': len(rows), 'message': 'La publicación regional no aporta universidad en todas las filas del extracto.'},
+    ],
+    'status': 'pass' if not invalid_cutoff and not duplicate_keys and not missing_degree else 'review',
+}
+OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+OUTPUT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+print(json.dumps(report, ensure_ascii=False, indent=2))
