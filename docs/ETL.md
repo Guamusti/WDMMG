@@ -21,3 +21,7 @@ El límite de servicio y el contrato técnico se configuran por entorno. Si la r
 ## Estados
 
 Cada ejecución debe terminar en `success`, `partial` o `failed`, con contadores y errores. No se sobrescriben payloads raw: su nombre incluye el instante de ejecución.
+
+## Sincronización del entorno
+
+`iniciar.bat` sincroniza primero la rama publicada mediante `git pull --ff-only` y después inicia API y frontend. Si existen cambios locales incompatibles, Git no los sobreescribe: se muestra un aviso y se inicia la copia local.

@@ -2,6 +2,12 @@
 setlocal
 cd /d "%~dp0"
 
+echo Sincronizando la ultima version de GitHub...
+git pull --ff-only
+if errorlevel 1 (
+  echo Aviso: no se pudo sincronizar GitHub. Se continuara con la copia local.
+)
+
 if not exist "node_modules" (
   echo Instalando dependencias...
   call npm install
@@ -11,6 +17,10 @@ if not exist "node_modules" (
     pause
     exit /b 1
   )
+)
+
+if exist "package.json" (
+  call npm install --silent
 )
 
 echo Iniciando Dinero Publico en http://localhost:5173 ...
