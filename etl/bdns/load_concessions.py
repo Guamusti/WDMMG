@@ -54,6 +54,7 @@ def load(path: Path, database_url: str) -> int:
                         cursor.execute("INSERT INTO recipient_entities (name,normalized_name,entity_type,source_id,source_record_id) VALUES (%s,%s,'beneficiary',%s,%s) RETURNING id", (name, normalized, source_id, row.get("source_record_id")))
                         beneficiary_id = cursor.fetchone()[0]
                 cursor.execute("INSERT INTO grant_awards (grant_call_id,beneficiary_id,amount,award_date,instrument,purpose,source_id,source_record_id,ingestion_run_id) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (call_id, beneficiary_id, row.get("amount"), parse_date(row.get("award_date")), row.get("instrument"), row.get("purpose"), source_id, row.get("source_record_id"), ingestion_id))
+            cursor.execute("UPDATE ingestion_runs SET finished_at = now() WHERE id = %s", (ingestion_id,))
     return len(rows)
 
 

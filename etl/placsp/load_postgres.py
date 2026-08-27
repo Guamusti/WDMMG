@@ -83,6 +83,7 @@ def load(path: Path, database_url: str) -> int:
                 cursor.execute("DELETE FROM contract_events WHERE contract_id = %s", (contract_id,))
                 for event in row.get("events", []):
                     cursor.execute("INSERT INTO contract_events (contract_id, event_type, event_date, source_record_id, payload) VALUES (%s,%s,%s,%s,%s)", (contract_id, event.get("event_type", "unknown"), event.get("event_date") or None, event.get("event_id") or None, Json(event)))
+            cursor.execute("UPDATE ingestion_runs SET finished_at = now() WHERE id = %s", (ingestion_id,))
     return len(rows)
 
 
