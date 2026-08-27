@@ -34,6 +34,14 @@ function normalize(row, index, ructMatch) {
   const city = cities.find(name => degree.endsWith(`(${name})`)) || 'Madrid';
   return { id: `madrid-${row.university_ruct_code || 'unknown'}-${index + 1}`, university: universityByCode[row.university_ruct_code] || String(row.university_name_source || '').trim(), short: shortByCode[row.university_ruct_code], universityRuctCode: row.university_ruct_code, degree, campus: city, city, double: /\s-\s/.test(degree), branch: String(row.branch_name_source || '').replaceAll('�', '').trim() || 'Rama pendiente de RUCT', cutoff: row.cutoff_score, scaleMax: row.score_scale_max, ects: row.ects_source, durationYears: row.duration_years_source, academicYear: row.academic_year, admissionRound: row.admission_round, admissionGroup: row.admission_group, ructMatchStatus: ructMatch?.status || 'pending', ructMatchMethod: ructMatch?.match_method || 'not_available', ructDegreeCode: ructMatch?.ruct_degree_code || null, ructDegreeName: ructMatch?.ruct_degree_name || null, ructSourceUrl: ructMatch?.ruct_source_url || null, ructField: ructMatch?.ruct_field || null, ructCenters: ructMatch?.ruct_centers || [], sourcePage: row.source_page, source: 'Comunidad de Madrid · notas 2025–2026', sourceUrl };
 }
+// Enriquecimiento separado para no mezclar la normalización de admisión con
+// la identidad RUCT ni con la clasificación estructural del programa.
+const normalizeAdmissionBase = normalize;
+normalize = (row, index, ructMatch) => {
+  const offer = normalizeAdmissionBase(row, index, ructMatch);
+  return { ...offer, programType: ructMatch?.program_type || (offer.double ? 'double_degree' : 'degree'), componentNames: ructMatch?.component_names || [] };
+};
+
 function normalizeNational(row) {
   return { id: row.id, community: row.community, university: row.university, universityRuctCode: row.university_ruct_code, degree: row.degree, branch: row.branch, field: row.field, ructDegreeCode: row.ruct_degree_code, centers: row.ruct_centers || [], campus: row.campus, city: row.campus, cutoff: row.cutoff_score, scaleMax: 14, academicYear: row.academic_year, admissionRound: row.admission_round, admissionGroup: row.admission_group, sourcePage: row.source_page, source: `Fuente oficial · ${row.community} · notas ${row.academic_year}`, sourceUrl: row.source_url };
 }

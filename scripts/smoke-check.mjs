@@ -20,6 +20,8 @@ const enrichedOffer = await (await expectOk(`${frontend}/api/offers?q=antropolog
 if (!enrichedOffer.data[0]?.ructDegreeCode || !enrichedOffer.data[0]?.ructSourceUrl || !enrichedOffer.data[0]?.ructCenters?.length) throw new Error('RUCT enrichment: detail fields missing');
 const pendingOffer = await (await expectOk(`${frontend}/api/offers?q=administraci%C3%B3n&university=010&limit=1000`, 'RUCT pending status')).json();
 if (!pendingOffer.data.some(row => row.ructMatchStatus === 'pending')) throw new Error('RUCT pending status: missing explicit status');
+const programmeCatalog = await (await expectOk(`${frontend}/api/offers?q=inform%C3%A1tica&limit=1000`, 'programme classification')).json();
+if (!programmeCatalog.data.some(row => row.programType === 'double_degree' && row.componentNames?.length >= 2)) throw new Error('Programme classification: double-degree components missing');
 await expectOk(`${api}/api/health`, 'health');
 
 const madrid = await (await expectOk(`${api}/api/offers?limit=1`, 'Madrid offers')).json();
