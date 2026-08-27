@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 
 const frontendPort = (await readFile('.atlas-frontend-port', 'utf8')).trim();
 const { port: apiPort } = JSON.parse((await readFile('public/api-port.json', 'utf8')).replace(/^\uFEFF/, ''));
+const expectedMadrid = JSON.parse(await readFile('data/processed/admissions/madrid-2025-2026.json', 'utf8')).length;
 const frontend = `http://127.0.0.1:${frontendPort}`;
 const api = `http://127.0.0.1:${apiPort}`;
 
@@ -14,11 +15,11 @@ async function expectOk(url, label) {
 const page = await expectOk(`${frontend}/`, 'frontend');
 if (!(await page.text()).includes('/src/main.jsx')) throw new Error('frontend: Vite entrypoint missing');
 const proxiedMadrid = await (await expectOk(`${frontend}/api/offers?limit=1`, 'Vite API proxy')).json();
-if (proxiedMadrid.total < 459 || !proxiedMadrid.data[0]?.sourceUrl) throw new Error('Vite API proxy: catalog contract missing');
+if (proxiedMadrid.total !== expectedMadrid || !proxiedMadrid.data[0]?.sourceUrl) throw new Error('Vite API proxy: catalog contract missing');
 await expectOk(`${api}/api/health`, 'health');
 
 const madrid = await (await expectOk(`${api}/api/offers?limit=1`, 'Madrid offers')).json();
-if (madrid.total < 459 || !madrid.data[0]?.sourceUrl) throw new Error('Madrid offers: incomplete source contract');
+if (madrid.total !== expectedMadrid || !madrid.data[0]?.sourceUrl) throw new Error('Madrid offers: incomplete source contract');
 
 const nationalResponse = await expectOk(`${api}/api/national-offers?limit=1&admissionRound=ordinary&admissionGroup=group_1`, 'national offers');
 const national = await nationalResponse.json();

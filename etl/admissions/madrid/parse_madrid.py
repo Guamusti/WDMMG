@@ -26,6 +26,7 @@ BRANCHES = (
     "Ciencias",
 )
 DEGREE_NOISE = re.compile(r"^(?:www\.|info@|tel\.?\s*:|c/\s|avda\.?\s|paseo\s|centro\s|ces\s|eu\s|de la\s|«)", re.IGNORECASE)
+BROKEN_LETTER_SPACING = re.compile(r"(?:^|\s)(?:[A-Za-zÁÉÍÓÚÜÑ]\s+){4,}[A-Za-zÁÉÍÓÚÜÑ](?:\s|$)")
 LAYOUT_REPAIRS = {
     "(Guadalajara) 5,561 7,72 240 4": "Magisterio de Educación Primaria (bilingüe - inglés) (Guadalajara)",
     "de Empresas 10,436 5,00 345 5": "Ingeniería Informática - Administración y Dirección de Empresas",
@@ -55,6 +56,13 @@ def clean_branch(value):
         if branch.startswith(known):
             return known
     return "Rama pendiente de separación" if branch else ""
+
+
+def is_malformed_degree(value):
+    """Reject PDF column extraction that has split a title into stray letters."""
+    tokens = re.findall(r"[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+", value)
+    single_letter_tokens = sum(len(token) == 1 for token in tokens)
+    return bool(DEGREE_NOISE.search(value) or BROKEN_LETTER_SPACING.search(value) or single_letter_tokens >= 5)
 
 
 def split_rows(line):
@@ -103,7 +111,7 @@ def parse():
                     # A number in the title means the PDF column extractor has
                     # leaked an address, centre marker or another table cell.
                     # Real degree names are kept only when they are text-only.
-                    if degree_name.lower() in {"titulaciones oficiales", "titulación"} or re.search(r"\d", degree_name) or DEGREE_NOISE.search(degree_name):
+                    if degree_name.lower() in {"titulaciones oficiales", "titulación"} or re.search(r"\d", degree_name) or is_malformed_degree(degree_name):
                         continue
                     records.append({
                         "academic_year": "2025-2026",

@@ -1,6 +1,6 @@
 {
   "dataset": "madrid-2025-2026-admission-cutoffs",
-  "records": 459,
+  "records": 458,
   "checks": {
     "invalid_cutoff_0_14": 0,
     "duplicate_source_rows": 0,
@@ -15,7 +15,7 @@
   "warnings": [
     {
       "code": "RUCT_TITLE_CENTER_MATCH_PENDING",
-      "count": 129,
+      "count": 116,
       "message": "Las ofertas sin coincidencia RUCT exacta única permanecen pendientes; no se asignan códigos por similitud."
     }
   ],

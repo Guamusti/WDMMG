@@ -31,7 +31,7 @@ def clean_text(value):
 def normalized(value):
     value = clean_text(value).lower()
     value = re.sub(r'\([^)]*\)', ' ', value)
-    value = re.split(r'\s+por la universidad\b|\s+/\s* bachelor\b', value, maxsplit=1)[0]
+    value = re.split(r'\s+por la universidad\b|\s*/\s*bachelor\b', value, maxsplit=1)[0]
     value = re.sub(r'\b(graduado|graduada|grado|bachelor)\s+(o\s+graduada?\s+)?en\b', '', value)
     value = re.sub(r'\bdoble\s+grado\s+en\b', '', value)
     value = ''.join(c for c in unicodedata.normalize('NFD', value) if unicodedata.category(c) != 'Mn')

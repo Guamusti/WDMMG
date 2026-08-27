@@ -31,7 +31,8 @@ Objetivo: cubrir las seis universidades públicas de Madrid y sus titulaciones o
 - [x] Color del mapa explicado: cada color identifica una universidad, con leyenda y tooltip.
 - [x] Descargar y conservar el PDF oficial en `data/raw/`.
 - [x] Crear parser reproducible para la publicación regional (`etl/admissions/madrid/`).
-- [x] Extraer 459 filas públicas limpias con universidad, página y fila fuente; descartar filas contaminadas por el layout y validar con informe de calidad.
+- [x] Extraer 458 filas públicas limpias con universidad, página y fila fuente; descartar filas contaminadas por el layout y validar con informe de calidad.
+- [x] Endurecer la detección reproducible de nombres contaminados por el layout PDF, regenerar la trazabilidad RUCT a partir del extracto limpio y hacer que el smoke test valide el tamaño del catálogo procesado.
 - [ ] Completar el catálogo de grados y dobles grados de las seis universidades.
 - [x] Incorporar códigos oficiales de universidad y créditos/cursos presentes en la fuente regional; títulos y centros RUCT siguen pendientes de matching individual.
 - [x] Añadir una ficha de detalle trazable para una oferta.
@@ -53,7 +54,7 @@ Las rutas actuales del MVP son `/oferta/<id>`, `/universidad/<sigla>` y `/grado/
 - [x] Matching por código RUCT para las seis universidades públicas de Madrid; alias solo como apoyo auditado.
 - [ ] Matching de códigos RUCT de títulos y centros.
 - [x] Matching conservador de títulos RUCT para las ofertas madrileñas con coincidencia exacta única; las ambiguas/no encontradas quedan pendientes y auditadas.
-- [x] Centros RUCT, rama, campo y créditos recuperados desde las fichas de los 329 títulos emparejados; el censo completo de centros y ofertas sigue pendiente.
+- [x] Centros RUCT, rama, campo y créditos recuperados desde las fichas de los 342 títulos emparejados; el censo completo de centros y ofertas sigue pendiente.
 - [x] Preparar vistas materializadas para percentiles y cobertura (`db/migrations/002_views.sql`).
 - [x] API interna con filtros básicos, paginación, fuente y URLs compartibles (`api/server.mjs`); el launcher selecciona puerto libre.
 - [x] Proxy Vite mismo-origen para `/api/*`, con el puerto de API heredado por el único proceso frontend del launcher.

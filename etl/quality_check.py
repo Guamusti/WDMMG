@@ -50,8 +50,9 @@ def check(path: Path) -> int:
 
 total = sum(check(path) for path in DATASETS)
 matches = json.loads(RUCT_MATCHES.read_text(encoding="utf-8"))
-if len(matches) != 459 or len({row["admission_id"] for row in matches}) != len(matches):
-    raise AssertionError("RUCT matches: expected 459 unique Madrid admission rows")
+madrid_count = json.loads(DATASETS[0].read_text(encoding="utf-8"))
+if len(matches) != len(madrid_count) or len({row["admission_id"] for row in matches}) != len(matches):
+    raise AssertionError("RUCT matches: expected one unique row per Madrid admission offer")
 for row in matches:
     if row["status"] == "matched" and not re.fullmatch(r"\d{7}", str(row["ruct_degree_code"])):
         raise AssertionError(f"RUCT match without a seven-digit title code: {row['admission_id']}")

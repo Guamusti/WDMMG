@@ -3,10 +3,10 @@
   "source_url": "https://www.educacion.gob.es/ruct/consultaestudios.action?actual=estudios",
   "ruct_titles_downloaded": 343,
   "ruct_details_downloaded": 334,
-  "admission_offers_reviewed": 459,
+  "admission_offers_reviewed": 458,
   "counts": {
-    "matched_unique": 330,
-    "pending_no_match": 125,
+    "matched_unique": 342,
+    "pending_no_match": 112,
     "pending_ambiguous": 4
   },
   "accepted_only_unique_normalized_matches": true,

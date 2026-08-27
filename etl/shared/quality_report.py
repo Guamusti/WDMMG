@@ -13,7 +13,10 @@ keys = [(row.get('source_page'), row.get('raw_row')) for row in rows]
 invalid_cutoff = [row for row in rows if row.get('cutoff_score') is None or not 0 <= row['cutoff_score'] <= row.get('score_scale_max', 14)]
 missing_degree = [row for row in rows if not row.get('degree_name_source')]
 missing_university = [row for row in rows if not row.get('university_name_source')]
-malformed_degree = [row for row in rows if re.search(r'\d', row.get('degree_name_source', '')) or re.search(r'^(?:\(|www\.|info@|tel\.?\s*:|c/\s|avda\.?\s|paseo\s|centro\s|ces\s|eu\s|de la\s|«)', row.get('degree_name_source', ''), re.IGNORECASE)]
+def broken_letter_spacing(value):
+    tokens = re.findall(r'[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+', value)
+    return bool(re.search(r'(?:^|\s)(?:[A-Za-zÁÉÍÓÚÜÑ]\s+){4,}[A-Za-zÁÉÍÓÚÜÑ](?:\s|$)', value)) or sum(len(token) == 1 for token in tokens) >= 5
+malformed_degree = [row for row in rows if re.search(r'\d', row.get('degree_name_source', '')) or re.search(r'^(?:\(|www\.|info@|tel\.?\s*:|c/\s|avda\.?\s|paseo\s|centro\s|ces\s|eu\s|de la\s|«)', row.get('degree_name_source', ''), re.IGNORECASE) or broken_letter_spacing(row.get('degree_name_source', ''))]
 concatenated_branch = [row for row in rows if re.search(r'Rama de conocimiento', row.get('branch_name_source', ''), re.IGNORECASE)]
 missing_ruct_code = [row for row in rows if not row.get('university_ruct_code')]
 unknown_ruct_code = [row for row in rows if row.get('university_ruct_code') not in {'010', '023', '025', '029', '036', '056'}]
