@@ -130,7 +130,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [x] Añadir en portada el desglose funcional comprensible de la Cuenta General del Estado 2024.
 - [x] Sustituir las tarjetas iniciales por una rueda interactiva con porcentajes grandes y leyenda accesible.
 - [ ] Construir vista de empresa con contratos y subvenciones.
-- [~] Construir vista de contrato con lotes, eventos y fuente oficial; detalle base y enlace a ficha PLACSP activos, lotes/eventos pendientes.
+- [~] Construir vista de contrato con lotes, eventos y fuente oficial; ficha interactiva y lotes activas, eventos pendientes.
 - [~] Construir vista de subvención con convocatoria/concesiones; vista de convocatorias activa, concesiones pendientes.
 - [x] Añadir presupuesto → ejecución con definiciones y estados en el detalle de cada capítulo.
 - [~] Priorizar políticas de gasto reconocibles (pensiones, infraestructuras, sanidad, educación) sobre el detalle de contratación.
@@ -275,3 +275,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Evolución visual abril→mayo: pagos acumulados por euro de crédito definitivo, con advertencia de unidad y no doble conteo | `en curso` |
 | 27/08/2026 | Detalle de capítulo económico con cadena previsto → comprometido → reconocido → pagado y definiciones ciudadanas | `en curso` |
 | 27/08/2026 | Indicador de concentración PLACSP: porcentaje del importe acumulado de las cinco empresas principales, con denominador y advertencia interpretativa | `en curso` |
+| 27/08/2026 | Ficha interactiva de contrato desde la tabla: presupuesto, procedimiento, fechas, lotes y fuente oficial PLACSP | `en curso` |

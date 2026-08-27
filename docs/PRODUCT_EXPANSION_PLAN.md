@@ -68,6 +68,8 @@ Al seleccionar un capítulo, la aplicación muestra sus cuatro estados contables
 
 La vista de empresas incluye una señal descriptiva de concentración: qué porcentaje del importe publicado acumulan las cinco primeras empresas del resultado. El denominador, número de empresas y advertencia interpretativa aparecen junto al indicador.
 
+La tabla de contratos permite abrir una ficha interna con valor estimado, presupuesto base, procedimiento, fechas y lotes publicados, manteniendo el enlace a PLACSP.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.
