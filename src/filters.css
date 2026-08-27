@@ -1,8 +1,9 @@
 .controls{display:flex;flex-wrap:wrap;gap:8px}
 .controls select{max-width:210px}
 .table-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.top-actions{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
+.top-actions{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;margin-bottom:18px}
 .top-actions .score-section{flex:1;margin:0}
+.methodology-panel{flex-basis:100%;order:3;padding:24px;background:#f7f5ef;border:1px solid #d9d6cc}.methodology-panel h2{margin:4px 0 10px}.methodology-copy{max-width:820px;color:#50534e;font-size:14px;line-height:1.55}.methodology-copy p{margin:10px 0}
 .top-tools{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}.top-tools label{font-size:11px;color:#6e706d;display:grid;gap:4px}.top-tools select{padding:10px;border:1px solid #d9d6cc;background:#fff}
 .table-section~.score-section{display:none}
 @media(max-width:760px){.controls select{max-width:none;flex:1}.controls .filter{display:none}.score-section{margin-top:18px}}

@@ -96,6 +96,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [ ] Comparador de ofertas y universidades.
 - [ ] Descargas CSV de filtros actuales.
 - [x] Descarga CSV de los resultados actuales de Madrid.
+- [x] Metodología visible dentro de la interfaz con definiciones y limitaciones.
 - [ ] Cobertura de datos visible.
 - [ ] SEO de páginas con datos reales, sin contenido repetitivo.
 - [ ] Accesibilidad, rendimiento, caché, paginación y responsive.
