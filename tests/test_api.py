@@ -38,6 +38,14 @@ def test_index_exposes_share_metadata_in_spanish():
     assert "document.title = title" in app
 
 
+def test_windows_launcher_syncs_and_waits_for_frontend():
+    with open("iniciar.bat", encoding="utf-8") as handle:
+        launcher = handle.read()
+    assert "git pull --ff-only" in launcher
+    assert "Invoke-WebRequest" in launcher
+    assert "http://127.0.0.1:5173/" in launcher
+
+
 def test_api_sets_basic_security_headers():
     try:
         with urlopen(f"{BASE_URL}/api/health", timeout=2) as response:
