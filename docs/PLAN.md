@@ -133,7 +133,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 
 ## Fase 7 — Producto completo
 
-- [ ] Home, buscador global, mapa, página de grado, universidad, oferta y ciudad.
+- [x] Home, buscador global, mapa, página de grado, universidad, oferta y ciudad; el smoke test cubre también el explorador nacional y el comparador.
 - [x] Ruta de ciudad `/ciudad/<slug>` con ofertas verificables y enlaces a cada detalle.
 - [x] Comparador de hasta cuatro ofertas y comparador de hasta cuatro universidades de Madrid, con notas y métricas agregadas etiquetadas.
 - [x] Descargas CSV de filtros actuales (incluye columnas laborales cuando existe una referencia compatible).

@@ -21,6 +21,10 @@ async function expectOk(url, label) {
 
 const page = await expectOk(`${frontend}/`, 'frontend');
 if (!(await page.text()).includes('/src/main.jsx')) throw new Error('frontend: Vite entrypoint missing');
+for (const route of ['/oferta/madrid-010-1', '/universidad/ucm', '/grado/ingenieria-informatica', '/ciudad/madrid', '/espana', '/comparar-universidades']) {
+  const routePage = await expectOk(`${frontend}${route}`, `SPA route ${route}`);
+  if (!(await routePage.text()).includes('/src/main.jsx')) throw new Error(`SPA route ${route}: Vite fallback missing`);
+}
 const proxiedMadrid = await (await expectOk(`${frontend}/api/offers?limit=1`, 'Vite API proxy')).json();
 if (proxiedMadrid.total !== expectedMadrid || !proxiedMadrid.data[0]?.sourceUrl) throw new Error('Vite API proxy: catalog contract missing');
 const enrichedOffer = await (await expectOk(`${frontend}/api/offers?q=antropología&limit=1`, 'RUCT enrichment')).json();
