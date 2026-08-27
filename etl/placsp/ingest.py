@@ -50,15 +50,18 @@ def parse_lots(entry: ET.Element) -> list[dict]:
     return lots
 
 
-def parse_awards(entry: ET.Element) -> list[dict]:
+def parse_awards(entry: ET.Element, contract_id: str | None = None) -> list[dict]:
     awards = []
-    for result in entry.iter():
+    contract_id = contract_id or text_of(entry, "contractFolderID", "contractFolderId") or "unknown-contract"
+    for index, result in enumerate(entry.iter()):
         if local_name(result.tag) != 'tenderresult':
             continue
+        source_id = f"{contract_id}:award:{index}"
         winner = next((child for child in result if local_name(child.tag) == 'winningparty'), None)
         awarded_project = next((child for child in result if local_name(child.tag) == 'awardedtenderedproject'), None)
         monetary_total = next((child for child in awarded_project if local_name(child.tag) == 'legalmonetarytotal'), None) if awarded_project is not None else None
         awards.append({
+            'award_id': source_id,
             'result_code': text_of(result, 'resultCode'),
             'lot_number': text_of(result, 'lotID', 'lotId', 'procurementProjectLotID'),
             'award_date': text_of(result, 'awardDate'),
@@ -119,7 +122,7 @@ def parse_atom(path: Path, source_url: str, run_id: str) -> list[dict]:
             "ingestion_run_id": run_id,
             "raw_payload_sha256": hashlib.sha256(ET.tostring(entry)).hexdigest(),
             "lots": parse_lots(entry),
-            "awards": parse_awards(entry),
+            "awards": parse_awards(entry, identifier),
             "events": parse_events(entry),
         })
     return records
