@@ -41,6 +41,14 @@
 - Estado: PDF conservado en `data/raw/admissions/aragon/2025-2026/`; parser reproducible en `etl/admissions/aragon/` y extracto separado en `data/processed/admissions/aragon-2025-2026.json`.
 - Cobertura validada: 73 ofertas de la Universidad de Zaragoza en cuatro provincias/campus. Se carga únicamente la columna de cupo general y la convocatoria ordinaria; las restantes columnas de cupos requieren su modelado explícito antes de comparar.
 
+## Notas de corte — Cataluña
+
+- Organismo: Secretaría de Universidades e Investigación / Canal Universitats de la Generalitat de Catalunya.
+- Publicación de referencia: primera asignación de plazas de junio de 2025, publicada el 11/07/2025.
+- Fuente oficial: [notas de corte de preinscripción](https://universitats.gencat.cat/ca/preinscripcions/notes-tall) y [PDF de la primera asignación](https://universitats.gencat.cat/web/.content/02_preinscripcio/enllac-documents/notes-de-tall/Notes-tall-1a-assignacio_juny_2025_v3.pdf).
+- Estado: PDF conservado en `data/raw/admissions/cataluna/2025-2026/`; parser reproducible en `etl/admissions/cataluna/` y extracto separado en `data/processed/admissions/cataluna-2025-2026.json`.
+- Cobertura validada: 549 observaciones con código de estudio, centro/población, primera asignación y cupo PAU/CFGS. Se rechazan 5 filas de maquetación ambigua, registradas en `cataluna-2025-2026-quality.json`, para evitar nombres contaminados.
+
 ## Catálogo nacional de trabajo
 
 - `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de cuatro comunidades: Madrid (459), Galicia (333), Aragón (73) y Cataluña (549).

@@ -1,12 +1,14 @@
 {
-  "records": 865,
+  "records": 1414,
   "communities": [
     "Aragón",
+    "Cataluña",
     "Comunidad de Madrid",
     "Galicia"
   ],
   "by_community": {
     "Aragón": 73,
+    "Cataluña": 549,
     "Comunidad de Madrid": 459,
     "Galicia": 333
   },
