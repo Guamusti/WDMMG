@@ -367,6 +367,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Ficha de organismo añade empresas adjudicatarias enlazables a búsqueda de empresas, manteniendo el alcance limitado a contratos PLACSP publicados | `en curso` |
 | 27/08/2026 | Portada compara concentración empresarial: las 5 principales acumulan el porcentaje publicado y enlaza al ranking completo de empresas | `en curso` |
 | 27/08/2026 | Comparador de empresas compartible por URL: contrasta importe adjudicado, contratos y organismos del mismo conjunto PLACSP | `en curso` |
+| 27/08/2026 | Comparador de organismos compartible por URL: contrasta importe adjudicado, contratos y adjudicatarios del mismo conjunto PLACSP | `en curso` |
 | 27/08/2026 | Criterio vertical del MVP verificado con datos reales: organismo contratante → contrato → adjudicatario → URL oficial PLACSP | `en curso` |
 | 27/08/2026 | Migración idempotente `db/003_performance_indexes.sql` para búsquedas de organismos, contratos, empresas, ayudas y presupuestos | `en curso` |
 | 27/08/2026 | `/api/quality` añade desglose de flags por tipo y primer registro de ejemplo, además de los contadores agregados | `en curso` |
