@@ -41,8 +41,13 @@ def parse():
             # extract_text(layout=True) loses rows when the PDF has two tables
             # side by side. The normal reading order keeps each visible row intact
             # and the expanded expression also supports five access groups.
+            branch = None
             for line in (page.extract_text(layout=False) or "").splitlines():
                 line = clean(line)
+                branch_match = re.match(r"^Rama de conocimiento de (.+)$", line, re.IGNORECASE)
+                if branch_match:
+                    branch = branch_match.group(1)
+                    continue
                 match = ROW.match(line)
                 if not match:
                     continue
@@ -54,6 +59,7 @@ def parse():
                     "admission_round": "ordinary",
                     "admission_group": "group_1",
                     "university_name_source": UNIVERSITY_BY_PAGE.get(page_number),
+                    "branch_name_source": branch,
                     "degree_name_source": degree_name,
                     "cutoff_score": float(cutoff_value.replace(",", ".")),
                     "group_2_score_source": float(group_2.replace(",", ".")),

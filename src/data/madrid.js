@@ -1,4 +1,6 @@
-export const madridOffers = [
+import fullMadridAdmissions from '../../data/processed/admissions/madrid-2025-2026.json';
+
+const madridSeedOffers = [
   { id:'ucm-informatica', university:'Universidad Complutense de Madrid', short:'UCM', degree:'Ingeniería Informática', campus:'Campus Moncloa', city:'Madrid', cutoff:10.175, branch:'Ingeniería y Arquitectura', places:null, source:'Comunidad de Madrid · notas 2025–2026' },
   { id:'ucm-software', university:'Universidad Complutense de Madrid', short:'UCM', degree:'Ingeniería del Software', campus:'Campus Moncloa', city:'Madrid', cutoff:10.036, branch:'Ingeniería y Arquitectura', places:null, source:'Comunidad de Madrid · notas 2025–2026' },
   { id:'ucm-computadores', university:'Universidad Complutense de Madrid', short:'UCM', degree:'Ingeniería de Computadores', campus:'Campus Moncloa', city:'Madrid', cutoff:9.311, branch:'Ingeniería y Arquitectura', places:null, source:'Comunidad de Madrid · notas 2025–2026' },
@@ -39,6 +41,27 @@ export const madridOffers = [
   { id:'upm-industriales', university:'Universidad Politécnica de Madrid', short:'UPM', degree:'Ingeniería en Tecnologías Industriales', campus:'Campus Sur', city:'Madrid', cutoff:12.114, branch:'Ingeniería y Arquitectura', places:null, source:'Comunidad de Madrid · notas 2025–2026' },
   { id:'upm-aero', university:'Universidad Politécnica de Madrid', short:'UPM', degree:'Ingeniería Aeroespacial', campus:'Campus Sur', city:'Madrid', cutoff:12.484, branch:'Ingeniería y Arquitectura', places:null, source:'Comunidad de Madrid · notas 2025–2026' }
 ];
+
+const shortByUniversity = {
+  'Universidad de Alcalá': 'UAH',
+  'Universidad Autónoma de Madrid': 'UAM',
+  'Universidad Carlos III de Madrid': 'UC3M',
+  'Universidad Complutense de Madrid': 'UCM',
+  'Universidad Politécnica de Madrid': 'UPM',
+  'Universidad Rey Juan Carlos': 'URJC'
+};
+const cleanPdf = value => String(value || '').replaceAll('�', '').replace(/\s+/g, ' ').trim();
+const cityNames = ['Alcalá de Henares', 'Aranjuez', 'Alcorcón', 'Boadilla del Monte', 'Colmenarejo', 'Fuenlabrada', 'Getafe', 'Guadalajara', 'Leganés', 'Madrid', 'Móstoles'];
+const fullOffers = fullMadridAdmissions.map((row, index) => {
+  const universityName = row.university_name_source;
+  const rawDegree = cleanPdf(row.degree_name_source);
+  const city = cityNames.find(name => rawDegree.endsWith(`(${name})`)) || (universityName === 'Universidad Carlos III de Madrid' ? 'Leganés' : universityName === 'Universidad Rey Juan Carlos' ? 'Móstoles' : universityName === 'Universidad de Alcalá' ? 'Alcalá de Henares' : 'Madrid');
+  const campus = rawDegree.match(/\(([^()]+)\)$/)?.[1] || city;
+  return { id:`madrid-${shortByUniversity[row.university_name_source] || 'oferta'}-${index + 1}`, university:universityName, short:shortByUniversity[row.university_name_source], degree:rawDegree, campus, city, cutoff:row.cutoff_score, branch:cleanPdf(row.branch_name_source) || 'Rama pendiente de RUCT', places:null, durationYears:row.duration_years_source, ects:row.ects_source, source:'Comunidad de Madrid · notas 2025–2026', sourcePage:row.source_page };
+});
+
+// La selección inicial conserva sus URLs públicas; el extracto oficial aporta el resto.
+export const madridOffers = [...madridSeedOffers, ...fullOffers];
 
 export const madridUniversities = [
   { short:'UCM', name:'Universidad Complutense de Madrid', city:'Madrid', position:[40.448, -3.726], color:'#e35d48' },
