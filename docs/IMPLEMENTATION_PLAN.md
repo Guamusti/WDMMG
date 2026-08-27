@@ -291,3 +291,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Diagnóstico reproducible de CONPREL: controlador Access 32-bit disponible no reconoce `Presupuestos2026.accdb`; fuente permanece bloqueada y sin cifras inventadas | `en curso` |
 | 27/08/2026 | Localizado WFS oficial IGN para geometrías de CCAA, provincias y municipios; se registra fuente y licencia antes de construir el mapa | `en curso` |
 | 27/08/2026 | Simulador ciudadano “Pon tu cifra”: convierte cualquier cantidad en euros por partida y enlaza cada fila con su desglose interactivo | `en curso` |
+| 27/08/2026 | Caché en memoria invalidable por `mtime` para JSONL/JSON de la API; reduce lecturas repetidas y conserva actualización automática de ficheros | `en curso` |

@@ -1,5 +1,5 @@
 import { createServer } from 'node:http';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import pg from 'pg';
 
@@ -9,15 +9,26 @@ const pool = new Pool({ connectionString: databaseUrl, connectionTimeoutMillis: 
 
 const port = Number(process.env.API_PORT || 8787);
 const root = process.cwd();
+const fileCache = new Map();
 
 function readJsonl(path) {
   if (!existsSync(path)) return [];
-  return readFileSync(path, 'utf8').split(/\r?\n/).filter(Boolean).map(line => JSON.parse(line));
+  const mtimeMs = statSync(path).mtimeMs;
+  const cached = fileCache.get(path);
+  if (cached?.mtimeMs === mtimeMs) return cached.value;
+  const value = readFileSync(path, 'utf8').split(/\r?\n/).filter(Boolean).map(line => JSON.parse(line));
+  fileCache.set(path, { mtimeMs, value });
+  return value;
 }
 
 function readJson(path) {
   if (!existsSync(path)) return null;
-  return JSON.parse(readFileSync(path, 'utf8'));
+  const mtimeMs = statSync(path).mtimeMs;
+  const cached = fileCache.get(path);
+  if (cached?.mtimeMs === mtimeMs) return cached.value;
+  const value = JSON.parse(readFileSync(path, 'utf8'));
+  fileCache.set(path, { mtimeMs, value });
+  return value;
 }
 
 function json(res, status, body) {
