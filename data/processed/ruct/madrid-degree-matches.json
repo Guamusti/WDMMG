@@ -424,17 +424,26 @@
   },
   {
     "admission_id": "madrid:22",
-    "admission_degree": "(Guadalajara)",
+    "admission_degree": "Magisterio de Educación Primaria (bilingüe - inglés) (Guadalajara)",
     "university_ruct_code": "029",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2502096",
+    "ruct_degree_name": "Graduado o Graduada en Magisterio de Educación Primaria por la Universidad de Alcalá",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2502096&actual=estudios",
+    "ruct_branch": "Ciencias Sociales y Jurídicas",
+    "ruct_field": "Ciencias de la educación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28026663",
+        "name": "Centro Universitario Cardenal Cisneros"
+      },
+      {
+        "code": "19004053",
+        "name": "Facultad de Educación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:23",
@@ -564,7 +573,7 @@
   },
   {
     "admission_id": "madrid:29",
-    "admission_degree": "de Empresas",
+    "admission_degree": "Ingeniería Informática - Administración y Dirección de Empresas",
     "university_ruct_code": "029",
     "status": "pending",
     "match_method": "no_normalized_exact_match",
@@ -3016,7 +3025,7 @@
   },
   {
     "admission_id": "madrid:170",
-    "admission_degree": "(Campus de Montegancedo) Ingeniería en Tecnologías Industriales",
+    "admission_degree": "Ingeniería en Tecnologías Industriales (Campus de Montegancedo)",
     "university_ruct_code": "025",
     "status": "matched",
     "match_method": "normalized_exact_unique",
@@ -5881,7 +5890,7 @@
   },
   {
     "admission_id": "madrid:327",
-    "admission_degree": "direccion@cesdonbosco.com Maestro de Educación Infantil - Maestro Educación",
+    "admission_degree": "Maestro de Educación Infantil - Maestro Educación Primaria",
     "university_ruct_code": "010",
     "status": "pending",
     "match_method": "no_normalized_exact_match",

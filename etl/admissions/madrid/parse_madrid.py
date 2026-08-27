@@ -26,6 +26,12 @@ BRANCHES = (
     "Ciencias",
 )
 DEGREE_NOISE = re.compile(r"^(?:www\.|info@|tel\.?\s*:|c/\s|avda\.?\s|paseo\s|centro\s|ces\s|eu\s|de la\s|«)", re.IGNORECASE)
+LAYOUT_REPAIRS = {
+    "(Guadalajara) 5,561 7,72 240 4": "Magisterio de Educación Primaria (bilingüe - inglés) (Guadalajara)",
+    "de Empresas 10,436 5,00 345 5": "Ingeniería Informática - Administración y Dirección de Empresas",
+    "(Campus de Montegancedo) Ingeniería en Tecnologías Industriales 12,114 5,00 240 4": "Ingeniería en Tecnologías Industriales (Campus de Montegancedo)",
+    "direccion@cesdonbosco.com Maestro de Educación Infantil - Maestro Educación 5,000 5,00 5,000 5,00 5,00 360 5": "Maestro de Educación Infantil - Maestro Educación Primaria",
+}
 UNIVERSITY_BY_PAGE = {
     2: 'Universidad de Alcalá', 3: 'Universidad Carlos III de Madrid',
     4: 'Universidad Autónoma de Madrid', 5: 'Universidad Politécnica de Madrid',
@@ -91,6 +97,7 @@ def parse():
                     if not match:
                         continue
                     degree_name, cutoff_value, group_2, ects, years = match.groups()
+                    degree_name = LAYOUT_REPAIRS.get(row_line, degree_name)
                     # A number in the title means the PDF column extractor has
                     # leaked an address, centre marker or another table cell.
                     # Real degree names are kept only when they are text-only.

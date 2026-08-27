@@ -5,8 +5,8 @@
   "ruct_details_downloaded": 334,
   "admission_offers_reviewed": 459,
   "counts": {
-    "matched_unique": 329,
-    "pending_no_match": 126,
+    "matched_unique": 330,
+    "pending_no_match": 125,
     "pending_ambiguous": 4
   },
   "accepted_only_unique_normalized_matches": true,
