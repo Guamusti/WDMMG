@@ -46,6 +46,8 @@ La pantalla conserva una separación explícita entre convocatoria y concesión:
 
 La API ya consulta concesiones en vivo por código BDNS y conserva el resultado vacío como un estado verificable, no como una ausencia ambigua.
 
+Las fichas de empresa y convocatoria son ahora enlaces reproducibles: al abrir su URL se recupera automáticamente el segundo nivel de detalle.
+
 ### 5. Historias y alertas descriptivas
 
 Historias breves sobre cambios, concentración, contratos menores, ejecución y diferencias territoriales. Son indicadores descriptivos, no acusaciones: cada una muestra denominador, fecha, regla y enlace al dataset.

@@ -261,6 +261,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Ficha BDNS visible e interactiva dentro de la app; muestra presupuesto y deja explícita la ausencia de concesiones cargadas | `en curso` |
 | 27/08/2026 | Ficha BDNS visible con presupuesto, finalidad, fechas y enlace oficial; 16 tests verdes | `en curso` |
 | 27/08/2026 | Consulta oficial de concesiones por convocatoria: `/api/grants/:code/concesiones`, con estado live y 0 resultados verificados para 925963 | `en curso` |
+| 27/08/2026 | Empresas y convocatorias se pueden compartir directamente mediante `empresa` y `convocatoria` en la URL | `en curso` |
 | 27/08/2026 | La portada arranca con Pensiones seleccionada (32,1%) y el detalle es accesible con `aria-live` | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |
