@@ -18,6 +18,13 @@ SCORE_2 = r"\d{1,2}[,.]\d{2}(?:\(\d+\))?"
 SCORE_ANY = r"\d{1,2}[,.]\d{2,3}(?:\(\d+\))?"
 ROW = re.compile(rf"^(.+?)\s+({SCORE_3})\s+({SCORE_2})(?:\s+{SCORE_ANY}){{0,5}}\s+(\d+(?:[,.]\d+)?)\s+(\d+)\s*$")
 ECTS_END = re.compile(r"\b(?:180|200|210|216|220|225|230|240|270|300|330|345|354|360|366|378|381|390|417)(?:\+\d+)?\s+\d+\b")
+BRANCHES = (
+    "Ciencias Sociales y Jurídicas",
+    "Ingeniería y Arquitectura",
+    "Artes y Humanidades",
+    "Ciencias de la Salud",
+    "Ciencias",
+)
 UNIVERSITY_BY_PAGE = {
     2: 'Universidad de Alcalá', 3: 'Universidad Carlos III de Madrid',
     4: 'Universidad Autónoma de Madrid', 5: 'Universidad Politécnica de Madrid',
@@ -32,11 +39,13 @@ def clean(value):
 
 
 def clean_branch(value):
-    """Do not expose concatenated side-by-side PDF headers as a real branch."""
+    """Keep only a known branch name; PDF layout text must never leak into it."""
     branch = clean(value)
-    if "Rama de conocimiento" in branch:
-        return "Rama pendiente de separación"
-    return branch
+    branch = re.sub(r"^Rama de conocimiento de\s+", "", branch, flags=re.IGNORECASE)
+    for known in BRANCHES:
+        if branch.startswith(known):
+            return known
+    return "Rama pendiente de separación" if branch else ""
 
 
 def split_rows(line):
@@ -81,7 +90,10 @@ def parse():
                     if not match:
                         continue
                     degree_name, cutoff_value, group_2, ects, years = match.groups()
-                    if degree_name.lower() in {"titulaciones oficiales", "titulación"} or re.search(r"\d[,.]\d", degree_name):
+                    # A number in the title means the PDF column extractor has
+                    # leaked an address, centre marker or another table cell.
+                    # Real degree names are kept only when they are text-only.
+                    if degree_name.lower() in {"titulaciones oficiales", "titulación"} or re.search(r"\d", degree_name):
                         continue
                     records.append({
                         "academic_year": "2025-2026",
