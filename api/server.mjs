@@ -47,9 +47,11 @@ async function databaseContractById(id) {
   const result = await pool.query(`
     SELECT c.procurement_id, c.title, c.contract_type, c.procedure_type, c.status,
       c.estimated_value, c.base_tender_budget, c.publication_date, c.award_date,
-      c.source_url, c.source_record_id, pe.name AS contracting_authority
-    FROM contracts c LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id
-    WHERE c.procurement_id = $1 OR c.source_record_id = $1 LIMIT 1`, [id]);
+      c.source_url, c.source_record_id, pe.name AS contracting_authority,
+      COALESCE(json_agg(json_build_object('lot_number', cl.lot_number, 'title', cl.title, 'budget', cl.budget)) FILTER (WHERE cl.id IS NOT NULL), '[]') AS lots
+    FROM contracts c LEFT JOIN public_entities pe ON pe.id = c.contracting_authority_id LEFT JOIN contract_lots cl ON cl.contract_id = c.id
+    WHERE c.procurement_id = $1 OR c.source_record_id = $1
+    GROUP BY c.id, pe.name LIMIT 1`, [id]);
   return result.rows[0] || null;
 }
 

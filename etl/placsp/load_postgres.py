@@ -43,6 +43,11 @@ def load(path: Path, database_url: str) -> int:
                     VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,FALSE,%s,%s,%s,%s)
                     ON CONFLICT (source_id, source_record_id) DO UPDATE SET title=EXCLUDED.title, status=EXCLUDED.status, estimated_value=EXCLUDED.estimated_value, base_tender_budget=EXCLUDED.base_tender_budget, source_url=EXCLUDED.source_url
                 """, (row.get("procurement_id"), row.get("title"), authority_id, row.get("contract_type"), row.get("procedure_type"), row.get("status"), row.get("estimated_value"), row.get("base_tender_budget"), row.get("publication_date") or None, source_id, row.get("source_url"), row.get("source_record_id"), ingestion_id))
+                cursor.execute("SELECT id FROM contracts WHERE source_id = %s AND source_record_id = %s", (source_id, row.get("source_record_id")))
+                contract_id = cursor.fetchone()[0]
+                cursor.execute("DELETE FROM contract_lots WHERE contract_id = %s", (contract_id,))
+                for lot in row.get("lots", []):
+                    cursor.execute("INSERT INTO contract_lots (contract_id, lot_number, title, budget, estimated_value) VALUES (%s,%s,%s,%s,%s)", (contract_id, lot.get("lot_number"), lot.get("title"), lot.get("budget"), lot.get("estimated_value")))
     return len(rows)
 
 

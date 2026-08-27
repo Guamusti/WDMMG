@@ -24,6 +24,32 @@ def text_of(node: ET.Element, *names: str) -> str | None:
     return None
 
 
+def direct_text(node: ET.Element, name: str) -> str | None:
+    wanted = name.lower()
+    child = next((item for item in node if local_name(item.tag) == wanted), None)
+    if child is None:
+        return None
+    return (child.text or '').strip() or text_of(child, name)
+
+
+def parse_lots(entry: ET.Element) -> list[dict]:
+    lots = []
+    for lot in entry.iter():
+        if local_name(lot.tag) != 'procurementprojectlot':
+            continue
+        project = next((child for child in lot if local_name(child.tag) == 'procurementproject'), None)
+        if project is None:
+            continue
+        budget = next((child for child in project.iter() if local_name(child.tag) == 'budgetamount'), None)
+        lots.append({
+            'lot_number': direct_text(lot, 'id'),
+            'title': direct_text(project, 'name'),
+            'budget': text_of(budget, 'taxexclusiveamount') if budget is not None else None,
+            'estimated_value': text_of(budget, 'taxexclusiveamount') if budget is not None else None,
+        })
+    return lots
+
+
 def parse_atom(path: Path, source_url: str, run_id: str) -> list[dict]:
     root = ET.parse(path).getroot()
     records = []
@@ -53,6 +79,7 @@ def parse_atom(path: Path, source_url: str, run_id: str) -> list[dict]:
             "retrieved_at": datetime.now(timezone.utc).isoformat(),
             "ingestion_run_id": run_id,
             "raw_payload_sha256": hashlib.sha256(ET.tostring(entry)).hexdigest(),
+            "lots": parse_lots(entry),
         })
     return records
 

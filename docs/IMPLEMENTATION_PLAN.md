@@ -72,7 +72,7 @@ Referencia MD: secciones 6, 7, 10, 13, 18, 26, 27, 28, 29, 33, 46, 47, 57, 58 y 
 - [x] Importar 387 licitaciones PLACSP reales en JSONL y PostgreSQL.
 - [x] Importar una muestra real y auditar el conteo raw/parseado/normalizado: 387 entradas, 382 contratos canónicos.
 - [~] Resolver contratos ordinarios, menores y actualizaciones sin duplicar; sindicacion 643 importada y 5 IDs repetidos/actualizados.
-- [~] Importar lotes y adjudicaciones con adjudicatarios canónicos; expediente base importado, adjudicaciones/lotes pendientes.
+- [~] Importar lotes y adjudicaciones con adjudicatarios canónicos; lotes PLACSP cargados y visibles en detalle, adjudicaciones pendientes.
 - [ ] Configurar el servicio BDNS oficial de convocatorias.
 - [x] Configurar endpoint oficial BDNS de convocatoria y descargar una respuesta JSON real (`925963`).
 - [~] Normalizar y cargar convocatorias BDNS; 1 convocatoria real cargada y repetible, endpoint y vista inicial activos, filtros y concesiones pendientes.
@@ -227,3 +227,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Segunda pasada de UX: portada, fuentes, reparto y desglose reescritos para lenguaje ciudadano | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |
+| 27/08/2026 | Parser y cargador PLACSP conservan lotes; 399 lotes vinculados a 81 expedientes | `en curso` |

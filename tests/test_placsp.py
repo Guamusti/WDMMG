@@ -13,7 +13,11 @@ def test_parse_atom_keeps_provenance_and_core_fields(tmp_path: Path):
         <link href="https://example.invalid/licitacion/PROC-1" />
         <cbc:contractFolderID>PROC-1</cbc:contractFolderID>
         <cbc:contractTypeCode>2</cbc:contractTypeCode>
-        <cbc:totalAmount>100.00</cbc:totalAmount>
+      <cbc:totalAmount>100.00</cbc:totalAmount>
+      <cac:ProcurementProjectLot xmlns:cac="urn:example">
+        <cbc:ID>1</cbc:ID>
+        <cac:ProcurementProject><cbc:Name>Lote de prueba</cbc:Name><cac:BudgetAmount><cbc:TaxExclusiveAmount>50.00</cbc:TaxExclusiveAmount></cac:BudgetAmount></cac:ProcurementProject>
+      </cac:ProcurementProjectLot>
       </entry>
     </feed>'''
     path = tmp_path / "sample.atom"
@@ -27,3 +31,5 @@ def test_parse_atom_keeps_provenance_and_core_fields(tmp_path: Path):
     assert rows[0]["source_feed_url"] == "https://official.example/feed.atom"
     assert rows[0]["ingestion_run_id"] == "test-run"
     assert rows[0]["base_tender_budget"] == "100.00"
+    assert rows[0]["lots"][0]["title"] == "Lote de prueba"
+    assert rows[0]["lots"][0]["budget"] == "50.00"
