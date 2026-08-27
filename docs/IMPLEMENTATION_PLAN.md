@@ -129,7 +129,7 @@ Referencia MD: secciones 19–30, 36–38, 45, 47, 48, 59, 60 y 63.
 - [~] Construir vista inicial AGE: overview, ratio de lectura rápida y detalle de capítulo conectados; faltan niveles contables completos.
 - [x] Añadir en portada el desglose funcional comprensible de la Cuenta General del Estado 2024.
 - [x] Sustituir las tarjetas iniciales por una rueda interactiva con porcentajes grandes y leyenda accesible.
-- [ ] Construir vista de empresa con contratos y subvenciones.
+- [x] Construir vista de empresa con contratos y subvenciones; contratos PLACSP activos y subvenciones separadas hasta disponer de concesiones persistidas.
 - [~] Construir vista de contrato con lotes, eventos y fuente oficial; ficha interactiva y lotes activas, eventos pendientes.
 - [~] Construir vista de subvención con convocatoria/concesiones; vista de convocatorias activa, concesiones pendientes.
 - [x] Añadir presupuesto → ejecución con definiciones y estados en el detalle de cada capítulo.
@@ -316,6 +316,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Tarjetas de cobertura muestran estado y fecha de carga; la fecha procede de `ingestion_runs.finished_at` | `en curso` |
 | 27/08/2026 | Auditoría de calidad ampliada: 234 adjudicaciones PLACSP con IDs estables, 28 partidas IGAE y controles de duplicados/importes | `en curso` |
 | 27/08/2026 | Fichas de empresa ampliadas con importe medio y mayor adjudicación, calculados desde `contract_awards` y separados de pagos | `en curso` |
+| 27/08/2026 | Auditoría de ficha de empresa: indicadores de adjudicación comprobados en PostgreSQL y API, con tests de detalle | `en curso` |
 | 27/08/2026 | Control de identificadores PLACSP corregido: 234 adjudicaciones con IDs compuestos estables, 0 duplicados y reprocesado PostgreSQL verificado | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |
