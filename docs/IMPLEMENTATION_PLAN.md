@@ -258,6 +258,7 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Ficha de empresa visible desde la lista: resumen del adjudicatario y contratos vinculados con fuente oficial | `en curso` |
 | 27/08/2026 | Ficha de empresa ampliada con número de organismos contratantes vinculados por contratos publicados | `en curso` |
 | 27/08/2026 | Endpoint de ficha BDNS `/api/grants/:code` con presupuesto, finalidad, órgano y fuente; 16 tests verdes | `en curso` |
+| 27/08/2026 | Ficha BDNS visible e interactiva dentro de la app; muestra presupuesto y deja explícita la ausencia de concesiones cargadas | `en curso` |
 | 27/08/2026 | La portada arranca con Pensiones seleccionada (32,1%) y el detalle es accesible con `aria-live` | `en curso` |
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |
