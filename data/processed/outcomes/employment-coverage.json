@@ -1,0 +1,13 @@
+{
+  "dataset": "Estadística de afiliación a la Seguridad Social de los egresados universitarios",
+  "official_latest_cohort": "2019–2020",
+  "official_latest_analysis_until": "2024",
+  "official_publication_date": "2026-03-13",
+  "official_source_url": "https://www.ciencia.gob.es/Ministerio/Estadisticas/SIIU/Afiliacion.html",
+  "methodology_url": "https://www.ciencia.gob.es/dam/jcr:a8b03c55-9d37-40da-ab3b-da4d66feb052/Metodologia.pdf",
+  "local_extract_cohort": "2018–2019",
+  "local_extract_analysis_year": "2023",
+  "local_extract_granularity": "Campo de estudio · España",
+  "local_extract_status": "reproducible-context",
+  "limitations": "La publicación oficial más reciente no se ha incorporado todavía al extracto local. Hasta entonces, la interfaz conserva la cohorte anterior y la etiqueta como contexto agregado; no es un salario medio, mediano o neto ni un resultado individual de una carrera."
+}

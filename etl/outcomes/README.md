@@ -34,3 +34,8 @@ oferta concreta.
 La serie `employment-national-series-2018-2019.json` conserva los indicadores
 nacionales comparables a 1, 2, 3 y 4 años. Se presenta como contexto general y
 no sustituye al dato del campo de estudio.
+
+La diferencia entre la última publicación oficial y el extracto local se conserva
+en `data/processed/outcomes/employment-coverage.json`. No se actualizan cifras
+por inferencia: hasta cargar y validar la nueva tabla, la interfaz mantiene la
+cohorte reproducible anterior y lo indica como contexto.

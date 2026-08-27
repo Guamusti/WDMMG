@@ -8,6 +8,7 @@ import madridMobilityOutgoing from '../../data/processed/outcomes/madrid-mobilit
 import madridMobilityRatio from '../../data/processed/outcomes/madrid-mobility-ratio-2021-2022.json';
 import fieldEmployment from '../../data/processed/outcomes/field-employment-2018-2019-four-years.json';
 import nationalEmploymentSeries from '../../data/processed/outcomes/employment-national-series-2018-2019.json';
+import employmentCoverage from '../../data/processed/outcomes/employment-coverage.json';
 
 export const outcomeSources = {
   performance: `${SIIU}?file=Rendimiento_Exito_Eval_Grado_Univ.px&path=%2FUniversitaria%2FIndicadores%2F2024%2F1_Grado%2Fl0%2F`,
@@ -35,6 +36,7 @@ export const universityMobilityRatio = madridMobilityRatio.values;
 export const mobilityRatioSource = madridMobilityRatio.source_url;
 export const internationalMetadata = madridInternational;
 export const employmentSeries = nationalEmploymentSeries;
+export { employmentCoverage };
 
 // Referencia laboral por ámbito de estudio. No se atribuye como dato propio
 // de una titulación: QEDU/SIIU puede ofrecer el ámbito cuando falta el cruce
@@ -45,7 +47,10 @@ const employmentMeta = {
   source: fieldEmployment.source,
   sourceUrl: fieldEmployment.source_url,
   officialDatasetUrl: informaticaEmployment.officialDatasetUrl,
-  limitations: fieldEmployment.limitations
+  limitations: fieldEmployment.limitations,
+  officialLatestCohort: employmentCoverage.official_latest_cohort,
+  officialLatestAnalysisUntil: employmentCoverage.official_latest_analysis_until,
+  localExtractCohort: employmentCoverage.local_extract_cohort
 };
 export const employmentByField = Object.fromEntries(Object.entries(fieldEmployment.fields).map(([key, metrics]) => [key, { ...metrics, ...employmentMeta }]));
 

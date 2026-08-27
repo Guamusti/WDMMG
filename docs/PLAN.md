@@ -109,6 +109,7 @@ Criterio de terminado: cada métrica académica tiene tooltip de definición, cu
 - [ ] Mostrar 1, 2, 3 y 4 años después cuando existan datos comparables.
 - [x] Mostrar la evolución nacional disponible a 1, 2, 3 y 4 años, separada de la referencia del campo y sin extrapolarla a una carrera.
 - [x] Evitar llamar “salario” a una base de cotización.
+- [x] Registrar la cohorte oficial más reciente y separar su fecha de publicación del extracto local reproducible en `data/processed/outcomes/employment-coverage.json`.
 
 Criterio de terminado: una oferta puede compararse por resultados laborales sin convertir una cifra administrativa en una promesa de empleo.
 

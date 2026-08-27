@@ -20,6 +20,7 @@ OUTCOME_MOBILITY_OUTGOING = ROOT / "data/processed/outcomes/madrid-mobility-outg
 OUTCOME_MOBILITY_RATIO = ROOT / "data/processed/outcomes/madrid-mobility-ratio-2021-2022.json"
 OUTCOME_EMPLOYMENT = ROOT / "data/processed/outcomes/field-employment-2018-2019-four-years.json"
 OUTCOME_EMPLOYMENT_SERIES = ROOT / "data/processed/outcomes/employment-national-series-2018-2019.json"
+OUTCOME_EMPLOYMENT_COVERAGE = ROOT / "data/processed/outcomes/employment-coverage.json"
 MADRID_UNIVERSITIES = {"UAH", "UAM", "UC3M", "UCM", "UPM", "URJC"}
 KNOWN_BRANCHES = {"", "Artes y Humanidades", "Ciencias", "Ciencias de la Salud", "Ciencias Sociales y Jurídicas", "Ingeniería y Arquitectura", "Rama pendiente de separación"}
 
@@ -120,4 +121,10 @@ for metric in ("affiliation", "indefinite", "full_time", "university_group", "co
         values = series.get(metric, {}).get(scope)
         if not isinstance(values, list) or len(values) != 4 or any(not isinstance(value, (int, float)) or value < 0 for value in values):
             raise AssertionError(f"Employment series: invalid {metric}/{scope}")
+coverage = json.loads(OUTCOME_EMPLOYMENT_COVERAGE.read_text(encoding="utf-8"))
+for field in ("official_latest_cohort", "official_source_url", "local_extract_cohort", "limitations"):
+    if not coverage.get(field):
+        raise AssertionError(f"Employment coverage: missing {field}")
+if coverage["official_latest_cohort"] == coverage["local_extract_cohort"]:
+    raise AssertionError("Employment coverage: latest official and local extract must be distinguishable")
 print(f"Quality gate passed: {len(DATASETS)} datasets, {total} rows, {len(matches)} RUCT matches")
