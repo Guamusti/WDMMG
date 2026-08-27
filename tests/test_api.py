@@ -39,6 +39,17 @@ def test_empty_search_is_a_stable_empty_result():
     assert payload == {"data": []}
 
 
+def test_search_can_return_company_profiles():
+    status, payload = get_json("/api/search?q=empresa")
+    assert status == 200
+    assert isinstance(payload["data"], list)
+    for row in payload["data"]:
+        assert row["type"] in {"contract", "grant", "budget", "company"}
+    company_rows = [row for row in payload["data"] if row["type"] == "company"]
+    if company_rows:
+        assert "vista=companies" in company_rows[0]["sourceUrl"]
+
+
 def test_coverage_exposes_partial_and_blocked_sources():
     status, payload = get_json("/api/coverage")
     assert status == 200

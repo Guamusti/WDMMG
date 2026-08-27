@@ -54,6 +54,8 @@ La ficha BDNS incorpora el bloque de concesiones consultado en vivo; los benefic
 
 Historias breves sobre cambios, concentración, contratos menores, ejecución y diferencias territoriales. Son indicadores descriptivos, no acusaciones: cada una muestra denominador, fecha, regla y enlace al dataset.
 
+Entrega incorporada: el buscador global también localiza adjudicatarios por nombre o identificador y abre su ficha interna, donde se ven contratos, organismos vinculados e importe adjudicado.
+
 ### 6. Base de datos navegable
 
 Explorador con filtros, jerarquías, exportación y URLs compartibles. Incluir cobertura, fecha de actualización y estado de validación en cada dataset.

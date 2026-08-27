@@ -267,3 +267,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | URL compartible para búsqueda y vista activa | `en curso` |
 | 27/08/2026 | Detalle base de contrato y enlace directo a ficha oficial PLACSP | `en curso` |
 | 27/08/2026 | Parser y cargador PLACSP conservan lotes; 399 lotes vinculados a 81 expedientes | `en curso` |
+| 27/08/2026 | Buscador global ampliado a empresas: resultados directos a fichas de adjudicatarios mediante URL compartible | `en curso` |
