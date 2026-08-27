@@ -52,7 +52,7 @@
 ## Catálogo nacional de trabajo
 
 - `data/processed/admissions/national-2025-2026.json` reúne observaciones procesadas de cuatro comunidades: Madrid (458), Galicia (333), Aragón (73) y Cataluña (549).
-- `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial (417/1414) y la de campo RUCT también (322/1414), por lo que el catálogo no se presenta como ranking nacional único.
+- `national-2025-2026-quality.json` valida curso único, escala 0–14, ronda/grupo presentes y ausencia de duplicados de observación. La cobertura de rama es parcial (418/1413) y la de campo RUCT también (334/1413), por lo que el catálogo no se presenta como ranking nacional único.
 
 ## SIIU / estadísticas universitarias
 
