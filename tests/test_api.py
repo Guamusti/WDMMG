@@ -22,6 +22,15 @@ def test_health_reports_service_and_contract_count():
     assert status == 200
     assert payload["ok"] is True
     assert payload["service"] == "dinero-publico-api"
+
+
+def test_index_exposes_share_metadata_in_spanish():
+    with open("index.html", encoding="utf-8") as handle:
+        body = handle.read()
+    assert 'lang="es"' in body
+    assert 'property="og:title"' in body
+    assert 'name="twitter:card"' in body
+    assert 'name="robots" content="index,follow"' in body
     assert isinstance(payload["data"]["contracts"], int)
 
 

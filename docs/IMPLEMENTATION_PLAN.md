@@ -164,7 +164,7 @@ Referencia MD: secciones 21, 22, 24, 25, 30, 31, 32, 33, 35, 46, 47 y 57.
 - [~] Añadir explorador jerárquico de partidas y descarga CSV; rueda/drill-down y exportación funcional activas, subpartidas solo cuando la fuente las publica.
 - [~] Añadir indicadores descriptivos: ejecución, ranking territorial, relatos y concentración de adjudicatarios activos; ofertas y menores pendientes.
 - [~] Permitir abrir el dataset subyacente desde cada indicador; fichas oficiales y exportación activas.
-- [ ] Añadir URLs compartibles y SEO para exploraciones importantes.
+- [~] Añadir URLs compartibles y SEO para exploraciones importantes; query params y metadatos sociales/base activos, metadatos dinámicos por ficha pendientes.
 
 ## Fase 10 — Consolidación, relaciones y escala
 
@@ -298,3 +298,4 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | QA territorial: `/api/quality` audita la geometría IGN con 50 elementos, 0 IDs ausentes, 0 duplicados y 0 anomalías | `en curso` |
 | 27/08/2026 | Integridad semántica: test API confirma que contratos y convocatorias no exponen campos de pagos, compromisos ni crédito presupuestario | `en curso` |
 | 27/08/2026 | Exportación del desglose funcional: `/api/export.csv?entity=policies` descarga partidas y subpartidas disponibles sin inventar niveles ausentes | `en curso` |
+| 27/08/2026 | SEO base para compartir: metadatos Open Graph/Twitter, idioma español y robots añadidos; test estático de metadatos | `en curso` |
