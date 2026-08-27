@@ -315,5 +315,6 @@ La base documental, el modelo PostgreSQL, el scaffold ETL, la API local y la int
 | 27/08/2026 | Exportación funcional alineada con la rueda: `Resto de políticas` aparece como padre y sus partidas oficiales como subpartidas | `en curso` |
 | 27/08/2026 | Tarjetas de cobertura muestran estado y fecha de carga; la fecha procede de `ingestion_runs.finished_at` | `en curso` |
 | 27/08/2026 | Auditoría de calidad ampliada: 234 adjudicaciones PLACSP con IDs estables, 28 partidas IGAE y controles de duplicados/importes | `en curso` |
+| 27/08/2026 | Fichas de empresa ampliadas con importe medio y mayor adjudicación, calculados desde `contract_awards` y separados de pagos | `en curso` |
 | 27/08/2026 | `/api/coverage` incorpora `checkedAt` para separar la hora de comprobación de la fecha/periodo de cada dato publicado | `en curso` |
 | 27/08/2026 | `iniciar.bat` espera una respuesta HTTP real de Vite antes de abrir el navegador, manteniendo `git pull --ff-only` al inicio | `en curso` |
