@@ -23,6 +23,7 @@ def test_parse_atom_keeps_provenance_and_core_fields(tmp_path: Path):
         <cac:WinningParty><cac:PartyIdentification><cbc:ID schemeName="NIF">B12345678</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>Empresa adjudicataria</cbc:Name></cac:PartyName></cac:WinningParty>
         <cac:AwardedTenderedProject><cac:LegalMonetaryTotal><cbc:TaxExclusiveAmount>80.00</cbc:TaxExclusiveAmount><cbc:PayableAmount>96.80</cbc:PayableAmount></cac:LegalMonetaryTotal></cac:AwardedTenderedProject>
       </cac:TenderResult>
+      <cac:ContractModification xmlns:cac="urn:example" xmlns:cbc="urn:example"><cbc:ID>MOD-1</cbc:ID><cbc:ContractID>PROC-1</cbc:ContractID><cbc:Note>Prórroga de prueba</cbc:Note><cbc:ContractModificationDurationMeasure unitCode="ANN">1</cbc:ContractModificationDurationMeasure></cac:ContractModification>
       </entry>
     </feed>'''
     path = tmp_path / "sample.atom"
@@ -41,3 +42,5 @@ def test_parse_atom_keeps_provenance_and_core_fields(tmp_path: Path):
     assert rows[0]["awards"][0]["winner_id"] == "B12345678"
     assert rows[0]["awards"][0]["winner_name"] == "Empresa adjudicataria"
     assert rows[0]["awards"][0]["award_amount"] == "80.00"
+    assert rows[0]["events"][0]["event_type"] == "contract_modification"
+    assert rows[0]["events"][0]["event_id"] == "MOD-1"

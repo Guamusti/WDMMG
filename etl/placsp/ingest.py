@@ -71,6 +71,22 @@ def parse_awards(entry: ET.Element) -> list[dict]:
     return awards
 
 
+def parse_events(entry: ET.Element) -> list[dict]:
+    events = []
+    for modification in entry.iter():
+        if local_name(modification.tag) != 'contractmodification':
+            continue
+        events.append({
+            'event_type': 'contract_modification',
+            'event_id': text_of(modification, 'id'),
+            'contract_id': text_of(modification, 'contractId'),
+            'note': text_of(modification, 'note'),
+            'duration_change': text_of(modification, 'contractModificationDurationMeasure'),
+            'final_duration': text_of(modification, 'finalDurationMeasure'),
+        })
+    return events
+
+
 def parse_atom(path: Path, source_url: str, run_id: str) -> list[dict]:
     root = ET.parse(path).getroot()
     records = []
@@ -102,6 +118,7 @@ def parse_atom(path: Path, source_url: str, run_id: str) -> list[dict]:
             "raw_payload_sha256": hashlib.sha256(ET.tostring(entry)).hexdigest(),
             "lots": parse_lots(entry),
             "awards": parse_awards(entry),
+            "events": parse_events(entry),
         })
     return records
 
