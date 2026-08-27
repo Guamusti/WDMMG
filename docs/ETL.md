@@ -44,6 +44,15 @@ Para las hojas de ejecución por secciones/capítulos/inversiones genera además
 
 ## PostgreSQL local
 
+Para reprocesar los aterrizajes disponibles sin descargar nada nuevo:
+
+```bash
+python -m etl.run_available --dry-run
+python -m etl.run_available
+```
+
+El runner salta entradas ausentes y devuelve un resultado JSON por dataset. No marca como actualizado un origen que no tenga un aterrizaje local.
+
 ```bash
 docker compose up -d postgres
 psql "postgresql://postgres:postgres@localhost:55432/dinero_publico" -f db/001_initial_schema.sql
