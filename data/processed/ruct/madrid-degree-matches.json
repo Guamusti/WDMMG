@@ -726,15 +726,20 @@
     "admission_id": "madrid:37",
     "admission_degree": "Ingeniería en Electrónica de Comunicaciones",
     "university_ruct_code": "029",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2502381",
+    "ruct_degree_name": "Graduado o Graduada en Ingeniería Electrónica de Comunicaciones por la Universidad de Alcalá",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2502381&actual=estudios",
+    "ruct_branch": "Ingeniería y Arquitectura",
+    "ruct_field": "Ingeniería eléctrica, ingeniería electrónica e ingeniería de la telecomunicación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28041299",
+        "name": "Escuela Politécnica Superior"
+      }
+    ]
   },
   {
     "admission_id": "madrid:38",
@@ -1968,15 +1973,20 @@
     "admission_id": "madrid:104",
     "admission_degree": "Ciencia de la Actividad Física y del Deporte",
     "university_ruct_code": "023",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2500270",
+    "ruct_degree_name": "Graduado o Graduada en Ciencias de la Actividad Física y del Deporte por la Universidad Autónoma de Madrid",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2500270&actual=estudios",
+    "ruct_branch": "Ciencias Sociales y Jurídicas",
+    "ruct_field": "Actividad física y ciencias del deporte",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28051271",
+        "name": "Facultad de Formación de Profesorado y Educación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:105",
@@ -3023,15 +3033,20 @@
     "admission_id": "madrid:164",
     "admission_degree": "Ingeniería en Recursos Energéticos, Combustibles y Explosivos",
     "university_ruct_code": "025",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2502143",
+    "ruct_degree_name": "Graduado o Graduada en Ingeniería de los Recursos Energéticos, Combustibles y Explosivos por la Universidad Politécnica de Madrid",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2502143&actual=estudios",
+    "ruct_branch": "Ingeniería y Arquitectura",
+    "ruct_field": "Arquitectura, construcción, edificación y urbanismo, e ingeniería civil",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28026924",
+        "name": "Escuela Técnica Superior de Ingenieros de Minas y Energía"
+      }
+    ]
   },
   {
     "admission_id": "madrid:165",
@@ -3857,15 +3872,20 @@
     "admission_id": "madrid:210",
     "admission_degree": "Ingeniería en Sistemas de Telecomunicación",
     "university_ruct_code": "025",
-    "status": "pending",
-    "match_method": "no_normalized_exact_match",
-    "ruct_degree_code": null,
-    "ruct_degree_name": null,
-    "ruct_source_url": null,
-    "ruct_branch": null,
-    "ruct_field": null,
-    "ruct_ects": null,
-    "ruct_centers": []
+    "status": "matched",
+    "match_method": "normalized_exact_unique",
+    "ruct_degree_code": "2500736",
+    "ruct_degree_name": "Graduado o Graduada en Ingeniería de Sistemas de Telecomunicación por la Universidad Politécnica de Madrid",
+    "ruct_source_url": "https://www.educacion.gob.es/ruct/estudio.action?codigoCiclo=SC&codigoTipo=G&CodigoEstudio=2500736&actual=estudios",
+    "ruct_branch": "Ingeniería y Arquitectura",
+    "ruct_field": "Ingeniería eléctrica, ingeniería electrónica e ingeniería de la telecomunicación",
+    "ruct_ects": "240",
+    "ruct_centers": [
+      {
+        "code": "28026808",
+        "name": "Escuela Técnica Superior de Ingeniería y Sistemas de Telecomunicación"
+      }
+    ]
   },
   {
     "admission_id": "madrid:211",
