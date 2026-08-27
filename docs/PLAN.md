@@ -126,6 +126,7 @@ Criterio de terminado: una oferta puede compararse por resultados laborales sin 
 - [x] Añadir datos estructurados JSON-LD específicos para ofertas, universidades, titulaciones y ciudades con catálogo real.
 - [x] Metadatos específicos para el explorador nacional `/espana`, con cobertura y limitaciones reales.
 - [ ] Accesibilidad, rendimiento, caché, paginación y responsive.
+- [x] Carga diferida del mapa Leaflet para reducir el bundle inicial; el resto de la auditoría de rendimiento sigue pendiente.
 - [x] Paginación del explorador nacional a 50 resultados por página, con reinicio al aplicar filtros; quedan caché, rendimiento y auditoría completa.
 - [x] Foco visible de teclado y respeto de `prefers-reduced-motion` en la interfaz; quedan auditoría WCAG, rendimiento, caché y paginación.
 
