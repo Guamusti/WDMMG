@@ -569,6 +569,21 @@ async function databaseMetrics(period = '') {
   return data;
 }
 
+function metricsFromJsonl(period = '') {
+  const overviewData = overviewFromJsonl(period);
+  if (!overviewData) return null;
+  const contracts = getContracts();
+  const awards = contracts.flatMap(contract => contract.awards || []);
+  const grants = getGrants();
+  const grantAmounts = grants.map(row => Number(row.amount ?? row.budget ?? row.raw_record?.convocatoria?.financiacion?.[0]?.importe ?? 0));
+  return {
+    budget: { final_credit: overviewData.execution.finalCredit, period: overviewData.period, unit: 'miles de euros', source: 'IGAE' },
+    execution: { recognized: overviewData.execution.recognized, paid: overviewData.execution.paid, period: overviewData.period, unit: 'miles de euros', source: 'IGAE' },
+    contracts: { records: contracts.length, awards: awards.length, awarded_amount: awards.reduce((sum, row) => sum + (Number(row.award_amount) || 0), 0), unit: 'EUR', source: 'PLACSP' },
+    grants: { records: grants.length, calls: grants.length, awarded_amount: grantAmounts.reduce((sum, amount) => sum + amount, 0), unit: 'EUR', source: 'BDNS' }
+  };
+}
+
 const server = createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   if (req.method !== 'GET') return json(res, 405, { error: 'method_not_allowed' });
@@ -576,7 +591,11 @@ const server = createServer(async (req, res) => {
   if (url.pathname === '/api/overview') return json(res, 200, await overview((url.searchParams.get('period') || '').trim()));
   if (url.pathname === '/api/metrics') {
     try { const period = (url.searchParams.get('period') || '').trim(); return json(res, 200, { data: await databaseMetrics(period), meta: { backend: 'postgresql', dataStatus: 'imported', period: period || null, cacheSeconds: 30, definition: 'Magnitudes separadas: presupuesto/ejecución, contratos adjudicados y subvenciones concedidas.' } }); }
-    catch (error) { return json(res, 503, { error: 'metrics_unavailable', detail: error.message, meta: { dataStatus: 'unavailable' } }); }
+    catch (error) {
+      const period = (url.searchParams.get('period') || '').trim();
+      const data = metricsFromJsonl(period);
+      return data ? json(res, 200, { data, meta: { backend: 'jsonl-fallback', dataStatus: 'imported', period: period || null, warning: error.message, definition: 'Magnitudes separadas: presupuesto/ejecución, contratos adjudicados y subvenciones concedidas.' } }) : json(res, 503, { error: 'metrics_unavailable', detail: error.message, meta: { dataStatus: 'unavailable' } });
+    }
   }
   if (url.pathname === '/api/history') {
     const data = getExecutionHistory();
