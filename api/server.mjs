@@ -39,7 +39,7 @@ function normalize(row, index, ructMatch) {
 const normalizeAdmissionBase = normalize;
 normalize = (row, index, ructMatch) => {
   const offer = normalizeAdmissionBase(row, index, ructMatch);
-  return { ...offer, programType: ructMatch?.program_type || (offer.double ? 'double_degree' : 'degree'), componentNames: ructMatch?.component_names || [] };
+  return { ...offer, ructCenters: offer.ructCenters?.length ? offer.ructCenters : null, programType: ructMatch?.program_type || (offer.double ? 'double_degree' : 'degree'), componentNames: ructMatch?.component_names || [] };
 };
 
 function normalizeNational(row) {

@@ -72,9 +72,10 @@ const mergedOffers = new Map();
 // La selección inicial conserva sus URLs públicas; el extracto oficial aporta el resto.
 [...madridSeedOffers, ...fullOffers].forEach(offer => { if (!mergedOffers.has(offerKey(offer))) mergedOffers.set(offerKey(offer), offer); });
 export const madridOffers = [...mergedOffers.values()].map(offer => {
-  if (offer.ructDegreeCode) return offer;
+  if (offer.ructDegreeCode) return { ...offer, ructCenters: offer.ructCenters?.length ? offer.ructCenters : null };
   const match = ructMatchByKey.get(matchKey(offer.ructCode, offer.degree));
-  return match ? { ...offer, ructDegreeCode:match.ruct_degree_code, ructDegreeName:match.ruct_degree_name, ructSourceUrl:match.ruct_source_url, ructField:match.ruct_field, ructCenters:match.ruct_centers } : offer;
+  const enriched = match ? { ...offer, ructDegreeCode:match.ruct_degree_code, ructDegreeName:match.ruct_degree_name, ructSourceUrl:match.ruct_source_url, ructField:match.ruct_field, ructCenters:match.ruct_centers } : offer;
+  return { ...enriched, ructCenters: enriched.ructCenters?.length ? enriched.ructCenters : null };
 });
 const ructByShort = Object.fromEntries(ructUniversities.map(item => [item.short, item.ruct_code]));
 
